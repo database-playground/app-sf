@@ -164,6 +164,9 @@
       <path value="$PROJECT_DIR$/.devenv/profile/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/.devenv/profile/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/.devenv/profile/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/uid" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
