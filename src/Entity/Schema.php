@@ -31,7 +31,7 @@ class Schema
     /**
      * @var Collection<int, Question>
      */
-    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'schema_id')]
+    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'schema')]
     private Collection $questions;
 
     public function __construct()

@@ -29,7 +29,7 @@ class Group
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group_id')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     private Collection $users;
 
     public function __toString(): string
