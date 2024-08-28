@@ -90,7 +90,7 @@ class Group
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setGroupId($this);
+            $user->setGroup($this);
         }
 
         return $this;
@@ -100,8 +100,8 @@ class Group
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getGroupId() === $this) {
-                $user->setGroupId(null);
+            if ($user->getGroup() === $this) {
+                $user->setGroup(null);
             }
         }
 
