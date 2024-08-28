@@ -2,13 +2,19 @@
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
-    "prefer-stable": true,
+    "prefer-stable": false,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/doctrine/DoctrineBundle"
+        }
+    ],
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/dbal": "^3",
-        "doctrine/doctrine-bundle": "^2.12",
+        "doctrine/doctrine-bundle": "2.12.x",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
         "easycorp/easyadmin-bundle": "^4.11",
