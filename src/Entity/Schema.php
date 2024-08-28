@@ -39,6 +39,11 @@ class Schema
         $this->questions = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->id;
+    }
+
     public function getId(): ?string
     {
         return $this->id;
