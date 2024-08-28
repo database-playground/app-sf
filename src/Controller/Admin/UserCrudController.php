@@ -47,7 +47,7 @@ class UserCrudController extends AbstractCrudController
                     'mapped' => false,
                     'hash_property_path' => 'password',
                 ]),
-            AssociationField::new('group_id', "Group"),
+            AssociationField::new('group', "Group"),
             DateTimeField::new('created_at', "Created at")->hideOnForm(),
             DateTimeField::new('updated_at', "Updated at")->hideOnForm(),
         ];
