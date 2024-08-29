@@ -7,11 +7,13 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [ pkgs.git pkgs.buf pkgs.symfony-cli ];
 
   # https://devenv.sh/languages/
   languages.php.enable = true;
-
+  languages.php.package = pkgs.php.buildEnv {
+    extensions = { all, enabled }: with all; enabled ++ [ xdebug grpc ];
+  };
   # https://devenv.sh/processes/
   # processes.cargo-watch.exec = "cargo-watch";
 

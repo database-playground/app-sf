@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/.devenv/profile/tests/Composer/Test" isTestSource="true" packagePrefix="Composer\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/Dbrunner" isTestSource="false" packagePrefix="Dbrunner\" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/psr/container" />
@@ -162,6 +163,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/easycorp/easyadmin-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-uuid" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/uid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/protobuf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/grpc/grpc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php84" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

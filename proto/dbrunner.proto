@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package dbrunner.v1;
+
+service DbRunnerService {
+  // RunQuery runs the given query on the given schema and returns the ID to
+  // retrieve the result.
+  //
+  // Note that the schema and query will be standardize (in another words,
+  // formatted) before being executed. The execution result will also be cached
+  // up to 1 hour.
+  rpc RunQuery(RunQueryRequest) returns (RunQueryResponse) {}
+
+  // RetrieveQuery retrieves the rows of query that was run on the given schema.
+  rpc RetrieveQuery(RetrieveQueryRequest)
+      returns (stream RetrieveQueryResponse) {}
+
+  // IsQueriesSame checks if the two queries produce same result.
+  //
+  // It is much faster than DiffQuery since it only compares the hash.
+  rpc AreQueriesOutputSame(AreQueriesOutputSameRequest)
+      returns (AreQueriesOutputSameResponse) {}
+}
+
+message RunQueryRequest {
+  // schema is the initialization SQL that creates the table, inserts the data,
+  // etc.
+  string schema = 1;
+  // query is the query to run.
+  string query = 2;
+}
+
+message RunQueryResponse {
+  oneof response_type {
+    // id is the unique identifier of the query.
+    //
+    // Although the (schema)-(normalized query) produces the same
+    // id, you must not depend on this as it can be expired. A
+    // good practice is read it within 1 hour.
+    string id = 1;
+
+    // error is the error message if the query fails.
+    string error = 2;
+  }
+}
+
+message RetrieveQueryRequest {
+  // id is the unique identifier of the query.
+  string id = 1;
+}
+
+// RetrieveQueryResponse is a stream of rows of the query result.
+message RetrieveQueryResponse {
+  oneof kind {
+    HeaderRow header = 1;
+    DataRow row = 2;
+  }
+}
+
+message HeaderRow {
+  repeated string cells = 1;
+}
+
+message DataRow {
+  repeated Cell cells = 1;
+}
+
+message Cell {
+  optional string value = 1;
+}
+
+message AreQueriesOutputSameRequest {
+  string left_id = 1;
+  string right_id = 2;
+}
+
+message AreQueriesOutputSameResponse {
+  bool same = 1;
+}
