@@ -294,6 +294,9 @@
             "config/routes/web_profiler.yaml"
         ]
     },
+    "symfonycasts/sass-bundle": {
+        "version": "dev-main"
+    },
     "twig/extra-bundle": {
         "version": "v3.11.0"
     }

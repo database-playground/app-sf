@@ -166,10 +166,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/google/protobuf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/grpc/grpc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php84" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfonycasts/sass-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/thomaspark/bootswatch" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bulma" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>

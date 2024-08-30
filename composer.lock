@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b63b134c4cb47cecafe6ce15f84cc5f",
+    "content-hash": "47d7176113fce3a761e6dd8a67fc5c60",
     "packages": [
         {
             "name": "composer/semver",
@@ -7817,6 +7817,158 @@
             "time": "2024-08-12T10:26:02+00:00"
         },
         {
+            "name": "symfonycasts/sass-bundle",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/sass-bundle.git",
+                "reference": "78389be2cde04d496903ac874531926f6067fe03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/sass-bundle/zipball/78389be2cde04d496903ac874531926f6067fe03",
+                "reference": "78389be2cde04d496903ac874531926f6067fe03",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/asset-mapper": "^6.3|^7.0",
+                "symfony/console": "^5.4|^6.3|^7.0",
+                "symfony/filesystem": "^5.4|^6.3|^7.0",
+                "symfony/http-client": "^5.4|^6.3|^7.0",
+                "symfony/process": "^5.4|^6.3|^7.0"
+            },
+            "require-dev": {
+                "matthiasnoback/symfony-config-test": "^5.0",
+                "symfony/framework-bundle": "^6.3|^7.0",
+                "symfony/phpunit-bridge": "^6.3|^7.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfonycasts\\SassBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathéo Daninos",
+                    "homepage": "https://github.com/WebMamba"
+                }
+            ],
+            "description": "Delightful Sass Support for Symfony + AssetMapper",
+            "keywords": [
+                "asset-mapper",
+                "sass"
+            ],
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/sass-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/sass-bundle/tree/main"
+            },
+            "time": "2024-06-12T11:13:33+00:00"
+        },
+        {
+            "name": "thomaspark/bootswatch",
+            "version": "v5.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thomaspark/bootswatch.git",
+                "reference": "41356c5c49010b5f80d1075e8865ba017ddba097"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/41356c5c49010b5f80d1075e8865ba017ddba097",
+                "reference": "41356c5c49010b5f80d1075e8865ba017ddba097",
+                "shasum": ""
+            },
+            "suggest": {
+                "robloach/component-installer": "Allows installation of Components via Composer"
+            },
+            "default-branch": true,
+            "type": "component",
+            "extra": {
+                "component": {
+                    "name": "bootswatch",
+                    "files": [
+                        "README.md",
+                        "LICENSE",
+                        "dist/**/*"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thomaspark",
+                    "email": "thomas@bootswatch.com"
+                }
+            ],
+            "description": "Themes for Bootstrap",
+            "support": {
+                "issues": "https://github.com/thomaspark/bootswatch/issues",
+                "source": "https://github.com/thomaspark/bootswatch/tree/v5"
+            },
+            "time": "2024-08-28T00:55:41+00:00"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "e3e00b5002139adb0d5dadd6002e15b7b6cd371f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/e3e00b5002139adb0d5dadd6002e15b7b6cd371f",
+                "reference": "e3e00b5002139adb0d5dadd6002e15b7b6cd371f",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "default-branch": true,
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                },
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "https://getbootstrap.com/",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "mobile-first",
+                "responsive",
+                "sass",
+                "web"
+            ],
+            "support": {
+                "issues": "https://github.com/twbs/bootstrap/issues",
+                "source": "https://github.com/twbs/bootstrap/tree/main"
+            },
+            "time": "2024-08-27T12:36:45+00:00"
+        },
+        {
             "name": "twig/extra-bundle",
             "version": "3.x-dev",
             "source": {
@@ -10307,15 +10459,17 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "google/protobuf": 20,
-        "grpc/grpc": 20
+        "grpc/grpc": 20,
+        "symfonycasts/sass-bundle": 20,
+        "twbs/bootstrap": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.2",
         "ext-ctype": "*",
-        "ext-iconv": "*",
-        "ext-grpc": "*"
+        "ext-grpc": "*",
+        "ext-iconv": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
