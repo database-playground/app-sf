@@ -16,4 +16,3 @@ class QueryExecuteException extends BadRequestHttpException
         parent::__construct($message);
     }
 }
-

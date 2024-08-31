@@ -18,8 +18,7 @@ class SqlExecuteController extends AbstractController
 {
     public function __construct(
         protected readonly DbRunnerService $dbRunnerService
-    )
-    {
+    ) {
     }
 
     #[Route('/sql/execute', name: 'app_sql_execute')]

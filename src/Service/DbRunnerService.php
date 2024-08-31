@@ -9,6 +9,7 @@ use Dbrunner\V1\RunQueryRequest;
 use Dbrunner\V1\RunQueryResponse;
 use Grpc\ChannelCredentials;
 use stdClass;
+
 use const Grpc\STATUS_INVALID_ARGUMENT;
 use const Grpc\STATUS_OK;
 
@@ -31,7 +32,8 @@ readonly class DbRunnerService
         $response = $this->client->RunQuery(
             (new RunQueryRequest())
                 ->setSchema($schema)
-                ->setQuery($query));
+                ->setQuery($query)
+        );
 
         list($body, $status) = $response->wait();
 

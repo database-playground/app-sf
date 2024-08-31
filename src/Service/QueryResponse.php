@@ -8,8 +8,7 @@ readonly class QueryResponse implements \JsonSerializable
 {
     public function __construct(
         public string $id,
-    )
-    {
+    ) {
     }
 
     public function jsonSerialize(): array
