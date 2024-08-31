@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Question;
@@ -22,14 +24,14 @@ class QuestionCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id', "ID")->hideOnForm(),
-            TextField::new('title', "Title"),
-            TextEditorField::new('description', "Description"),
-            AssociationField::new("schema", "Schema"),
-            TextField::new('type', "Type")->setHelp("ex. 進階EXISTS指令應用"),
-            ChoiceField::new('difficulty', "Difficulty"),
-            CodeEditorField::new('answer', "Answer")->setLanguage("sql"),
-            TextField::new('solution_video', "Solution video")->setFormType(UrlType::class),
+            IdField::new('id', 'ID')->hideOnForm(),
+            TextField::new('title', 'Title'),
+            TextEditorField::new('description', 'Description'),
+            AssociationField::new('schema', 'Schema'),
+            TextField::new('type', 'Type')->setHelp('ex. 進階EXISTS指令應用'),
+            ChoiceField::new('difficulty', 'Difficulty'),
+            CodeEditorField::new('answer', 'Answer')->setLanguage('sql'),
+            TextField::new('solution_video', 'Solution video')->setFormType(UrlType::class),
         ];
     }
 }

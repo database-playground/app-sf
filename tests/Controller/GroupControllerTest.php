@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Test\Controller;
 
 use App\Entity\Group;
@@ -42,7 +44,7 @@ class GroupControllerTest extends WebTestCase
     public function testNew(): void
     {
         $this->markTestIncomplete();
-        $this->client->request('GET', sprintf('%snew', $this->path));
+        $this->client->request('GET', \sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
 
@@ -70,7 +72,7 @@ class GroupControllerTest extends WebTestCase
         $this->manager->persist($fixture);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+        $this->client->request('GET', \sprintf('%s%s', $this->path, $fixture->getId()));
 
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('Group');
@@ -90,7 +92,7 @@ class GroupControllerTest extends WebTestCase
         $this->manager->persist($fixture);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
+        $this->client->request('GET', \sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
             'group[name]' => 'Something New',
@@ -121,7 +123,7 @@ class GroupControllerTest extends WebTestCase
         $this->manager->persist($fixture);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+        $this->client->request('GET', \sprintf('%s%s', $this->path, $fixture->getId()));
         $this->client->submitForm('Delete');
 
         self::assertResponseRedirects('/group/');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Group;
@@ -30,11 +32,11 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
-        yield MenuItem::section("User management");
+        yield MenuItem::section('User management');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Groups', 'fa fa-group', Group::class);
 
-        yield MenuItem::section("Question management");
+        yield MenuItem::section('Question management');
         yield MenuItem::linkToCrud('Schema', 'fa fa-database', Schema::class);
         yield MenuItem::linkToCrud('Questions', 'fa fa-question', Question::class);
     }

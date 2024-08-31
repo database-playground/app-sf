@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service;
+declare(strict_types=1);
 
-use Dbrunner\V1\RunQueryResponse;
+namespace App\Service;
 
 readonly class QueryResponse implements \JsonSerializable
 {

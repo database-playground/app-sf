@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Entity\Trait\WithModelTimeInfo;
@@ -17,7 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use WithModelTimeInfo;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "SEQUENCE")]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
 

@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
-use App\Entity\Group;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -23,7 +23,7 @@ class CreateUserCommand extends Command
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
-        protected UserPasswordHasherInterface $passwordHasher
+        protected UserPasswordHasherInterface $passwordHasher,
     ) {
         parent::__construct();
     }
@@ -39,45 +39,49 @@ class CreateUserCommand extends Command
     public function getNameArg(InputInterface $input): string
     {
         $name = $input->getArgument('name');
-        if (!is_string($name)) {
+        if (!\is_string($name)) {
             throw new \InvalidArgumentException('The name must be a string.');
         }
         if (empty($name)) {
             throw new \InvalidArgumentException('The name cannot be empty.');
         }
+
         return $name;
     }
 
     public function getEmailArg(InputInterface $input): string
     {
         $email = $input->getArgument('email');
-        if (!is_string($email)) {
+        if (!\is_string($email)) {
             throw new \InvalidArgumentException('The email must be a string.');
         }
         if (empty($email)) {
             throw new \InvalidArgumentException('The email cannot be empty.');
         }
+
         return $email;
     }
 
     public function getPasswordArg(InputInterface $input): string
     {
         $password = $input->getOption('password');
-        if (!is_string($password)) {
+        if (!\is_string($password)) {
             throw new \InvalidArgumentException('The password must be a string.');
         }
         if (empty($password)) {
             throw new \InvalidArgumentException('The password cannot be empty.');
         }
+
         return $password;
     }
 
     public function getRolesOpt(InputInterface $input): array
     {
         $roles = $input->getOption('roles') ?? [];
-        if (!is_array($roles)) {
+        if (!\is_array($roles)) {
             throw new \InvalidArgumentException('The roles must be a string.');
         }
+
         return $roles;
     }
 

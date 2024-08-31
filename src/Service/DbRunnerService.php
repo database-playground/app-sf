@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use App\Exception\QueryExecuteException;
@@ -8,7 +10,6 @@ use Dbrunner\V1\DbRunnerServiceClient;
 use Dbrunner\V1\RunQueryRequest;
 use Dbrunner\V1\RunQueryResponse;
 use Grpc\ChannelCredentials;
-use stdClass;
 
 use const Grpc\STATUS_INVALID_ARGUMENT;
 use const Grpc\STATUS_OK;
@@ -35,9 +36,9 @@ readonly class DbRunnerService
                 ->setQuery($query)
         );
 
-        list($body, $status) = $response->wait();
+        [$body, $status] = $response->wait();
 
-        assert($status instanceof stdClass);
+        \assert($status instanceof \stdClass);
         switch ($status->code) {
             case STATUS_OK:
                 break;
@@ -45,9 +46,9 @@ readonly class DbRunnerService
                 throw new QueryExecuteException($status->details);
             default:
                 throw new QueryExecuteServerException($status->details);
-        };
+        }
 
-        assert($body instanceof RunQueryResponse);
+        \assert($body instanceof RunQueryResponse);
         if ($body->hasError()) {
             throw new QueryExecuteException($body->getError());
         }

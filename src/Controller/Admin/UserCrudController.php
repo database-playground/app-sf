@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\User;
@@ -16,10 +18,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserCrudController extends AbstractCrudController
 {
     public function __construct(
-        public UserPasswordHasherInterface $userPasswordHasher
+        public UserPasswordHasherInterface $userPasswordHasher,
     ) {
     }
-
 
     public static function getEntityFqcn(): string
     {
@@ -29,11 +30,11 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id', "ID")->hideOnForm(),
-            TextField::new('name', "Display name"),
-            TextField::new('email', "Email"),
-            ArrayField::new('roles', "Roles"),
-            Field::new('password', "Password")
+            IdField::new('id', 'ID')->hideOnForm(),
+            TextField::new('name', 'Display name'),
+            TextField::new('email', 'Email'),
+            ArrayField::new('roles', 'Roles'),
+            Field::new('password', 'Password')
                 ->onlyWhenCreating()
                 ->setRequired(true)
                 ->setFormType(PasswordType::class)
@@ -41,16 +42,16 @@ class UserCrudController extends AbstractCrudController
                     'mapped' => false,
                     'hash_property_path' => 'password',
                 ]),
-            Field::new("new-password", "New password")
+            Field::new('new-password', 'New password')
                 ->onlyWhenUpdating()
                 ->setFormType(PasswordType::class)
                 ->setFormTypeOptions([
                     'mapped' => false,
                     'hash_property_path' => 'password',
                 ]),
-            AssociationField::new('group', "Group"),
-            DateTimeField::new('created_at', "Created at")->hideOnForm(),
-            DateTimeField::new('updated_at', "Updated at")->hideOnForm(),
+            AssociationField::new('group', 'Group'),
+            DateTimeField::new('created_at', 'Created at')->hideOnForm(),
+            DateTimeField::new('updated_at', 'Updated at')->hideOnForm(),
         ];
     }
 }

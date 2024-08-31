@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Group;
@@ -20,10 +22,10 @@ class GroupCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new("name", "Name"),
-            TextEditorField::new("description", "Description"),
-            DateTimeField::new("created_at", "Created At")->hideOnForm(),
-            DateTimeField::new("updated_at", "Updated At")->hideOnForm(),
+            TextField::new('name', 'Name'),
+            TextEditorField::new('description', 'Description'),
+            DateTimeField::new('created_at', 'Created At')->hideOnForm(),
+            DateTimeField::new('updated_at', 'Updated At')->hideOnForm(),
         ];
     }
 }

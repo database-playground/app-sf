@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -7,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * The exception for the case when the query execution fails on the server.
- * (Not the fault of the client)
+ * (Not the fault of the client).
  */
 class QueryExecuteServerException extends HttpException
 {

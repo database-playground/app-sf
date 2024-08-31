@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\SqlExecuteRequest;
 use App\Form\SqlExecuteFormType;
 use App\Service\DbRunnerService;
-use App\Service\QueryResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ use Symfony\UX\Turbo\TurboBundle;
 class SqlExecuteController extends AbstractController
 {
     public function __construct(
-        protected readonly DbRunnerService $dbRunnerService
+        protected readonly DbRunnerService $dbRunnerService,
     ) {
     }
 
@@ -26,7 +27,7 @@ class SqlExecuteController extends AbstractController
     {
         $sqlExecuteRequest = new SqlExecuteRequest();
         $form = $this->createForm(SqlExecuteFormType::class, $sqlExecuteRequest, [
-            "action" => $this->generateUrl('app_sql_execute'),
+            'action' => $this->generateUrl('app_sql_execute'),
         ]);
 
         $form->handleRequest($request);
@@ -40,6 +41,7 @@ class SqlExecuteController extends AbstractController
             if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
                 // If the request comes from Turbo, set the content type as text/vnd.turbo-stream.html and only send the HTML to update
                 $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
                 return $this->renderBlock('sql_execute/index.html.twig', 'updated_state', [
                     'result' => isset($result) ? json_encode($result) : null,
                     'error' => isset($error) ? json_encode($error) : null,

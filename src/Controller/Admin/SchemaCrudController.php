@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Schema;
@@ -19,10 +21,10 @@ class SchemaCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id', "ID"),
-            TextField::new('picture', "Picture"),
-            TextEditorField::new('description', "Description"),
-            CodeEditorField::new('schema', "Schema SQL")->setLanguage("sql"),
+            IdField::new('id', 'ID'),
+            TextField::new('picture', 'Picture'),
+            TextEditorField::new('description', 'Description'),
+            CodeEditorField::new('schema', 'Schema SQL')->setLanguage('sql'),
         ];
     }
 }
