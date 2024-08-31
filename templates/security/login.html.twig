@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}App{% endblock %}
 
 {% block body %}
-    <main class="w-50 container-sm my-5 v-center">
+    <main class="w-40 container-sm v-center">
         <div class="d-flex justify-content-between align-items-end">
             <h1 class="mb-4" aria-label="資料庫練功房 - 登入">
                 <img src="{{ asset('branding.svg') }}" alt="資料庫練功房" height="72px" />
@@ -17,17 +17,16 @@
 
         <form method="post">
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
             {% if app.user %}
                 <div class="alert alert-info mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    哈囉 {{ app.user.name }}，看起來您已經登入過了！或許你想要 <a href="{{ path('app_home') }}">回到主程式</a>？
                 </div>
             {% endif %}
 
-
-            <section class="d-flex flex-column gap-1 mb-3">
+            <section class="d-flex flex-column gap-1 mb-5">
                 <div class="form-floating">
                     <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control"
                            autocomplete="email" required autofocus placeholder="yourusername@nkust.edu.tw">
