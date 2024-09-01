@@ -177,7 +177,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php84" />
       <path value="$PROJECT_DIR$/vendor/symfonycasts/sass-bundle" />
       <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
-      <path value="$PROJECT_DIR$/vendor/thomaspark/bootswatch" />
       <path value="$PROJECT_DIR$/vendor/fidry/cpu-core-counter" />
       <path value="$PROJECT_DIR$/vendor/react/event-loop" />
       <path value="$PROJECT_DIR$/vendor/react/cache" />
