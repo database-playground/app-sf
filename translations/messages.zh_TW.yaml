@@ -1,0 +1,31 @@
+User: 使用者
+Dashboard: 儀表板
+User management: 使用者管理
+Users: 使用者
+Groups: 群組
+Question management: 題庫管理
+Schema: 結構
+Questions: 題庫
+Question: 題目
+ID: 代號
+Display name: 顯示名稱
+Email: 電子郵件
+Roles: 角色
+Group: 群組
+Created at: 建立時間
+Updated at: 更新時間
+Title: 標題
+Description: 描述
+Type: 類型
+Difficulty: 難度
+Answer: 答案
+Solution video: 解答影片
+Unspecified: 未指定
+Easy: 簡單
+Medium: 中等
+Hard: 困難
+Picture: 圖像
+Schema SQL: 結構 SQL
+Name: 名稱
+Password: 密碼
+New password: 新密碼

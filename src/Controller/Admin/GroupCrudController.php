@@ -24,8 +24,8 @@ class GroupCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name', 'Name'),
             TextEditorField::new('description', 'Description'),
-            DateTimeField::new('created_at', 'Created At')->hideOnForm(),
-            DateTimeField::new('updated_at', 'Updated At')->hideOnForm(),
+            DateTimeField::new('created_at', 'Created at')->hideOnForm(),
+            DateTimeField::new('updated_at', 'Updated at')->hideOnForm(),
         ];
     }
 }
