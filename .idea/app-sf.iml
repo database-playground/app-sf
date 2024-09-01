@@ -180,6 +180,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfonycasts/sass-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/thomaspark/bootswatch" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-twig-component" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

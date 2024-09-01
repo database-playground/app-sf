@@ -1,3 +1,4 @@
+import 'bootstrap';
 import './bootstrap.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

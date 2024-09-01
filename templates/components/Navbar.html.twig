@@ -1,0 +1,67 @@
+{% props active = '' %}
+
+{% set pages = [
+    {
+        pageId: 'overview',
+        name: '學習概況',
+        icon: 'bi bi-bar-chart-fill',
+        path: path('app_overview'),
+    },
+    {
+        pageId: 'exercises',
+        name: '練習題目',
+        icon: 'bi bi-pencil-fill',
+        path: '#',
+    },
+    {
+        pageId: 'comments',
+        name: '留言一覽',
+        icon: 'bi bi-chat-left-text-fill',
+        path: '#',
+    },
+    {
+        pageId: 'resources',
+        name: '補充資料',
+        icon: 'bi bi-book-fill',
+        path: '#',
+    },
+] %}
+
+<nav{{ attributes.defaults({ class: 'app-navbar navbar navbar-expand-lg bg-light' }) }}>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <img src="{{ asset('branding-v.svg') }}" alt="Dr.Fu’s Playground – 資料庫練功房" height="32px"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="app-navbar__nav_area">
+                <div class="app-navbar__items navbar-nav">
+                    {% for page in pages %}
+                        {% set activeCss = page.pageId == active ? ' active' : '' %}
+
+                        <a class="app-navbar__item app-navbar nav-link{{ activeCss }}" href="{{ page.path }}">
+                            <i class="{{ page.icon }}"></i>
+                            {{ page.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+
+                <div class="app-navbar__trailing navbar-nav">
+                    <div class="nav-item dropdown">
+                        <button class="btn btn-body text-body-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-2"></i>
+                            {{ app.user.name }}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">個人資料</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">登出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

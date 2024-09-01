@@ -16,10 +16,12 @@ $form-floating-padding-y: 0.8rem;
 
 @import '../../vendor/thomaspark/bootswatch/dist/flatly/bootswatch';
 
+// global
 body {
   font-size: 14px;
 }
 
+// utils
 .v-center {
   height: 100vh;
   align-content: center;
@@ -29,9 +31,35 @@ body {
   width: 40%;
 }
 
+// components
 ul.credit {
   @extend .small;
 
   list-style: none;
   margin-bottom: 0;
+}
+
+// overrides
+.app-navbar {
+  &__nav_area {
+    @extend .d-flex, .flex-column, .flex-lg-row,
+      .justify-content-start, .justify-content-lg-between,
+      .align-items-start, .align-items-lg-center,
+      .gap-2, .my-2, .my-lg-0;
+    width: 100%;
+  }
+
+  &__item {
+    @extend .px-3;
+  }
+
+  &__item > i {
+    @extend .me-2;
+  }
+
+  &__item.active {
+    @extend .rounded-pill, .px-4;
+    margin-right: $spacer / 3;
+    background-color: darken($light, 10%);
+  }
 }

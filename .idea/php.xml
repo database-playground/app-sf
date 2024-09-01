@@ -189,6 +189,7 @@
       <path value="$PROJECT_DIR$/vendor/clue/ndjson-react" />
       <path value="$PROJECT_DIR$/vendor/friendsofphp/php-cs-fixer" />
       <path value="$PROJECT_DIR$/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-twig-component" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
