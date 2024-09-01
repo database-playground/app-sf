@@ -1,0 +1,40 @@
+{% extends 'app.html.twig' %}
+
+{# 題目描述字數上限 #}
+{% set max = 50 %}
+
+{% block nav %}
+    <twig:Navbar active="exercises"/>{% endblock %}
+{% block title %}練習題目{% endblock %}
+
+{% block app %}
+    <section class="header d-flex justify-content-between mb-4">
+        <h1>題庫一覽</h1>
+
+        <div class="d-flex gap-1">
+            <input type="search" class="form-control" placeholder="搜尋題目……" aria-label="搜尋題目">
+        </div>
+    </section>
+
+    <section class="questions row row-cols-1 row-cols-md-2 row-cols-lg-3 rows-cols-xl-4 gap-4">
+        {% for question in questions %}
+            {% set simplifiedDescription =
+                question.description|length > max
+                ? question.description|slice(0, max) ~ '……'
+                : question.description %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        {{ question.type }}・{{ question.difficulty|trans }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ question.title }}</h5>
+                        <p class="card-text">{{ simplifiedDescription | raw }}</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}

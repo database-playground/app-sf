@@ -45,7 +45,7 @@ ul.credit {
     @extend .d-flex, .flex-column, .flex-lg-row,
       .justify-content-start, .justify-content-lg-between,
       .align-items-start, .align-items-lg-center,
-      .gap-2, .my-2, .my-lg-0;
+      .gap-2, .my-2, .mx-2;
     width: 100%;
   }
 
@@ -62,4 +62,8 @@ ul.credit {
     margin-right: $spacer / 3;
     background-color: darken($light, 10%);
   }
+}
+
+h1 {
+  font-size: 2em;
 }
