@@ -3,8 +3,12 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    {% block nav %}
-        <twig:Navbar active="" />
+    {% block header %}
+        <header>
+            {% block nav %}
+            <twig:Navbar active="" />
+            {% endblock %}
+        </header>
     {% endblock %}
 
     <div class="app container mt-4">
