@@ -55,7 +55,6 @@
         "symfony/web-link": "7.2.*",
         "symfony/yaml": "7.2.*",
         "symfonycasts/sass-bundle": "dev-main",
-        "thomaspark/bootswatch": "v5.x-dev",
         "twbs/bootstrap": "dev-main",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"

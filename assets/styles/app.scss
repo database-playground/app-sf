@@ -1,9 +1,9 @@
-@import '../../vendor/thomaspark/bootswatch/dist/flatly/variables';
 @import '../../vendor/twbs/bootstrap/scss/functions';
 
 // Variables
 $prefix: bs-;
 $spacer: 0.8rem;
+$primary: #4154F1;
 $navbar-padding-x: 2rem;
 $navbar-padding-y: $spacer * .85;
 $input-btn-border-width: var(--#{$prefix}border-width);
@@ -13,8 +13,6 @@ $form-floating-height: add(3.5rem*0.8, $input-height-border);
 $form-floating-padding-y: 0.65rem;
 
 @import "../../vendor/twbs/bootstrap/scss/bootstrap";
-
-@import '../../vendor/thomaspark/bootswatch/dist/flatly/bootswatch';
 
 // global
 html {
