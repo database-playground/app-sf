@@ -1,6 +1,8 @@
 {
+    "name": "database-playground/app",
+    "description": "The web application of Database Playground.",
     "type": "project",
-    "license": "proprietary",
+    "license": "AGPL-3.0-or-later",
     "minimum-stability": "dev",
     "prefer-stable": false,
     "repositories": [
