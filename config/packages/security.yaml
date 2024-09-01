@@ -36,7 +36,12 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/overview, roles: ROLE_USER }
+        # apps
+        - { route: app_overview, roles: ROLE_USER }
+        - { route: app_sql_execute, roles: ROLE_USER }
+        - { route: app_exercises, roles: ROLE_USER }
+
+        # admin
         - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
