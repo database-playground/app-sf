@@ -11,7 +11,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
-use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\Metadata\UrlMapping;
@@ -84,7 +83,7 @@ final class FilterableSection
      */
     public function getCurrentPage(): int
     {
-        return min($this->currentPage, $this->getTotalPages());
+        return max(min($this->currentPage, $this->getTotalPages()), 1);
     }
 
     /**
