@@ -11,9 +11,11 @@
 
   # https://devenv.sh/languages/
   languages.php.enable = true;
-  languages.php.package = pkgs.php.buildEnv {
-    extensions = { all, enabled }: with all; enabled ++ [ xdebug grpc redis ];
-  };
+  languages.php.extensions = [ "xdebug" "grpc" "redis" ];
+  languages.php.ini = ''
+    session.save_handler = redis
+    session.save_path = "tcp://redis.app-sf.orb.local:6379"
+  '';
   # https://devenv.sh/processes/
   # processes.cargo-watch.exec = "cargo-watch";
 
