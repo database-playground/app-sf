@@ -5,7 +5,6 @@
       <sourceFolder url="file://$MODULE_DIR$/.devenv/profile/src/Composer" isTestSource="false" packagePrefix="Composer\" />
       <sourceFolder url="file://$MODULE_DIR$/.devenv/profile/tests/Composer/Test" isTestSource="true" packagePrefix="Composer\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
-      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/rpc/Dbrunner" isTestSource="false" packagePrefix="Dbrunner\" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/composer" />
@@ -180,6 +179,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/react/stream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfonycasts/sass-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-live-component" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-twig-component" />
     </content>
     <orderEntry type="inheritedJdk" />
