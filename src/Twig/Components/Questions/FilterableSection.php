@@ -29,7 +29,7 @@ final class FilterableSection
     public string $query = '';
 
     #[LiveProp(writable: true, url: new UrlMapping(as: 'p'))]
-    public int $currentPage = 1;
+    private int $currentPage = 1;
 
     public function __construct(
         public QuestionRepository     $questionRepository,
@@ -45,12 +45,14 @@ final class FilterableSection
      */
     public function getQuestions(): array
     {
-        return $this->cachePool->get("questions.{$this->query}.page-{$this->currentPage}", function ($item) {
+        $currentPage = $this->getCurrentPage();
+
+        return $this->cachePool->get("questions.{$this->query}.page-{$currentPage}", function ($item) use ($currentPage) {
             $item->tag("questions");
 
             $result = $this->questionRepository->search(
                 query: $this->query,
-                page: $this->currentPage,
+                page: $currentPage,
                 pageSize: $this->pageSize,
             );
             $item->set($result);
@@ -78,12 +80,37 @@ final class FilterableSection
     }
 
     /**
+     * @throws InvalidArgumentException
+     */
+    public function getCurrentPage(): int
+    {
+        return min($this->currentPage, $this->getTotalPages());
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function setCurrentPage(int $page): void
+    {
+        $this->currentPage = max(min($page, $this->getTotalPages()), 1);
+    }
+
+    /**
      * @throws CacheException
      * @throws InvalidArgumentException
      */
-    public function hasMore(): bool
+    public function hasNext(): bool
     {
-        return $this->currentPage < $this->getTotalPages();
+        return $this->getCurrentPage() < $this->getTotalPages();
+    }
+
+    /**
+     * @throws CacheException
+     * @throws InvalidArgumentException
+     */
+    public function hasPrevious(): bool
+    {
+        return $this->getCurrentPage() > 1;
     }
 
     /**
@@ -92,18 +119,15 @@ final class FilterableSection
     #[LiveAction]
     public function nextPage(): void
     {
-        $this->currentPage = min($this->getTotalPages(), $this->currentPage + 1);
+        $this->setCurrentPage($this->getCurrentPage() + 1);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[LiveAction]
     public function previousPage(): void
     {
-        $this->currentPage = max(1, $this->currentPage - 1);
-    }
-
-    #[LiveAction]
-    public function gotoPage(#[LiveArg] int $page): void
-    {
-        $this->currentPage = $page;
+        $this->setCurrentPage($this->getCurrentPage() - 1);
     }
 }
