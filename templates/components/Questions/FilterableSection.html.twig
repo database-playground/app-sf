@@ -10,6 +10,12 @@
         </div>
     </section>
 
+    {% if this.questions|length == 0 %}
+        <div class="alert alert-secondary" role="alert">
+            找不到符合「{{ query }}」關鍵字的結果。試著更換一個關鍵字？
+        </div>
+    {% endif %}
+
     <section {{ attributes.defaults({ class: "questions row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4" }) }}>
         {% for item in this.questions %}
             <div class="col">
