@@ -1,0 +1,21 @@
+<div{{ attributes }}>
+    <div class="question-card">
+        <div class="question-card__header">
+            {{ question.type }}・{{ question.difficulty|trans }}
+        </div>
+        <div class="question-card__main">
+            <div class="question-card__content">
+                <h5 class="card-title">{{ question.title }}</h5>
+                <p class="card-text">{{ question.description | striptags }}</p>
+            </div>
+
+            <div class="question-card__operations">
+                <a role="button" class="btn btn-primary" href="{{ path('app_sql_execute') }}">進行測驗</a>
+            </div>
+
+            <div class="question-card__background">
+                #{{ question.id }}
+            </div>
+        </div>
+    </div>
+</div>

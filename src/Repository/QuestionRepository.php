@@ -18,7 +18,7 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
-    public function getPaginatedResult(?string $query, int $page, int $pageSize = 15): array
+    public function search(?string $query, int $page, int $pageSize = 15): array
     {
         $qb = $this->createQueryBuilder('q');
 
