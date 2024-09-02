@@ -60,7 +60,8 @@
         "symfonycasts/sass-bundle": "dev-main",
         "twbs/bootstrap": "dev-main",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+      "ext-redis": "*"
     },
     "config": {
         "allow-plugins": {

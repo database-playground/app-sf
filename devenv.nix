@@ -12,7 +12,7 @@
   # https://devenv.sh/languages/
   languages.php.enable = true;
   languages.php.package = pkgs.php.buildEnv {
-    extensions = { all, enabled }: with all; enabled ++ [ xdebug grpc ];
+    extensions = { all, enabled }: with all; enabled ++ [ xdebug grpc redis ];
   };
   # https://devenv.sh/processes/
   # processes.cargo-watch.exec = "cargo-watch";
