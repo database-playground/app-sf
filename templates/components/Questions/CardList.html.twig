@@ -1,9 +1,0 @@
-<div{{ attributes }}>
-    <section {{ attributes.defaults({ class: "questions row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4" }) }}>
-        {% for item in items %}
-            <div class="col">
-                <twig:Questions:Card :question="item"></twig:Questions:Card>
-            </div>
-        {% endfor %}
-    </section>
-</div>
