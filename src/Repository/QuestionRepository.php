@@ -13,13 +13,16 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class QuestionRepository extends ServiceEntityRepository
 {
+    static public int $PAGE_SIZE = 15;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Question::class);
     }
 
-    public function search(?string $query, int $page, int $pageSize = 15): array
+    public function search(?string $query, int $page, ?int $pageSize): array
     {
+        $pageSize = $pageSize ?? self::$PAGE_SIZE;
         $qb = $this->createQueryBuilder('q');
 
         if ($query) {
@@ -30,7 +33,24 @@ class QuestionRepository extends ServiceEntityRepository
         return $qb->orderBy('q.id')
             ->setFirstResult(($page - 1) * $pageSize)
             ->setMaxResults($pageSize)
-            ->getQuery()
-            ->getResult();
+            ->getQuery()->getResult();
+    }
+
+    public function pages(?string $query, ?int $pageSize): int
+    {
+        // FIXME: This is a naive implementation, it should be optimized
+        $pageSize = $pageSize ?? self::$PAGE_SIZE;
+
+        $qb = $this->createQueryBuilder('q');
+        $qb = $qb->select('COUNT(q.id)');
+
+        if ($query) {
+            $qb = $qb->andWhere('q.title LIKE :query')
+                ->setParameter('query', "%$query%");
+        }
+
+        $questionsCount = $qb->getQuery()->getSingleScalarResult();
+
+        return (int) ceil($questionsCount / $pageSize);
     }
 }
