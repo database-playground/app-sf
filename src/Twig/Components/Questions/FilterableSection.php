@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Twig\Components\Questions;
 
 use App\Repository\QuestionRepository;
-use App\Service\CacheService;
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\Metadata\UrlMapping;
@@ -28,7 +28,7 @@ final class FilterableSection
     #[LiveProp(writable: true, url: new UrlMapping(as: 'q'))]
     public string $query = '';
 
-    #[LiveProp(writable: true)]
+    #[LiveProp(writable: true, url: new UrlMapping(as: 'p'))]
     public int $currentPage = 1;
 
     public function __construct(
@@ -62,7 +62,7 @@ final class FilterableSection
     /**
      * @throws InvalidArgumentException
      */
-    protected function getTotalPages(): int
+    public function getTotalPages(): int
     {
         return $this->cachePool->get("questions.{$this->query}.pages", function ($item) {
             $item->tag("questions");
@@ -86,9 +86,24 @@ final class FilterableSection
         return $this->currentPage < $this->getTotalPages();
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[LiveAction]
     public function nextPage(): void
     {
-        $this->currentPage++;
+        $this->currentPage = min($this->getTotalPages(), $this->currentPage + 1);
+    }
+
+    #[LiveAction]
+    public function previousPage(): void
+    {
+        $this->currentPage = max(1, $this->currentPage - 1);
+    }
+
+    #[LiveAction]
+    public function gotoPage(#[LiveArg] int $page): void
+    {
+        $this->currentPage = $page;
     }
 }

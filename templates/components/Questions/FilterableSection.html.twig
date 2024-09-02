@@ -11,26 +11,37 @@
     </section>
 
     <section {{ attributes.defaults({ class: "questions row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4" }) }}>
-        {# HACK: Add a fake previous item for reserving the elements from the previous page.
-           Referenced from https://ux.symfony.com/demos/live-component/infinite-scroll-2 #}
-        {% if currentPage > 1 %}
-            <div id="item--{{ currentPage - 1 }}-{{ pageSize }}"></div>
-        {% endif %}
-
         {% for item in this.questions %}
-            <div class="col" id="item--{{ currentPage }}-{{ loop.index }}" data-live-ignore>
+            <div class="col">
                 <twig:Questions:Card :question="item"></twig:Questions:Card>
             </div>
         {% endfor %}
     </section>
 
-    {% if this.hasMore %}
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-secondary"
+    <nav aria-label="頁面導航" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link"
+                   data-action="live#action"
+                   data-live-action-param="previousPage"
+                   aria-label="上一頁">
+                    <span class="user-select-none">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <span class="page-link active">
+                    {{ currentPage }}
+                </span>
+            </li>
+            <li class="page-item">
+                <a
+                    class="page-link"
                     data-action="live#action"
-                    data-live-action-param="nextPage">
-                載入更多
-            </button>
-        </div>
-    {% endif %}
+                    data-live-action-param="nextPage"
+                    aria-label="下一頁">
+                    <span class="user-select-none" aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </section>
