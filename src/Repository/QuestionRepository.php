@@ -18,6 +18,21 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
+    public function getPaginatedResult(?string $query, int $page, int $pageSize = 15): array
+    {
+        $qb = $this->createQueryBuilder('q');
+
+        if ($query) {
+            $qb = $qb->andWhere('q.title LIKE :query')
+                ->setParameter('query', "%$query%");
+        }
+
+        return $qb->orderBy('q.id')
+            ->setFirstResult(($page - 1) * $pageSize)
+            ->setMaxResults($pageSize)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Question[] Returns an array of Question objects
     //     */
