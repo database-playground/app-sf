@@ -90,12 +90,12 @@ ul.credit {
   &__background {
     @extend .text-body-tertiary, .position-absolute;
 
-    right: -10px;
-    bottom: -15px;
+    right: -6px;
+    bottom: -10px;
 
     font-size: 6rem;
     line-height: 1;
-    font-weight: bold;
+    font-weight: lighter;
 
     opacity: 0.4;
 
