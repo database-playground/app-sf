@@ -6,10 +6,10 @@ namespace App\Twig\Components\Questions;
 
 use App\Repository\QuestionRepository;
 use App\Service\CacheService;
-use Monolog\Logger;
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -32,33 +32,49 @@ final class FilterableSection
     public int $currentPage = 1;
 
     public function __construct(
-        public QuestionRepository $questionRepository,
-        public CacheService $cacheService,
-        public LoggerInterface $logger,
-    ) {
+        public QuestionRepository     $questionRepository,
+        public TagAwareCacheInterface $cachePool,
+        public LoggerInterface        $logger,
+    )
+    {
         $this->pageSize = QuestionRepository::$PAGE_SIZE;
     }
 
     /**
      * @throws InvalidArgumentException
-     * @throws CacheException
      */
     public function getQuestions(): array
     {
-        $cache = $this->cacheService->getItem("questions.{$this->query}.p{$this->currentPage}");
-        if (!$cache->isHit()) {
-            $this->cacheService->markQuestionCache($cache);
-            $cache->set(
-                $this->questionRepository->search(
-                    query: $this->query,
-                    page: $this->currentPage,
-                    pageSize: $this->pageSize,
-                )
-            );
-            $this->cacheService->save($cache);
-        }
+        return $this->cachePool->get("questions.{$this->query}.page-{$this->currentPage}", function ($item) {
+            $item->tag("questions");
 
-        return $cache->get();
+            $result = $this->questionRepository->search(
+                query: $this->query,
+                page: $this->currentPage,
+                pageSize: $this->pageSize,
+            );
+            $item->set($result);
+
+            return $result;
+        });
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected function getTotalPages(): int
+    {
+        return $this->cachePool->get("questions.{$this->query}.pages", function ($item) {
+            $item->tag("questions");
+
+            $result = $this->questionRepository->pages(
+                query: $this->query,
+                pageSize: $this->pageSize,
+            );
+            $item->set($result);
+
+            return $result;
+        });
     }
 
     /**
@@ -67,14 +83,7 @@ final class FilterableSection
      */
     public function hasMore(): bool
     {
-        $cache = $this->cacheService->getItem("questions.{$this->query}.pages");
-        if (!$cache->isHit()) {
-            $this->cacheService->markQuestionCache($cache);
-            $cache->set($this->questionRepository->pages(query: $this->query, pageSize: $this->pageSize));
-            $this->cacheService->save($cache);
-        }
-
-        return $this->currentPage < $cache->get();
+        return $this->currentPage < $this->getTotalPages();
     }
 
     #[LiveAction]
