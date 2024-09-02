@@ -62,6 +62,50 @@ ul.credit {
   }
 }
 
+.question-card {
+  @extend .card;
+  overflow: hidden;
+  min-height: 14em;
+
+  &__header {
+    @extend .card-header;
+  }
+
+  &__main {
+    @extend .card-body, .d-flex, .flex-column, .gap-2;
+    overflow: hidden;
+  }
+
+  &__content {
+    flex: 1;
+    p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__background {
+    @extend .text-body-tertiary, .position-absolute;
+
+    right: -10px;
+    bottom: -15px;
+
+    font-size: 6rem;
+    line-height: 1;
+    font-weight: bold;
+
+    opacity: 0.4;
+
+    user-select: none;
+  }
+
+  &__operations {
+    @extend .d-flex, .gap-2, .justify-content-start, .align-items-center;
+  }
+}
 h1 {
   font-size: 2em;
 }

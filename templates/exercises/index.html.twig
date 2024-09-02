@@ -8,30 +8,36 @@
 {% block title %}練習題目{% endblock %}
 
 {% block app %}
-    <section class="header d-flex justify-content-between mb-4">
+    <section class="header d-flex justify-content-between flex-column flex-md-row mb-4 gap-2">
         <h1>題庫一覽</h1>
 
         <div class="d-flex gap-1">
-            <input type="search" class="form-control" placeholder="搜尋題目……" aria-label="搜尋題目">
+            <form action="{{ path('app_exercises') }}" method="GET">
+                <input type="search" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="搜尋題目……" aria-label="搜尋題目">
+            </form>
         </div>
     </section>
 
-    <section class="questions row row-cols-1 row-cols-md-2 row-cols-lg-3 rows-cols-xl-4 gap-4">
+    <section class="questions row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4">
         {% for question in questions %}
-            {% set simplifiedDescription =
-                question.description|length > max
-                ? question.description|slice(0, max) ~ '……'
-                : question.description %}
             <div class="col">
-                <div class="card">
-                    <div class="card-header">
+                <div class="question-card">
+                    <div class="question-card__header">
                         {{ question.type }}・{{ question.difficulty|trans }}
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ question.title }}</h5>
-                        <p class="card-text">{{ simplifiedDescription | raw }}</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                    <div class="question-card__main">
+                        <div class="question-card__content">
+                            <h5 class="card-title">{{ question.title }}</h5>
+                            <p class="card-text">{{ question.description | striptags }}</p>
+                        </div>
+
+                        <div class="question-card__operations">
+                            <a role="button" class="btn btn-primary" href="{{ path('app_sql_execute') }}">進行測驗</a>
+                        </div>
+
+                        <div class="question-card__background">
+                            #{{ question.id }}
+                        </div>
                     </div>
                 </div>
             </div>
