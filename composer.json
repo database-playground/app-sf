@@ -16,6 +16,7 @@
         "ext-ctype": "*",
         "ext-grpc": "*",
         "ext-iconv": "*",
+        "ext-redis": "*",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "2.12.x",
         "doctrine/doctrine-migrations-bundle": "^3.3",
@@ -25,6 +26,7 @@
         "grpc/grpc": "dev-master",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.29",
+        "runtime/frankenphp-symfony": "dev-main",
         "symfony/asset": "7.2.*",
         "symfony/asset-mapper": "7.2.*",
         "symfony/console": "7.2.*",
@@ -60,8 +62,7 @@
         "symfonycasts/sass-bundle": "dev-main",
         "twbs/bootstrap": "dev-main",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0",
-      "ext-redis": "*"
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
@@ -112,7 +113,8 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "7.2.*"
+            "require": "7.2.*",
+            "docker": true
         }
     },
     "require-dev": {

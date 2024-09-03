@@ -1,7 +1,8 @@
 framework:
     default_locale: zh_TW
+    enabled_locales: ['zh_TW']
     translator:
         default_path: '%kernel.project_dir%/translations'
         fallbacks:
-            - en
+            - zh_TW
         providers:
