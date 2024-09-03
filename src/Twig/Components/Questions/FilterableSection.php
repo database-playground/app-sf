@@ -21,9 +21,9 @@ final class FilterableSection
 {
     use DefaultActionTrait;
 
-    readonly public int $pageSize;
+    public readonly int $pageSize;
 
-    public string $title = "題庫一覽";
+    public string $title = '題庫一覽';
 
     #[LiveProp(writable: true, url: new UrlMapping(as: 'q'))]
     public string $query = '';
@@ -35,11 +35,10 @@ final class FilterableSection
     public string $type = '';
 
     public function __construct(
-        public QuestionRepository     $questionRepository,
+        public QuestionRepository $questionRepository,
         public TagAwareCacheInterface $cachePool,
-        public LoggerInterface        $logger,
-    )
-    {
+        public LoggerInterface $logger,
+    ) {
         $this->pageSize = QuestionRepository::$PAGE_SIZE;
     }
 
@@ -51,7 +50,7 @@ final class FilterableSection
         $currentPage = $this->getCurrentPage();
 
         return $this->cachePool->get("questions.{$this->query}.{$this->type}.page-{$currentPage}", function ($item) use ($currentPage) {
-            $item->tag("questions");
+            $item->tag('questions');
 
             $result = $this->questionRepository->search(
                 query: $this->query,
@@ -70,8 +69,8 @@ final class FilterableSection
      */
     public function getTypesList(): array
     {
-        return $this->cachePool->get("questions.types", function ($item) {
-            $item->tag("questions");
+        return $this->cachePool->get('questions.types', function ($item) {
+            $item->tag('questions');
 
             $result = $this->questionRepository->listTypes();
             $item->set($result);
@@ -86,7 +85,7 @@ final class FilterableSection
     public function getTotalPages(): int
     {
         return $this->cachePool->get("questions.{$this->query}.{$this->type}.pages", function ($item) {
-            $item->tag("questions");
+            $item->tag('questions');
 
             $result = $this->questionRepository->calculateTotalPages(
                 query: $this->query,
