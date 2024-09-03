@@ -39,7 +39,8 @@
   '';
 
   # https://devenv.sh/pre-commit-hooks/
-  # pre-commit.hooks.shellcheck.enable = true;
+  pre-commit.hooks.shellcheck.enable = true;
+  pre-commit.hooks.php-cs-fixer.enable = true;
 
   # See full reference at https://devenv.sh/reference/options/
 }
