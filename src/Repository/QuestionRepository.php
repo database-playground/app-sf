@@ -20,6 +20,14 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
+    /**
+     * Search for questions based on a query and page number.
+     *
+     * @param string|null $query The search query
+     * @param int $page The page number
+     * @param int|null $pageSize The number of items per page
+     * @return array<Question> The list of questions for the given page
+     */
     public function search(?string $query, int $page, ?int $pageSize): array
     {
         $pageSize = $pageSize ?? self::$PAGE_SIZE;
@@ -36,7 +44,14 @@ class QuestionRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-    public function pages(?string $query, ?int $pageSize): int
+    /**
+     * Calculate the total number of pages for a given query and page size.
+     *
+     * @param string|null $query The search query
+     * @param int|null $pageSize The number of items per page
+     * @return int The total number of pages
+     */
+    public function calculateTotalPages(?string $query, ?int $pageSize): int
     {
         // FIXME: This is a naive implementation, it should be optimized
         $pageSize = $pageSize ?? self::$PAGE_SIZE;
