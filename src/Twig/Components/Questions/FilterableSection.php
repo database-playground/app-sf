@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\Metadata\UrlMapping;
@@ -30,6 +31,9 @@ final class FilterableSection
     #[LiveProp(writable: true, url: new UrlMapping(as: 'p'))]
     private int $currentPage = 1;
 
+    #[LiveProp(writable: true, url: new UrlMapping(as: 'type'))]
+    public string $type = '';
+
     public function __construct(
         public QuestionRepository     $questionRepository,
         public TagAwareCacheInterface $cachePool,
@@ -46,11 +50,12 @@ final class FilterableSection
     {
         $currentPage = $this->getCurrentPage();
 
-        return $this->cachePool->get("questions.{$this->query}.page-{$currentPage}", function ($item) use ($currentPage) {
+        return $this->cachePool->get("questions.{$this->query}.{$this->type}.page-{$currentPage}", function ($item) use ($currentPage) {
             $item->tag("questions");
 
             $result = $this->questionRepository->search(
                 query: $this->query,
+                type: $this->type,
                 page: $currentPage,
                 pageSize: $this->pageSize,
             );
@@ -63,13 +68,29 @@ final class FilterableSection
     /**
      * @throws InvalidArgumentException
      */
-    public function getTotalPages(): int
+    public function getTypesList(): array
     {
-        return $this->cachePool->get("questions.{$this->query}.pages", function ($item) {
+        return $this->cachePool->get("questions.types", function ($item) {
             $item->tag("questions");
 
-            $result = $this->questionRepository->pages(
+            $result = $this->questionRepository->listTypes();
+            $item->set($result);
+
+            return $result;
+        });
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function getTotalPages(): int
+    {
+        return $this->cachePool->get("questions.{$this->query}.{$this->type}.pages", function ($item) {
+            $item->tag("questions");
+
+            $result = $this->questionRepository->calculateTotalPages(
                 query: $this->query,
+                type: $this->type,
                 pageSize: $this->pageSize,
             );
             $item->set($result);
@@ -128,5 +149,11 @@ final class FilterableSection
     public function previousPage(): void
     {
         $this->setCurrentPage($this->getCurrentPage() - 1);
+    }
+
+    #[LiveAction]
+    public function setTypeFilter(#[LiveArg] ?string $type): void
+    {
+        $this->type = $type ?? '';
     }
 }

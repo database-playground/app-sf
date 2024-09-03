@@ -1,5 +1,20 @@
+{% macro navItem(itemType, currentType) %}
+    {% set active = itemType == currentType %}
+
+    <li class="nav-item">
+        <button
+                class="nav-link {{ active ? "active" : "" }}"
+                {{ active ? 'aria-current="page"' : "" }}
+                data-action="live#action"
+                data-live-action-param="setTypeFilter"
+                data-live-type-param="{{ itemType }}">
+            {{ itemType == "" ? "全部" : itemType }}
+        </button>
+    </li>
+{% endmacro %}
+
 <section{{ attributes.defaults({ class: "question-filterable-section" }) }}>
-    <section class="question-filterable-section__header d-flex justify-content-between flex-column flex-md-row mb-4 gap-2">
+    <section aria-label="標題和搜尋列" class="question-filterable-section__header d-flex justify-content-between flex-column flex-md-row mb-4 gap-2">
         <h1>{{ title }}</h1>
 
         <div class="d-flex gap-1">
@@ -10,13 +25,23 @@
         </div>
     </section>
 
+    <section aria-label="篩選器" class="question-filterable-section__filters mb-4">
+        <ul class="nav nav-pills">
+            {{ _self.navItem("", type) }}
+
+            {% for renderingType in this.typesList %}
+                {{ _self.navItem(renderingType, type) }}
+            {% endfor %}
+        </ul>
+    </section>
+
     {% if this.questions|length == 0 %}
-        <div class="question-filterable-section__errors alert alert-secondary" role="alert">
+        <div aria-label="錯誤訊息" class="question-filterable-section__errors alert alert-secondary" role="alert">
             找不到符合「{{ query }}」關鍵字的結果。試著更換一個關鍵字？
         </div>
     {% endif %}
 
-    <section class="question-filterable-section__list row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4">
+    <section aria-label="題庫" class="question-filterable-section__list row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4">
         {% for item in this.questions %}
             <div class="col">
                 <twig:Questions:Card :question="item"></twig:Questions:Card>
