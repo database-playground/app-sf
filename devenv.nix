@@ -40,7 +40,11 @@
 
   # https://devenv.sh/pre-commit-hooks/
   pre-commit.hooks.shellcheck.enable = true;
-  pre-commit.hooks.php-cs-fixer.enable = true;
+  pre-commit.hooks.lint = {
+    enable = true;
+    entry = "composer run-script lint";
+    types = [ "php" ];
+  };
 
   # See full reference at https://devenv.sh/reference/options/
 }
