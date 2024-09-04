@@ -57,7 +57,7 @@ ul.credit {
 
   &__item.active {
     @extend .rounded-pill, .px-4;
-    margin-right: $spacer / 3;
+    margin-right: calc($spacer / 3);
     background-color: darken($light, 10%);
   }
 }
