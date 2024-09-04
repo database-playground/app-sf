@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/.devenv/profile/src/Composer" isTestSource="false" packagePrefix="Composer\" />
       <sourceFolder url="file://$MODULE_DIR$/.devenv/profile/tests/Composer/Test" isTestSource="true" packagePrefix="Composer\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/justinrainbow/json-schema" />
@@ -180,6 +181,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-live-component" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-twig-component" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/runtime/frankenphp-symfony" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
