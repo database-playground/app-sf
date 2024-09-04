@@ -4,57 +4,81 @@ declare(strict_types=1);
 
 namespace App\Tests\Service;
 
-use Doctrine\SqlFormatter\NullHighlighter;
-use Doctrine\SqlFormatter\SqlFormatter;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
+use App\Exception\SchemaExecuteException;
+use App\Service\DbRunner;
+use App\Service\DbRunnerService;
+use Psr\Cache\InvalidArgumentException;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
-class DbRunnerServiceTest extends TestCase
+class DbRunnerServiceTest extends KernelTestCase
 {
-    public static function formatSqlProvider(): array
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function testCache(): void
     {
-        return [
-            [
-                'SELECT * FROM students',
-                'SELECT * FROM students',
-            ],
-            [
-                'SELECT * FROM students WHERE id = 1',
-                'SELECT * FROM students WHERE id = 1',
-            ],
-            [
-                'SELECT * FROM students WHERE id = 1; -- comment',
-                'SELECT * FROM students WHERE id = 1;',
-            ],
-            [
-                "SELECT * FROM students WHERE id = 1; -- comment\n",
-                'SELECT * FROM students WHERE id = 1;',
-            ],
-            [
-                "SELECT *, aaa FROM students WHERE id = 1; -- comment\n",
-                'SELECT *, aaa FROM students WHERE id = 1;',
-            ],
-            [
-                "SELECT * FROM students;\nSELECT * FROM teachers;",
-                'SELECT * FROM students; SELECT * FROM teachers;',
-            ],
-            [
-                'SELECT *     FROM   students',
-                'SELECT * FROM students',
-            ],
-            // WIP: SqlFormatter does not uppercase keywords
-            // [
-            //    "seLect * fRom students",
-            //     "SELECT * FROM students;"
-            // ]
-        ];
+        $cache = new ArrayAdapter();
+        $dbRunnerService = new TestableDbrunnerService($cache);
+
+        $schema = "CREATE TABLE newsletter (id INTEGER PRIMARY KEY, content TEXT);
+                   INSERT INTO newsletter (content) VALUES ('hello');";
+        $query = 'SELECT * FROM newsletter';
+
+        $result = $dbRunnerService->runQuery($schema, $query);
+        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
+
+        $hashedSchema = $dbRunnerService->getDbRunner()->hashStatement($schema);
+        $hashedQuery = $dbRunnerService->getDbRunner()->hashStatement($query);
+        $this->assertTrue($cache->hasItem(\sprintf('dbrunner.%s.%s', $hashedSchema, $hashedQuery)));
+
+        $result = $dbRunnerService->runQuery(
+            "
+                    -- normalization test
+                    CREATE TABLE newsletter (id INTEGER PRIMARY KEY, content TEXT);
+                    INSERT INTO newsletter (content) VALUES ('hello');",
+            'SELECT * FROM newsletter'
+        );
+        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        $this->assertTrue(1 === \count($cache->getValues()), 'cache hit');
+
+        $result = $dbRunnerService->runQuery(
+            "
+                    CREATE TABLE newsletter (id INTEGER PRIMARY KEY, content TEXT);
+                    INSERT INTO newsletter (content) VALUES ('hello');",
+            'SELECT * FROM newsletter -- normalization test'
+        );
+        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        $this->assertTrue(1 === \count($cache->getValues()), 'cache hit');
+
+        $result = $dbRunnerService->runQuery(
+            "
+                    CREATE TABLE newsletter (id INTEGER PRIMARY KEY, content TEXT);
+                    INSERT INTO newsletter (content) VALUES ('hello');",
+            "SELECT * FROM newsletter WHERE content == 'hello'"
+        );
+        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        $this->assertTrue(2 === \count($cache->getValues()), 'cache not hit');
     }
 
-    #[DataProvider('formatSqlProvider')]
-    public function testFormatSql(string $input, string $expect): void
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function testCacheException(): void
     {
-        $formatter = new SqlFormatter(new NullHighlighter());
+        $cache = new ArrayAdapter();
+        $dbRunnerService = new TestableDbrunnerService($cache);
 
-        $this->assertEquals($expect, $formatter->compress($input));
+        $this->expectException(SchemaExecuteException::class);
+        $this->expectExceptionMessageMatches('/syntax error/');
+        $dbRunnerService->runQuery('ABCDABCBDABCDABCBDABCDABCBDABCDABCBD', 'SELECT * FROM newsletter');
+    }
+}
+
+readonly class TestableDbrunnerService extends DbRunnerService
+{
+    public function getDbRunner(): DbRunner
+    {
+        return $this->dbRunner;
     }
 }

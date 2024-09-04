@@ -1,6 +1,5 @@
 .devenv/
 .direnv/
-rpc/
 devenv*
 .php-cs-fixer*
 **/*.log

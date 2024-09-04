@@ -33,8 +33,5 @@ devenv.local.nix
 # pre-commit
 .pre-commit-config.yaml
 
-# generated rpc code
-rpc/
-
 # caches
 *.cache

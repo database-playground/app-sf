@@ -7,15 +7,11 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git pkgs.buf pkgs.symfony-cli ];
+  packages = [ pkgs.git ];
 
   # https://devenv.sh/languages/
   languages.php.enable = true;
-  languages.php.extensions = [ "xdebug" "grpc" "redis" ];
-  languages.php.ini = ''
-    session.save_handler = redis
-    session.save_path = "tcp://redis.app-sf.orb.local:6379"
-  '';
+  languages.php.extensions = [ "xdebug" "redis" ];
   # https://devenv.sh/processes/
   # processes.cargo-watch.exec = "cargo-watch";
 

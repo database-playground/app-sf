@@ -137,7 +137,6 @@
       <path value="$PROJECT_DIR$/vendor/clue/ndjson-react" />
       <path value="$PROJECT_DIR$/vendor/psr/clock" />
       <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
-      <path value="$PROJECT_DIR$/vendor/grpc/grpc" />
       <path value="$PROJECT_DIR$/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />

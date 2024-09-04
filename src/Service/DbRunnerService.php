@@ -5,54 +5,42 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Exception\QueryExecuteException;
-use App\Exception\QueryExecuteServerException;
-use Dbrunner\V1\DbRunnerServiceClient;
-use Dbrunner\V1\RunQueryRequest;
-use Dbrunner\V1\RunQueryResponse;
-use Grpc\ChannelCredentials;
-
-use const Grpc\STATUS_INVALID_ARGUMENT;
-use const Grpc\STATUS_OK;
+use App\Exception\SchemaExecuteException;
+use Psr\Cache\InvalidArgumentException;
+use Symfony\Contracts\Cache\CacheInterface;
 
 readonly class DbRunnerService
 {
-    /**
-     * @var DbRunnerServiceClient The gRPC client
-     */
-    private DbRunnerServiceClient $client;
+    protected DbRunner $dbRunner;
 
-    public function __construct(string $hostname)
+    public function __construct(protected CacheInterface $appDbrunnerCache)
     {
-        $this->client = new DbRunnerServiceClient($hostname, [
-            'credentials' => ChannelCredentials::createInsecure(),
-        ]);
+        $this->dbRunner = new DbRunner();
     }
 
-    public function runQuery(string $schema, string $query): string
+    /**
+     * Run a query on the SQLite3 database, cached.
+     *
+     * @return array<array<string, mixed>>
+     *
+     * @throws InvalidArgumentException
+     * @throws SchemaExecuteException
+     * @throws QueryExecuteException
+     */
+    public function runQuery(string $schema, string $query): array
     {
-        $response = $this->client->RunQuery(
-            (new RunQueryRequest())
-                ->setSchema($schema)
-                ->setQuery($query)
-        );
+        $schemaHash = $this->dbRunner->hashStatement($schema);
+        $queryHash = $this->dbRunner->hashStatement($query);
+        $hash = \sprintf('dbrunner.%s.%s', $schemaHash, $queryHash);
 
-        [$body, $status] = $response->wait();
+        return $this->appDbrunnerCache->get($hash, function () use ($schema, $query) {
+            $result = [];
 
-        \assert($status instanceof \stdClass);
-        switch ($status->code) {
-            case STATUS_OK:
-                break;
-            case STATUS_INVALID_ARGUMENT:
-                throw new QueryExecuteException($status->details);
-            default:
-                throw new QueryExecuteServerException($status->details);
-        }
+            foreach ($this->dbRunner->runQuery($schema, $query) as $row) {
+                $result[] = $row;
+            }
 
-        \assert($body instanceof RunQueryResponse);
-        if ($body->hasError()) {
-            throw new QueryExecuteException($body->getError());
-        }
-
-        return $body->getId();
+            return $result;
+        });
     }
 }

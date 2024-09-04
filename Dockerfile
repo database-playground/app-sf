@@ -26,7 +26,6 @@ RUN set -eux; \
 		zip \
         redis \
         pdo_pgsql \
-#        grpc \
 	;
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
