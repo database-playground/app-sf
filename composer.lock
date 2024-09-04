@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a207785cdc8f753e0b1a23ad31e89b1a",
+    "content-hash": "c2d67c341a17a93836f0f44ab5e993af",
     "packages": [
         {
             "name": "composer/semver",
@@ -94,12 +94,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "256cc585b6157546d6934b5c33e018fa8b97af5d"
+                "reference": "7cf613ef44be3c09a139d313ab167afc231e8f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/256cc585b6157546d6934b5c33e018fa8b97af5d",
-                "reference": "256cc585b6157546d6934b5c33e018fa8b97af5d",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/7cf613ef44be3c09a139d313ab167afc231e8f1a",
+                "reference": "7cf613ef44be3c09a139d313ab167afc231e8f1a",
                 "shasum": ""
             },
             "require": {
@@ -180,7 +180,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-23T14:55:02+00:00"
+            "time": "2024-09-04T11:46:34+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -7365,12 +7365,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-live-component.git",
-                "reference": "5d9bf6dc06f9c3bce3857479bc8050c631033990"
+                "reference": "23aecd4cc1c14ef5a10a8ae519b03d40840064a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-live-component/zipball/5d9bf6dc06f9c3bce3857479bc8050c631033990",
-                "reference": "5d9bf6dc06f9c3bce3857479bc8050c631033990",
+                "url": "https://api.github.com/repos/symfony/ux-live-component/zipball/23aecd4cc1c14ef5a10a8ae519b03d40840064a0",
+                "reference": "23aecd4cc1c14ef5a10a8ae519b03d40840064a0",
                 "shasum": ""
             },
             "require": {
@@ -7451,7 +7451,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-25T00:58:18+00:00"
+            "time": "2024-09-03T20:33:20+00:00"
         },
         {
             "name": "symfony/ux-turbo",
@@ -7557,12 +7557,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "3e2da91ae7e501f329267873d827c0c9d3134ab5"
+                "reference": "77a68152d083f4c493e05c5503e188c229de8275"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/3e2da91ae7e501f329267873d827c0c9d3134ab5",
-                "reference": "3e2da91ae7e501f329267873d827c0c9d3134ab5",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/77a68152d083f4c493e05c5503e188c229de8275",
+                "reference": "77a68152d083f4c493e05c5503e188c229de8275",
                 "shasum": ""
             },
             "require": {
@@ -7634,7 +7634,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-31T10:14:43+00:00"
+            "time": "2024-09-03T20:35:17+00:00"
         },
         {
             "name": "symfony/validator",
@@ -8108,12 +8108,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "e1b48d253c7df5efc5ec1d122c6e7cbb385c4d52"
+                "reference": "6f87fce7962bef83c59eff895d891016db620cd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/e1b48d253c7df5efc5ec1d122c6e7cbb385c4d52",
-                "reference": "e1b48d253c7df5efc5ec1d122c6e7cbb385c4d52",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/6f87fce7962bef83c59eff895d891016db620cd7",
+                "reference": "6f87fce7962bef83c59eff895d891016db620cd7",
                 "shasum": ""
             },
             "replace": {
@@ -8151,7 +8151,7 @@
                 "issues": "https://github.com/twbs/bootstrap/issues",
                 "source": "https://github.com/twbs/bootstrap/tree/main"
             },
-            "time": "2024-09-03T09:47:20+00:00"
+            "time": "2024-09-04T08:01:23+00:00"
         },
         {
             "name": "twig/extra-bundle",
@@ -8234,12 +8234,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "3349175e72ad9953d120892337faed5950a29959"
+                "reference": "fb2663eb69f43251ea3399e9a72101f9bb94ae5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3349175e72ad9953d120892337faed5950a29959",
-                "reference": "3349175e72ad9953d120892337faed5950a29959",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/fb2663eb69f43251ea3399e9a72101f9bb94ae5f",
+                "reference": "fb2663eb69f43251ea3399e9a72101f9bb94ae5f",
                 "shasum": ""
             },
             "require": {
@@ -8306,7 +8306,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-03T14:53:53+00:00"
+            "time": "2024-09-04T05:57:05+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -9421,12 +9421,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "84ad6993ce93fc2f1ac7ec0703d3a2f284594e9c"
+                "reference": "e6a204cd0360ecdb88c200384133df8573abcdb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/84ad6993ce93fc2f1ac7ec0703d3a2f284594e9c",
-                "reference": "84ad6993ce93fc2f1ac7ec0703d3a2f284594e9c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e6a204cd0360ecdb88c200384133df8573abcdb5",
+                "reference": "e6a204cd0360ecdb88c200384133df8573abcdb5",
                 "shasum": ""
             },
             "require": {
@@ -9516,7 +9516,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-03T09:44:33+00:00"
+            "time": "2024-09-04T06:06:52+00:00"
         },
         {
             "name": "react/cache",
