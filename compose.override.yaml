@@ -1,5 +1,16 @@
-
 services:
+  php:
+    build:
+      context: .
+      target: frankenphp_dev
+    volumes:
+      - ./:/app
+      - ./frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
+    environment:
+      # See https://xdebug.org/docs/all_settings#mode
+      XDEBUG_MODE: "${XDEBUG_MODE:-off}"
+    tty: true
+
 ###> doctrine/doctrine-bundle ###
   database:
     ports:

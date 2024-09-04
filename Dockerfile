@@ -43,6 +43,20 @@ ENTRYPOINT ["docker-entrypoint"]
 HEALTHCHECK --start-period=60s CMD curl -f http://localhost:2019/metrics || exit 1
 CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile" ]
 
+# Dev FrankenPHP image
+FROM frankenphp_base AS frankenphp_dev
+
+ENV APP_ENV=dev XDEBUG_MODE=off
+
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+RUN set -eux; \
+	install-php-extensions \
+		xdebug \
+	;
+
+CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
+
 # Prod FrankenPHP image
 FROM frankenphp_base AS frankenphp_prod
 
