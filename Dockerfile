@@ -1,7 +1,7 @@
 #syntax=docker/dockerfile:1.4
 
 # Versions
-FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
+FROM dunglas/frankenphp AS frankenphp_upstream
 
 # Base FrankenPHP image
 FROM frankenphp_upstream AS frankenphp_base
@@ -26,7 +26,7 @@ RUN set -eux; \
 		zip \
         redis \
         pdo_pgsql \
-        grpc \
+#        grpc \
 	;
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
@@ -55,7 +55,8 @@ RUN set -eux; \
 		xdebug \
 	;
 
-CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
+CMD (php bin/console sass:build --watch &); \
+    (frankenphp run --config /etc/caddy/Caddyfile --watch);
 
 # Prod FrankenPHP image
 FROM frankenphp_base AS frankenphp_prod
