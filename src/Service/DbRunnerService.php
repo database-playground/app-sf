@@ -31,7 +31,7 @@ readonly class DbRunnerService
     {
         $schemaHash = $this->dbRunner->hashStatement($schema);
         $queryHash = $this->dbRunner->hashStatement($query);
-        $hash = \sprintf('dbrunner.%s.%s', $schemaHash, $queryHash);
+        $hash = "dbrunner.$schemaHash.$queryHash";
 
         return $this->appDbrunnerCache->get($hash, function () use ($schema, $query) {
             $result = [];

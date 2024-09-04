@@ -6,6 +6,7 @@ namespace App\Tests\Service;
 
 use App\Exception\QueryExecuteException;
 use App\Exception\SchemaExecuteException;
+use App\Exception\TooManyResultsException;
 use App\Service\DbRunner;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -269,13 +270,10 @@ class DbRunnerTest extends TestCase
         )
         SELECT * FROM cte;';
 
+        $this->expectException(TooManyResultsException::class);
         $generator = $dbrunner->runQuery($schema, $query);
 
-        $results = 0;
         foreach ($generator as $idx => $actual) {
-            ++$results;
         }
-
-        $this->assertEquals(1000, $results);
     }
 }

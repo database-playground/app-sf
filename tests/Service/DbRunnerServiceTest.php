@@ -30,7 +30,7 @@ class DbRunnerServiceTest extends KernelTestCase
 
         $hashedSchema = $dbRunnerService->getDbRunner()->hashStatement($schema);
         $hashedQuery = $dbRunnerService->getDbRunner()->hashStatement($query);
-        $this->assertTrue($cache->hasItem(\sprintf('dbrunner.%s.%s', $hashedSchema, $hashedQuery)));
+        $this->assertTrue($cache->hasItem("dbrunner.$hashedSchema.$hashedQuery"));
 
         $result = $dbRunnerService->runQuery(
             "
