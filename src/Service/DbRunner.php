@@ -54,7 +54,7 @@ readonly class DbRunner
      * @param string $schema the schema to create the database
      * @param string $query  the query to run
      *
-     * @return \Generator<array<string, mixed>> the result of the query
+     * @return \Generator<int, array<string, mixed>, void, void> the result of the query
      *
      * @throws SchemaExecuteException  if the schema could not be executed
      * @throws QueryExecuteException   if the query could not be executed

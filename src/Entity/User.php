@@ -56,6 +56,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
+        \assert(!empty($this->email), 'The email should not be empty.');
+
         return (string) $this->email;
     }
 
@@ -88,7 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): static

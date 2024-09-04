@@ -13,6 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 class DbRunnerTest extends TestCase
 {
+    /**
+     * @return array{string, string}[]
+     */
     public static function hashProvider(): array
     {
         return [
@@ -52,6 +55,9 @@ class DbRunnerTest extends TestCase
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public static function hashInvalidProvider(): array
     {
         return [
@@ -64,6 +70,9 @@ class DbRunnerTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<array{string, string, array<array<string, mixed>>|null, class-string<\Throwable>|null}>
+     */
     public static function runQueryProvider(): array
     {
         return [
@@ -231,6 +240,10 @@ class DbRunnerTest extends TestCase
         $dbrunner->hashStatement($invalidStmt);
     }
 
+    /**
+     * @param ?array<array<string, mixed>> $expect
+     * @param ?class-string<\Throwable>    $exception
+     */
     #[DataProvider('runQueryProvider')]
     public function testRunQuery(string $schema, string $query, ?array $expect, ?string $exception): void
     {
@@ -244,11 +257,11 @@ class DbRunnerTest extends TestCase
 
         $generator = $dbrunner->runQuery($schema, $query);
 
-        foreach ($generator as $idx => $actual) {
-            $this->assertIsArray($actual);
-            $this->assertEquals($expect[$idx], $actual);
-
-            echo 'actual: '.json_encode($actual)."\n";
+        if ($expect) {
+            foreach ($generator as $idx => $actual) {
+                $this->assertIsArray($actual);
+                $this->assertEquals($expect[$idx], $actual);
+            }
         }
     }
 

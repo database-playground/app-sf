@@ -43,6 +43,8 @@ final class FilterableSection
     }
 
     /**
+     * @return array<\App\Entity\Question>
+     *
      * @throws InvalidArgumentException
      */
     public function getQuestions(): array
@@ -65,6 +67,8 @@ final class FilterableSection
     }
 
     /**
+     * @return array<string>
+     *
      * @throws InvalidArgumentException
      */
     public function getTypesList(): array

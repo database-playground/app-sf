@@ -45,10 +45,14 @@ class QuestionRepository extends ServiceEntityRepository
                 ->setParameter('type', $type);
         }
 
-        return $qb->orderBy('q.id')
+        $questionResults = $qb->orderBy('q.id')
             ->setFirstResult(($page - 1) * $pageSize)
             ->setMaxResults($pageSize)
             ->getQuery()->getResult();
+
+        \assert(\is_array($questionResults), 'The question results should be an array.');
+
+        return $questionResults;
     }
 
     /**
@@ -79,6 +83,7 @@ class QuestionRepository extends ServiceEntityRepository
         }
 
         $questionsCount = $qb->getQuery()->getSingleScalarResult();
+        \assert(\is_int($questionsCount), 'The questions count should be an integer.');
 
         return (int) ceil($questionsCount / $pageSize);
     }
@@ -94,6 +99,9 @@ class QuestionRepository extends ServiceEntityRepository
         $qb = $qb->select('q.type')
             ->distinct();
 
-        return $qb->getQuery()->getSingleColumnResult();
+        /** @var array<string> $result */
+        $result = $qb->getQuery()->getSingleColumnResult();
+
+        return $result;
     }
 }

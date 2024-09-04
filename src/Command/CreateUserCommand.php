@@ -75,12 +75,14 @@ class CreateUserCommand extends Command
         return $password;
     }
 
+    /**
+     * @return array<string>
+     */
     public function getRolesOpt(InputInterface $input): array
     {
         $roles = $input->getOption('roles') ?? [];
-        if (!\is_array($roles)) {
-            throw new \InvalidArgumentException('The roles must be a string.');
-        }
+
+        \assert(\is_array($roles), 'The roles must be an array.');
 
         return $roles;
     }

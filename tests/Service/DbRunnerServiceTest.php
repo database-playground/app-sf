@@ -40,7 +40,7 @@ class DbRunnerServiceTest extends KernelTestCase
             'SELECT * FROM newsletter'
         );
         $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
-        $this->assertTrue(1 === \count($cache->getValues()), 'cache hit');
+        $this->assertCount(1, $cache->getValues(), 'cache hit');
 
         $result = $dbRunnerService->runQuery(
             "
@@ -49,7 +49,7 @@ class DbRunnerServiceTest extends KernelTestCase
             'SELECT * FROM newsletter -- normalization test'
         );
         $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
-        $this->assertTrue(1 === \count($cache->getValues()), 'cache hit');
+        $this->assertCount(1, $cache->getValues(), 'cache hit');
 
         $result = $dbRunnerService->runQuery(
             "
@@ -58,7 +58,7 @@ class DbRunnerServiceTest extends KernelTestCase
             "SELECT * FROM newsletter WHERE content == 'hello'"
         );
         $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
-        $this->assertTrue(2 === \count($cache->getValues()), 'cache not hit');
+        $this->assertCount(2, $cache->getValues(), 'cache not hit');
     }
 
     /**

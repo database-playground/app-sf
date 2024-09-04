@@ -43,7 +43,7 @@ class Schema
 
     public function __toString(): string
     {
-        return $this->id;
+        return $this->id ?? '';
     }
 
     public function getId(): ?string
