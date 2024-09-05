@@ -42,9 +42,9 @@ class Question
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $solution_video = null;
 
-    public function getId(): ?int
+    public function getId(): int
     {
-        return $this->id;
+        return (int) $this->id;
     }
 
     public function getSchema(): ?Schema
@@ -59,9 +59,9 @@ class Question
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): string
     {
-        return $this->type;
+        return (string) $this->type;
     }
 
     public function setType(string $type): static
@@ -71,8 +71,10 @@ class Question
         return $this;
     }
 
-    public function getDifficulty(): ?QuestionDifficulty
+    public function getDifficulty(): QuestionDifficulty
     {
+        \assert(null !== $this->difficulty);
+
         return $this->difficulty;
     }
 
@@ -83,9 +85,9 @@ class Question
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
-        return $this->title;
+        return (string) $this->title;
     }
 
     public function setTitle(string $title): static
@@ -107,9 +109,9 @@ class Question
         return $this;
     }
 
-    public function getAnswer(): ?string
+    public function getAnswer(): string
     {
-        return $this->answer;
+        return (string) $this->answer;
     }
 
     public function setAnswer(string $answer): static

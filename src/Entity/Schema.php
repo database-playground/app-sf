@@ -43,12 +43,12 @@ class Schema
 
     public function __toString(): string
     {
-        return $this->id ?? '';
+        return $this->getId();
     }
 
-    public function getId(): ?string
+    public function getId(): string
     {
-        return $this->id;
+        return (string) $this->id;
     }
 
     public function setId(string $id): static
@@ -82,9 +82,9 @@ class Schema
         return $this;
     }
 
-    public function getSchema(): ?string
+    public function getSchema(): string
     {
-        return $this->schema;
+        return (string) $this->schema;
     }
 
     public function setSchema(string $schema): static
