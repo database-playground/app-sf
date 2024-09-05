@@ -3,6 +3,6 @@
         {{ question.description|raw }}
     </div>
 
-    <h4>輸出格式</h4>
-    <p>欄位順序分別為 {{ this.columnsOfAnswer|join("、") }}</p>
+    <h5>輸出格式</h5>
+    <p>欄位順序分別為：<code>{{ this.columnsOfAnswer|joinToQuoted }}</code>。</p>
 </section>
