@@ -1,0 +1,8 @@
+<section {{ attributes.defaults({ class: "challenge-description" }) }}>
+    <div class="mb-4">
+        {{ question.description|raw }}
+    </div>
+
+    <h4>輸出格式</h4>
+    <p>欄位順序分別為 {{ this.columnsOfAnswer|join("、") }}</p>
+</section>

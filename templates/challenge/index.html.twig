@@ -1,0 +1,13 @@
+{% extends 'app.html.twig' %}
+
+{% block nav %}<twig:Navbar active="exercises"/>{% endblock %}
+{% block title %}練習題目 – {{ question.title }}{% endblock %}
+
+{% block app %}
+    <main class="challenge">
+        <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" />
+        <hr>
+        <twig:Challenge:Description class="mt-4" :question="question" />
+        <twig:Challenge:Executor class="mt-4" :question="question" />
+    </main>
+{% endblock %}

@@ -109,3 +109,23 @@ ul.credit {
 h1 {
   font-size: 2em;
 }
+
+/* ChallengeHeader */
+.challenge-header {
+  &__title {
+    font-weight: bold;
+  }
+
+  &__status {
+    opacity: 0.8;
+  }
+
+  &__lists {
+    @extend .list-inline;
+
+    li {
+      @extend .list-inline-item;
+    }
+  }
+
+}

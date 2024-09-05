@@ -21,6 +21,16 @@ class QuestionRepository extends ServiceEntityRepository
     }
 
     /**
+     * Get the question entity by ID.
+     *
+     * @param int $id The question ID
+     */
+    public function findById(int $id): ?Question
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
+
+    /**
      * Search for questions based on a query and page number.
      *
      * @param string|null $query    The search query

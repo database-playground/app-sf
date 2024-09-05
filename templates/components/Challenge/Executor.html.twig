@@ -1,0 +1,15 @@
+<section {{ attributes.defaults({ class: "challenge-sql-executor" }) }}>
+    <label for="sql">SQL code:</label>
+    <input type="text" id="sql" data-model="query">
+
+    <button type="button {{ pending ? "disabled" : "" }}"
+            data-action="live#action"
+            data-live-action-param="on(change)|execute">
+        Execute
+    </button>
+
+    {% if result %}
+        <h2>Result:</h2>
+        <pre>{{ result|json_encode }}</pre>
+    {% endif %}
+</section>
