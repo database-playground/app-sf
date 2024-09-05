@@ -1,12 +1,20 @@
-<section {{ attributes.defaults({ class: "challenge-sql-executor" }) }}>
+<section {{ attributes.defaults({ class: "challenge-sql-executor" }|merge(stimulus_controller('challenge-executor', {
+    modelName: 'query',
+    editorSelector: '#challenge-sql-executor__editor',
+}))) }}>
     <label for="sql">SQL code:</label>
-    <input type="text" id="sql" data-model="query">
 
-    <button type="button {{ pending ? "disabled" : "" }}"
+    <div id="challenge-sql-executor__editor"></div>
+
+    <button data-loading="addClass(opacity-50 disabled)" type="button" class="btn btn-primary"
             data-action="live#action"
             data-live-action-param="on(change)|execute">
         Execute
     </button>
+
+    <pre>
+        {{ query }}
+    </pre>
 
     {% if result %}
         <h2>Result:</h2>

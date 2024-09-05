@@ -40,4 +40,49 @@ return [
     '@symfony/ux-live-component' => [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
     ],
+    'codemirror' => [
+        'version' => '6.0.1',
+    ],
+    '@codemirror/lang-sql' => [
+        'version' => '6.7.1',
+    ],
+    '@codemirror/view' => [
+        'version' => '6.23.0',
+    ],
+    '@codemirror/state' => [
+        'version' => '6.4.0',
+    ],
+    '@codemirror/language' => [
+        'version' => '6.10.2',
+    ],
+    '@codemirror/commands' => [
+        'version' => '6.3.3',
+    ],
+    '@codemirror/search' => [
+        'version' => '6.5.5',
+    ],
+    '@codemirror/autocomplete' => [
+        'version' => '6.18.0',
+    ],
+    '@codemirror/lint' => [
+        'version' => '6.4.2',
+    ],
+    '@lezer/highlight' => [
+        'version' => '1.2.1',
+    ],
+    '@lezer/lr' => [
+        'version' => '1.4.2',
+    ],
+    'style-mod' => [
+        'version' => '4.1.2',
+    ],
+    'w3c-keyname' => [
+        'version' => '2.2.8',
+    ],
+    '@lezer/common' => [
+        'version' => '1.2.1',
+    ],
+    'crelt' => [
+        'version' => '1.0.6',
+    ],
 ];
