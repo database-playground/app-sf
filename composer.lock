@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae9d83fd129de85d9354b3f6817fc589",
+    "content-hash": "59f15b9e5c2e402c20ab7c8b57e51322",
     "packages": [
         {
             "name": "composer/semver",
@@ -2707,12 +2707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "ee7ee22b1dabcff731b7d79d3633c96251ad8404"
+                "reference": "07d683cda368a88df91d231aa97dfdfa02c4f3ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/ee7ee22b1dabcff731b7d79d3633c96251ad8404",
-                "reference": "ee7ee22b1dabcff731b7d79d3633c96251ad8404",
+                "url": "https://api.github.com/repos/symfony/console/zipball/07d683cda368a88df91d231aa97dfdfa02c4f3ac",
+                "reference": "07d683cda368a88df91d231aa97dfdfa02c4f3ac",
                 "shasum": ""
             },
             "require": {
@@ -2792,7 +2792,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-30T15:40:32+00:00"
+            "time": "2024-09-05T08:46:36+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -4115,12 +4115,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "5a92e38016224d35a68ded60297b94d87b21a494"
+                "reference": "917eea960a9d33327029779438293867d076aa91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5a92e38016224d35a68ded60297b94d87b21a494",
-                "reference": "5a92e38016224d35a68ded60297b94d87b21a494",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/917eea960a9d33327029779438293867d076aa91",
+                "reference": "917eea960a9d33327029779438293867d076aa91",
                 "shasum": ""
             },
             "require": {
@@ -4184,7 +4184,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-03T14:09:19+00:00"
+            "time": "2024-09-05T10:01:19+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -5409,83 +5409,6 @@
             ],
             "support": {
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/1.x"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-06-20T08:18:00+00:00"
-        },
-        {
-            "name": "symfony/polyfill-php83",
-            "version": "1.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-php83.git",
-                "reference": "2954fcffd79c04a3c5f50665aafb5f99c25a9d18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/2954fcffd79c04a3c5f50665aafb5f99c25a9d18",
-                "reference": "2954fcffd79c04a3c5f50665aafb5f99c25a9d18",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php83\\": ""
-                },
-                "classmap": [
-                    "Resources/stubs"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill backporting some PHP 8.3+ features to lower PHP versions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/1.x"
             },
             "funding": [
                 {
@@ -9057,12 +8980,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "c4a62889e9c92ba1769b2f2d1c6aca4f485f2210"
+                "reference": "8423d8e8bacc7818aac5f8bd9f9869242a8cdfe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c4a62889e9c92ba1769b2f2d1c6aca4f485f2210",
-                "reference": "c4a62889e9c92ba1769b2f2d1c6aca4f485f2210",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8423d8e8bacc7818aac5f8bd9f9869242a8cdfe4",
+                "reference": "8423d8e8bacc7818aac5f8bd9f9869242a8cdfe4",
                 "shasum": ""
             },
             "require": {
@@ -9108,7 +9031,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-04T20:23:28+00:00"
+            "time": "2024-09-05T09:38:35+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -10997,12 +10920,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "125b6f158266fd2f14286ca57925608b529d5b1d"
+                "reference": "02042c23e813fe7c2dff83ce66ff4b84bfd17555"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/125b6f158266fd2f14286ca57925608b529d5b1d",
-                "reference": "125b6f158266fd2f14286ca57925608b529d5b1d",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/02042c23e813fe7c2dff83ce66ff4b84bfd17555",
+                "reference": "02042c23e813fe7c2dff83ce66ff4b84bfd17555",
                 "shasum": ""
             },
             "require": {
@@ -11057,7 +10980,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-30T16:23:38+00:00"
+            "time": "2024-09-05T08:46:36+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -11204,12 +11127,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "9a63ca5257a8efaed96a3df8bdfb032fda00d6ce"
+                "reference": "01a9a2280d53222c26014d7b8d9349532f336926"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/9a63ca5257a8efaed96a3df8bdfb032fda00d6ce",
-                "reference": "9a63ca5257a8efaed96a3df8bdfb032fda00d6ce",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/01a9a2280d53222c26014d7b8d9349532f336926",
+                "reference": "01a9a2280d53222c26014d7b8d9349532f336926",
                 "shasum": ""
             },
             "require": {
@@ -11263,7 +11186,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-05T08:22:14+00:00"
+            "time": "2024-09-05T08:46:36+00:00"
         },
         {
             "name": "symfony/maker-bundle",
@@ -11582,12 +11505,13 @@
         "symfony/ux-twig-component": 20,
         "symfonycasts/sass-bundle": 20,
         "twbs/bootstrap": 20,
-        "friendsofphp/php-cs-fixer": 20
+        "friendsofphp/php-cs-fixer": 20,
+        "phpstan/phpstan": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-redis": "*",
