@@ -6,14 +6,14 @@
     {% block header %}
         <header>
             {% block nav %}
-            <twig:Navbar active="" />
+                <twig:Navbar active="" />
             {% endblock %}
         </header>
     {% endblock %}
 
     <div class="app container mt-4">
-        {% block app %}
-
-        {% endblock %}
+        <turbo-frame id="app">
+            {% block app %}{% endblock %}
+        </turbo-frame>
     </div>
 {% endblock %}
