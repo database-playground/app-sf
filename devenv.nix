@@ -11,6 +11,7 @@
 
   # https://devenv.sh/languages/
   languages.php.enable = true;
+  languages.php.version = "8.3";
   languages.php.extensions = [ "xdebug" "redis" ];
   # https://devenv.sh/processes/
   # processes.cargo-watch.exec = "cargo-watch";
