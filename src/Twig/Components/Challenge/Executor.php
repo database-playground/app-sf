@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge;
 
+require_once __DIR__.'/EventConstant.php';
+
 use App\Entity\Question;
 use App\Service\QuestionDbRunnerService;
 use Psr\Cache\InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
+use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
 final class Executor
 {
+    use ComponentToolsTrait;
     use DefaultActionTrait;
 
     public function __construct(
@@ -32,26 +37,20 @@ final class Executor
     public string $query = '';
 
     /**
-     * @var bool whether the query is pending
-     */
-    public bool $pending = false;
-
-    /**
-     * @var array<array<string, mixed>> the result of the query
-     */
-    #[LiveProp]
-    public array $result = [];
-
-    /**
      * @throws InvalidArgumentException
      */
     #[LiveAction]
     public function execute(): void
     {
-        $this->pending = true;
-        $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
+        $this->emit(QueryPendingEvent);
 
-        $this->result = $result;
-        $this->pending = false;
+        try {
+            $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
+            $this->emit(QueryCompletedEvent, ['result' => $result]);
+        } catch (HttpException $e) {
+            $this->emit(QueryFailedEvent, ['error' => $e->getMessage(), 'code' => $e->getStatusCode()]);
+        } catch (\Exception $e) {
+            $this->emit(QueryFailedEvent, ['error' => $e->getMessage(), 'code' => 500]);
+        }
     }
 }

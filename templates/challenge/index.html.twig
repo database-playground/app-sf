@@ -7,14 +7,22 @@
     <main>
         <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" />
         <hr>
-        <twig:Challenge:Description class="mt-4" :question="question" />
-        <twig:Challenge:Executor class="mt-4 w-50" :question="question">
-            <twig:block name="actions">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-secondary">指引</button>
-                    <button type="button" class="btn btn-outline-secondary">解答影音</button>
-                </div>
-            </twig:block>
-        </twig:Challenge:Executor>
+        <section class="challenge-primary row">
+            <div class="challenge-primary__left col">
+                <twig:Challenge:Description class="mt-4" :question="question" />
+                <twig:Challenge:Executor class="mt-4" :question="question">
+                    <twig:block name="actions">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary">指引</button>
+                            <button type="button" class="btn btn-outline-secondary">解答影音</button>
+                        </div>
+                    </twig:block>
+                </twig:Challenge:Executor>
+            </div>
+
+            <div class="challenge-primary__right col">
+                <twig:Challenge:ResultPresenter />
+            </div>
+        </section>
     </main>
 {% endblock %}

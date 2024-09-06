@@ -1,0 +1,32 @@
+<div{{ attributes.defaults({ class: "challenge-result-presenter" }) }}>
+    {% if this.result %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                {% for cell in this.rows %}
+                    <th scope="col">{{ cell }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for column in this.columns %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    {% for cell in column %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% elseif this.error %}
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ this.error.property|trans }}：</strong>{{ this.error.message }}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            提交答案後，這裡會顯示答案～
+        </div>
+    {% endif %}
+</div>

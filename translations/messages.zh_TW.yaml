@@ -29,3 +29,6 @@ Schema SQL: 結構 SQL
 Name: 名稱
 Password: 密碼
 New password: 新密碼
+
+challenge.error-type.user: 輸入錯誤
+challenge.error-type.server: 伺服器錯誤
