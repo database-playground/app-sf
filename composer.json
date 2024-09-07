@@ -1,139 +1,139 @@
 {
-    "name": "database-playground/app",
-    "description": "The web application of Database Playground.",
-    "type": "project",
-    "license": "AGPL-3.0-or-later",
-    "minimum-stability": "dev",
-    "prefer-stable": false,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/doctrine/DoctrineBundle"
-        }
-    ],
-    "require": {
-        "php": ">=8.3",
-        "ext-ctype": "*",
-        "ext-iconv": "*",
-        "ext-redis": "*",
-        "ext-sqlite3": "*",
-        "doctrine/dbal": "^3",
-        "doctrine/doctrine-bundle": "2.12.x",
-        "doctrine/doctrine-migrations-bundle": "^3.3",
-        "doctrine/orm": "^3.2",
-        "doctrine/sql-formatter": "1.5.x-dev",
-        "easycorp/easyadmin-bundle": "^4.11",
-        "google/protobuf": "dev-master",
-        "phpdocumentor/reflection-docblock": "^5.4",
-        "phpstan/phpdoc-parser": "^1.29",
-        "runtime/frankenphp-symfony": "dev-main",
-        "sensiolabs/typescript-bundle": "dev-main",
-        "symfony/asset": "7.2.*",
-        "symfony/asset-mapper": "7.2.*",
-        "symfony/console": "7.2.*",
-        "symfony/doctrine-messenger": "7.2.*",
-        "symfony/dotenv": "7.2.*",
-        "symfony/expression-language": "7.2.*",
-        "symfony/flex": "^2",
-        "symfony/form": "7.2.*",
-        "symfony/framework-bundle": "7.2.*",
-        "symfony/http-client": "7.2.*",
-        "symfony/intl": "7.2.*",
-        "symfony/mailer": "7.2.*",
-        "symfony/mime": "7.2.*",
-        "symfony/monolog-bundle": "^3.0",
-        "symfony/notifier": "7.2.*",
-        "symfony/password-hasher": "7.2.*",
-        "symfony/process": "7.2.*",
-        "symfony/property-access": "7.2.*",
-        "symfony/property-info": "7.2.*",
-        "symfony/runtime": "7.2.*",
-        "symfony/security-bundle": "7.2.*",
-        "symfony/serializer": "7.2.*",
-        "symfony/stimulus-bundle": "^2.19",
-        "symfony/string": "7.2.*",
-        "symfony/translation": "7.2.*",
-        "symfony/twig-bundle": "7.2.*",
-        "symfony/ux-live-component": "2.x-dev",
-        "symfony/ux-turbo": "^2.19",
-        "symfony/ux-twig-component": "2.x-dev",
-        "symfony/validator": "7.2.*",
-        "symfony/web-link": "7.2.*",
-        "symfony/yaml": "7.2.*",
-        "symfonycasts/sass-bundle": "dev-main",
-        "twbs/bootstrap": "dev-main",
-        "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
-    },
-    "config": {
-        "allow-plugins": {
-            "php-http/discovery": true,
-            "symfony/flex": true,
-            "symfony/runtime": true
-        },
-        "sort-packages": true
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "App\\Tests\\": "tests/"
-        }
-    },
-    "replace": {
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php73": "*",
-        "symfony/polyfill-php74": "*",
-        "symfony/polyfill-php80": "*",
-        "symfony/polyfill-php81": "*",
-        "symfony/polyfill-php82": "*",
-        "symfony/polyfill-php83": "*"
-    },
-    "scripts": {
-        "lint": [
-            "pnpm typecheck",
-            "pnpm lint",
-            "pnpm format",
-            "php-cs-fixer fix --config .php-cs-fixer.dist.php",
-            "phpstan analyse"
-        ],
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
-    },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": false,
-            "require": "7.2.*",
-            "docker": true
-        }
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "dev-master",
-        "phpstan/phpstan": "2.0.x-dev",
-        "phpunit/phpunit": "^10",
-        "symfony/browser-kit": "7.2.*",
-        "symfony/css-selector": "7.2.*",
-        "symfony/debug-bundle": "7.2.*",
-        "symfony/maker-bundle": "^1.0",
-        "symfony/phpunit-bridge": "^7.1",
-        "symfony/stopwatch": "7.2.*",
-        "symfony/web-profiler-bundle": "7.2.*"
+  "name": "database-playground/app",
+  "description": "The web application of Database Playground.",
+  "type": "project",
+  "license": "AGPL-3.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": false,
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/doctrine/DoctrineBundle"
     }
+  ],
+  "require": {
+    "php": ">=8.3",
+    "ext-ctype": "*",
+    "ext-iconv": "*",
+    "ext-redis": "*",
+    "ext-sqlite3": "*",
+    "doctrine/dbal": "^3",
+    "doctrine/doctrine-bundle": "2.12.x",
+    "doctrine/doctrine-migrations-bundle": "^3.3",
+    "doctrine/orm": "^3.2",
+    "doctrine/sql-formatter": "1.5.x-dev",
+    "easycorp/easyadmin-bundle": "^4.11",
+    "google/protobuf": "dev-master",
+    "phpdocumentor/reflection-docblock": "^5.4",
+    "phpstan/phpdoc-parser": "^1.29",
+    "runtime/frankenphp-symfony": "dev-main",
+    "sensiolabs/typescript-bundle": "dev-main",
+    "symfony/asset": "7.2.*",
+    "symfony/asset-mapper": "7.2.*",
+    "symfony/console": "7.2.*",
+    "symfony/doctrine-messenger": "7.2.*",
+    "symfony/dotenv": "7.2.*",
+    "symfony/expression-language": "7.2.*",
+    "symfony/flex": "^2",
+    "symfony/form": "7.2.*",
+    "symfony/framework-bundle": "7.2.*",
+    "symfony/http-client": "7.2.*",
+    "symfony/intl": "7.2.*",
+    "symfony/mailer": "7.2.*",
+    "symfony/mime": "7.2.*",
+    "symfony/monolog-bundle": "^3.0",
+    "symfony/notifier": "7.2.*",
+    "symfony/password-hasher": "7.2.*",
+    "symfony/process": "7.2.*",
+    "symfony/property-access": "7.2.*",
+    "symfony/property-info": "7.2.*",
+    "symfony/runtime": "7.2.*",
+    "symfony/security-bundle": "7.2.*",
+    "symfony/serializer": "7.2.*",
+    "symfony/stimulus-bundle": "^2.19",
+    "symfony/string": "7.2.*",
+    "symfony/translation": "7.2.*",
+    "symfony/twig-bundle": "7.2.*",
+    "symfony/ux-live-component": "2.x-dev",
+    "symfony/ux-turbo": "^2.19",
+    "symfony/ux-twig-component": "2.x-dev",
+    "symfony/validator": "7.2.*",
+    "symfony/web-link": "7.2.*",
+    "symfony/yaml": "7.2.*",
+    "symfonycasts/sass-bundle": "dev-main",
+    "twbs/bootstrap": "dev-main",
+    "twig/extra-bundle": "^2.12|^3.0",
+    "twig/twig": "^2.12|^3.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true,
+      "symfony/flex": true,
+      "symfony/runtime": true
+    },
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
+    }
+  },
+  "replace": {
+    "symfony/polyfill-ctype": "*",
+    "symfony/polyfill-iconv": "*",
+    "symfony/polyfill-php72": "*",
+    "symfony/polyfill-php73": "*",
+    "symfony/polyfill-php74": "*",
+    "symfony/polyfill-php80": "*",
+    "symfony/polyfill-php81": "*",
+    "symfony/polyfill-php82": "*",
+    "symfony/polyfill-php83": "*"
+  },
+  "scripts": {
+    "lint": [
+      "pnpm typecheck",
+      "pnpm lint",
+      "pnpm format",
+      "php-cs-fixer fix --config .php-cs-fixer.dist.php",
+      "phpstan analyse"
+    ],
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd",
+      "importmap:install": "symfony-cmd"
+    },
+    "post-install-cmd": [
+      "@auto-scripts"
+    ],
+    "post-update-cmd": [
+      "@auto-scripts"
+    ]
+  },
+  "conflict": {
+    "symfony/symfony": "*"
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "7.2.*",
+      "docker": true
+    }
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "dev-master",
+    "phpstan/phpstan": "2.0.x-dev",
+    "phpunit/phpunit": "^10",
+    "symfony/browser-kit": "7.2.*",
+    "symfony/css-selector": "7.2.*",
+    "symfony/debug-bundle": "7.2.*",
+    "symfony/maker-bundle": "^1.0",
+    "symfony/phpunit-bridge": "^7.1",
+    "symfony/stopwatch": "7.2.*",
+    "symfony/web-profiler-bundle": "7.2.*"
+  }
 }

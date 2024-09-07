@@ -1,4 +1,4 @@
-import { startStimulusApp } from '@symfony/stimulus-bundle';
+import { startStimulusApp } from "@symfony/stimulus-bundle";
 
 startStimulusApp();
 // register any custom, 3rd party controllers here

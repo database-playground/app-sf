@@ -1,15 +1,15 @@
-@import '../../vendor/twbs/bootstrap/scss/functions';
+@import "../../vendor/twbs/bootstrap/scss/functions";
 
 // Variables
 $prefix: bs-;
 $spacer: 0.8rem;
-$primary: #4154F1;
+$primary: #4154f1;
 $navbar-padding-x: 2rem;
-$navbar-padding-y: $spacer * .85;
+$navbar-padding-y: $spacer * 0.85;
 $input-btn-border-width: var(--#{$prefix}border-width);
 $input-border-width: $input-btn-border-width;
 $input-height-border: calc(#{$input-border-width} * 2);
-$form-floating-height: add(3.5rem*0.8, $input-height-border);
+$form-floating-height: add(3.5rem * 0.8, $input-height-border);
 $form-floating-padding-y: 0.65rem;
 
 @import "../../vendor/twbs/bootstrap/scss/bootstrap";
@@ -40,10 +40,16 @@ ul.credit {
 // overrides
 .app-navbar {
   &__nav_area {
-    @extend .d-flex, .flex-column, .flex-lg-row,
-      .justify-content-start, .justify-content-lg-between,
-      .align-items-start, .align-items-lg-center,
-      .gap-2, .my-2, .ms-2;
+    @extend .d-flex,
+      .flex-column,
+      .flex-lg-row,
+      .justify-content-start,
+      .justify-content-lg-between,
+      .align-items-start,
+      .align-items-lg-center,
+      .gap-2,
+      .my-2,
+      .ms-2;
     width: 100%;
   }
 
@@ -127,5 +133,4 @@ h1 {
       @extend .list-inline-item;
     }
   }
-
 }
