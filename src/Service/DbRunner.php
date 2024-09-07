@@ -77,7 +77,7 @@ readonly class DbRunner
         // Our PHP process has a hard limit of the memory usage,
         // and we can crash it as early as possible when receiving a big result.
 
-        $process = new Process(['php', __DIR__.'/DbRunnerProcess.php']);
+        $process = new Process(['php', __DIR__.'/Processes/DbRunnerProcess.php']);
         $process->setTimeout($this->timeout);
         $process->setInput(serialize([
             'schema' => $schema,
