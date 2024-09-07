@@ -13,6 +13,10 @@
   languages.php.enable = true;
   languages.php.version = "8.3";
   languages.php.extensions = [ "xdebug" "redis" ];
+
+  languages.javascript.enable = true;
+  languages.javascript.corepack.enable = true;
+
   # https://devenv.sh/processes/
   # processes.cargo-watch.exec = "cargo-watch";
 

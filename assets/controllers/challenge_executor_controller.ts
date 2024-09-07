@@ -1,27 +1,29 @@
-//@ts-check
-
-import { Controller } from '@hotwired/stimulus';
+import {Controller} from '@hotwired/stimulus';
 import {EditorView, basicSetup} from "codemirror"
 import {sql} from "@codemirror/lang-sql";
-import { getComponent, Component } from '@symfony/ux-live-component';
+import {getComponent} from '@symfony/ux-live-component';
 
-
-/**
- * @prop {string} modelNameValue
- * @prop {string} editorSelectorValue
- */
-export default class extends Controller {
+export default class extends Controller<HTMLElement> {
     static values = {
         modelName: String,
         editorSelector: String,
     }
 
+    declare modelNameValue: string;
+    declare editorSelectorValue: string;
+
+    view: EditorView | undefined
+
     async connect() {
-        /** @type {Component} */
         const component = await getComponent(this.element);
 
         const modelName = this.modelNameValue;
         const editorSelector = this.editorSelectorValue;
+
+        const $editor = this.element.querySelector(editorSelector);
+        if (!$editor) {
+            throw new Error(`Element not found: ${editorSelector}`);
+        }
 
         this.view = new EditorView({
             extensions: [
@@ -31,7 +33,7 @@ export default class extends Controller {
                     component.set(modelName, update.state.doc.toString(), true, true);
                 })
             ],
-            parent: this.element.querySelector(editorSelector),
+            parent: $editor,
         });
     }
 
