@@ -19,7 +19,8 @@
     "**/node_modules",
     "**/vendor",
     "**/*-lock.json",
-    "templates/**/*.twig"
+    "templates/**/*.twig",
+    "**/var"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.91.8.wasm",

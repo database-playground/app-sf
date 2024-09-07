@@ -9,6 +9,7 @@ export default [
       "assets/vendor/**/*",
       "vendor/**/*",
       "public/bundles/**/*",
+      "var/**/*",
     ],
   },
   { languageOptions: { globals: globals.browser } },
