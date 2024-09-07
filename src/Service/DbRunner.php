@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Exception\QueryExecuteException;
+use App\Exception\ResourceException;
 use App\Exception\SchemaExecuteException;
-use App\Exception\TooManyResultsException;
+use App\Exception\TimedOutException;
 use Doctrine\SqlFormatter\SqlFormatter;
-
-const MAX_RESULT_SIZE = 1000;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Process;
 
 /**
  * A class to run queries on a SQLite3 database.
@@ -18,8 +20,12 @@ readonly class DbRunner
 {
     private SqlFormatter $formatter;
 
-    public function __construct()
-    {
+    /**
+     * @param float $timeout The timeout in seconds. Default is 3 seconds.
+     */
+    public function __construct(
+        protected float $timeout = 3,
+    ) {
         $this->formatter = new SqlFormatter();
     }
 
@@ -54,54 +60,75 @@ readonly class DbRunner
      * @param string $schema the schema to create the database
      * @param string $query  the query to run
      *
-     * @return \Generator<int, array<string, mixed>, void, void> the result of the query
+     * @return array<array<string, mixed>> the result of the query
      *
-     * @throws SchemaExecuteException  if the schema could not be executed
-     * @throws QueryExecuteException   if the query could not be executed
-     * @throws TooManyResultsException if the result size exceeds MAX_RESULT_SIZE
+     * @throws SchemaExecuteException if the schema could not be executed
+     * @throws QueryExecuteException  if the query could not be executed
+     * @throws ResourceException      if the resource is exhausted (exit code = 255)
+     * @throws \RuntimeException      if the unexpected error is received
      */
-    public function runQuery(string $schema, string $query): \Generator
+    public function runQuery(string $schema, string $query): array
     {
-        $sqlite = new \SQLite3(':memory:');
-        $sqlite->busyTimeout(3000 /* milliseconds */);
-        $sqlite->enableExceptions(true);
+        // Use a process to prevent the SQLite3 extension from crashing the PHP process.
+        // For example, CTE queries and randomblob can crash the PHP process.
+        // See the test cases for more details.
+        //
+        // We don't yield over the result; instead, we store in the memory.
+        // Our PHP process has a hard limit of the memory usage,
+        // and we can crash it as early as possible when receiving a big result.
+
+        $process = new Process(['php', __DIR__.'/DbRunnerProcess.php']);
+        $process->setTimeout($this->timeout);
+        $process->setInput(serialize([
+            'schema' => $schema,
+            'query' => $query,
+        ]));
 
         try {
-            try {
-                $sqlite->exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL;');
-            } catch (\Exception) {
-                throw new SchemaExecuteException($sqlite->lastErrorMsg());
+            $process->mustRun();
+
+            $output = $process->getOutput();
+            $outputUnserialized = unserialize($process->getOutput());
+            if (\is_array($outputUnserialized)
+                && isset($outputUnserialized['result'])
+                && \is_array($outputUnserialized['result'])) {
+                return $outputUnserialized['result'];
             }
 
-            try {
-                $sqlite->exec($schema);
-            } catch (\Exception) {
-                throw new SchemaExecuteException($sqlite->lastErrorMsg());
+            throw new \RuntimeException("unexpected output: $output");
+        } catch (ProcessFailedException) {
+            $exitCode = $process->getExitCode();
+
+            if (255 === $exitCode) {
+                throw new ResourceException();
             }
 
-            try {
-                $result = $sqlite->query($query);
-            } catch (\Exception) {
-                throw new QueryExecuteException($sqlite->lastErrorMsg());
-            }
+            if (1 === $exitCode) {
+                $output = $process->getErrorOutput();
+                $outputUnserialized = unserialize($output);
+                if (
+                    \is_array($outputUnserialized)
+                    && isset($outputUnserialized['error'])
+                    && isset($outputUnserialized['message'])
+                    && \is_string($outputUnserialized['error'])
+                    && \is_string($outputUnserialized['message'])) {
+                    $error = $outputUnserialized['error'];
+                    $message = $outputUnserialized['message'];
 
-            if (\is_bool($result)) {
-                throw new QueryExecuteException("invalid query given: '$query'");
-            }
-
-            try {
-                $yieldCount = 0;
-                while ($row = $result->fetchArray(\SQLITE3_ASSOC)) {
-                    yield $row;
-                    if (++$yieldCount >= MAX_RESULT_SIZE) {
-                        throw new TooManyResultsException(MAX_RESULT_SIZE);
+                    switch ($error) {
+                        case 'RuntimeException':
+                            throw new \RuntimeException($message);
+                        case 'SchemaExecuteException':
+                            throw new SchemaExecuteException($message);
+                        case 'QueryExecuteException':
+                            throw new QueryExecuteException($message);
                     }
                 }
-            } finally {
-                $result->finalize();
             }
-        } finally {
-            $sqlite->close();
+
+            throw new \RuntimeException("Unexpected exit code received: $exitCode");
+        } catch (ProcessTimedOutException) {
+            throw new TimedOutException($this->timeout);
         }
     }
 }

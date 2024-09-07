@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Service;
 
 use App\Exception\QueryExecuteException;
+use App\Exception\ResourceException;
 use App\Exception\SchemaExecuteException;
-use App\Exception\TooManyResultsException;
+use App\Exception\TimedOutException;
 use App\Service\DbRunner;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -283,7 +284,21 @@ class DbRunnerTest extends TestCase
         )
         SELECT * FROM cte;';
 
-        $this->expectException(TooManyResultsException::class);
+        $this->expectException(ResourceException::class);
+        $generator = $dbrunner->runQuery($schema, $query);
+
+        foreach ($generator as $idx => $actual) {
+        }
+    }
+
+    public function testRunQueryBigPayload(): void
+    {
+        $dbrunner = new DbRunner(timeout: 1);
+
+        $schema = '';
+        $query = 'SELECT 1,2,3,4,5,6,randomblob(1000000000);';
+
+        $this->expectException(TimedOutException::class);
         $generator = $dbrunner->runQuery($schema, $query);
 
         foreach ($generator as $idx => $actual) {
