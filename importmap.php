@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 return [
     'app' => [
-        'path' => './assets/app.js',
+        'path' => './assets/app.ts',
         'entrypoint' => true,
     ],
     '@symfony/stimulus-bundle' => [
