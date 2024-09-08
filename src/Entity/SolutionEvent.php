@@ -45,10 +45,8 @@ class SolutionEvent
         return $this;
     }
 
-    public function getSubmitter(): User
+    public function getSubmitter(): ?User
     {
-        \assert(null !== $this->submitter);
-
         return $this->submitter;
     }
 
@@ -59,10 +57,8 @@ class SolutionEvent
         return $this;
     }
 
-    public function getQuestion(): Question
+    public function getQuestion(): ?Question
     {
-        \assert(null !== $this->question);
-
         return $this->question;
     }
 

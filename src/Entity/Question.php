@@ -86,9 +86,7 @@ class Question
 
     public function getDifficulty(): QuestionDifficulty
     {
-        \assert(null !== $this->difficulty);
-
-        return $this->difficulty;
+        return $this->difficulty ?? QuestionDifficulty::Unspecified;
     }
 
     public function setDifficulty(QuestionDifficulty $difficulty): static
