@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge;
 
-require_once __DIR__.'/EventConstant.php';
-
 use App\Entity\Question;
 use App\Exception\QueryExecuteException;
 use App\Service\QuestionDbRunnerService;
@@ -43,7 +41,7 @@ final class Executor
     #[LiveAction]
     public function execute(): void
     {
-        $this->emit(QueryPendingEvent);
+        $this->emit('challenge:query-pending');
 
         try {
             $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
@@ -57,11 +55,11 @@ final class Executor
 
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
 
-            $this->emit(QueryCompletedEvent, ['result' => $result, 'same' => $result == $answer]);
+            $this->emit('challenge:query-completed', ['result' => $result, 'same' => $result == $answer]);
         } catch (HttpException $e) {
-            $this->emit(QueryFailedEvent, ['error' => $e->getMessage(), 'code' => $e->getStatusCode()]);
+            $this->emit('challenge:query-failed', ['error' => $e->getMessage(), 'code' => $e->getStatusCode()]);
         } catch (\Exception $e) {
-            $this->emit(QueryFailedEvent, ['error' => $e->getMessage(), 'code' => 500]);
+            $this->emit('challenge:query-failed', ['error' => $e->getMessage(), 'code' => 500]);
         }
     }
 }
