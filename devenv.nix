@@ -44,7 +44,6 @@
   pre-commit.hooks.lint = {
     enable = true;
     entry = "composer run-script lint";
-    types = [ "php" ];
     pass_filenames = false;
   };
 
