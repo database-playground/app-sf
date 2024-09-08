@@ -38,7 +38,7 @@ security:
   access_control:
     # apps
     - { route: app_overview, roles: ROLE_USER }
-    - { route: app_sql_execute, roles: ROLE_USER }
+    - { route: app_challenge, roles: ROLE_USER }
     - { route: app_exercises, roles: ROLE_USER }
 
     # admin
