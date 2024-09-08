@@ -122,8 +122,16 @@ h1 {
     font-weight: bold;
   }
 
-  &__status {
-    opacity: 0.8;
+  &__status[data-status~="solved"] {
+    @extend .text-success;
+  }
+
+  &__status[data-status~=".failed"] {
+    @extend .text-danger;
+  }
+
+  &__status[data-status~="not-solved"] {
+    @extend .opacity-75;
   }
 
   &__lists {
@@ -133,4 +141,8 @@ h1 {
       @extend .list-inline-item;
     }
   }
+}
+
+.challenge-result-event-presenter {
+  table-layout: fixed;
 }

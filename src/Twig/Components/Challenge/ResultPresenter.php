@@ -23,7 +23,7 @@ final class ResultPresenter
      * @var string[]
      */
     public array $tabs = [
-        'result', 'answer',
+        'result', 'answer', 'events',
     ];
 
     /**

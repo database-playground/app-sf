@@ -15,6 +15,8 @@
     <div class="p-2">
         {% if currentTab == "answer" %}
             <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="this.answerPayload"/>
+        {% elseif currentTab == "events" %}
+            <twig:Challenge:ResultPresenterModule:EventPresenter :question="question" />
         {% else %}
             <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userPayload"/>
         {% endif %}

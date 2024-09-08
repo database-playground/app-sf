@@ -41,7 +41,12 @@ challenge.error-type.server: 伺服器錯誤
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案
+result_presenter.tabs.events: 查詢記錄
 
 solution_event_status.unspecified: 未知值
 solution_event_status.failed: 答錯
 solution_event_status.passed: 答對
+
+challenge.solve-state.solved: 已經解答
+challenge.solve-state.failed: 尚未解答成功
+challenge.solve-state.not-solved: 尚未作答
