@@ -1,0 +1,20 @@
+<table {{ attributes.defaults({ class: "table table-light table-hover" }) }}>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        {% for cell in this.rows %}
+            <th scope="col">{{ cell }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for column in this.result %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            {% for cell in column %}
+                <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

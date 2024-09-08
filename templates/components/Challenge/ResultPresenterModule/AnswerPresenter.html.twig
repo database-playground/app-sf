@@ -1,0 +1,15 @@
+<div {{ attributes.defaults({ default: "challenge-result-answer-presenter" }) }}>
+    {% if this.result %}
+    <twig:Challenge:ResultPresenterModule:Table :result="this.result"/>
+    {% elseif this.error %}
+    <div class="alert alert-danger" role="alert">
+        <strong>{{ this.error.property|trans }}：</strong>{{ this.error.message }}
+    </div>
+    {% elseif this.loading %}
+    <twig:Challenge:ResultPresenterModule:TableSkeleton />
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        完成查詢語句後，點選「執行」按鈕以檢視結果。
+    </div>
+    {% endif %}
+</div>

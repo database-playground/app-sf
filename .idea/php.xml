@@ -200,13 +200,17 @@
   <component name="PhpInterpretersPhpInfoCache">
     <phpInfoCache>
       <interpreter name="Devenv">
-        <phpinfo binary_type="PHP" php_cgi="/nix/store/215mfiahwrn99bssid9jpikdka4mmdk4-php-with-extensions-8.2.22/bin/php-cgi" php_cli="/nix/store/215mfiahwrn99bssid9jpikdka4mmdk4-php-with-extensions-8.2.22/bin/php" path_separator=":" version="8.2.22">
-          <additional_php_ini>/nix/store/215mfiahwrn99bssid9jpikdka4mmdk4-php-with-extensions-8.2.22/lib/php.ini</additional_php_ini>
+        <phpinfo binary_type="PHP" php_cgi="/nix/store/xn22vi2f14g405ma46jlganx1a09rxlz-php-with-extensions-8.3.11/bin/php-cgi" php_cli="/nix/store/xn22vi2f14g405ma46jlganx1a09rxlz-php-with-extensions-8.3.11/bin/php" path_separator=":" version="8.3.11">
+          <additional_php_ini>/nix/store/xn22vi2f14g405ma46jlganx1a09rxlz-php-with-extensions-8.3.11/lib/php.ini</additional_php_ini>
           <configuration_file />
           <configuration_options>
-            <configuration_option name="include_path" value=".:/nix/store/lxxsmxr7zchm2ri3iqwpr4l5gkfbqa73-php-8.2.22/lib/php" />
+            <configuration_option name="include_path" value=".:/nix/store/9nn6x3364dvxd1hvdibapd5paak7yzl2-php-8.3.11/lib/php" />
           </configuration_options>
-          <debuggers />
+          <debuggers>
+            <debugger_info debugger="xdebug" debugger_version="3.3.2">
+              <debug_extensions />
+            </debugger_info>
+          </debuggers>
           <loaded_extensions>
             <extension name="Core" />
             <extension name="PDO" />
@@ -249,6 +253,7 @@
             <extension name="posix" />
             <extension name="random" />
             <extension name="readline" />
+            <extension name="redis" />
             <extension name="session" />
             <extension name="soap" />
             <extension name="sockets" />
@@ -257,6 +262,7 @@
             <extension name="standard" />
             <extension name="sysvsem" />
             <extension name="tokenizer" />
+            <extension name="xdebug" />
             <extension name="xml" />
             <extension name="xmlreader" />
             <extension name="xmlwriter" />

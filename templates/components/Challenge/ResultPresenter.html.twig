@@ -1,32 +1,14 @@
 <div{{ attributes.defaults({ class: "challenge-result-presenter" }) }}>
-    {% if this.result %}
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                {% for cell in this.rows %}
-                    <th scope="col">{{ cell }}</th>
-                {% endfor %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for column in this.columns %}
-                <tr>
-                    <th scope="row">{{ loop.index }}</th>
-                    {% for cell in column %}
-                        <td>{{ cell }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% elseif this.error %}
-        <div class="alert alert-danger" role="alert">
-            <strong>{{ this.error.property|trans }}：</strong>{{ this.error.message }}
-        </div>
-    {% else %}
-        <div class="alert alert-info" role="alert">
-            提交答案後，這裡會顯示答案～
-        </div>
-    {% endif %}
+    <ul class="nav nav-underline nav-fill mb-3">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">執行結果</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">正確答案</a>
+        </li>
+    </ul>
+
+    <div class="p-2">
+        <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userPayload"/>
+    </div>
 </div>
