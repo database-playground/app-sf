@@ -28,13 +28,17 @@ final class Description
      */
     public function getColumnsOfAnswer(): array
     {
-        $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
+        try {
+            $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
 
-        // check if we have at least one row
-        if (empty($answer)) {
-            return [];
+            // check if we have at least one row
+            if (empty($answer)) {
+                return [];
+            }
+
+            return array_keys($answer[0]);
+        } catch (\Throwable $e) {
+            return ["⚠️ Invalid Question: {$e->getMessage()}"];
         }
-
-        return array_keys($answer[0]);
     }
 }

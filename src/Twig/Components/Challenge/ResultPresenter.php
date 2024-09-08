@@ -6,7 +6,8 @@ namespace App\Twig\Components\Challenge;
 
 require_once __DIR__.'/EventConstant.php';
 
-use Psr\Log\LoggerInterface;
+use App\Entity\Question;
+use App\Service\QuestionDbRunnerService;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
@@ -18,13 +19,48 @@ final class ResultPresenter
 {
     use DefaultActionTrait;
 
+    /**
+     * The available tabs.
+     *
+     * @var string[]
+     */
+    public array $tabs = [
+        'result', 'answer',
+    ];
+
+    /**
+     * @var Question $question the question to present the answer
+     */
+    #[LiveProp]
+    public Question $question;
+
+    /**
+     * @var string $currentTab the current active tab
+     */
+    #[LiveProp(writable: true)]
+    public string $currentTab = 'result';
+
     #[LiveProp]
     public ?Payload $userPayload;
 
     public function __construct(
-        public LoggerInterface $logger,
+        public QuestionDbRunnerService $questionDbRunnerService,
     ) {
         $this->userPayload = null;
+    }
+
+    /**
+     * Get the wrapped payload of the answer.
+     */
+    public function getAnswerPayload(): ?Payload
+    {
+        try {
+            $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
+        } catch (\Throwable $e) {
+            return Payload::fromError(ErrorProperty::fromCode(500), $e->getMessage());
+        }
+
+        return Payload::fromResult($answer);
     }
 
     /**

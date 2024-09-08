@@ -32,3 +32,6 @@ New password: 新密碼
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤
+
+result_presenter.tabs.result: 執行結果
+result_presenter.tabs.answer: 正確答案

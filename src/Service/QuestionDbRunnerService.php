@@ -10,6 +10,7 @@ use App\Exception\QueryExecuteException;
 use App\Exception\SchemaExecuteException;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Lock\LockFactory;
 
 /**
  * The {@link DbRunnerService} that retrieves the answer and schema
@@ -18,7 +19,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 readonly class QuestionDbRunnerService
 {
     public function __construct(
-        public DbRunnerService $dbRunnerService,
+        protected DbRunnerService $dbRunnerService,
+        protected LockFactory $lockFactory,
     ) {
     }
 
@@ -61,7 +63,16 @@ readonly class QuestionDbRunnerService
      */
     public function getAnswerResult(Question $question): array
     {
-        return $this->getResult($question, $question->getAnswer());
+        $lock = $this->lockFactory->createLock("question_{$question->getId()}_answer");
+
+        try {
+            $lock->acquire(true);
+            $result = $this->getResult($question, $question->getAnswer());
+        } finally {
+            $lock->release();
+        }
+
+        return $result;
     }
 
     /**

@@ -9,7 +9,7 @@
         <hr>
         <section class="challenge-primary row">
             <div class="challenge-primary__left col">
-                <twig:Challenge:Description class="mt-4" :question="question" />
+                <twig:Challenge:Description class="mt-4" :question="question" loading="defer" />
                 <twig:Challenge:Executor class="mt-4" :question="question">
                     <twig:block name="actions">
                         <div class="btn-group">
@@ -21,7 +21,7 @@
             </div>
 
             <div class="challenge-primary__right col">
-                <twig:Challenge:ResultPresenter />
+                <twig:Challenge:ResultPresenter :question="question" />
             </div>
         </section>
     </main>
