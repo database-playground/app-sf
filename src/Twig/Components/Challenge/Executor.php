@@ -7,6 +7,7 @@ namespace App\Twig\Components\Challenge;
 require_once __DIR__.'/EventConstant.php';
 
 use App\Entity\Question;
+use App\Exception\QueryExecuteException;
 use App\Service\QuestionDbRunnerService;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -46,6 +47,14 @@ final class Executor
 
         try {
             $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
+
+            // check if the result is UTF-8 encoded
+            try {
+                json_encode($result, \JSON_THROW_ON_ERROR);
+            } catch (\JsonException $e) {
+                throw new QueryExecuteException('The result is not UTF-8 encoded.', previous: $e);
+            }
+
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
 
             $this->emit(QueryCompletedEvent, ['result' => $result, 'same' => $result == $answer]);

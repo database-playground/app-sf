@@ -11,8 +11,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  */
 class QueryExecuteException extends BadRequestHttpException
 {
-    public function __construct(string $message)
+    public function __construct(string $message, ?\Throwable $previous = null)
     {
-        parent::__construct($message);
+        parent::__construct($message, $previous);
     }
 }
