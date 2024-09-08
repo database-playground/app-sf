@@ -55,6 +55,11 @@ class Question
         $this->solutionEvents = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return "#{$this->id}: {$this->title}";
+    }
+
     public function getId(): int
     {
         return (int) $this->id;
