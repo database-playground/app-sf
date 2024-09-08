@@ -35,3 +35,7 @@ challenge.error-type.server: 伺服器錯誤
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案
+
+solution_event_status.unspecified: 未知值
+solution_event_status.failed: 答錯
+solution_event_status.passed: 答對

@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Entity\Trait\WithModelTimeInfo;
 use App\Repository\QuestionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,6 +43,17 @@ class Question
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $solution_video = null;
+
+    /**
+     * @var Collection<int, SolutionEvent>
+     */
+    #[ORM\OneToMany(targetEntity: SolutionEvent::class, mappedBy: 'question', orphanRemoval: true)]
+    private Collection $solutionEvents;
+
+    public function __construct()
+    {
+        $this->solutionEvents = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -129,6 +142,36 @@ class Question
     public function setSolutionVideo(?string $solution_video): static
     {
         $this->solution_video = $solution_video;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SolutionEvent>
+     */
+    public function getSolutionEvents(): Collection
+    {
+        return $this->solutionEvents;
+    }
+
+    public function addSolutionEvent(SolutionEvent $solutionEvent): static
+    {
+        if (!$this->solutionEvents->contains($solutionEvent)) {
+            $this->solutionEvents->add($solutionEvent);
+            $solutionEvent->setQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSolutionEvent(SolutionEvent $solutionEvent): static
+    {
+        if ($this->solutionEvents->removeElement($solutionEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($solutionEvent->getQuestion() === $this) {
+                $solutionEvent->setQuestion(null);
+            }
+        }
 
         return $this;
     }
