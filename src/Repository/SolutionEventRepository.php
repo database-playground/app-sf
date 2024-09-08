@@ -31,6 +31,8 @@ class SolutionEventRepository extends ServiceEntityRepository
         return $this->findBy([
             'submitter' => $user,
             'question' => $question,
+        ], orderBy: [
+            'id' => 'DESC',
         ]);
     }
 
