@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Group;
 use App\Entity\Question;
 use App\Entity\Schema;
+use App\Entity\SolutionEvent;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -39,5 +40,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Question management');
         yield MenuItem::linkToCrud('Schema', 'fa fa-database', Schema::class);
         yield MenuItem::linkToCrud('Questions', 'fa fa-question', Question::class);
+
+        yield MenuItem::section('Events');
+        yield MenuItem::linkToCrud('Solution Events', 'fa fa-check', SolutionEvent::class);
     }
 }

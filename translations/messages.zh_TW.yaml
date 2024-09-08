@@ -29,6 +29,12 @@ Schema SQL: 結構 SQL
 Name: 名稱
 Password: 密碼
 New password: 新密碼
+Events: 事件
+Solution Events: 解答事件
+SolutionEvent: 解答事件
+Submitter: 提交者
+Status: 狀態
+Query: 查詢
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤
