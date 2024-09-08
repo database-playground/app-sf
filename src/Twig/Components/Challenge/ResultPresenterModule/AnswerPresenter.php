@@ -6,6 +6,7 @@ namespace App\Twig\Components\Challenge\ResultPresenterModule;
 
 use App\Twig\Components\Challenge\ErrorPayload;
 use App\Twig\Components\Challenge\Payload;
+use App\Twig\Components\Challenge\ResultPayload;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
@@ -13,10 +14,7 @@ final class AnswerPresenter
 {
     public ?Payload $payload = null;
 
-    /**
-     * @return array<string, array<string, mixed>>|null
-     */
-    public function getResult(): ?array
+    public function getResult(): ?ResultPayload
     {
         return $this->payload?->getResult();
     }

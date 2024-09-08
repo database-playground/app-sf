@@ -46,7 +46,9 @@ final class Executor
 
         try {
             $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
-            $this->emit(QueryCompletedEvent, ['result' => $result]);
+            $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
+
+            $this->emit(QueryCompletedEvent, ['result' => $result, 'same' => $result == $answer]);
         } catch (HttpException $e) {
             $this->emit(QueryFailedEvent, ['error' => $e->getMessage(), 'code' => $e->getStatusCode()]);
         } catch (\Exception $e) {

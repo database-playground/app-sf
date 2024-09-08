@@ -60,7 +60,7 @@ final class ResultPresenter
             return Payload::fromError(ErrorProperty::fromCode(500), $e->getMessage());
         }
 
-        return Payload::fromResult($answer);
+        return Payload::fromResult($answer, answer: true);
     }
 
     /**
@@ -78,9 +78,9 @@ final class ResultPresenter
      * @param array<array<string, mixed>> $result
      */
     #[LiveListener(QueryCompletedEvent)]
-    public function onQueryCompleted(#[LiveArg] array $result): void
+    public function onQueryCompleted(#[LiveArg] array $result, #[LiveArg] bool $same): void
     {
-        $this->userPayload = Payload::fromResult($result);
+        $this->userPayload = Payload::fromResult($result, same: $same);
     }
 
     /**

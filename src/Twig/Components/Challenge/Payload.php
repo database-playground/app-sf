@@ -10,11 +10,8 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 
 class Payload
 {
-    /**
-     * @var array<array<string, mixed>>|null $result
-     */
     #[LiveProp]
-    public ?array $result = null;
+    public ?ResultPayload $result = null;
 
     #[LiveProp]
     public ?ErrorPayload $error = null;
@@ -33,10 +30,13 @@ class Payload
     /**
      * @param array<array<string, mixed>> $result
      */
-    public static function fromResult(array $result): self
+    public static function fromResult(array $result, bool $same = false, bool $answer = false): self
     {
         $self = new self();
-        $self->result = $result;
+        $self->result = new ResultPayload();
+        $self->result->queryResult = $result;
+        $self->result->same = $same;
+        $self->result->answer = $answer;
 
         return $self;
     }
@@ -51,10 +51,7 @@ class Payload
         return $self;
     }
 
-    /**
-     * @return array<array<string, mixed>>|null
-     */
-    public function getResult(): ?array
+    public function getResult(): ?ResultPayload
     {
         return $this->result;
     }
@@ -68,6 +65,29 @@ class Payload
     {
         return $this->loading;
     }
+}
+
+class ResultPayload
+{
+    /**
+     * The result of the query.
+     *
+     * @var array<string, array<string, mixed>> $queryResult
+     */
+    #[LiveProp]
+    public array $queryResult;
+
+    /**
+     * Indicate if this is same as the answer.
+     */
+    #[LiveProp]
+    public bool $same;
+
+    /**
+     * Indicate if this is the answer.
+     */
+    #[LiveProp]
+    public bool $answer;
 }
 
 class ErrorPayload

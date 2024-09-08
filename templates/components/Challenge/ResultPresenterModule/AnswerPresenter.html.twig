@@ -1,6 +1,17 @@
 <div {{ attributes.defaults({ default: "challenge-result-answer-presenter" }) }}>
     {% if this.result %}
-    <twig:Challenge:ResultPresenterModule:Table :result="this.result"/>
+        {% if not this.result.answer %}
+            {% if this.result.same %}
+                <div class="alert alert-success" role="alert">
+                    答案正確！🎉
+                </div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>答案有誤</strong>，請對照答案確認查詢是否正確 🥺
+                </div>
+            {% endif %}
+        {% endif %}
+        <twig:Challenge:ResultPresenterModule:Table :result="this.result.queryResult"/>
     {% elseif this.error %}
     <div class="alert alert-danger" role="alert">
         <strong>{{ this.error.property|trans }}：</strong>{{ this.error.message }}
