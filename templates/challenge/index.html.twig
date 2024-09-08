@@ -7,8 +7,8 @@
     <main>
         <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" />
         <hr>
-        <section class="challenge-primary row">
-            <div class="challenge-primary__left col">
+        <section class="challenge-primary row g-4">
+            <div class="challenge-primary__left col-12 col-md-6">
                 <twig:Challenge:Description class="mt-4" :question="question" loading="defer" />
                 <twig:Challenge:Executor class="mt-4" :question="question">
                     <twig:block name="actions">
@@ -20,7 +20,7 @@
                 </twig:Challenge:Executor>
             </div>
 
-            <div class="challenge-primary__right col">
+            <div class="challenge-primary__right col-12 col-md-6">
                 <twig:Challenge:ResultPresenter :question="question" />
             </div>
         </section>
