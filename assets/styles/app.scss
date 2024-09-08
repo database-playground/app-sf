@@ -126,7 +126,7 @@ h1 {
     @extend .text-success;
   }
 
-  &__status[data-status~=".failed"] {
+  &__status[data-status~="failed"] {
     @extend .text-danger;
   }
 
