@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Trait\WithUlidCreatedAt;
 use App\Repository\SolutionEventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +14,8 @@ use Symfony\Component\Uid\Ulid;
 #[ORM\Entity(repositoryClass: SolutionEventRepository::class)]
 class SolutionEvent
 {
+    use WithUlidCreatedAt;
+
     #[ORM\Id]
     #[ORM\CustomIdGenerator(class: UlidGenerator::class)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
