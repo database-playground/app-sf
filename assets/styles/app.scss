@@ -39,7 +39,7 @@ ul.credit {
 
 // overrides
 .app-navbar {
-  &__nav_area {
+  &__nav-area {
     @extend .d-flex,
       .flex-column,
       .flex-lg-row,
