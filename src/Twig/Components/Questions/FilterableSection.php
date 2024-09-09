@@ -8,7 +8,6 @@ use App\Repository\QuestionRepository;
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -36,7 +35,6 @@ final class FilterableSection
 
     public function __construct(
         public QuestionRepository $questionRepository,
-        public TagAwareCacheInterface $cachePool,
         public LoggerInterface $logger,
     ) {
         $this->pageSize = QuestionRepository::$PAGE_SIZE;
@@ -49,21 +47,12 @@ final class FilterableSection
      */
     public function getQuestions(): array
     {
-        $currentPage = $this->getCurrentPage();
-
-        return $this->cachePool->get("questions.{$this->query}.{$this->type}.page-{$currentPage}", function ($item) use ($currentPage) {
-            $item->tag('questions');
-
-            $result = $this->questionRepository->search(
-                query: $this->query,
-                type: $this->type,
-                page: $currentPage,
-                pageSize: $this->pageSize,
-            );
-            $item->set($result);
-
-            return $result;
-        });
+        return $this->questionRepository->search(
+            query: $this->query,
+            type: $this->type,
+            page: $this->getCurrentPage(),
+            pageSize: $this->pageSize,
+        );
     }
 
     /**
@@ -73,14 +62,7 @@ final class FilterableSection
      */
     public function getTypesList(): array
     {
-        return $this->cachePool->get('questions.types', function ($item) {
-            $item->tag('questions');
-
-            $result = $this->questionRepository->listTypes();
-            $item->set($result);
-
-            return $result;
-        });
+        return $this->questionRepository->listTypes();
     }
 
     /**
@@ -88,18 +70,11 @@ final class FilterableSection
      */
     public function getTotalPages(): int
     {
-        return $this->cachePool->get("questions.{$this->query}.{$this->type}.pages", function ($item) {
-            $item->tag('questions');
-
-            $result = $this->questionRepository->calculateTotalPages(
-                query: $this->query,
-                type: $this->type,
-                pageSize: $this->pageSize,
-            );
-            $item->set($result);
-
-            return $result;
-        });
+        return $this->questionRepository->calculateTotalPages(
+            query: $this->query,
+            type: $this->type,
+            pageSize: $this->pageSize,
+        );
     }
 
     /**
