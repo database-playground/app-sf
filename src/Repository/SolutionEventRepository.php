@@ -22,6 +22,50 @@ class SolutionEventRepository extends ServiceEntityRepository
     }
 
     /**
+     * List all the questions for a user with the specified status.
+     *
+     * @param User                $user   the user to get
+     * @param SolutionEventStatus $status the status to filter
+     *
+     * @return Question[] the questions that the user has solved
+     */
+    public function listQuestionsWithStatus(User $user, SolutionEventStatus $status): array
+    {
+        $q = $this->createQueryBuilder('solution_event')
+            ->select('question.id')
+            ->distinct()
+            ->join('solution_event.question', 'question')
+            ->where(
+                'solution_event.submitter = :user',
+                'solution_event.status = :status',
+            )
+            ->setParameter('user', $user)
+            ->setParameter('status', $status)
+            ->getQuery();
+
+        /**
+         * @var Question[] $result
+         */
+        $result = $q->getResult();
+
+        return $result;
+    }
+
+    /**
+     * List all the questions submit events for a user with the specified status.
+     *
+     * @return SolutionEvent[]
+     */
+    public function listAllEventsOfUser(User $user): array
+    {
+        return $this->findBy([
+            'submitter' => $user,
+        ], orderBy: [
+            'id' => 'DESC',
+        ]);
+    }
+
+    /**
      * List all solution events for a user on a question.
      *
      * @return SolutionEvent[] An array of SolutionEvent objects

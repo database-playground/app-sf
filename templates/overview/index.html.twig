@@ -4,6 +4,17 @@
 {% block title %}學習概況{% endblock %}
 
 {% block app %}
-    <p>WIP</p>
-    <p>Current points: {{ points }}</p>
+    <h2>每週學習概況</h2>
+    <ul>
+        <li>解題數：{{ solved_questions }}</li>
+        <li>經驗值：{{ points }}</li>
+        <li>等級：?</li>
+    </ul>
+
+    <h2>學習歷程</h2>
+    <ul>
+        <li>答對題數：{{ solved_questions }}</li>
+        <li>攻克次數：{{ events }}</li>
+        <li>總題數：{{ questions_count }}</li>
+    </ul>
 {% endblock %}
