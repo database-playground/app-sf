@@ -53,15 +53,23 @@ class SolutionEventRepository extends ServiceEntityRepository
     /**
      * List all the solution events of a user.
      *
+     * @param User                $user     The user to query
+     * @param array<string,mixed> $criteria Additional criteria to filter the events
+     * @param int|null            $limit    The maximum number of events to return
+     *
      * @return SolutionEvent[]
      */
-    public function listAllEvents(User $user): array
+    public function listAllEvents(User $user, array $criteria = [], ?int $limit = null): array
     {
-        return $this->findBy([
-            'submitter' => $user,
-        ], orderBy: [
-            'id' => 'DESC',
-        ]);
+        return $this->findBy(
+            array_merge([
+                'submitter' => $user,
+            ], $criteria),
+            orderBy: [
+                'id' => 'DESC',
+            ],
+            limit: $limit,
+        );
     }
 
     /**

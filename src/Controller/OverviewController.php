@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\SolutionEvent;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
@@ -29,7 +30,8 @@ final class OverviewController extends AbstractController
         return $this->render('overview/index.html.twig', [
             'points' => $this->getPoints(),
             'solved_questions' => $this->getSolvedQuestionsCount(),
-            'events' => $this->getEventsCount(),
+            'events_count' => $this->getEventsCount(),
+            'first_five_events' => $this->getFirstFiveEvents(),
             'questions_count' => $this->getQuestionsCount(),
         ]);
     }
@@ -62,5 +64,16 @@ final class OverviewController extends AbstractController
     protected function getQuestionsCount(): int
     {
         return $this->questionRepository->count();
+    }
+
+    /**
+     * @return array<SolutionEvent>
+     */
+    protected function getFirstFiveEvents(): array
+    {
+        $user = $this->security->getUser();
+        \assert($user instanceof User);
+
+        return $this->solutionEventRepository->listAllEvents($user, limit: 5);
     }
 }

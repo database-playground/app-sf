@@ -91,6 +91,7 @@ ul.credit {
 
   &__content {
     flex: 1;
+
     p {
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -119,6 +120,7 @@ ul.credit {
     @extend .d-flex, .gap-2, .justify-content-start, .align-items-center;
   }
 }
+
 h1 {
   font-size: 2em;
 }
@@ -152,4 +154,97 @@ h1 {
 
 .challenge-result-event-presenter {
   table-layout: fixed;
+}
+
+.metric-card {
+  @extend .px-5,
+    .py-3,
+    .d-flex,
+    .justify-content-between,
+    .align-items-center,
+    .border,
+    .border-2,
+    .rounded-4;
+
+  --bs-border-color: rgba(0, 0, 0, 0.1);
+
+  &--is-positive {
+    background:
+      linear-gradient(133deg, rgba(255, 255, 255, 0.00) 20.4%, #ecfdf5 72.07%),
+      #f8fafc;
+  }
+
+  &--is-negative {
+    background:
+      linear-gradient(133deg, rgba(255, 255, 255, 0.00) 20.4%, #fdecec 72.07%),
+      #f8fafc;
+  }
+
+  &--is-neutral {
+    background:
+      linear-gradient(133deg, rgba(255, 255, 255, 0.00) 20.4%, #edecfd 72.07%),
+      #f8fafc;
+  }
+
+  &__description {
+    @extend .d-flex, .gap-2;
+
+    &__title {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+
+  &__value {
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+}
+
+.historic-statistics {
+  &__events {
+    &__row {
+      &__time {
+        font-weight: 600;
+        min-width: 5em;
+      }
+
+      &__status {
+        position: relative;
+
+        &__text {
+          @extend .p-2;
+
+          position: relative;
+          z-index: 2;
+        }
+
+        &::after {
+          // vertical line at the center of element
+          content: "";
+          position: absolute;
+          top: calc(-1em + 1px);
+          left: 50%;
+          transform: translateX(-50%);
+          width: 2px;
+          height: calc(100% + $spacer * 2);
+          background-color: #808080;
+        }
+
+        &--first::before {
+          // arrow at the top of element (↑)
+          content: "";
+          position: absolute;
+          top: -1em;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-bottom: 5px solid #808080;
+        }
+      }
+    }
+  }
 }

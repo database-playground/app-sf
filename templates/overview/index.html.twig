@@ -4,17 +4,56 @@
 {% block title %}學習概況{% endblock %}
 
 {% block app %}
-    <h2>每週學習概況</h2>
-    <ul>
-        <li>解題數：{{ solved_questions }}</li>
-        <li>經驗值：{{ points }}</li>
-        <li>等級：?</li>
-    </ul>
+    <section class="hello-text mb-5">
+        <h2 class="display-4">哈囉，{{ app.user.name }} 👋</h2>
+        <p class="lead">這些是你最近的表現 ↓</p>
+    </section>
 
-    <h2>學習歷程</h2>
-    <ul>
-        <li>答對題數：{{ solved_questions }}</li>
-        <li>攻克次數：{{ events }}</li>
-        <li>總題數：{{ questions_count }}</li>
-    </ul>
+    <section class="week-overview mb-5">
+        <h3 class="mb-3">每週學習概況</h3>
+
+        <div class="week-overview__main row gutter-2">
+            <div class="col-4">
+                <div class="week-overview__cards vstack gap-1">
+                    <twig:MetricCard title="解題數" property="positive">{{ solved_questions }}</twig:MetricCard>
+                    <twig:MetricCard title="經驗值" property="negative">{{ points }}</twig:MetricCard>
+                    <twig:MetricCard title="等級">WIP</twig:MetricCard>
+                </div>
+            </div>
+            <div class="col-8">
+                <p>WIP: Chart</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="historic-statistics mb-5">
+        <h3 class="mb-3">學習歷程</h3>
+
+        <div class="historic-statistics__main row gutter-2">
+            <div class="col-4">
+                <div class="historic-statistics__cards vstack gap-1">
+                    <twig:MetricCard title="答對題數" property="positive">{{ solved_questions }}</twig:MetricCard>
+                    <twig:MetricCard title="攻克題數">{{ events_count }}</twig:MetricCard>
+                    <twig:MetricCard title="題目數">{{ questions_count }}</twig:MetricCard>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="historic-statistics__events vstack gap-3">
+                    {% for event in first_five_events %}
+                        {% set badgeClassName = event.status == constant('App\\Entity\\SolutionEventStatus::Passed') ? "text-bg-success" : "text-bg-danger" %}
+                        <div class="historic-statistics__events__row d-flex gap-3 align-items-center">
+                            <div class="historic-statistics__events__row__time text-end opacity-75 lh-1">{{ event.createdAt.format("g:i A") }}</div>
+                            <div class="historic-statistics__events__row__status {{ loop.index == 1 ? "historic-statistics__events__row__status--first" : "" }}">
+                                <div class="historic-statistics__events__row__status__text badge rounded-3 lh-1 {{ badgeClassName }}">{{ event.status|trans }}</div>
+                            </div>
+                            <div class="historic-statistics__events__row__description lh-1">挑戰第 {{ event.question.id }} 題</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-4">
+                <p>WIP: Chart</p>
+            </div>
+        </div>
+    </section>
 {% endblock %}

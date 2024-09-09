@@ -1,0 +1,8 @@
+<div {{ attributes.defaults({ class: "metric-card #{this.propertyClassName}" }) }}>
+    <div class="metric-card__description">
+        <div class="metric-card__description__title">{{ title }}</div>
+    </div>
+    <div class="metric-card__value">
+        {% block content %}{% endblock %}
+    </div>
+</div>
