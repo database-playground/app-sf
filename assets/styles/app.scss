@@ -15,7 +15,7 @@ $form-floating-padding-y: 0.65rem;
 
 @import "../../vendor/twbs/bootstrap/scss/bootstrap-reboot";
 $font-family-sans-serif: list.join(
-  ("Nunito", "Noto Sans TC"),
+  ("LXGW WenKai TC", cursive),
   $font-family-sans-serif
 );
 
@@ -104,7 +104,7 @@ ul.credit {
   &__background {
     @extend .text-body-tertiary, .position-absolute;
 
-    right: -6px;
+    right: -12px;
     bottom: -10px;
 
     font-size: 6rem;
