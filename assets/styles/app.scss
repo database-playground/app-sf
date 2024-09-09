@@ -1,3 +1,4 @@
+@use "sass:list";
 @import "../../vendor/twbs/bootstrap/scss/functions";
 
 // Variables
@@ -11,6 +12,12 @@ $input-border-width: $input-btn-border-width;
 $input-height-border: calc(#{$input-border-width} * 2);
 $form-floating-height: add(3.5rem * 0.8, $input-height-border);
 $form-floating-padding-y: 0.65rem;
+
+@import "../../vendor/twbs/bootstrap/scss/bootstrap-reboot";
+$font-family-sans-serif: list.join(
+  ("Nunito", "Noto Sans TC"),
+  $font-family-sans-serif
+);
 
 @import "../../vendor/twbs/bootstrap/scss/bootstrap";
 
