@@ -22,14 +22,13 @@ class SolutionEventRepository extends ServiceEntityRepository
     }
 
     /**
-     * List all the questions for a user with the specified status.
+     * List all the questions this user has solved.
      *
-     * @param User                $user   the user to get
-     * @param SolutionEventStatus $status the status to filter
+     * @param User $user the user to query
      *
      * @return Question[] the questions that the user has solved
      */
-    public function listQuestionsWithStatus(User $user, SolutionEventStatus $status): array
+    public function listSolvedQuestions(User $user): array
     {
         $q = $this->createQueryBuilder('solution_event')
             ->select('question.id')
@@ -40,7 +39,7 @@ class SolutionEventRepository extends ServiceEntityRepository
                 'solution_event.status = :status',
             )
             ->setParameter('user', $user)
-            ->setParameter('status', $status)
+            ->setParameter('status', SolutionEventStatus::Passed)
             ->getQuery();
 
         /**
@@ -52,11 +51,11 @@ class SolutionEventRepository extends ServiceEntityRepository
     }
 
     /**
-     * List all the questions submit events for a user with the specified status.
+     * List all the solution events of a user.
      *
      * @return SolutionEvent[]
      */
-    public function listAllEventsOfUser(User $user): array
+    public function listAllEvents(User $user): array
     {
         return $this->findBy([
             'submitter' => $user,
@@ -66,11 +65,11 @@ class SolutionEventRepository extends ServiceEntityRepository
     }
 
     /**
-     * List all solution events for a user on a question.
+     * List the solution events of a user for a specific question.
      *
-     * @return SolutionEvent[] An array of SolutionEvent objects
+     * @return SolutionEvent[]
      */
-    public function listSolutionEvents(Question $question, User $user): array
+    public function listSolvedEvents(Question $question, User $user): array
     {
         return $this->findBy([
             'submitter' => $user,
@@ -81,12 +80,16 @@ class SolutionEventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get the latest solution state, ordering by PASSED, FAILED, then others.
+     * Get the question solve state.
+     *
+     * If the user has solved the question, it always returns `Passed`.
+     * If the user has solved the question but failed, it returns `Failed`
+     * If the user has not solved the question, it returns `null`.
      *
      * @param Question $question The question to check
      * @param User     $user     The user to check
      *
-     * @return SolutionEventStatus|null The latest solution event. `null` if not solved yet.
+     * @return SolutionEventStatus|null The solve state, or `null` if the user has not solved the question
      */
     public function getSolveState(Question $question, User $user): ?SolutionEventStatus
     {

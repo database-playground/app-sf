@@ -32,7 +32,7 @@ final class EventPresenter
      */
     public function getEvents(): array
     {
-        return $this->solutionEventRepository->listSolutionEvents(
+        return $this->solutionEventRepository->listSolvedEvents(
             question: $this->question,
             user: $this->user,
         );

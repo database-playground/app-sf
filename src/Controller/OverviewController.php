@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
@@ -14,54 +13,54 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class OverviewController extends AbstractController
+final class OverviewController extends AbstractController
 {
+    public function __construct(
+        private PointCalculationService $pointCalculationService,
+        private QuestionRepository $questionRepository,
+        private SolutionEventRepository $solutionEventRepository,
+        private Security $security,
+    ) {
+    }
+
     #[Route('/overview', name: 'app_overview')]
-    public function index(
-        PointCalculationService $pointCalculationService,
-        QuestionRepository $questionRepository,
-        SolutionEventRepository $solutionEventRepository,
-        Security $security,
-    ): Response {
+    public function index(): Response
+    {
         return $this->render('overview/index.html.twig', [
-            'points' => $pointCalculationService->calculate(),
-            'solved_questions' => $this->getSolvedQuestions($solutionEventRepository, $security),
-            'events' => $this->getTotalEventsOfUser($solutionEventRepository, $security),
-            'questions_count' => $this->getAllQuestionsCount($questionRepository),
+            'points' => $this->getPoints(),
+            'solved_questions' => $this->getSolvedQuestionsCount(),
+            'events' => $this->getEventsCount(),
+            'questions_count' => $this->getQuestionsCount(),
         ]);
     }
 
-    protected function getSolvedQuestions(
-        SolutionEventRepository $solutionEventRepository,
-        Security $security,
-    ): int {
-        $user = $security->getUser();
+    protected function getSolvedQuestionsCount(): int
+    {
+        $user = $this->security->getUser();
         \assert($user instanceof User);
 
-        $solvedQuestions = $solutionEventRepository->listQuestionsWithStatus($user, SolutionEventStatus::Passed);
+        $solvedQuestions = $this->solutionEventRepository->listSolvedQuestions($user);
 
         return \count($solvedQuestions);
     }
 
-    protected function getPoints(PointCalculationService $pointCalculationService): int
+    protected function getPoints(): int
     {
-        return $pointCalculationService->calculate();
+        return $this->pointCalculationService->calculate();
     }
 
-    protected function getTotalEventsOfUser(
-        SolutionEventRepository $solutionEventRepository,
-        Security $security,
-    ): int {
-        $user = $security->getUser();
+    protected function getEventsCount(): int
+    {
+        $user = $this->security->getUser();
         \assert($user instanceof User);
 
-        $allEvents = $solutionEventRepository->listAllEventsOfUser($user);
+        $allEvents = $this->solutionEventRepository->listAllEvents($user);
 
         return \count($allEvents);
     }
 
-    protected function getAllQuestionsCount(QuestionRepository $questionRepository): int
+    protected function getQuestionsCount(): int
     {
-        return $questionRepository->count();
+        return $this->questionRepository->count();
     }
 }
