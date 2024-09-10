@@ -76,7 +76,7 @@ class CreateUserCommand extends Command
     }
 
     /**
-     * @return array<string>
+     * @return string[]
      */
     public function getRolesOpt(InputInterface $input): array
     {

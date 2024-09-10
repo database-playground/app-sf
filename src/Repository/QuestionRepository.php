@@ -38,7 +38,7 @@ class QuestionRepository extends ServiceEntityRepository
      * @param int         $page     The page number
      * @param int|null    $pageSize The number of items per page
      *
-     * @return array<Question> The list of questions for the given page
+     * @return Question[] The list of questions for the given page
      */
     public function search(?string $query, ?string $type, int $page, ?int $pageSize): array
     {
@@ -101,7 +101,7 @@ class QuestionRepository extends ServiceEntityRepository
     /**
      * Get the list of types.
      *
-     * @return array<string>
+     * @return string[]
      */
     public function listTypes(): array
     {
@@ -109,7 +109,7 @@ class QuestionRepository extends ServiceEntityRepository
         $qb = $qb->select('q.type')
             ->distinct();
 
-        /** @var array<string> $result */
+        /** @var string[] $result */
         $result = $qb->getQuery()->getSingleColumnResult();
 
         return $result;
