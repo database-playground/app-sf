@@ -6,14 +6,13 @@ namespace App\Twig\Components\Challenge;
 
 use App\Entity\Question;
 use App\Service\QuestionDbRunnerService;
-use Psr\Cache\InvalidArgumentException;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
 final class Description
 {
     public function __construct(
-        protected QuestionDbRunnerService $questionDbRunnerService,
+        private readonly QuestionDbRunnerService $questionDbRunnerService,
     ) {
     }
 
@@ -22,9 +21,7 @@ final class Description
     /**
      * Get the columns of the answer.
      *
-     * @return array<string> the columns of the answer
-     *
-     * @throws InvalidArgumentException
+     * @return string[] the columns of the answer
      */
     public function getColumnsOfAnswer(): array
     {

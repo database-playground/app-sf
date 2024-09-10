@@ -8,7 +8,6 @@ use App\Entity\Question;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMapping;
-use Symfony\Bundle\SecurityBundle\Security;
 
 class PointCalculationService
 {
@@ -16,22 +15,15 @@ class PointCalculationService
     protected static int $BASE_SCORE = 500;
 
     public function __construct(
-        protected EntityManagerInterface $entityManager,
-        protected Security $security,
+        protected readonly EntityManagerInterface $entityManager,
     ) {
-        $user = $this->security->getUser();
-        if (!$user instanceof User) {
-            throw new \RuntimeException('User not logged in.');
-        }
-
-        $this->user = $user;
     }
 
-    public function calculate(): int
+    public function calculate(User $user): int
     {
         return self::$BASE_SCORE
-            + $this->calculateSolutionQuestionPoints($this->user)
-            + $this->calculateFirstSolutionPoints($this->user);
+            + $this->calculateSolutionQuestionPoints($user)
+            + $this->calculateFirstSolutionPoints($user);
     }
 
     /**

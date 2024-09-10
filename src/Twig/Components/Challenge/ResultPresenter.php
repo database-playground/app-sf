@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Twig\Components\Challenge;
 
 use App\Entity\Question;
+use App\Entity\User;
 use App\Service\QuestionDbRunnerService;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -33,6 +34,13 @@ final class ResultPresenter
     public Question $question;
 
     /**
+     * @var User $user the user who is viewing the result,
+     *           currently useful for checking the previously-submitted answer
+     */
+    #[LiveProp]
+    public User $user;
+
+    /**
      * @var string $currentTab the current active tab
      */
     #[LiveProp(writable: true)]
@@ -42,7 +50,7 @@ final class ResultPresenter
     public ?Payload $userPayload;
 
     public function __construct(
-        public QuestionDbRunnerService $questionDbRunnerService,
+        private readonly QuestionDbRunnerService $questionDbRunnerService,
     ) {
         $this->userPayload = null;
     }

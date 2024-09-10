@@ -5,12 +5,12 @@
 
 {% block app %}
     <main>
-        <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" />
+        <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" :user="user" />
         <hr>
         <section class="challenge-primary row g-4">
             <div class="challenge-primary__left col-12 col-md-6">
                 <twig:Challenge:Description class="mt-4" :question="question" loading="defer" />
-                <twig:Challenge:Executor class="mt-4" :question="question">
+                <twig:Challenge:Executor class="mt-4" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary">指引</button>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="challenge-primary__right col-12 col-md-6">
-                <twig:Challenge:ResultPresenter :question="question" />
+                <twig:Challenge:ResultPresenter :question="question" :user="user" />
             </div>
         </section>
     </main>

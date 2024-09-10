@@ -19,11 +19,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
     name: 'app:create-user',
     description: 'Creates a new user.',
 )]
-class CreateUserCommand extends Command
+final class CreateUserCommand extends Command
 {
     public function __construct(
-        protected EntityManagerInterface $entityManager,
-        protected UserPasswordHasherInterface $passwordHasher,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $passwordHasher,
     ) {
         parent::__construct();
     }

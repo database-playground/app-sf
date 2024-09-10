@@ -12,8 +12,6 @@ use App\Exception\QueryExecuteException;
 use App\Service\QuestionDbRunnerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Cache\InvalidArgumentException;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -27,21 +25,17 @@ final class Executor
     use ComponentToolsTrait;
     use DefaultActionTrait;
 
-    protected User $user;
-
     public function __construct(
-        protected QuestionDbRunnerService $questionDbRunnerService,
-        protected EntityManagerInterface $entityManager,
-        protected Security $security,
+        private readonly QuestionDbRunnerService $questionDbRunnerService,
+        private readonly EntityManagerInterface $entityManager,
     ) {
-        $user = $this->security->getUser();
-        \assert($user instanceof User);
-
-        $this->user = $user;
     }
 
     #[LiveProp]
     public Question $question;
+
+    #[LiveProp]
+    public User $user;
 
     /**
      * @var string the query to execute
@@ -53,7 +47,7 @@ final class Executor
      * @throws InvalidArgumentException
      */
     #[LiveAction]
-    public function execute(Request $request): void
+    public function execute(): void
     {
         $this->emit('challenge:query-pending');
 

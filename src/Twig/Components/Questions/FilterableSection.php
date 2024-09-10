@@ -6,7 +6,6 @@ namespace App\Twig\Components\Questions;
 
 use App\Entity\Question;
 use App\Repository\QuestionRepository;
-use Psr\Log\LoggerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -33,8 +32,7 @@ final class FilterableSection
     public string $type = '';
 
     public function __construct(
-        public QuestionRepository $questionRepository,
-        public LoggerInterface $logger,
+        private readonly QuestionRepository $questionRepository,
     ) {
         $this->pageSize = QuestionRepository::$PAGE_SIZE;
     }

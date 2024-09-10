@@ -8,7 +8,6 @@ use App\Entity\Question;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\SolutionEventRepository;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
@@ -21,13 +20,8 @@ final class Header
     public int $limit;
 
     public function __construct(
-        protected Security $security,
-        protected SolutionEventRepository $solutionEventRepository,
+        private readonly SolutionEventRepository $solutionEventRepository,
     ) {
-        $user = $this->security->getUser();
-        \assert($user instanceof User);
-
-        $this->user = $user;
     }
 
     public function getSolveState(): SolveState

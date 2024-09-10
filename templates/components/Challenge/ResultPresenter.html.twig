@@ -16,9 +16,9 @@
         {% if currentTab == "answer" %}
             <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="this.answerPayload"/>
         {% elseif currentTab == "events" %}
-            <twig:Challenge:ResultPresenterModule:EventPresenter :question="question" />
+            <twig:Challenge:ResultPresenterModule:EventPresenter :question="question" :user="user" />
         {% else %}
-            <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userPayload"/>
+            <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userPayload" />
         {% endif %}
     </div>
 </div>
