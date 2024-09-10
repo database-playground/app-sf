@@ -40,6 +40,7 @@ security:
     - { route: app_overview, roles: ROLE_USER }
     - { route: app_challenge, roles: ROLE_USER }
     - { route: app_exercises, roles: ROLE_USER }
+    - { route: app_complementary, roles: ROLE_USER }
 
     # admin
     - { path: ^/admin, roles: ROLE_ADMIN }
