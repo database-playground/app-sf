@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Questions;
 
+use App\Entity\Question;
 use App\Repository\QuestionRepository;
-use Psr\Cache\CacheException;
-use Psr\Cache\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -41,9 +40,9 @@ final class FilterableSection
     }
 
     /**
-     * @return array<\App\Entity\Question>
+     * List the questions based on the current query and type.
      *
-     * @throws InvalidArgumentException
+     * @return Question[] The list of questions
      */
     public function getQuestions(): array
     {
@@ -56,9 +55,9 @@ final class FilterableSection
     }
 
     /**
-     * @return array<string>
+     * Get all question types.
      *
-     * @throws InvalidArgumentException
+     * @return array<string> the list of question types
      */
     public function getTypesList(): array
     {
@@ -66,7 +65,7 @@ final class FilterableSection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * Get the total number of pages.
      */
     public function getTotalPages(): int
     {
@@ -78,7 +77,9 @@ final class FilterableSection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * Get the current page number, clamped to the valid range.
+     *
+     * @return int The current page number
      */
     public function getCurrentPage(): int
     {
@@ -86,7 +87,9 @@ final class FilterableSection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * Set the current page number, clamped to the valid range.
+     *
+     * @param int $page The arbitrary page number
      */
     public function setCurrentPage(int $page): void
     {
@@ -94,8 +97,7 @@ final class FilterableSection
     }
 
     /**
-     * @throws CacheException
-     * @throws InvalidArgumentException
+     * Whether there is a next page?
      */
     public function hasNext(): bool
     {
@@ -103,8 +105,7 @@ final class FilterableSection
     }
 
     /**
-     * @throws CacheException
-     * @throws InvalidArgumentException
+     * Whether there is a previous page?
      */
     public function hasPrevious(): bool
     {
@@ -112,7 +113,7 @@ final class FilterableSection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * Go to the next page.
      */
     #[LiveAction]
     public function nextPage(): void
@@ -121,7 +122,7 @@ final class FilterableSection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * Go to the previous page.
      */
     #[LiveAction]
     public function previousPage(): void
@@ -129,6 +130,11 @@ final class FilterableSection
         $this->setCurrentPage($this->getCurrentPage() - 1);
     }
 
+    /**
+     * Filter the returning questions by type.
+     *
+     * @param string|null $type The type to filter
+     */
     #[LiveAction]
     public function setTypeFilter(#[LiveArg] ?string $type): void
     {
