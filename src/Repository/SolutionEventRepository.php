@@ -106,11 +106,11 @@ class SolutionEventRepository extends ServiceEntityRepository
                         solution_event.submitter = :user
                             AND solution_event.question = :question
                     ')
-            ->orderBy("
-                        case when solution_event.status = 'PASSED' then 1
-                             when solution_event.status = 'FAILED' then 2
+            ->orderBy('
+                        case when solution_event.status = :passed then 1
+                             when solution_event.status = :failed then 2
                              else 3 end
-                    ")
+                    ')
             ->setMaxResults(1);
 
         /**
@@ -119,6 +119,10 @@ class SolutionEventRepository extends ServiceEntityRepository
         $result = $qb->getQuery()->execute([
             'user' => $user,
             'question' => $question,
+
+            // constants
+            'passed' => SolutionEventStatus::Passed,
+            'failed' => SolutionEventStatus::Failed,
         ]);
         if (empty($result)) {
             return null;
