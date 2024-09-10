@@ -21,6 +21,9 @@ return [
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
@@ -37,9 +40,6 @@ return [
     '@popperjs/core' => [
         'version' => '2.11.8',
     ],
-    '@symfony/ux-live-component' => [
-        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
-    ],
     'codemirror' => [
         'version' => '6.0.1',
     ],
@@ -47,25 +47,25 @@ return [
         'version' => '6.7.1',
     ],
     '@codemirror/view' => [
-        'version' => '6.23.0',
+        'version' => '6.33.0',
     ],
     '@codemirror/state' => [
-        'version' => '6.4.0',
+        'version' => '6.4.1',
     ],
     '@codemirror/language' => [
         'version' => '6.10.2',
     ],
     '@codemirror/commands' => [
-        'version' => '6.3.3',
+        'version' => '6.6.1',
     ],
     '@codemirror/search' => [
-        'version' => '6.5.5',
+        'version' => '6.5.6',
     ],
     '@codemirror/autocomplete' => [
         'version' => '6.18.0',
     ],
     '@codemirror/lint' => [
-        'version' => '6.4.2',
+        'version' => '6.8.1',
     ],
     '@lezer/highlight' => [
         'version' => '1.2.1',
