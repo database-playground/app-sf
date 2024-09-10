@@ -116,8 +116,8 @@ enum ErrorProperty: int implements TranslatableInterface
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return match ($this) {
-            self::USER_ERROR => $translator->trans('challenge.error-type.user', [], null, $locale),
-            self::SERVER_ERROR => $translator->trans('challenge.error-type.server', [], null, $locale),
+            self::USER_ERROR => $translator->trans('challenge.error-type.user', locale: $locale),
+            self::SERVER_ERROR => $translator->trans('challenge.error-type.server', locale: $locale),
         };
     }
 }

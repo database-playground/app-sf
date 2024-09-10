@@ -16,9 +16,9 @@ enum SolutionEventStatus: string implements TranslatableInterface
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return match ($this) {
-            self::Unspecified => $translator->trans('solution_event_status.unspecified', [], null, $locale),
-            self::Failed => $translator->trans('solution_event_status.failed', [], null, $locale),
-            self::Passed => $translator->trans('solution_event_status.passed', [], null, $locale),
+            self::Unspecified => $translator->trans('solution_event_status.unspecified', locale: $locale),
+            self::Failed => $translator->trans('solution_event_status.failed', locale: $locale),
+            self::Passed => $translator->trans('solution_event_status.passed', locale: $locale),
         };
     }
 }
