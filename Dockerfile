@@ -61,6 +61,7 @@ CMD (php bin/console sass:build --watch &); \
 
 # Prod FrankenPHP image
 FROM frankenphp_base AS frankenphp_prod
+LABEL org.opencontainers.image.source="https://github.com/database-playground/app-sf"
 
 ENV APP_ENV=prod
 ENV FRANKENPHP_CONFIG="import worker.Caddyfile"
