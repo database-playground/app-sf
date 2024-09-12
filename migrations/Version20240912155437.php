@@ -14,7 +14,7 @@ final class Version20240912155437 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add solution video event entity';
     }
 
     public function up(Schema $schema): void
