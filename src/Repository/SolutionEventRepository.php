@@ -30,24 +30,22 @@ class SolutionEventRepository extends ServiceEntityRepository
      */
     public function listSolvedQuestions(User $user): array
     {
-        $q = $this->createQueryBuilder('solution_event')
-            ->select('question.id')
-            ->distinct()
-            ->join('solution_event.question', 'question')
-            ->where(
-                'solution_event.submitter = :user',
-                'solution_event.status = :status',
-            )
-            ->setParameter('user', $user)
-            ->setParameter('status', SolutionEventStatus::Passed)
-            ->getQuery();
+        $solvedQuestionEvents = $this->findBy([
+            'submitter' => $user,
+            'status' => SolutionEventStatus::Passed,
+        ]);
 
-        /**
-         * @var Question[] $result
-         */
-        $result = $q->getResult();
+        $questions = [];
 
-        return $result;
+        foreach ($solvedQuestionEvents as $event) {
+            $question = $event->getQuestion();
+
+            if (null !== $question && !isset($questions[$question->getId()])) {
+                $questions[$question->getId()] = $question;
+            }
+        }
+
+        return array_values($questions);
     }
 
     /**

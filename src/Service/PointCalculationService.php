@@ -5,17 +5,28 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Question;
+use App\Entity\QuestionDifficulty;
+use App\Entity\SolutionEvent;
+use App\Entity\SolutionEventStatus;
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\ResultSetMapping;
+use App\Repository\QuestionRepository;
+use App\Repository\SolutionEventRepository;
 
-class PointCalculationService
+final class PointCalculationService
 {
-    protected User $user;
-    protected static int $BASE_SCORE = 500;
+    public static int $BASE_SCORE = 500;
+
+    // SolutionEvent
+    public static int $SOLUTION_EVENT_EACH_EASY_POINT = 10;
+    public static int $SOLUTION_EVENT_EACH_MEDIUM_POINT = 20;
+    public static int $SOLUTION_EVENT_EACH_HARD_POINT = 30;
+
+    // FirstSolver
+    public static int $FIRST_SOLVER_POINT = 10;
 
     public function __construct(
-        protected readonly EntityManagerInterface $entityManager,
+        private readonly SolutionEventRepository $solutionEventRepository,
+        private readonly QuestionRepository $questionRepository,
     ) {
     }
 
@@ -37,30 +48,14 @@ class PointCalculationService
      */
     protected function calculateSolutionQuestionPoints(User $user): int
     {
-        $qb = $this->entityManager->createQueryBuilder();
-        $qb = $qb
-            ->from(Question::class, 'q')
-            ->leftJoin('q.solutionEvents', 'se')
-            ->where(
-                'se.submitter = :submitter',
-                "se.status = 'PASSED'"
-            )
-            ->groupBy('se.question', 'se.submitter')
-            ->select("MAX((
-                case when q.difficulty = 'EASY' then 10
-                when q.difficulty = 'MEDIUM' then 20
-                when q.difficulty = 'HARD' then 30
-                else 0
-                end
-            )) AS point")
-            ->setParameter('submitter', $user);
+        $questions = $this->solutionEventRepository->listSolvedQuestions($user);
 
-        /**
-         * @var array<array{point: int}> $result
-         */
-        $result = $qb->getQuery()->getResult();
-
-        return array_reduce($result, fn (int $carry, array $row) => $carry + $row['point'], 0);
+        return array_reduce($questions, fn (int $carry, Question $question) => $carry + match ($question->getDifficulty()) {
+            QuestionDifficulty::Easy => self::$SOLUTION_EVENT_EACH_EASY_POINT,
+            QuestionDifficulty::Medium => self::$SOLUTION_EVENT_EACH_MEDIUM_POINT,
+            QuestionDifficulty::Hard => self::$SOLUTION_EVENT_EACH_HARD_POINT,
+            default => 0,
+        }, 0);
     }
 
     /**
@@ -70,25 +65,23 @@ class PointCalculationService
      */
     protected function calculateFirstSolutionPoints(User $user): int
     {
-        $nq = $this->entityManager->createNativeQuery("
-            SELECT DISTINCT ON (question_id) submitter_id
-            FROM solution_event
-            WHERE status = 'PASSED'
-            ORDER BY question_id, id;
-        ",
-            (new ResultSetMapping())
-                ->addScalarResult(
-                    'submitter_id',
-                    'sid',
-                    'integer'
-                )
-        );
+        $questions = $this->questionRepository->findAll();
 
-        /**
-         * @var array<array{sid: int}> $result
-         */
-        $result = $nq->getResult();
+        $points = 0;
 
-        return array_reduce($result, fn (int $carry, array $row) => $carry + ($row['sid'] === $user->getId() ? 10 : 0), 0);
+        // list the first solver of each question
+        foreach ($questions as $question) {
+            $solutionEvent = $question
+                ->getSolutionEvents()
+                ->findFirst(fn ($_, SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus());
+
+            if (!$solutionEvent || $solutionEvent->getSubmitter() !== $user) {
+                continue;
+            }
+
+            $points += self::$FIRST_SOLVER_POINT;
+        }
+
+        return $points;
     }
 }
