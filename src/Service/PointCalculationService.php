@@ -11,6 +11,7 @@ use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
+use App\Repository\SolutionVideoEventRepository;
 
 final class PointCalculationService
 {
@@ -24,8 +25,14 @@ final class PointCalculationService
     // FirstSolver
     public static int $FIRST_SOLVER_POINT = 10;
 
+    // SolutionVideoEvent
+    public static int $SOLUTION_VIDEO_EACH_EVENT_EASY = 6;
+    public static int $SOLUTION_VIDEO_EACH_EVENT_MEDIUM = 12;
+    public static int $SOLUTION_VIDEO_EACH_EVENT_HARD = 18;
+
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
+        private readonly SolutionVideoEventRepository $solutionVideoEventRepository,
         private readonly QuestionRepository $questionRepository,
     ) {
     }
@@ -34,7 +41,8 @@ final class PointCalculationService
     {
         return self::$BASE_SCORE
             + $this->calculateSolutionQuestionPoints($user)
-            + $this->calculateFirstSolutionPoints($user);
+            + $this->calculateFirstSolutionPoints($user)
+            + $this->calculateSolutionVideoPoints($user);
     }
 
     /**
@@ -83,5 +91,27 @@ final class PointCalculationService
         }
 
         return $points;
+    }
+
+    protected function calculateSolutionVideoPoints(User $user): int
+    {
+        $solutionVideoEvents = $this->solutionVideoEventRepository->findByUser($user);
+
+        $questionPointsPair = [];
+        foreach ($solutionVideoEvents as $event) {
+            $question = $event->getQuestion();
+            if (!$question) {
+                continue;
+            }
+
+            $questionPointsPair[$question->getId()] = match ($question->getDifficulty()) {
+                QuestionDifficulty::Easy => self::$SOLUTION_VIDEO_EACH_EVENT_EASY,
+                QuestionDifficulty::Medium => self::$SOLUTION_VIDEO_EACH_EVENT_MEDIUM,
+                QuestionDifficulty::Hard => self::$SOLUTION_VIDEO_EACH_EVENT_HARD,
+                default => 0,
+            };
+        }
+
+        return -array_sum($questionPointsPair);
     }
 }

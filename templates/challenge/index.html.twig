@@ -4,6 +4,10 @@
 {% block title %}練習題目 – {{ question.title }}{% endblock %}
 
 {% block app %}
+    <div>
+        <twig:Challenge:SolutionVideoModal id="challenge-solution-video-modal" :question="question" :user="user" />
+    </div>
+
     <main>
         <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" :user="user" />
         <hr>
@@ -14,7 +18,7 @@
                     <twig:block name="actions">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary">指引</button>
-                            <button type="button" class="btn btn-outline-secondary">解答影音</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#challenge-solution-video-modal">解答影音</button>
                         </div>
                     </twig:block>
                 </twig:Challenge:Executor>
