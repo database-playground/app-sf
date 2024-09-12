@@ -101,33 +101,26 @@ class SolutionEventRepository extends ServiceEntityRepository
      */
     public function getSolveState(Question $question, User $user): ?SolutionEventStatus
     {
-        $qb = $this->createQueryBuilder('solution_event')
-            ->where('
-                        solution_event.submitter = :user
-                            AND solution_event.question = :question
-                    ')
-            ->orderBy('
-                        case when solution_event.status = :passed then 1
-                             when solution_event.status = :failed then 2
-                             else 3 end
-                    ')
-            ->setMaxResults(1);
-
-        /**
-         * @var SolutionEvent[] $result
-         */
-        $result = $qb->getQuery()->execute([
-            'user' => $user,
+        // check if this user has ever passed
+        $passed = $this->count([
+            'submitter' => $user,
             'question' => $question,
-
-            // constants
-            'passed' => SolutionEventStatus::Passed,
-            'failed' => SolutionEventStatus::Failed,
-        ]);
-        if (empty($result)) {
-            return null;
+            'status' => SolutionEventStatus::Passed,
+        ]) > 0;
+        if ($passed) {
+            return SolutionEventStatus::Passed;
         }
 
-        return $result[0]->getStatus();
+        // check if this user has ever failed
+        $failed = $this->count([
+            'submitter' => $user,
+            'question' => $question,
+            'status' => SolutionEventStatus::Failed,
+        ]) > 0;
+        if ($failed) {
+            return SolutionEventStatus::Failed;
+        }
+
+        return null;
     }
 }
