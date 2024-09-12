@@ -3,11 +3,11 @@
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1725964132,
+        "lastModified": 1726063457,
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "98c7c131e3fa30eb00e9bfe44c1a180c7f94102f",
-        "treeHash": "145543926bdaaeabf22cd0f42e2991d0e35131c4",
+        "rev": "39bf6ce569103c9390d37322daa59468c31b3ce7",
+        "treeHash": "839747a1cb35ba6d5b36cce9a739ab2ba5e4a5d4",
         "type": "github"
       },
       "original": {
@@ -56,11 +56,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1725910328,
+        "lastModified": 1726108120,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5775c2583f1801df7b790bf7f7d710a19bac66f4",
-        "treeHash": "e0ea0196847112733453430c894e8f3d86f4b8a9",
+        "rev": "111ed8812c10d7dc3017de46cbf509600c93f551",
+        "treeHash": "bfd6e20f06552451be5380e5811d5b1f39173d75",
         "type": "github"
       },
       "original": {
@@ -72,11 +72,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1725826545,
+        "lastModified": 1725930920,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f4c846aee8e1e29062aa8514d5e0ab270f4ec2f9",
-        "treeHash": "8fc49deaed3f2728a7147c38163cc468a117570a",
+        "rev": "44a71ff39c182edaf25a7ace5c9454e7cba2c658",
+        "treeHash": "56e93544112b7bb7aa0c3093d537295683ef9148",
         "type": "github"
       },
       "original": {
