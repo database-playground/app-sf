@@ -50,9 +50,16 @@ class Question
     #[ORM\OneToMany(targetEntity: SolutionEvent::class, mappedBy: 'question', orphanRemoval: true)]
     private Collection $solutionEvents;
 
+    /**
+     * @var Collection<int, SolutionVideoEvent>
+     */
+    #[ORM\OneToMany(targetEntity: SolutionVideoEvent::class, mappedBy: 'question', orphanRemoval: true)]
+    private Collection $solutionVideoEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
+        $this->solutionVideoEvents = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -173,6 +180,36 @@ class Question
             // set the owning side to null (unless already changed)
             if ($solutionEvent->getQuestion() === $this) {
                 $solutionEvent->setQuestion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SolutionVideoEvent>
+     */
+    public function getSolutionVideoEvents(): Collection
+    {
+        return $this->solutionVideoEvents;
+    }
+
+    public function addSolutionVideoEvent(SolutionVideoEvent $solutionVideoEvent): static
+    {
+        if (!$this->solutionVideoEvents->contains($solutionVideoEvent)) {
+            $this->solutionVideoEvents->add($solutionVideoEvent);
+            $solutionVideoEvent->setQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSolutionVideoEvent(SolutionVideoEvent $solutionVideoEvent): static
+    {
+        if ($this->solutionVideoEvents->removeElement($solutionVideoEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($solutionVideoEvent->getQuestion() === $this) {
+                $solutionVideoEvent->setQuestion(null);
             }
         }
 

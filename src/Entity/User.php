@@ -52,9 +52,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: SolutionEvent::class, mappedBy: 'submitter', orphanRemoval: true)]
     private Collection $solutionEvents;
 
+    /**
+     * @var Collection<int, SolutionVideoEvent>
+     */
+    #[ORM\OneToMany(targetEntity: SolutionVideoEvent::class, mappedBy: 'opener', orphanRemoval: true)]
+    private Collection $solutionVideoEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
+        $this->solutionVideoEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,6 +194,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($solutionEvent->getSubmitter() === $this) {
                 $solutionEvent->setSubmitter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SolutionVideoEvent>
+     */
+    public function getSolutionVideoEvents(): Collection
+    {
+        return $this->solutionVideoEvents;
+    }
+
+    public function addSolutionVideoEvent(SolutionVideoEvent $solutionVideoEvent): static
+    {
+        if (!$this->solutionVideoEvents->contains($solutionVideoEvent)) {
+            $this->solutionVideoEvents->add($solutionVideoEvent);
+            $solutionVideoEvent->setOpener($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSolutionVideoEvent(SolutionVideoEvent $solutionVideoEvent): static
+    {
+        if ($this->solutionVideoEvents->removeElement($solutionVideoEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($solutionVideoEvent->getOpener() === $this) {
+                $solutionVideoEvent->setOpener(null);
             }
         }
 
