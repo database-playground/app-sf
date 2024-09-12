@@ -35,6 +35,9 @@ SolutionEvent: 解答事件
 Submitter: 提交者
 Status: 狀態
 Query: 查詢
+SolutionVideoEvent: 解答影片打開事件
+Solution Video Events: 解答影片打開事件
+Opener: 打開者
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤
