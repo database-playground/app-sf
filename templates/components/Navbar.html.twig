@@ -59,7 +59,7 @@
                             {% if "ROLE_ADMIN" in app.user.roles %}
                                 <li><a class="dropdown-item rounded-2 mb-2" href="{{ path('admin') }}">管理後台</a></li>
                             {% endif %}
-                            <li><a class="dropdown-item rounded-2 mb-2" href="#">個人資料</a></li>
+                            <li><a class="dropdown-item rounded-2 mb-2" href="{{ path('app_profile') }}">個人資料</a></li>
                             <li><a class="dropdown-item rounded-2" href="{{ path('app_logout') }}">登出</a></li>
                         </ul>
                     </div>

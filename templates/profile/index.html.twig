@@ -1,0 +1,57 @@
+{% extends 'app.html.twig' %}
+
+{% block nav %}<twig:Navbar active="profile" />{% endblock %}
+{% block title %}個人資料{% endblock %}
+
+{% block app %}
+    <div class="profile d-flex row">
+        <turbo-frame id="app-profile-information" class="profile__information col gr-5">
+            <h2 class="mb-3">
+                {{ user.name }}
+
+                {% if 'ROLE_ADMIN' in user.roles %}
+                    <small class="text-muted">管理員</small>
+                {% endif %}
+
+                {% if user.group != null %}
+                    <small class="text-muted">{{ user.group.name }}</small>
+                {% endif %}
+            </h2>
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <i class="bi bi-envelope-at-fill"></i>
+                    電子信箱：{{ user.email }}
+                </li>
+                <li class="list-group-item">
+                    <i class="bi bi-person-fill"></i>
+                    帳號建立時間：{{ user.createdAt.format("Y-m-d H:i:s") }}
+                </li>
+                <li class="list-group-item">
+                    <i class="bi bi-award-fill"></i>
+                    解題次數：{{ user.solutionEvents.count }}
+                </li>
+                <li class="list-group-item">
+                    <i class="bi bi-eye-fill"></i>
+                    觀看影片次數：{{ user.solutionVideoEvents.count }}
+                </li>
+            </ul>
+        </turbo-frame>
+
+        <section class="profile__update col">
+            <h2 class="mb-4">更新帳號資訊</h2>
+
+            <turbo-frame id="app-profile-update" class="profile__update__password">
+                <h3 class="mb-3">密碼更新</h3>
+
+                {% if password_updated %}
+                    <div class="alert alert-success" role="alert">
+                        密碼更新完成 🎉
+                    </div>
+                {% endif %}
+
+                {{ form(password_change_form) }}
+            </turbo-frame>
+        </section>
+    </div>
+{% endblock %}

@@ -53,3 +53,9 @@ solution_event_status.passed: 答對
 challenge.solve-state.solved: 已經解答
 challenge.solve-state.failed: 尚未解答成功
 challenge.solve-state.not-solved: 尚未作答
+
+form:
+  password_confirm: 確認密碼
+  password_new: 新密碼
+  password_old: 舊密碼
+  submit: 更新密碼
