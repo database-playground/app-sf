@@ -37,7 +37,7 @@ final class OverviewController extends AbstractController
 
     protected function getSolvedQuestionsCount(User $user): int
     {
-        $solvedQuestions = $this->solutionEventRepository->listSolvedQuestions($user);
+        $solvedQuestions = $this->solutionEventRepository->findSolvedQuestions($user);
 
         return \count($solvedQuestions);
     }
@@ -49,7 +49,7 @@ final class OverviewController extends AbstractController
 
     protected function getEventsCount(User $user): int
     {
-        $allEvents = $this->solutionEventRepository->listAllEvents($user);
+        $allEvents = $this->solutionEventRepository->findUserEvents($user);
 
         return \count($allEvents);
     }
@@ -64,6 +64,6 @@ final class OverviewController extends AbstractController
      */
     protected function getFirstFiveEvents(User $user): array
     {
-        return $this->solutionEventRepository->listAllEvents($user, limit: 5);
+        return $this->solutionEventRepository->findUserEvents($user, limit: 5);
     }
 }

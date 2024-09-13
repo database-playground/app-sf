@@ -56,7 +56,7 @@ final class PointCalculationService
      */
     protected function calculateSolutionQuestionPoints(User $user): int
     {
-        $questions = $this->solutionEventRepository->listSolvedQuestions($user);
+        $questions = $this->solutionEventRepository->findSolvedQuestions($user);
 
         return array_reduce($questions, fn (int $carry, Question $question) => $carry + match ($question->getDifficulty()) {
             QuestionDifficulty::Easy => self::$SOLUTION_EVENT_EACH_EASY_POINT,

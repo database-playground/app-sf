@@ -26,7 +26,7 @@ final class EventPresenter
      */
     public function getEvents(): array
     {
-        return $this->solutionEventRepository->listSolvedEvents(
+        return $this->solutionEventRepository->findUserQuestionEvents(
             question: $this->question,
             user: $this->user,
         );

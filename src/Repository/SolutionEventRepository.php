@@ -28,7 +28,7 @@ class SolutionEventRepository extends ServiceEntityRepository
      *
      * @return Question[] the questions that the user has solved
      */
-    public function listSolvedQuestions(User $user): array
+    public function findSolvedQuestions(User $user): array
     {
         $solvedQuestionEvents = $this->findBy([
             'submitter' => $user,
@@ -54,10 +54,11 @@ class SolutionEventRepository extends ServiceEntityRepository
      * @param User                $user     The user to query
      * @param array<string,mixed> $criteria Additional criteria to filter the events
      * @param int|null            $limit    The maximum number of events to return
+     * @param int|null            $offset   The offset of the events
      *
      * @return SolutionEvent[]
      */
-    public function listAllEvents(User $user, array $criteria = [], ?int $limit = null): array
+    public function findUserEvents(User $user, array $criteria = [], ?int $limit = null, ?int $offset = null): array
     {
         return $this->findBy(
             array_merge([
@@ -67,22 +68,33 @@ class SolutionEventRepository extends ServiceEntityRepository
                 'id' => 'DESC',
             ],
             limit: $limit,
+            offset: $offset,
         );
     }
 
     /**
      * List the solution events of a user for a specific question.
      *
+     * @param Question $question The question to query
+     * @param User     $user     The user to query
+     * @param int|null $limit    The maximum number of events to return
+     * @param int|null $offset   The offset of the events
+     *
      * @return SolutionEvent[]
      */
-    public function listSolvedEvents(Question $question, User $user): array
+    public function findUserQuestionEvents(Question $question, User $user, ?int $limit = null, ?int $offset = null): array
     {
-        return $this->findBy([
-            'submitter' => $user,
-            'question' => $question,
-        ], orderBy: [
-            'id' => 'DESC',
-        ]);
+        return $this->findBy(
+            [
+                'submitter' => $user,
+                'question' => $question,
+            ],
+            orderBy: [
+                'id' => 'DESC',
+            ],
+            limit: $limit,
+            offset: $offset,
+        );
     }
 
     /**
