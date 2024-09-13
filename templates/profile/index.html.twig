@@ -46,16 +46,10 @@
         <section class="profile__update col">
             <h2 class="mb-4">更新帳號資訊</h2>
 
-            <turbo-frame id="app-profile-update" class="profile__update__password">
-                <h3 class="mb-3">密碼更新</h3>
-
-                {% if password_updated %}
-                    <div class="alert alert-success" role="alert">
-                        密碼更新完成 🎉
-                    </div>
-                {% endif %}
-
-                {{ form(password_change_form) }}
+            <turbo-frame id="app-profile-update" src="{{ path('app_profile_edit_password') }}">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">正在載入密碼編輯區⋯⋯</span>
+                </div>
             </turbo-frame>
         </section>
     </div>

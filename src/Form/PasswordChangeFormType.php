@@ -50,7 +50,7 @@ class PasswordChangeFormType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('form.submit'),
+                'label' => $this->translator->trans('form.password_submit'),
                 'row_attr' => [
                     'class' => 'mt-3',
                 ],

@@ -58,4 +58,4 @@ form:
   password_confirm: 確認密碼
   password_new: 新密碼
   password_old: 舊密碼
-  submit: 更新密碼
+  password_submit: 更新密碼
