@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Form\PasswordChangeModel;
 use App\Entity\User;
+use App\Form\NameChangeFormType;
 use App\Form\PasswordChangeFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,6 +62,39 @@ class ProfileController extends AbstractController
             'user' => $user,
             'password_change_form' => $passwordChangeForm,
             'password_updated' => $passwordUpdated,
+        ]);
+    }
+
+    #[Route('/profile/edit/username', name: 'app_profile_edit_username')]
+    public function editUsername(
+        EntityManagerInterface $entityManager,
+        FormFactoryInterface $formFactory,
+        Request $request,
+        #[CurrentUser] User $user,
+    ): Response {
+        // If it is not opened from Turbo, we redirect to the profile page
+        $frameId = $request->headers->get('Turbo-Frame');
+        if (!$frameId) {
+            return $this->redirectToRoute('app_profile');
+        }
+
+        $usernameChangeForm = $formFactory->createBuilder(NameChangeFormType::class, $user)
+            ->setAction($this->generateUrl('app_profile_edit_username'))
+            ->getForm();
+        $usernameChangeForm->handleRequest($request);
+        $usernameUpdated = false;
+
+        if ($usernameChangeForm->isSubmitted() && $usernameChangeForm->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $usernameUpdated = true;
+        }
+
+        return $this->render('profile/edit_username.html.twig', [
+            'user' => $user,
+            'username_change_form' => $usernameChangeForm,
+            'username_updated' => $usernameUpdated,
         ]);
     }
 }

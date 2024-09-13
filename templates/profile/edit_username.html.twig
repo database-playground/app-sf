@@ -1,0 +1,11 @@
+<turbo-frame id="app-profile-username-update">
+    <h3 class="mb-3">名稱更新</h3>
+
+    {% if username_updated %}
+        <div class="alert alert-success" role="alert">
+            名稱更新完成 🎉 重新整理頁面即可看到更改完成的名稱～
+        </div>
+    {% endif %}
+
+    {{ form(username_change_form) }}
+</turbo-frame>
