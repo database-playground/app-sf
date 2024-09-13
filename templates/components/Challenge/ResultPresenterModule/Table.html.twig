@@ -2,13 +2,13 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        {% for cell in this.rows %}
+        {% for cell in this.header %}
             <th scope="col">{{ cell }}</th>
         {% endfor %}
     </tr>
     </thead>
     <tbody>
-    {% for column in this.result %}
+    {% for column in this.rows %}
         <tr>
             <th scope="row">{{ loop.index }}</th>
             {% for cell in column %}
@@ -17,4 +17,6 @@
         </tr>
     {% endfor %}
     </tbody>
+
+    {% include 'components/Challenge/ResultPresenterModule/Pagination.html.twig' %}
 </table>

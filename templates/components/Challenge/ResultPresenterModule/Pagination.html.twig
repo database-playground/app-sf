@@ -1,0 +1,25 @@
+{#
+    It is the partial component of Presenter tables for DRY.
+    Never render it as a standalone page.
+#}
+
+<tfoot>
+<tr>
+    <td colspan="2">
+        <div class="d-flex gap-2 justify-content-between">
+            <button
+                    class="btn btn-link"
+                    data-action="live#action"
+                    data-live-action-param="goPrevious"
+                    {{ not this.previous ? "disabled" : "" }}
+            >上一頁</button>
+            <button
+                    class="btn btn-link"
+                    data-action="live#action"
+                    data-live-action-param="goNext"
+                    {{ not this.next ? "disabled" : "" }}
+            >下一頁</button>
+        </div>
+    </td>
+</tr>
+</tfoot>
