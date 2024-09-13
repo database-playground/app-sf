@@ -38,6 +38,7 @@
             <turbo-frame
                     id="app-challenge-comment"
                     src="{{ path('app_challenge_comment', {id: question.id}) }}"
+                    loading="lazy"
             >
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">正在載入留言區⋯⋯</span>
