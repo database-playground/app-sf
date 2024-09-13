@@ -1,0 +1,24 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript"
+    },
+    "minify": {
+      "compress": true,
+      "format": {
+        "comments": false
+      }
+    }
+  },
+  "env": {
+    "targets": {
+      "chrome": "109",
+      "safari": "16",
+      "firefox": "115"
+    },
+    "mode": "entry",
+    "coreJs": "3.38"
+  },
+  "minify": true
+}
