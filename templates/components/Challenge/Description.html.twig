@@ -5,4 +5,13 @@
 
     <h5>輸出格式</h5>
     <p>欄位順序分別為：<code>{{ this.columnsOfAnswer|joinToQuoted }}</code>。</p>
+
+    {% if question.schema %}
+        <h5>schema 說明</h5>
+        {% if question.schema.description %}
+            {{ question.schema.description|raw }}
+        {% else %}
+            <p class="text-muted">無說明。</p>
+        {% endif %}
+    {% endif %}
 </section>
