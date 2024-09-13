@@ -8,6 +8,13 @@
 
     {% if question.schema %}
         <h5>schema 說明</h5>
+        <p>
+            本次使用的 <code>{{ question.schema.id }}</code> schema，可以從「<a
+                    href="{{ path("app_complementary") }}">補充資料</a>」中下載。<br>
+            <a href="{{ path("app_complementary_schema_retrieve", { schema: question.schema }) }}">
+                也可以點選這個連結直接下載對應的 SQL 檔案。
+            </a>
+        </p>
         {% if question.schema.description %}
             {{ question.schema.description|raw }}
         {% else %}
