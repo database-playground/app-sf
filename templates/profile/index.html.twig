@@ -46,6 +46,12 @@
         <section class="profile__update col">
             <h2 class="mb-4">更新帳號資訊</h2>
 
+            <turbo-frame id="app-profile-password-update" src="{{ path('app_profile_edit_password') }}">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">正在載入密碼編輯區⋯⋯</span>
+                </div>
+            </turbo-frame>
+
             <turbo-frame id="app-profile-update" src="{{ path('app_profile_edit_password') }}">
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">正在載入密碼編輯區⋯⋯</span>
