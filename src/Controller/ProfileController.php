@@ -34,6 +34,12 @@ class ProfileController extends AbstractController
         Request $request,
         #[CurrentUser] User $user,
     ): Response {
+        // If it is not opened from Turbo, we redirect to the profile page
+        $frameId = $request->headers->get('Turbo-Frame');
+        if (!$frameId) {
+            return $this->redirectToRoute('app_profile');
+        }
+
         $passwordChangeModel = new PasswordChangeModel();
         $passwordChangeForm = $formFactory->createBuilder(PasswordChangeFormType::class, $passwordChangeModel)
             ->setAction($this->generateUrl('app_profile_edit_password'))
