@@ -152,6 +152,10 @@ ul.credit {
   table-layout: fixed;
 }
 
+.challenge-primary {
+  min-height: 55vh;
+}
+
 .metric-card {
   @extend .px-5,
     .py-3,

@@ -1,0 +1,38 @@
+<turbo-frame id="app-challenge-comment">
+    <div class="challenge-comments">
+        <div class="challenge-comments__new mb-4">
+            <form>
+                <label for="comment-content" class="visually-hidden">留言</label>
+
+                <div class="d-flex gap-3">
+                    <input class="form-control" id="comment-content" name="content" placeholder="給後來人留下建議⋯⋯">
+                    <button type="submit" class="btn btn-primary w-auto" aria-label="送出留言">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="challenge-comment__comments vstack gap-2">
+            {% for comment in comments %}
+                <turbo-frame id="app-challenge-comment-cid-{{ comment.id }}">
+                    <div class="challenge-comments__comment mb-2">
+                        <div class="d-flex justify-content-between mb-1">
+                            <div><strong>{{ comment.author }}</strong></div>
+                            <div>{{ comment.time|date('Y-m-d') }}</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-content-center">
+                            <div>{{ comment.content }}</div>
+                            <div>
+                                <button class="btn btn-light btn-sm" aria-label="按讚">
+                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </turbo-frame>
+            {% endfor %}
+        </div>
+    </div>
+</turbo-frame>

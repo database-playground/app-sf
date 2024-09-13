@@ -32,5 +32,13 @@
                 <twig:Challenge:ResultPresenter :question="question" :user="user" />
             </div>
         </section>
+
+        <section class="challenge-comment mt-4">
+            <h3 class="mb-3">留言區</h3>
+            <turbo-frame
+                    id="app-challenge-comment"
+                    src="{{ path('app_challenge_comment', {id: question.id}) }}"
+            ></turbo-frame>
+        </section>
     </main>
 {% endblock %}
