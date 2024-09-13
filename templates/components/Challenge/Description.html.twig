@@ -3,22 +3,22 @@
         {{ question.description|raw }}
     </div>
 
-    <h5>輸出格式</h5>
-    <p>欄位順序分別為：<code>{{ this.columnsOfAnswer|joinToQuoted }}</code>。</p>
+    <p>
+        <strong>輸出格式：</strong>欄位順序分別為：<code>{{
+            this.columnsOfAnswer|joinToQuoted
+        }}</code>。
+    </p>
 
     {% if question.schema %}
-        <h5>schema 說明</h5>
-        <p>
-            本次使用的 <code>{{ question.schema.id }}</code> schema，可以從「<a
-                    href="{{ path("app_complementary") }}">補充資料</a>」中下載。<br>
-            <a href="{{ path("app_complementary_schema_retrieve", { schema: question.schema }) }}">
-                也可以點選這個連結直接下載對應的 SQL 檔案。
-            </a>
-        </p>
+    <p>
+        <strong>Schema：</strong>本次使用的 <code>{{ question.schema.id }}</code> schema，可以從「<a
+                href="{{ path("app_complementary") }}">補充資料</a>」中下載。<br>
+
         {% if question.schema.description %}
             {{ question.schema.description|raw }}
         {% else %}
-            <p class="text-muted">無說明。</p>
+            <span class="text-muted">除此之外這個 Schema 沒有額外說明。</span>
         {% endif %}
+    </p>
     {% endif %}
 </section>

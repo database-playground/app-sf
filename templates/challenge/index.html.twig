@@ -13,15 +13,19 @@
         <hr>
         <section class="challenge-primary row g-4">
             <div class="challenge-primary__left col-12 col-md-6">
-                <twig:Challenge:Description class="mt-4" :question="question" loading="defer" />
                 <twig:Challenge:Executor class="mt-4" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary">指引</button>
+                            {% if question.solutionVideo %}
                             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#challenge-solution-video-modal">解答影音</button>
+                            {% endif %}
                         </div>
                     </twig:block>
                 </twig:Challenge:Executor>
+
+                <h4 class="mt-4">說明</h4>
+                <twig:Challenge:Description class="mt-4" :question="question" loading="defer" />
             </div>
 
             <div class="challenge-primary__right col-12 col-md-6">
