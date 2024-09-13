@@ -27,11 +27,17 @@ class PasswordChangeFormType extends AbstractType
                 'attr' => [
                     'autocomplete' => 'current-password',
                 ],
+                'row_attr' => [
+                    'class' => 'input-group mb-1',
+                ],
             ])
             ->add('newPassword', PasswordType::class, [
                 'label' => $this->translator->trans('form.password_new'),
                 'attr' => [
                     'autocomplete' => 'new-password',
+                ],
+                'row_attr' => [
+                    'class' => 'input-group mb-1',
                 ],
             ])
             ->add('confirmPassword', PasswordType::class, [
@@ -39,9 +45,15 @@ class PasswordChangeFormType extends AbstractType
                 'attr' => [
                     'autocomplete' => 'new-password',
                 ],
+                'row_attr' => [
+                    'class' => 'input-group',
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('form.submit'),
+                'row_attr' => [
+                    'class' => 'mt-3',
+                ],
             ])
         ;
     }
