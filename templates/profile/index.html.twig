@@ -12,13 +12,18 @@
                 {% if 'ROLE_ADMIN' in user.roles %}
                     <small class="text-muted">管理員</small>
                 {% endif %}
-
-                {% if user.group != null %}
-                    <small class="text-muted">{{ user.group.name }}</small>
-                {% endif %}
             </h2>
 
             <ul class="list-group">
+                <li class="list-group-item">
+                    <i class="bi bi-people-fill"></i>
+                    參照組別：
+                    {% if user.group %}
+                       {{ user.group.name }}
+                    {% else %}
+                        <span class="text-muted">⚠️ 未分配</span>
+                    {% endif %}
+                </li>
                 <li class="list-group-item">
                     <i class="bi bi-envelope-at-fill"></i>
                     電子信箱：{{ user.email }}
