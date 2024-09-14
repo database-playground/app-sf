@@ -23,6 +23,15 @@ importers:
       "@eslint/js":
         specifier: ^9.10.0
         version: 9.10.0
+      "@hotwired/stimulus":
+        specifier: ^3.2.2
+        version: 3.2.2
+      "@types/bootstrap":
+        specifier: ^5.2.10
+        version: 5.2.10
+      bootstrap:
+        specifier: ^5.3.3
+        version: 5.3.3(@popperjs/core@2.11.8)
       dprint:
         specifier: ^0.47.2
         version: 0.47.2
@@ -239,6 +248,11 @@ packages:
     }
     engines: { node: ">= 8" }
 
+  "@popperjs/core@2.11.8":
+    resolution: {
+      integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==,
+    }
+
   "@symfony/stimulus-bridge@3.2.2":
     resolution: {
       integrity: sha512-kIaUEGPXW7g14zsHkIvQWw8cmfCdXSqsEQx18fuHPBb+R0h8nYPyY+e9uVtTuHlE2wHwAjrJoc6YBBK4a7CpKA==,
@@ -246,6 +260,11 @@ packages:
     engines: { node: ^10.13.0 || >=12.0.0 }
     peerDependencies:
       "@hotwired/stimulus": ^3.0
+
+  "@types/bootstrap@5.2.10":
+    resolution: {
+      integrity: sha512-F2X+cd6551tep0MvVZ6nM8v7XgGN/twpdNDjqS1TUM7YFNEtQYWk+dKAnH+T1gr6QgCoGMPl487xw/9hXooa2g==,
+    }
 
   "@types/json-schema@7.0.15":
     resolution: {
@@ -382,6 +401,13 @@ packages:
     resolution: {
       integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==,
     }
+
+  bootstrap@5.3.3:
+    resolution: {
+      integrity: sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg==,
+    }
+    peerDependencies:
+      "@popperjs/core": ^2.11.8
 
   brace-expansion@1.1.11:
     resolution: {
@@ -1107,6 +1133,8 @@ snapshots:
       "@nodelib/fs.scandir": 2.1.5
       fastq: 1.17.1
 
+  "@popperjs/core@2.11.8": {}
+
   "@symfony/stimulus-bridge@3.2.2(@hotwired/stimulus@3.2.2)":
     dependencies:
       "@hotwired/stimulus": 3.2.2
@@ -1115,6 +1143,10 @@ snapshots:
       acorn: 8.12.1
       loader-utils: 2.0.4
       schema-utils: 3.3.0
+
+  "@types/bootstrap@5.2.10":
+    dependencies:
+      "@popperjs/core": 2.11.8
 
   "@types/json-schema@7.0.15": {}
 
@@ -1229,6 +1261,10 @@ snapshots:
   balanced-match@1.0.2: {}
 
   big.js@5.2.2: {}
+
+  bootstrap@5.3.3(@popperjs/core@2.11.8):
+    dependencies:
+      "@popperjs/core": 2.11.8
 
   brace-expansion@1.1.11:
     dependencies:

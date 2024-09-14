@@ -2,7 +2,11 @@
     "class": "modal fade",
     "tabindex": "-1",
     "aria-labelledby": "challenge-solution-video-modal-label",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    "data-video-url": path('app_challenge_solution_video', {
+        id: this.question.id,
+        csrf: csrf_token('challenge-solution')
+    })
 }|merge(stimulus_controller('challenge-solution-video-modal'))) }}>
     <div class="modal-dialog">
         <div class="modal-content">
@@ -22,9 +26,8 @@
                 <button
                         type="button"
                         class="btn btn-primary"
-                        data-bs-dismiss="modal"
-                        data-action="live#action"
-                        data-live-action-param="openSolutionVideo">
+                        data-action="challenge-solution-video-modal#open"
+                >
                     打開影片
                 </button>
             </div>
