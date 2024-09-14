@@ -8,11 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class ExercisesController extends AbstractController
+class QuestionsController extends AbstractController
 {
-    #[Route('/exercises', name: 'app_exercises')]
+    #[Route('/questions', name: 'app_questions')]
     public function index(): Response
     {
-        return $this->render('exercises/index.html.twig');
+        return $this->render('questions/index.html.twig');
     }
 }
