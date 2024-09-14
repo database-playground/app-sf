@@ -42,7 +42,13 @@
         </div>
 
         <div class="d-flex justify-content-between align-content-center">
-            <div>{{ comment.content|raw }}</div>
+            <div>
+                {% if plainContent == "" %}
+                    <span class="text-muted">(redacted)</span>
+                {% else %}
+                    {{ plainContent }}
+                {% endif %}
+            </div>
             <div>
                 {% if this.owned %}
                     <button
