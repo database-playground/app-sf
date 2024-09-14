@@ -58,10 +58,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: SolutionVideoEvent::class, mappedBy: 'opener', orphanRemoval: true)]
     private Collection $solutionVideoEvents;
 
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'commenter', orphanRemoval: true)]
+    private Collection $comments;
+
+    /**
+     * @var Collection<int, CommentLikeEvent>
+     */
+    #[ORM\OneToMany(targetEntity: CommentLikeEvent::class, mappedBy: 'liker', orphanRemoval: true)]
+    private Collection $commentLikeEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
         $this->solutionVideoEvents = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->commentLikeEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +238,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($solutionVideoEvent->getOpener() === $this) {
                 $solutionVideoEvent->setOpener(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setCommenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getCommenter() === $this) {
+                $comment->setCommenter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommentLikeEvent>
+     */
+    public function getCommentLikeEvents(): Collection
+    {
+        return $this->commentLikeEvents;
+    }
+
+    public function addCommentLikeEvent(CommentLikeEvent $commentLikeEvent): static
+    {
+        if (!$this->commentLikeEvents->contains($commentLikeEvent)) {
+            $this->commentLikeEvents->add($commentLikeEvent);
+            $commentLikeEvent->setLiker($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentLikeEvent(CommentLikeEvent $commentLikeEvent): static
+    {
+        if ($this->commentLikeEvents->removeElement($commentLikeEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($commentLikeEvent->getLiker() === $this) {
+                $commentLikeEvent->setLiker(null);
             }
         }
 
