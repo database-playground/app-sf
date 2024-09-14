@@ -1,0 +1,19 @@
+<div{{ attributes.defaults({ class: "challenge-comment-form" }) }}>
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action:prevent',
+            'data-live-action-param': 'save'
+        }
+    }) }}
+        <div class="d-flex gap-3">
+            <div class="w-100">
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content) }}
+            </div>
+
+            <div>
+                {{ form_widget(form.submit) }}
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
