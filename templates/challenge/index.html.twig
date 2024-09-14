@@ -36,15 +36,7 @@
 
         <section class="challenge-comment mt-4">
             <h3 class="mb-3">留言區</h3>
-            <turbo-frame
-                    id="app-challenge-comment"
-                    src="{{ path('app_challenge_comment', {id: question.id}) }}"
-                    loading="lazy"
-            >
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">正在載入留言區⋯⋯</span>
-                </div>
-            </turbo-frame>
+            <twig:Challenge:Comment :question="question" :currentUser="user" loading="lazy" />
         </section>
     </main>
 {% endblock %}

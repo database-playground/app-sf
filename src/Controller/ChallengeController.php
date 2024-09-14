@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Question;
 use App\Entity\SolutionVideoEvent;
 use App\Entity\User;
-use App\Repository\CommentRepository;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,19 +53,5 @@ class ChallengeController extends AbstractController
         $entityManager->flush();
 
         return $this->redirect($solutionVideo, Response::HTTP_FOUND);
-    }
-
-    #[Route('/challenge/{id}/comment', name: 'app_challenge_comment')]
-    public function comment(
-        #[CurrentUser] User $user,
-        Question $question,
-        CommentRepository $commentRepository,
-    ): Response {
-        $comments = $commentRepository->findQuestionComments($question);
-
-        return $this->render('challenge/comment.html.twig', [
-            'user' => $user,
-            'comments' => $comments,
-        ]);
     }
 }
