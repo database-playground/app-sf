@@ -1,8 +1,6 @@
 User: 使用者
 Dashboard: 儀表板
 User management: 使用者管理
-Users: 使用者
-Groups: 群組
 Question management: 題庫管理
 Schema: 結構
 Questions: 題庫
@@ -30,14 +28,18 @@ Name: 名稱
 Password: 密碼
 New password: 新密碼
 Events: 事件
-Solution Events: 解答事件
 SolutionEvent: 解答事件
 Submitter: 提交者
 Status: 狀態
 Query: 查詢
 SolutionVideoEvent: 解答影片打開事件
-Solution Video Events: 解答影片打開事件
 Opener: 打開者
+Comments: 留言
+Comment: 留言
+Commenter: 留言者
+Content: 內容
+CommentLikeEvent: 留言點讚事件
+Liker: 點讚者
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤

@@ -37,19 +37,19 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
         yield MenuItem::section('User management');
-        yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
-        yield MenuItem::linkToCrud('Groups', 'fa fa-group', Group::class);
+        yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Group', 'fa fa-group', Group::class);
 
         yield MenuItem::section('Question management');
         yield MenuItem::linkToCrud('Schema', 'fa fa-database', Schema::class);
         yield MenuItem::linkToCrud('Questions', 'fa fa-question', Question::class);
 
         yield MenuItem::section('Comments');
-        yield MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class);
+        yield MenuItem::linkToCrud('Comment', 'fa fa-comment', Comment::class);
+        yield MenuItem::linkToCrud('CommentLikeEvent', 'fa fa-thumbs-up', CommentLikeEvent::class);
 
         yield MenuItem::section('Events');
-        yield MenuItem::linkToCrud('Solution Events', 'fa fa-check', SolutionEvent::class);
-        yield MenuItem::linkToCrud('Solution Video Events', 'fa fa-video', SolutionVideoEvent::class);
-        yield MenuItem::linkToCrud('Comments Events', 'fa fa-comment', CommentLikeEvent::class);
+        yield MenuItem::linkToCrud('SolutionEvent', 'fa fa-check', SolutionEvent::class);
+        yield MenuItem::linkToCrud('SolutionVideoEvent', 'fa fa-video', SolutionVideoEvent::class);
     }
 }
