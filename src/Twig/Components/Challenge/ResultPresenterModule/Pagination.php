@@ -28,6 +28,11 @@ trait Pagination
     #[LiveProp]
     public int $page = 1;
 
+    /**
+     * Get the data for the current page.
+     */
+    abstract public function getData(): array;
+
     public function hasPrevious(): bool
     {
         return $this->page > 1;

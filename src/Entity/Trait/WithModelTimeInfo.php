@@ -6,6 +6,11 @@ namespace App\Entity\Trait;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Add created_at and updated_at fields to the entity.
+ *
+ * The `#[ORM\HasLifecycleCallbacks]` annotation is required in the entity class.
+ */
 trait WithModelTimeInfo
 {
     #[ORM\Column]
