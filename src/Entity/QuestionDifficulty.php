@@ -23,4 +23,14 @@ enum QuestionDifficulty: string implements TranslatableInterface
             self::Hard => $translator->trans('Hard', locale: $locale),
         };
     }
+
+    public static function fromString(string $difficulty): self
+    {
+        return match ($difficulty) {
+            self::Easy->value => self::Easy,
+            self::Medium->value => self::Medium,
+            self::Hard->value => self::Hard,
+            default => self::Unspecified,
+        };
+    }
 }
