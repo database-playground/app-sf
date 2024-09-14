@@ -62,8 +62,9 @@ readonly class QuestionDto implements Importable
     /**
      * @throws \InvalidArgumentException
      */
-    public static function fromJsonObject(\stdClass $json): self
+    public static function fromJsonObject(object $json): self
     {
+        /** @var \stdClass $json */
         $json = clone $json;
 
         if (!isset($json->schemaId)) {

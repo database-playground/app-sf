@@ -6,5 +6,5 @@ namespace App\Entity\ExportDto;
 
 interface Importable
 {
-    public static function fromJsonObject(\stdClass $json): self;
+    public static function fromJsonObject(object $json): self;
 }
