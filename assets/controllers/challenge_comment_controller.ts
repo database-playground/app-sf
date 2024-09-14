@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import { Component, getComponent } from "@symfony/ux-live-component";
-import bootstrap from "bootstrap";
+import * as bootstrap from "bootstrap";
 
 export default class extends Controller<HTMLElement> {
   #component: Component | undefined;
@@ -16,7 +16,9 @@ export default class extends Controller<HTMLElement> {
 
     const modal = new bootstrap.Modal("#challenge-comment-confirm-modal");
 
+    modal.hide();
+
+    // FIXME: action() does not resolve. Might be a deadlock in the component?
     await this.#component.action("delete", {}, 200);
-    modal.hide(); // Hide the modal after the action is triggered
   }
 }

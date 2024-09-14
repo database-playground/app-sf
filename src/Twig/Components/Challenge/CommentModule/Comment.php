@@ -63,7 +63,8 @@ final class Comment
 
         $this->entityManager->remove($this->comment);
         $this->entityManager->flush();
-        $this->emitSelf('app:comment-deleted');
+
+        $this->emitUp('app:comment-refresh');
     }
 
     #[LiveAction]

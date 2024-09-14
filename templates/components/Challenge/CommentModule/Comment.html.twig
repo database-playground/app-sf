@@ -1,41 +1,41 @@
 {% set previewCommentCharLimit = 30 %}
+{% set plainContent = comment.content|striptags %}
 
-{# modals #}
-{% if this.owned %}
-    <div
-            class="challenge-comments__confirm modal fade"
-            id="challenge-comment-confirm-modal"
-            tabindex="-1"
-            aria-labelledby="challenge-comment-confirm-modal-label"
-            aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="challenge-comment-confirm-modal-label">刪除留言</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
-                </div>
-                <div class="modal-body">
-                    確定要移除「{{
-                    myentity.text|length > previewCommentCharLimit
-                    ? myentity.text|slice(0, previewCommentCharLimit) ~ '……'
-                    : myentity.text
-                    }}」這則留言嗎？
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button
-                            type="button"
-                            class="btn btn-danger"
-                            data-action="live#action"
-                            data-live-action-param="delete"
-                    >刪除</button>
+<div{{ attributes.defaults({ class: "challenge-comment" }|merge(stimulus_controller('challenge-comment'))) }}>
+    {# modals #}
+    {% if this.owned %}
+        <div
+                class="challenge-comments__deletion_confirm modal fade"
+                id="challenge-comment-confirm-modal"
+                tabindex="-1"
+                aria-labelledby="challenge-comment-deletion-confirm-modal-label"
+                aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="challenge-comment-deletion-confirm-modal-label">刪除留言</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                    </div>
+                    <div class="modal-body">
+                        確定要移除「{{
+                        plainContent|length > previewCommentCharLimit
+                        ? plainContent|slice(0, previewCommentCharLimit) ~ '……'
+                        : plainContent
+                        }}」這則留言嗎？
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button
+                                type="button"
+                                class="btn btn-danger"
+                                {{ stimulus_action('challenge-comment', 'delete') }}
+                        >刪除</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
 
-<div{{ attributes.defaults({ class: "challenge-comment" }|merge(stimulus_controller('challenge-comment'))) }}>
     <div class="challenge-comments__comment mb-2">
         <div class="d-flex justify-content-between mb-1">
             <div><strong>{{ comment.commenter.name }}</strong></div>
@@ -49,7 +49,7 @@
                     <button
                             class="btn btn-light btn-sm"
                             data-bs-toggle="modal"
-                            data-bs-target="#myModal"
+                            data-bs-target="#challenge-comment-confirm-modal"
                     >
                         <i class="bi bi-trash-fill" aria-label="刪除"></i>
                     </button>
