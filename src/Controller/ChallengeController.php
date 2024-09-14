@@ -57,9 +57,12 @@ class ChallengeController extends AbstractController
     }
 
     #[Route('/challenge/{id}/comment', name: 'app_challenge_comment')]
-    public function comment(#[CurrentUser] User $user, CommentRepository $commentRepository): Response
-    {
-        $comments = $commentRepository->findAll();
+    public function comment(
+        #[CurrentUser] User $user,
+        Question $question,
+        CommentRepository $commentRepository,
+    ): Response {
+        $comments = $commentRepository->findQuestionComments($question);
 
         return $this->render('challenge/comment.html.twig', [
             'user' => $user,
