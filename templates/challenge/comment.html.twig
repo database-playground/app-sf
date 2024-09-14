@@ -16,6 +16,8 @@
         <div class="challenge-comment__comments vstack gap-2">
             {% for comment in comments %}
                 <twig:Challenge:CommentModule:Comment :comment="comment" :currentUser="user" />
+            {% else %}
+                <div class="text-muted">尚無留言。成為第一個留言者吧！</div>
             {% endfor %}
         </div>
     </div>
