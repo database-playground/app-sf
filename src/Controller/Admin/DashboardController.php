@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\Comment;
+use App\Entity\CommentLikeEvent;
 use App\Entity\Group;
 use App\Entity\Question;
 use App\Entity\Schema;
@@ -42,8 +44,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Schema', 'fa fa-database', Schema::class);
         yield MenuItem::linkToCrud('Questions', 'fa fa-question', Question::class);
 
+        yield MenuItem::section('Comments');
+        yield MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class);
+
         yield MenuItem::section('Events');
         yield MenuItem::linkToCrud('Solution Events', 'fa fa-check', SolutionEvent::class);
         yield MenuItem::linkToCrud('Solution Video Events', 'fa fa-video', SolutionVideoEvent::class);
+        yield MenuItem::linkToCrud('Comments Events', 'fa fa-comment', CommentLikeEvent::class);
     }
 }
