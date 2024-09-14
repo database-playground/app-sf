@@ -37,7 +37,12 @@
 
     <div class="challenge-comments__comment mb-2">
         <div class="d-flex justify-content-between mb-1">
-            <div><strong>{{ comment.commenter.name }}</strong></div>
+            <div>
+                <strong>{{ comment.commenter.name }}</strong>
+                {% if this.owned %}
+                    <span class="text-muted">(您)</span>
+                {% endif %}
+            </div>
             <div>{{ comment.createdAt|date('Y-m-d') }}</div>
         </div>
 
