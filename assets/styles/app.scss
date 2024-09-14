@@ -13,6 +13,9 @@ $input-height-border: calc(#{$input-border-width} * 2);
 $form-floating-height: add(3.5rem * 0.8, $input-height-border);
 $form-floating-padding-y: 0.65rem;
 
+$timeline-color: #808080;
+$timeline-width: 2px;
+
 @import "../../vendor/twbs/bootstrap/scss/bootstrap-reboot";
 $font-family-sans-serif: list.join(
   ("LXGW WenKai TC", cursive),
@@ -226,9 +229,9 @@ ul.credit {
           top: calc(-1em + 1px);
           left: 50%;
           transform: translateX(-50%);
-          width: 2px;
+          width: $timeline-width;
           height: calc(100% + $spacer * 2);
-          background-color: #808080;
+          background-color: $timeline-color;
         }
 
         &--first::before {
@@ -245,6 +248,34 @@ ul.credit {
           border-bottom: 5px solid #808080;
         }
       }
+    }
+  }
+}
+
+.app-comments {
+  border-left: $timeline-width solid $timeline-color;
+  position: relative;
+  list-style: none;
+
+  &__item {
+    position: relative;
+
+    &::before {
+      background-color: $timeline-color;
+
+      position: absolute;
+      display: block;
+      top: 0.5em;
+
+      $ball-size: 11px;
+
+      // FIXME: 28px is calculated by Safari and
+      // Chrome. I don't have idea why it is 28px.
+      left: calc(-28px - $timeline-width / 2 - $ball-size / 2);
+      border-radius: 50%;
+      height: $ball-size;
+      width: $ball-size;
+      content: "";
     }
   }
 }

@@ -1,0 +1,34 @@
+{% extends 'app.html.twig' %}
+
+{% block nav %}<twig:Navbar active="comments"/>{% endblock %}
+{% block title %}留言一覽{% endblock %}
+
+{% block app %}
+    <main>
+        <h2 class="mb-4">留言一覽</h2>
+
+        <div class="app-comments-area row">
+            <section class="app-comments-area__history col container-md">
+                <ul class="app-comments">
+                    {% for comment in comments %}
+                        <li class="app-comments__item">
+                            <p class="app-comments__item__commented_at text-muted mb-2 fw-bold">{{ comment.createdAt|date("Y-m-d H:i:s") }}・<i class="bi bi-hand-thumbs-up" aria-label="按讚數"></i> {{ comment.commentLikeEvents|length }}</p>
+                            <h5 class="app-comments__item__question">在第 {{ comment.question.id }} 題（{{ comment.question.title }}）留言了</h5>
+                            <p class="app-comments__item__content">{{ comment.content|striptags }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="app-comments-area__aggregation col container-md">
+                <h3 class="mb-4 visually-hidden">統計資料</h3>
+
+                <div class="app-statistics vstack gap-2">
+                    <twig:MetricCard title="留言總數">{{ comments|length }}</twig:MetricCard>
+                    <twig:MetricCard title="按讚總數" property="positive">{{ comments|reduce((acc, comment) => acc + comment.commentLikeEvents|length, 0) }}</twig:MetricCard>
+                    <p>WIP: charts</p>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}
