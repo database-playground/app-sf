@@ -10,11 +10,9 @@ export default class extends Controller<HTMLElement> {
     this.#component = await getComponent(this.element);
 
     const $confirmModal = this.element.querySelector<HTMLElement>(".challenge-comments__deletion_confirm");
-    if (!$confirmModal) {
-      throw new Error("Not applicable.");
+    if ($confirmModal) {
+      this.#modal = new bootstrap.Modal($confirmModal);
     }
-
-    this.#modal = new bootstrap.Modal($confirmModal);
   }
 
   async confirm() {
