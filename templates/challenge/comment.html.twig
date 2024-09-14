@@ -15,23 +15,7 @@
 
         <div class="challenge-comment__comments vstack gap-2">
             {% for comment in comments %}
-                <turbo-frame id="app-challenge-comment-cid-{{ comment.id }}">
-                    <div class="challenge-comments__comment mb-2">
-                        <div class="d-flex justify-content-between mb-1">
-                            <div><strong>{{ comment.author }}</strong></div>
-                            <div>{{ comment.time|date('Y-m-d') }}</div>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-content-center">
-                            <div>{{ comment.content }}</div>
-                            <div>
-                                <button class="btn btn-light btn-sm" aria-label="按讚">
-                                    <i class="bi bi-hand-thumbs-up-fill"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </turbo-frame>
+                <twig:Challenge:CommentModule:Comment :comment="comment" :currentUser="user" />
             {% endfor %}
         </div>
     </div>

@@ -1,0 +1,74 @@
+{% set previewCommentCharLimit = 30 %}
+
+{# modals #}
+{% if this.owned %}
+    <div
+            class="challenge-comments__confirm modal fade"
+            id="challenge-comment-confirm-modal"
+            tabindex="-1"
+            aria-labelledby="challenge-comment-confirm-modal-label"
+            aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="challenge-comment-confirm-modal-label">刪除留言</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                </div>
+                <div class="modal-body">
+                    確定要移除「{{
+                    myentity.text|length > previewCommentCharLimit
+                    ? myentity.text|slice(0, previewCommentCharLimit) ~ '……'
+                    : myentity.text
+                    }}」這則留言嗎？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button
+                            type="button"
+                            class="btn btn-danger"
+                            data-action="live#action"
+                            data-live-action-param="delete"
+                    >刪除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div{{ attributes.defaults({ class: "challenge-comment" }|merge(stimulus_controller('challenge-comment'))) }}>
+    <div class="challenge-comments__comment mb-2">
+        <div class="d-flex justify-content-between mb-1">
+            <div><strong>{{ comment.commenter.name }}</strong></div>
+            <div>{{ comment.createdAt|date('Y-m-d') }}</div>
+        </div>
+
+        <div class="d-flex justify-content-between align-content-center">
+            <div>{{ comment.content|raw }}</div>
+            <div>
+                {% if this.owned %}
+                    <button
+                            class="btn btn-light btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myModal"
+                    >
+                        <i class="bi bi-trash-fill" aria-label="刪除"></i>
+                    </button>
+                {% else %}
+                    <button
+                            class="btn btn-light btn-sm"
+                            data-action="live#action"
+                            data-live-action-param="likeOrDislike"
+                    >
+                        {% if this.liked %}
+                            <i class="bi bi-hand-thumbs-up-fill" aria-label="已經按讚"></i>
+                        {% else %}
+                            <i class="bi bi-hand-thumbs-up" aria-label="按讚"></i>
+                        {% endif %}
+
+                        <span>{{ this.likes }}</span>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
