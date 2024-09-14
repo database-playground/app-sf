@@ -11,10 +11,10 @@
 
     <main>
         <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" :user="user" />
-        <hr>
+        <hr class="opacity-50">
         <section class="challenge-primary row g-4">
             <div class="challenge-primary__left col-12 col-md-6">
-                <twig:Challenge:Executor class="mt-4" :question="question" :user="user">
+                <twig:Challenge:Executor class="mt-2" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary">指引</button>
