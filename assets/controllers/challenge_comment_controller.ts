@@ -6,8 +6,21 @@ export default class extends Controller<HTMLElement> {
   #component: Component | undefined;
   #modal: bootstrap.Modal | undefined;
 
-  async connect() {
+  async initialize() {
     this.#component = await getComponent(this.element);
+  }
+
+  async connect() {
+    const $commentBlock = this.element.querySelector(".challenge-comments__comment");
+    if (!$commentBlock) {
+      console.warn("No comment element found. Cannot fade in.");
+      return;
+    }
+
+    setTimeout(() => {
+      // Remove the opacity-0 class to trigger the fade-in animation
+      $commentBlock.classList.remove("opacity-0");
+    }, 20 /* ms */);
 
     const $confirmModal = this.element.querySelector<HTMLElement>(".challenge-comments__deletion_confirm");
     if ($confirmModal) {

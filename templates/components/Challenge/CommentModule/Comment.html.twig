@@ -1,7 +1,7 @@
 {% set previewCommentCharLimit = 30 %}
 {% set plainContent = comment.content|striptags %}
 
-<div{{ attributes.defaults({ class: "challenge-comment" }|merge(stimulus_controller('challenge-comment'))) }}>
+<div{{ attributes.defaults({ class: "challenge-comments" }|merge(stimulus_controller('challenge-comment'))) }}>
     {# modals #}
     {% if this.owned %}
         <div
@@ -35,7 +35,7 @@
         </div>
     {% endif %}
 
-    <div class="challenge-comments__comment mb-2">
+    <div class="challenge-comments__comment mb-2 opacity-0">
         <div class="d-flex justify-content-between mb-1">
             <div>
                 <strong>{{ comment.commenter.name }}</strong>

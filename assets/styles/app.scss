@@ -279,3 +279,9 @@ ul.credit {
     }
   }
 }
+
+.challenge-comments {
+  &__comment {
+    transition: opacity 300ms;
+  }
+}
