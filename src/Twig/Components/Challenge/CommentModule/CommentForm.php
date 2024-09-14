@@ -59,6 +59,7 @@ final class CommentForm
         $entityManager->persist($comment);
         $entityManager->flush();
 
+        $this->resetForm();
         $this->emitUp('app:comment-refresh');
     }
 }
