@@ -4,23 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Trait\WithUlidCreatedAt;
+use App\Entity\Trait\WithUlid;
 use App\Repository\SolutionEventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\IdGenerator\UlidGenerator;
-use Symfony\Component\Uid\Ulid;
 
 #[ORM\Entity(repositoryClass: SolutionEventRepository::class)]
 class SolutionEvent
 {
-    use WithUlidCreatedAt;
-
-    #[ORM\Id]
-    #[ORM\CustomIdGenerator(class: UlidGenerator::class)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\Column(type: 'ulid', unique: true)]
-    private ?Ulid $id = null;
+    use WithUlid;
 
     #[ORM\ManyToOne(inversedBy: 'solutionEvents')]
     #[ORM\JoinColumn(nullable: false)]
@@ -35,18 +27,6 @@ class SolutionEvent
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $query = null;
-
-    public function getId(): ?Ulid
-    {
-        return $this->id;
-    }
-
-    public function setId(Ulid $id): static
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     public function getSubmitter(): ?User
     {
