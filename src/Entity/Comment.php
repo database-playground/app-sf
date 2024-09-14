@@ -18,7 +18,7 @@ class Comment
     use Trait\WithModelTimeInfo;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
 
