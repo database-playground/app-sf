@@ -4,21 +4,34 @@ import * as bootstrap from "bootstrap";
 
 export default class extends Controller<HTMLElement> {
   #component: Component | undefined;
+  #modal: bootstrap.Modal | undefined;
 
   async connect() {
     this.#component = await getComponent(this.element);
+
+    const $confirmModal = this.element.querySelector<HTMLElement>(".challenge-comments__deletion_confirm");
+    if (!$confirmModal) {
+      throw new Error("Not applicable.");
+    }
+
+    this.#modal = new bootstrap.Modal($confirmModal);
+  }
+
+  async confirm() {
+    if (!this.#modal) {
+      throw new Error("Not applicable.");
+    }
+
+    this.#modal?.show();
   }
 
   async delete() {
-    if (!this.#component) {
-      throw new Error("Component not found");
+    if (!this.#component || !this.#modal) {
+      throw new Error("Not applicable.");
     }
 
-    const modal = new bootstrap.Modal("#challenge-comment-confirm-modal");
+    await this.#component.action("delete");
 
-    modal.hide();
-
-    // FIXME: action() does not resolve. Might be a deadlock in the component?
-    await this.#component.action("delete", {}, 200);
+    this.#modal.hide();
   }
 }

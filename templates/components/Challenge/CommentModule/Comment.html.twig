@@ -6,14 +6,13 @@
     {% if this.owned %}
         <div
                 class="challenge-comments__deletion_confirm modal fade"
-                id="challenge-comment-confirm-modal"
                 tabindex="-1"
-                aria-labelledby="challenge-comment-deletion-confirm-modal-label"
+                aria-labelledby="challenge-comment-{{ comment.id }}-confirm-modal-label"
                 aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="challenge-comment-deletion-confirm-modal-label">刪除留言</h1>
+                        <h1 class="modal-title fs-5" id="challenge-comment-{{ comment.id }}-deletion-confirm-modal-label">刪除留言</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
                     </div>
                     <div class="modal-body">
@@ -48,8 +47,7 @@
                 {% if this.owned %}
                     <button
                             class="btn btn-light btn-sm"
-                            data-bs-toggle="modal"
-                            data-bs-target="#challenge-comment-confirm-modal"
+                            {{ stimulus_action('challenge-comment', 'confirm') }}
                     >
                         <i class="bi bi-trash-fill" aria-label="刪除"></i>
                     </button>
