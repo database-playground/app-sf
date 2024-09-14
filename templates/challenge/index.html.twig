@@ -4,9 +4,10 @@
 {% block title %}練習題目 – {{ question.title }}{% endblock %}
 
 {% block app %}
-    <div>
+    {# modals #}
+    {% if question.solutionVideo %}
         <twig:Challenge:SolutionVideoModal id="challenge-solution-video-modal" :question="question" :user="user" />
-    </div>
+    {% endif %}
 
     <main>
         <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" :user="user" />
