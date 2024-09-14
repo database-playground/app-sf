@@ -41,7 +41,7 @@
         </div>
     {% endif %}
 
-    <section aria-label="題庫" class="question-filterable-section__list row row-cols-1 row-cols-md-2 row-cols-lg-4 gap-4">
+    <section aria-label="題庫" class="question-filterable-section__list row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         {% for item in this.questions %}
             <div class="col">
                 <twig:Questions:Card :question="item"></twig:Questions:Card>
@@ -52,12 +52,12 @@
     <nav aria-label="頁面導航" class="question-filterable-section__navigation mt-5">
         <ul class="pagination justify-content-center">
             <li class="page-item">
-                <a class="page-link {{ this.hasPrevious ? '' : 'disabled' }}"
+                <button class="page-link {{ this.hasPrevious ? '' : 'disabled' }}"
                    data-action="live#action"
                    data-live-action-param="previousPage"
                    aria-label="上一頁">
                     <span class="user-select-none">&laquo;</span>
-                </a>
+                </button>
             </li>
             <li class="page-item">
                 <span class="page-link active">
@@ -65,13 +65,13 @@
                 </span>
             </li>
             <li class="page-item">
-                <a
+                <button
                     class="page-link {{ this.hasNext ? '' : 'disabled' }}"
                     data-action="live#action"
                     data-live-action-param="nextPage"
                     aria-label="下一頁">
                     <span class="user-select-none" aria-hidden="true">&raquo;</span>
-                </a>
+                </button>
             </li>
         </ul>
     </nav>

@@ -13,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class QuestionRepository extends ServiceEntityRepository
 {
-    public static int $PAGE_SIZE = 15;
+    public static int $PAGE_SIZE = 10;
 
     public function __construct(ManagerRegistry $registry)
     {
