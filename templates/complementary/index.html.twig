@@ -23,6 +23,7 @@
 
                             <p class="text-secondary">適用題目：{{
                                 schema.questions
+                                    | sort
                                     | map((question) => "\##{question.id}")
                                     | join("、")
                                     ?: "無"
