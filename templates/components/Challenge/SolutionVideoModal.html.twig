@@ -1,7 +1,7 @@
 <div {{ attributes.defaults({
     "class": "modal fade",
     "tabindex": "-1",
-    "aria-labelledby": "challenge-solution-video-modal-label",
+    "aria-label": "打開解答影片",
     "aria-hidden": "true",
     "data-video-url": path('app_challenge_solution_video', {
         id: this.question.id,
@@ -11,7 +11,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="challenge-solution-video-modal-label">打開解答影片</h1>
+                <h1 class="modal-title fs-5">打開解答影片</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
             </div>
             <div class="modal-body">

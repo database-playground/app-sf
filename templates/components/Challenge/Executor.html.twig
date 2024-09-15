@@ -1,6 +1,6 @@
 <section {{ attributes.defaults({ class: "challenge-sql-executor" }|merge(stimulus_controller('challenge-executor', {
     modelName: 'query',
-    editorSelector: '#challenge-sql-executor__editor',
+    editorSelector: '.challenge-sql-executor__editor',
 }))) }}>
     <section class="challenge-sql-executor__actions hstack">
         <div class="challenge-sql-executor__actions__left me-auto">
@@ -18,5 +18,5 @@
         </div>
     </section>
     <hr>
-    <div id="challenge-sql-executor__editor" class="border rounded"></div>
+    <div class="challenge-sql-executor__editor border rounded"></div>
 </section>
