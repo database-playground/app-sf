@@ -40,10 +40,8 @@ $sqlite->busyTimeout(3000 /* milliseconds */);
 $sqlite->enableExceptions(true);
 
 // MySQL-compatible functions
-function year(mixed $date): int
+function year(string $date): int
 {
-    assert(is_string($date));
-
     return (int) date(
         'Y',
         strtotime($date)
@@ -51,10 +49,8 @@ function year(mixed $date): int
     );
 }
 
-function month(mixed $date): int
+function month(string $date): int
 {
-    assert(is_string($date));
-
     return (int) date(
         'n',
         strtotime($date)
@@ -62,10 +58,8 @@ function month(mixed $date): int
     );
 }
 
-function day(mixed $date): int
+function day(string $date): int
 {
-    assert(is_string($date));
-
     return (int) date(
         'j',
         strtotime($date)
@@ -73,9 +67,21 @@ function day(mixed $date): int
     );
 }
 
+function left(string $string, int $length): string
+{
+    return substr($string, 0, $length);
+}
+
+function sql_if(bool $condition, mixed $true, mixed $false): mixed
+{
+    return $condition ? $true : $false;
+}
+
 $sqlite->createFunction('YEAR', 'year');
 $sqlite->createFunction('MONTH', 'month');
 $sqlite->createFunction('DAY', 'day');
+$sqlite->createFunction('LEFT', 'left');
+$sqlite->createFunction('IF', 'sql_if');
 
 try {
     try {
