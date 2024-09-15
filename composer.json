@@ -104,6 +104,7 @@
       "pnpm lint",
       "pnpm format",
       "php-cs-fixer fix --config .php-cs-fixer.dist.php",
+      "twig-cs-fixer lint --fix templates",
       "phpstan analyse"
     ],
     "auto-scripts": {
