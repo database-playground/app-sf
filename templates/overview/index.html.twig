@@ -15,9 +15,9 @@
         <div class="week-overview__main row gutter-2">
             <div class="col-4">
                 <div class="week-overview__cards vstack gap-1">
-                    <twig:MetricCard title="解題數" property="positive">{{ solved_questions }}</twig:MetricCard>
-                    <twig:MetricCard title="經驗值" property="negative">{{ points }}</twig:MetricCard>
-                    <twig:MetricCard title="等級">WIP</twig:MetricCard>
+                    <turbo-frame id="solved_questions" src="{{ path('app_overview_cards_solved_questions') }}"></turbo-frame>
+                    <turbo-frame id="points" src="{{ path('app_overview_cards_points') }}"></turbo-frame>
+                    <turbo-frame id="level" src="{{ path('app_overview_cards_level') }}"></turbo-frame>
                 </div>
             </div>
             <div class="col-8">
@@ -32,24 +32,13 @@
         <div class="historic-statistics__main row gutter-2">
             <div class="col-4">
                 <div class="historic-statistics__cards vstack gap-1">
-                    <twig:MetricCard title="答對題數" property="positive">{{ solved_questions }}</twig:MetricCard>
-                    <twig:MetricCard title="攻克題數">{{ events_count }}</twig:MetricCard>
-                    <twig:MetricCard title="題目數">{{ questions_count }}</twig:MetricCard>
+                    <turbo-frame id="solved_questions" src="{{ path('app_overview_cards_solved_questions') }}"></turbo-frame>
+                    <turbo-frame id="events_count" src="{{ path('app_overview_cards_events_count') }}"></turbo-frame>
+                    <turbo-frame id="questions_count" src="{{ path('app_overview_cards_questions_count') }}"></turbo-frame>
                 </div>
             </div>
             <div class="col-4">
-                <div class="historic-statistics__events vstack gap-3">
-                    {% for event in first_five_events %}
-                        {% set badgeClassName = event.status == constant('App\\Entity\\SolutionEventStatus::Passed') ? 'text-bg-success' : 'text-bg-danger' %}
-                        <div class="historic-statistics__events__row d-flex gap-3 align-items-center">
-                            <div class="historic-statistics__events__row__time text-end opacity-75 lh-1">{{ event.createdAt.format('g:i A') }}</div>
-                            <div class="historic-statistics__events__row__status {{ loop.index == 1 ? 'historic-statistics__events__row__status--first' : '' }}">
-                                <div class="historic-statistics__events__row__status__text badge rounded-3 lh-1 {{ badgeClassName }}">{{ event.status|trans }}</div>
-                            </div>
-                            <div class="historic-statistics__events__row__description lh-1">挑戰第 {{ event.question.id }} 題</div>
-                        </div>
-                    {% endfor %}
-                </div>
+                <turbo-frame id="events_history" src="{{ path('app_overview_cards_events_history') }}"></turbo-frame>
             </div>
             <div class="col-4">
                 <p>WIP: Chart</p>

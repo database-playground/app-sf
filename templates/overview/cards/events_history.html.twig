@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<turbo-frame id="events_history">
+    <div class="historic-statistics__events vstack gap-3">
+        {% for event in events %}
+            {% set badgeClassName = event.status == constant('App\\Entity\\SolutionEventStatus::Passed') ? 'text-bg-success' : 'text-bg-danger' %}
+            <div class="historic-statistics__events__row d-flex gap-3 align-items-center">
+                <div class="historic-statistics__events__row__time text-end opacity-75 lh-1">{{ event.createdAt.format('g:i A') }}</div>
+                <div class="historic-statistics__events__row__status {{ loop.index == 1 ? 'historic-statistics__events__row__status--first' : '' }}">
+                    <div class="historic-statistics__events__row__status__text badge rounded-3 lh-1 {{ badgeClassName }}">{{ event.status|trans }}</div>
+                </div>
+                <div class="historic-statistics__events__row__description lh-1">挑戰第 {{ event.question.id }} 題</div>
+            </div>
+        {% endfor %}
+    </div>
+</turbo-frame>
+{% endblock %}

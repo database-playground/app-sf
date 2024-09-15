@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<turbo-frame id="questions_count">
+    <twig:MetricCard title="題目數">{{ questions }}</twig:MetricCard>
+</turbo-frame>
+{% endblock %}

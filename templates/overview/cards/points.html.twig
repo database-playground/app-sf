@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<turbo-frame id="points">
+    <twig:MetricCard title="經驗值" property="negative">{{ points }}</twig:MetricCard>
+</turbo-frame>
+{% endblock %}

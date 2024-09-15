@@ -73,3 +73,11 @@ diff:
 questions:
   reindex:
     success: 「問題」的搜尋索引重建成功。
+
+level:
+  starter: 門外漢
+  beginner: 初學者
+  intermediate: 業餘玩家
+  advanced: 專業
+  expert: 大師
+  master: 大神
