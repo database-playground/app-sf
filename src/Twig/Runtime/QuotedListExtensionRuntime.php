@@ -17,6 +17,6 @@ class QuotedListExtensionRuntime implements RuntimeExtensionInterface
      */
     public function joinToQuoted(array $value, string $separator = ', '): string
     {
-        return '<code>'.implode('</code>$separator<code>', $value).'</code>';
+        return '<code>'.implode("</code>$separator<code>", $value).'</code>';
     }
 }
