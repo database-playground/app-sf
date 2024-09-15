@@ -28,7 +28,7 @@ return [
         'version' => '3.2.2',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.5',
+        'version' => '8.0.6',
     ],
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
@@ -62,7 +62,7 @@ return [
         'version' => '6.5.6',
     ],
     '@codemirror/autocomplete' => [
-        'version' => '6.18.0',
+        'version' => '6.18.1',
     ],
     '@codemirror/lint' => [
         'version' => '6.8.1',
