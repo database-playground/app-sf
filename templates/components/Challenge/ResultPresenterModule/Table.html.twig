@@ -1,22 +1,24 @@
-<table {{ attributes.defaults({ class: "table table-light table-hover" }) }}>
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        {% for cell in this.header %}
-            <th scope="col">{{ cell }}</th>
-        {% endfor %}
-    </tr>
-    </thead>
-    <tbody>
-    {% for column in this.rows %}
+<div{{ attributes }}>
+    <table class="table table-light table-hover">
+        <thead>
         <tr>
-            <th scope="row">{{ loop.index }}</th>
-            {% for cell in column %}
-                <td>{{ cell }}</td>
+            <th scope="col">#</th>
+            {% for cell in this.header %}
+                <th scope="col">{{ cell }}</th>
             {% endfor %}
         </tr>
-    {% endfor %}
-    </tbody>
+        </thead>
+        <tbody>
+        {% for column in this.rows %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                {% for cell in column %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
     {% include 'components/Challenge/ResultPresenterModule/Pagination.html.twig' %}
-</table>
+</div>
