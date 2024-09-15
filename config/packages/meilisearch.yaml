@@ -11,3 +11,7 @@ meilisearch:
           - difficulty
         sortableAttributes:
           - id
+
+when@preprod:
+  meilisearch:
+    prefix: prod_
