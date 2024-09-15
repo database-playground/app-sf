@@ -31,5 +31,6 @@ This platform allows you to exercise your SQL skills through a simple gamificati
    SERVER_NAME=:${PORT}
    APP_SECRET=${PASSWORD}
    MEILISEARCH_URL=http://meilisearch.zeabur.internal:7700
+   MEILISEARCH_API_KEY=${MEILI_MASTER_KEY}
    ```
 4. Bind your domain, and it will be ready for use.
