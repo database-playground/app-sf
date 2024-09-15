@@ -54,4 +54,9 @@ trait Pagination
     {
         ++$this->page;
     }
+
+    public function getCurrentOffset(): int
+    {
+        return ($this->page - 1) * self::$LIMIT;
+    }
 }

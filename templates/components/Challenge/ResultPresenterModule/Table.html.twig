@@ -11,7 +11,7 @@
         <tbody>
         {% for column in this.rows %}
             <tr>
-                <th scope="row">{{ loop.index }}</th>
+                <th scope="row">{{ this.currentOffset + loop.index }}</th>
                 {% for cell in column %}
                     <td>{{ cell }}</td>
                 {% endfor %}
