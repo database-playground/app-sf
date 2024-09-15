@@ -42,6 +42,10 @@ final class DiffPresenter
         ]);
 
         $result = $diff->render($renderer);
+        if (!$result) {
+            return "<p>{$this->translator->trans('diff.answer-correct')}</p>";
+        }
+
         \assert(\is_string($result));
 
         return $result;
