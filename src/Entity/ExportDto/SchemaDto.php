@@ -5,19 +5,13 @@ declare(strict_types=1);
 namespace App\Entity\ExportDto;
 
 use App\Entity\Schema;
-use Symfony\Component\Validator\Constraints as Assert;
 
 readonly class SchemaDto implements Importable
 {
     public function __construct(
-        #[Assert\NotBlank]
         public string $id,
-
         public ?string $picture,
-
         public ?string $description,
-
-        #[Assert\NotBlank]
         public string $schema,
     ) {
     }

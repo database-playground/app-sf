@@ -7,27 +7,16 @@ namespace App\Entity\ExportDto;
 use App\Entity\Question;
 use App\Entity\QuestionDifficulty;
 use App\Repository\SchemaRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 
 readonly class QuestionDto implements Importable
 {
     public function __construct(
-        #[Assert\NotBlank]
         public ?string $schemaId,
-
-        #[Assert\NotBlank]
         public string $type,
-
-        #[Assert\NotBlank]
         public QuestionDifficulty $difficulty,
-
-        #[Assert\NotBlank]
         public string $title,
-
         public ?string $description,
-
         public string $answer,
-
         public ?string $solutionVideo,
     ) {
     }
