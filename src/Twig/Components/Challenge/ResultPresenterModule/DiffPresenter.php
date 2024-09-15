@@ -9,19 +9,12 @@ use App\Utils\TablePrinter;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\SideBySide;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
-use Symfony\UX\LiveComponent\Attribute\LiveProp;
-use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsLiveComponent]
+#[AsTwigComponent]
 final class DiffPresenter
 {
-    use DefaultActionTrait;
-
-    #[LiveProp]
     public ?Payload $userPayload;
-
-    #[LiveProp]
     public Payload $answerPayload;
 
     public function __construct(
