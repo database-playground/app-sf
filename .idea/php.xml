@@ -191,6 +191,7 @@
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/vendor/sensiolabs/typescript-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/lock" />
+      <path value="$PROJECT_DIR$/vendor/jblond/php-diff" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
