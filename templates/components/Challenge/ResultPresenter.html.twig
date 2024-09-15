@@ -14,13 +14,13 @@
 
     <div class="p-2">
         {% if currentTab == "answer" %}
-            <twig:Challenge:ResultPresenterModule:AnswerPresenter key="answer" :payload="this.answerPayload"/>
+            <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="this.answerPayload"/>
         {% elseif currentTab == "diff" %}
             <twig:Challenge:ResultPresenterModule:DiffPresenter :userPayload="userPayload" :answerPayload="this.answerPayload" />
         {% elseif currentTab == "events" %}
             <twig:Challenge:ResultPresenterModule:EventPresenter :question="question" :user="user" />
         {% else %}
-            <twig:Challenge:ResultPresenterModule:AnswerPresenter key="user" :payload="userPayload" />
+            <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userPayload" />
         {% endif %}
     </div>
 </div>

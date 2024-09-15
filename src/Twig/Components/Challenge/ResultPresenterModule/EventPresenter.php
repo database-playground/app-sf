@@ -18,7 +18,7 @@ final class EventPresenter
     use DefaultActionTrait;
     use Pagination;
 
-    #[LiveProp]
+    #[LiveProp(updateFromParent: true)]
     public Question $question;
 
     #[LiveProp]

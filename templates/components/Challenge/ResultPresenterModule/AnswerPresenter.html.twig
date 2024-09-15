@@ -1,4 +1,4 @@
-<div {{ attributes.defaults({ default: "challenge-result-answer-presenter" }) }}>
+<div{{ attributes.defaults({ default: "challenge-result-answer-presenter" }) }}>
     {% if this.result %}
         {% if not this.result.answer %}
             {% if this.result.same %}
@@ -11,7 +11,7 @@
                 </div>
             {% endif %}
         {% endif %}
-        <twig:Challenge:ResultPresenterModule:Table key="{{ key }}" :result="this.result.queryResult"/>
+        <twig:Challenge:ResultPresenterModule:Table :result="this.result.queryResult"/>
     {% elseif this.error %}
     <div class="alert alert-danger" role="alert">
         <strong>{{ this.error.property|trans }}：</strong>{{ this.error.message }}

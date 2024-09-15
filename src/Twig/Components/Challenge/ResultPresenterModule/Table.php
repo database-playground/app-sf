@@ -17,7 +17,7 @@ final class Table
     /**
      * @var array<array<string, mixed>>
      */
-    #[LiveProp]
+    #[LiveProp(updateFromParent: true)]
     public array $result;
 
     /**
