@@ -9,3 +9,5 @@ meilisearch:
         filterableAttributes:
           - type
           - difficulty
+        sortableAttributes:
+          - id

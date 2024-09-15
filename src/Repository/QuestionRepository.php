@@ -87,6 +87,7 @@ class QuestionRepository extends ServiceEntityRepository
             'limit' => $pageSize ?? self::$PAGE_SIZE,
             'page' => $page,
             'filter' => $filters,
+            'sort' => ['id:asc'],
         ]);
     }
 

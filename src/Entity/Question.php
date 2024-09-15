@@ -75,6 +75,7 @@ class Question
         return "#{$this->id}: {$this->title}";
     }
 
+    #[Groups(['searchable'])]
     public function getId(): int
     {
         return (int) $this->id;
