@@ -110,4 +110,23 @@ class TablePrinterTest extends TestCase
 
         $this->assertEquals($expected, TablePrinter::toStringTable($table));
     }
+
+    public function testIntegerKey(): void
+    {
+        $table = [
+            ['name' => 'Alice', 1 => 21],
+            ['name' => 'Bob', 1 => 'foo'],
+            ['name' => 'Charlie', 1 => 23],
+        ];
+
+        $expected = <<<EOT
+            name     1
+            Alice    21
+            Bob      foo
+            Charlie  23
+
+            EOT;
+
+        $this->assertEquals($expected, TablePrinter::toStringTable($table));
+    }
 }

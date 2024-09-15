@@ -9,7 +9,7 @@ class TablePrinter
     /**
      * Turn a table into a string.
      *
-     * @param array<array<string, mixed>> $table The table to turn into a string
+     * @param array<array<int|string, mixed>> $table The table to turn into a string
      *
      * @return string The string representation of the table
      */
@@ -24,7 +24,7 @@ class TablePrinter
         $columns = array_keys($table[0]);
 
         // calculate the max width of each column
-        $columnWidths = array_map(fn ($column) => \strlen($column), $columns);
+        $columnWidths = array_map(fn ($column) => \strlen(self::mixedToString($column)), $columns);
 
         foreach ($table as $row) {
             foreach ($columns as $i => $column) {
@@ -41,7 +41,7 @@ class TablePrinter
         $header = '';
 
         foreach ($columns as $i => $column) {
-            $header .= str_pad($column, $columnWidths[$i] + 2);
+            $header .= str_pad(self::mixedToString($column), $columnWidths[$i] + 2);
         }
 
         $result .= trim($header)."\n";
