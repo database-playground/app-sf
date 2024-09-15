@@ -1,6 +1,11 @@
-<div {{ attributes.defaults({class: "metric-card #{this.propertyClassName}"}) }}>
+<div {{ attributes.defaults({class: "metric-card metric-card--is-#{property}"}) }}>
     <div class="metric-card__description">
         <div class="metric-card__description__title">{{ title }}</div>
+        {% if growth %}
+            <div class="metric-card__description__growth metric-card__description__growth--is-{{ property }}">
+                {{ growth }}
+            </div>
+        {% endif %}
     </div>
     <div class="metric-card__value">
         {% block content %}{% endblock %}

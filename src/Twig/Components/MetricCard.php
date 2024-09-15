@@ -20,13 +20,9 @@ final class MetricCard
      */
     public string $property = 'neutral';
 
-    public function getPropertyClassName(): string
-    {
-        return match ($this->property) {
-            'neutral' => 'metric-card--is-neutral',
-            'positive' => 'metric-card--is-positive',
-            'negative' => 'metric-card--is-negative',
-            default => throw new \InvalidArgumentException("Invalid property: {$this->property}"),
-        };
-    }
+    /**
+     * @var string|null The value of the growth.
+     *                  If null, the growth will not be displayed.
+     */
+    public ?string $growth = null;
 }

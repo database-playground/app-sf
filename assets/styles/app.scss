@@ -196,6 +196,23 @@ ul.credit {
       font-size: 1.2em;
       font-weight: bold;
     }
+
+    &__growth {
+      @extend .badge, .rounded-pill;
+      align-content: center;
+
+      &--is-positive {
+        @extend .bg-success;
+      }
+
+      &--is-negative {
+        @extend .bg-danger;
+      }
+
+      &--is-neutral {
+        @extend .bg-secondary;
+      }
+    }
   }
 
   &__value {
