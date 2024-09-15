@@ -304,4 +304,50 @@ class DbRunnerTest extends TestCase
         foreach ($generator as $idx => $actual) {
         }
     }
+
+    public function testRunQueryYear(): void
+    {
+        $dbrunner = new DbRunner();
+
+        $this->assertEquals([['year("2021-01-01")' => 2021]], $dbrunner->runQuery('', 'SELECT year("2021-01-01")'));
+    }
+
+    public function testRunQueryMonth(): void
+    {
+        $dbrunner = new DbRunner();
+
+        $this->assertEquals([['month("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT month("2021-01-01")'));
+    }
+
+    public function testRunQueryDay(): void
+    {
+        $dbrunner = new DbRunner();
+
+        $this->assertEquals([['day("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT day("2021-01-01")'));
+    }
+
+    public function testRunQueryLeft(): void
+    {
+        $dbrunner = new DbRunner();
+
+        $this->assertEquals([['left("hello", 2)' => 'he']], $dbrunner->runQuery('', 'SELECT left("hello", 2)'));
+        $this->assertEquals([['left("hello", 0)' => '']], $dbrunner->runQuery('', 'SELECT left("hello", 0)'));
+        $this->assertEquals([['left("hello", 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left("hello", 6)'));
+        $this->assertEquals([['left(c, 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left(c, 6) FROM (SELECT \'hello\' AS c)'));
+    }
+
+    public function testRunQueryIf(): void
+    {
+        $dbrunner = new DbRunner();
+
+        $this->assertEquals([['if(1, 2, 3)' => 2]], $dbrunner->runQuery('', 'SELECT if(1, 2, 3)'));
+        $this->assertEquals([['if(0, 2, 3)' => 3]], $dbrunner->runQuery('', 'SELECT if(0, 2, 3)'));
+    }
+
+    public function testRunQuerySum(): void
+    {
+        $dbrunner = new DbRunner();
+
+        $this->assertEquals([['sum(n)' => 6]], $dbrunner->runQuery('', 'SELECT sum(n) FROM (SELECT 1 AS n UNION SELECT 2 AS n UNION SELECT 3 AS n)'));
+    }
 }
