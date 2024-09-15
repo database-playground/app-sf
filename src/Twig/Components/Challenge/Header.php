@@ -7,6 +7,7 @@ namespace App\Twig\Components\Challenge;
 use App\Entity\Question;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
+use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -21,6 +22,7 @@ final class Header
 
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
+        private readonly QuestionRepository $questionRepository,
     ) {
     }
 
@@ -31,6 +33,16 @@ final class Header
             SolutionEventStatus::Failed => SolveState::Failed,
             default => SolveState::NotSolved,
         };
+    }
+
+    public function getNextPage(): ?int
+    {
+        return $this->questionRepository->getNextPage($this->question->getId());
+    }
+
+    public function getPreviousPage(): ?int
+    {
+        return $this->questionRepository->getPreviousPage($this->question->getId());
     }
 }
 

@@ -11,15 +11,22 @@
         </div>
         <div class="challenge-header__actions">
             <div class="btn-group" role="group" aria-label="題目切換">
-                {% set previousDisabled = question.id <= 1 ? "disabled" : "" %}
-                {% set nextDisabled = question.id >= limit ? "disabled" : "" %}
-
-                <a class="btn btn-secondary {{ previousDisabled }}" role="button" href="{{ path("app_challenge", { id: question.id - 1 }) }}" aria-label="上一題">
+                <a
+                        class="btn btn-secondary {{ not this.previousPage ? "disabled" : "" }}"
+                        role="button"
+                        href="{{ this.previousPage ? path("app_challenge", { id: this.previousPage }) : "#" }}"
+                        aria-label="上一題"
+                >
                     <i class="bi bi-arrow-left"></i>
                 </a>
-                <a class="btn btn-secondary {{ nextDisabled }}" href="{{ path("app_challenge", { id: question.id + 1 }) }}" aria-label="下一題">
+
+                <a
+                        class="btn btn-secondary {{ not this.nextPage ? "disabled" : ""}}"
+                        role="button"
+                        href="{{ this.nextPage ? path("app_challenge", { id: this.nextPage }) : "#" }}"
+                        aria-label="下一題"
+                >
                     <i class="bi bi-arrow-right"></i>
-                    下一題
                 </a>
             </div>
         </div>

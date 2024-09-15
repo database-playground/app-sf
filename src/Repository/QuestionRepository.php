@@ -6,6 +6,8 @@ namespace App\Repository;
 
 use App\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +20,48 @@ class QuestionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Question::class);
+    }
+
+    public function getNextPage(int $page): ?int
+    {
+        try {
+            /**
+             * @var int $id
+             */
+            $id = $this->createQueryBuilder('q')
+                ->select('q.id')
+                ->where('q.id > :page')
+                ->orderBy('q.id', 'ASC')
+                ->setParameter('page', $page)
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getSingleResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
+
+            return $id;
+        } catch (NoResultException) {
+            return null;
+        }
+    }
+
+    public function getPreviousPage(int $page): ?int
+    {
+        try {
+            /**
+             * @var int $id
+             */
+            $id = $this->createQueryBuilder('q')
+                ->select('q.id')
+                ->where('q.id < :page')
+                ->orderBy('q.id', 'DESC')
+                ->setParameter('page', $page)
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getSingleScalarResult();
+
+            return $id;
+        } catch (NoResultException) {
+            return null;
+        }
     }
 
     /**
