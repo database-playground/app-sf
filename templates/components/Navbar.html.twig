@@ -27,7 +27,7 @@
     },
 ] %}
 
-<nav{{ attributes.defaults({ class: 'app-navbar navbar navbar-expand-lg bg-light' }) }}>
+<nav{{ attributes.defaults({class: 'app-navbar navbar navbar-expand-lg bg-light'}) }}>
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_home') }}">
             <img src="{{ asset('branding-v.svg') }}" alt="Dr.Fu’s Playground – 資料庫練功房" height="32px" style="min-width: 145px;"/>
@@ -56,7 +56,7 @@
                             {{ app.user.name }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end p-2 rounded-3">
-                            {% if "ROLE_ADMIN" in app.user.roles %}
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
                                 <li><a class="dropdown-item rounded-2 mb-2" href="{{ path('admin') }}">管理後台</a></li>
                             {% endif %}
                             <li><a class="dropdown-item rounded-2 mb-2" href="{{ path('app_profile') }}">個人資料</a></li>

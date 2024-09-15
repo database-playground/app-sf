@@ -1,4 +1,4 @@
-<div{{ attributes.defaults({ class: "challenge-result-presenter" }) }}>
+<div{{ attributes.defaults({class: 'challenge-result-presenter'}) }}>
     <ul class="nav nav-underline nav-fill mb-3">
         {% for tab in tabs %}
             <li class="nav-item">
@@ -13,11 +13,11 @@
     </ul>
 
     <div class="p-2">
-        {% if currentTab == "answer" %}
+        {% if currentTab == 'answer' %}
             <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="this.answerPayload"/>
-        {% elseif currentTab == "diff" %}
+        {% elseif currentTab == 'diff' %}
             <twig:Challenge:ResultPresenterModule:DiffPresenter :userPayload="userPayload" :answerPayload="this.answerPayload" />
-        {% elseif currentTab == "events" %}
+        {% elseif currentTab == 'events' %}
             <twig:Challenge:ResultPresenterModule:EventPresenter :question="question" :user="user" />
         {% else %}
             <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userPayload" />

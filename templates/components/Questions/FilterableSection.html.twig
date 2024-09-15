@@ -3,17 +3,17 @@
 
     <li class="nav-item">
         <button
-                class="nav-link {{ active ? "active" : "" }}"
-                {{ active ? 'aria-current="page"' : "" }}
+                class="nav-link {{ active ? 'active' : '' }}"
+                {{ active ? 'aria-current="page"' : '' }}
                 data-action="live#action"
                 data-live-action-param="setTypeFilter"
                 data-live-type-param="{{ itemType }}">
-            {{ itemType == "" ? "全部" : itemType }}
+            {{ itemType == '' ? '全部' : itemType }}
         </button>
     </li>
 {% endmacro %}
 
-<section{{ attributes.defaults({ class: "question-filterable-section" }) }}>
+<section{{ attributes.defaults({class: 'question-filterable-section'}) }}>
     <section aria-label="標題和搜尋列" class="question-filterable-section__header d-flex justify-content-between flex-column flex-md-row mb-4 gap-2">
         <h2>{{ title }}</h2>
 
@@ -27,7 +27,7 @@
 
     <section aria-label="篩選器" class="question-filterable-section__filters mb-4">
         <ul class="nav nav-pills">
-            {{ _self.navItem("", type) }}
+            {{ _self.navItem('', type) }}
 
             {% for renderingType in this.typesList %}
                 {{ _self.navItem(renderingType, type) }}

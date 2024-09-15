@@ -1,7 +1,7 @@
 {% set previewCommentCharLimit = 30 %}
 {% set plainContent = comment.content|striptags %}
 
-<div{{ attributes.defaults({ class: "challenge-comments" }|merge(stimulus_controller('challenge-comment'))) }}>
+<div{{ attributes.defaults({class: 'challenge-comments'}|merge(stimulus_controller('challenge-comment'))) }}>
     {# modals #}
     {% if this.owned %}
         <div
@@ -48,7 +48,7 @@
 
         <div class="d-flex justify-content-between align-content-center">
             <div>
-                {% if plainContent == "" %}
+                {% if plainContent == '' %}
                     <span class="text-muted">(redacted)</span>
                 {% else %}
                     {{ plainContent }}

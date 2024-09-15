@@ -1,4 +1,4 @@
-<div{{ attributes.defaults({ class: "challenge-header bg-light mx-2 my-2" }) }}>
+<div{{ attributes.defaults({class: 'challenge-header bg-light mx-2 my-2'}) }}>
     <h2 class="challenge-header__title">#{{ question.id }} {{ question.title }}</h2>
     <ul class="challenge-header__lists">
         <li class="challenge-header__lists__difficulty">{{ question.difficulty|trans }}</li>
@@ -12,18 +12,18 @@
         <div class="challenge-header__actions">
             <div class="btn-group" role="group" aria-label="題目切換">
                 <a
-                        class="btn btn-secondary {{ not this.previousPage ? "disabled" : "" }}"
+                        class="btn btn-secondary {{ not this.previousPage ? 'disabled' : '' }}"
                         role="button"
-                        href="{{ this.previousPage ? path("app_challenge", { id: this.previousPage }) : "#" }}"
+                        href="{{ this.previousPage ? path('app_challenge', {id: this.previousPage}) : '#' }}"
                         aria-label="上一題"
                 >
                     <i class="bi bi-arrow-left"></i>
                 </a>
 
                 <a
-                        class="btn btn-secondary {{ not this.nextPage ? "disabled" : ""}}"
+                        class="btn btn-secondary {{ not this.nextPage ? 'disabled' : '' }}"
                         role="button"
-                        href="{{ this.nextPage ? path("app_challenge", { id: this.nextPage }) : "#" }}"
+                        href="{{ this.nextPage ? path('app_challenge', {id: this.nextPage}) : '#' }}"
                         aria-label="下一題"
                 >
                     <i class="bi bi-arrow-right"></i>
