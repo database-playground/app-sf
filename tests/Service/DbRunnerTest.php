@@ -326,16 +326,6 @@ class DbRunnerTest extends TestCase
         $this->assertEquals([['day("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT day("2021-01-01")'));
     }
 
-    public function testRunQueryLeft(): void
-    {
-        $dbrunner = new DbRunner();
-
-        $this->assertEquals([['left("hello", 2)' => 'he']], $dbrunner->runQuery('', 'SELECT left("hello", 2)'));
-        $this->assertEquals([['left("hello", 0)' => '']], $dbrunner->runQuery('', 'SELECT left("hello", 0)'));
-        $this->assertEquals([['left("hello", 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left("hello", 6)'));
-        $this->assertEquals([['left(c, 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left(c, 6) FROM (SELECT \'hello\' AS c)'));
-    }
-
     public function testRunQueryIf(): void
     {
         $dbrunner = new DbRunner();

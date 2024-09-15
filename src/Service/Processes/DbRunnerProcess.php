@@ -67,21 +67,15 @@ function day(string $date): int
     );
 }
 
-function left(string $string, int $length): string
-{
-    return substr($string, 0, $length);
-}
-
 function sql_if(bool $condition, mixed $true, mixed $false): mixed
 {
     return $condition ? $true : $false;
 }
 
-$sqlite->createFunction('YEAR', 'year');
-$sqlite->createFunction('MONTH', 'month');
-$sqlite->createFunction('DAY', 'day');
-$sqlite->createFunction('LEFT', 'left');
-$sqlite->createFunction('IF', 'sql_if');
+$sqlite->createFunction('YEAR', 'year', 1);
+$sqlite->createFunction('MONTH', 'month', 1);
+$sqlite->createFunction('DAY', 'day', 1);
+$sqlite->createFunction('IF', 'sql_if', 3);
 
 try {
     try {
