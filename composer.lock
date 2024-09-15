@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1a73e55914636f0476c7ad495d8acff",
+    "content-hash": "198c7a184df1feb811ead7b884eaff14",
     "packages": [
         {
             "name": "composer/semver",
@@ -1607,6 +1607,152 @@
             "time": "2023-08-01T13:59:33+00:00"
         },
         {
+            "name": "meilisearch/meilisearch-php",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meilisearch/meilisearch-php.git",
+                "reference": "110be455194fda42ae3a3b8b6a9243479c3a6d19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meilisearch/meilisearch-php/zipball/110be455194fda42ae3a3b8b6a9243479c3a6d19",
+                "reference": "110be455194fda42ae3a3b8b6a9243479c3a6d19",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0",
+                "php-http/discovery": "^1.7",
+                "psr/http-client": "^1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.8.1",
+                "http-interop/http-factory-guzzle": "^1.2.0",
+                "php-cs-fixer/shim": "^3.59.3",
+                "phpstan/extension-installer": "^1.4.1",
+                "phpstan/phpstan": "^1.11.5",
+                "phpstan/phpstan-deprecation-rules": "^1.2.0",
+                "phpstan/phpstan-phpunit": "^1.4.0",
+                "phpstan/phpstan-strict-rules": "^1.6.0",
+                "phpunit/phpunit": "^9.5 || ^10.5"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Use Guzzle ^7 as HTTP client",
+                "http-interop/http-factory-guzzle": "Factory for guzzlehttp/guzzle"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MeiliSearch\\": "src/",
+                    "Meilisearch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Clementine",
+                    "email": "clementine@meilisearch.com"
+                }
+            ],
+            "description": "PHP wrapper for the Meilisearch API",
+            "keywords": [
+                "api",
+                "client",
+                "instant",
+                "meilisearch",
+                "php",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/meilisearch/meilisearch-php/issues",
+                "source": "https://github.com/meilisearch/meilisearch-php/tree/v1.10.0"
+            },
+            "time": "2024-08-26T23:09:54+00:00"
+        },
+        {
+            "name": "meilisearch/search-bundle",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meilisearch/meilisearch-symfony.git",
+                "reference": "d510d8706d23c6454b6f9e3c14e4a1cef9e9cb6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meilisearch/meilisearch-symfony/zipball/d510d8706d23c6454b6f9e3c14e4a1cef9e9cb6e",
+                "reference": "d510d8706d23c6454b6f9e3c14e4a1cef9e9cb6e",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^2.10",
+                "ext-json": "*",
+                "meilisearch/meilisearch-php": "^1.0.0",
+                "php": "^7.4|^8.0",
+                "symfony/config": "^5.4 || ^6.0 || ^7.0",
+                "symfony/dependency-injection": "^5.4.17 || ^6.0 || ^7.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.0 || ^7.0",
+                "symfony/http-kernel": "^5.4 || ^6.0 || ^7.0",
+                "symfony/polyfill-php80": "^1.27",
+                "symfony/property-access": "^5.4 || ^6.0 || ^7.0",
+                "symfony/serializer": "^5.4 || ^6.0 || ^7.0"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^2.0.0",
+                "doctrine/orm": "^2.12 || ^3.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.3 || ^5.0",
+                "nyholm/psr7": "^1.8.1",
+                "php-cs-fixer/shim": "^3.58.1",
+                "phpmd/phpmd": "^2.15",
+                "phpstan/extension-installer": "^1.4.1",
+                "phpstan/phpstan": "^1.11.4",
+                "phpstan/phpstan-doctrine": "^1.4.3",
+                "phpstan/phpstan-phpunit": "^1.4.0",
+                "phpstan/phpstan-symfony": "^1.4.4",
+                "phpunit/php-code-coverage": "^9.2.31",
+                "symfony/doctrine-bridge": "^5.4.19 || ^6.0.7 || ^7.0",
+                "symfony/filesystem": "^5.4 || ^6.0 || ^7.0",
+                "symfony/framework-bundle": "^5.4.17 || ^6.0 || ^7.0",
+                "symfony/http-client": "^5.4 || ^6.0 || ^7.0",
+                "symfony/phpunit-bridge": "^6.4 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.0 || ^7.0"
+            },
+            "default-branch": true,
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Meilisearch\\Bundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Sanchez",
+                    "email": "david38sanchez@gmail.com"
+                }
+            ],
+            "description": "Seamless integration of Meilisearch into your Symfony project.",
+            "keywords": [
+                "api",
+                "bundle",
+                "instant",
+                "meilisearch",
+                "search",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/meilisearch/meilisearch-symfony/issues",
+                "source": "https://github.com/meilisearch/meilisearch-symfony/tree/v0.15.5"
+            },
+            "time": "2024-09-06T21:07:12+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "dev-main",
             "source": {
@@ -1707,6 +1853,165 @@
                 }
             ],
             "time": "2024-08-27T07:51:08+00:00"
+        },
+        {
+            "name": "nyholm/psr7",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Nyholm/psr7.git",
+                "reference": "a71f2b11690f4b24d099d6b16690a90ae14fc6f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/a71f2b11690f4b24d099d6b16690a90ae14fc6f3",
+                "reference": "a71f2b11690f4b24d099d6b16690a90ae14fc6f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0"
+            },
+            "provide": {
+                "php-http/message-factory-implementation": "1.0",
+                "psr/http-factory-implementation": "1.0",
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "http-interop/http-factory-tests": "^0.9",
+                "php-http/message-factory": "^1.0",
+                "php-http/psr7-integration-tests": "^1.0",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
+                "symfony/error-handler": "^4.4"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nyholm\\Psr7\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com"
+                },
+                {
+                    "name": "Martijn van der Ven",
+                    "email": "martijn@vanderven.se"
+                }
+            ],
+            "description": "A fast PHP7 implementation of PSR-7",
+            "homepage": "https://tnyholm.se",
+            "keywords": [
+                "psr-17",
+                "psr-7"
+            ],
+            "support": {
+                "issues": "https://github.com/Nyholm/psr7/issues",
+                "source": "https://github.com/Nyholm/psr7/tree/1.8.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Zegnat",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nyholm",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-09-09T07:06:30+00:00"
+        },
+        {
+            "name": "php-http/discovery",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/discovery.git",
+                "reference": "ed16f5209c597c564da6efa54f771e8bda743f07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/ed16f5209c597c564da6efa54f771e8bda743f07",
+                "reference": "ed16f5209c597c564da6efa54f771e8bda743f07",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0|^2.0",
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "nyholm/psr7": "<1.0",
+                "zendframework/zend-diactoros": "*"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "*",
+                "psr/http-factory-implementation": "*",
+                "psr/http-message-implementation": "*"
+            },
+            "require-dev": {
+                "composer/composer": "^1.0.2|^2.0",
+                "graham-campbell/phpspec-skip-example-extension": "^5.0",
+                "php-http/httplug": "^1.0 || ^2.0",
+                "php-http/message-factory": "^1.0",
+                "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
+                "sebastian/comparator": "^3.0.5 || ^4.0.8",
+                "symfony/phpunit-bridge": "^6.4.4 || ^7.0.1"
+            },
+            "default-branch": true,
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Http\\Discovery\\Composer\\Plugin",
+                "plugin-optional": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Discovery\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "src/Composer/Plugin.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Finds and installs PSR-7, PSR-17, PSR-18 and HTTPlug implementations",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "adapter",
+                "client",
+                "discovery",
+                "factory",
+                "http",
+                "message",
+                "psr17",
+                "psr7"
+            ],
+            "support": {
+                "issues": "https://github.com/php-http/discovery/issues",
+                "source": "https://github.com/php-http/discovery/tree/1.x"
+            },
+            "time": "2024-04-22T09:10:37+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2139,6 +2444,168 @@
                 "source": "https://github.com/php-fig/event-dispatcher"
             },
             "time": "2024-03-17T21:29:03+00:00"
+        },
+        {
+            "name": "psr/http-client",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-client"
+            },
+            "time": "2023-09-23T14:17:50+00:00"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-factory"
+            },
+            "time": "2024-04-15T12:06:14+00:00"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/402d35bcb92c70c026d1a6a9883f06b2ead23d71",
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/php-fig/http-message",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-message/tree/2.0"
+            },
+            "time": "2023-04-04T09:54:51+00:00"
         },
         {
             "name": "psr/link",
@@ -4070,12 +4537,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "733ddb29c6fa15b9d643c0a73f54370e5575b50c"
+                "reference": "acddba6554b336404eae437fc70c1f146c8af848"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/733ddb29c6fa15b9d643c0a73f54370e5575b50c",
-                "reference": "733ddb29c6fa15b9d643c0a73f54370e5575b50c",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/acddba6554b336404eae437fc70c1f146c8af848",
+                "reference": "acddba6554b336404eae437fc70c1f146c8af848",
                 "shasum": ""
             },
             "require": {
@@ -4157,7 +4624,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-01T20:28:33+00:00"
+            "time": "2024-09-15T06:54:24+00:00"
         },
         {
             "name": "symfony/http-client-contracts",

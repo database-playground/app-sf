@@ -183,6 +183,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sensiolabs/typescript-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/lock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jblond/php-diff" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/meilisearch/meilisearch-php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/meilisearch/search-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/discovery" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
