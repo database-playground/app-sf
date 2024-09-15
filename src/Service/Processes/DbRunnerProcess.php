@@ -39,6 +39,44 @@ $sqlite = new SQLite3(':memory:');
 $sqlite->busyTimeout(3000 /* milliseconds */);
 $sqlite->enableExceptions(true);
 
+// MySQL-compatible functions
+function year(mixed $date): int
+{
+    assert(is_string($date));
+
+    return (int) date(
+        'Y',
+        strtotime($date)
+            ?: throw new InvalidArgumentException("invalid date given: $date (op: year)"),
+    );
+}
+
+function month(mixed $date): int
+{
+    assert(is_string($date));
+
+    return (int) date(
+        'n',
+        strtotime($date)
+            ?: throw new InvalidArgumentException("invalid date given: $date (op: month)")
+    );
+}
+
+function day(mixed $date): int
+{
+    assert(is_string($date));
+
+    return (int) date(
+        'j',
+        strtotime($date)
+            ?: throw new InvalidArgumentException("invalid date given: $date (op: day)")
+    );
+}
+
+$sqlite->createFunction('YEAR', 'year');
+$sqlite->createFunction('MONTH', 'month');
+$sqlite->createFunction('DAY', 'day');
+
 try {
     try {
         $sqlite->exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL;');
