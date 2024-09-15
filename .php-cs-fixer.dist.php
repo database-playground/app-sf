@@ -6,6 +6,7 @@ $finder = (new PhpCsFixer\Finder())
 ;
 
 return (new PhpCsFixer\Config())
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRules([
         '@PER-CS' => true,
         '@PER-CS:risky' => true,
@@ -17,4 +18,4 @@ return (new PhpCsFixer\Config())
     ])
     ->setFinder($finder)
     ->setRiskyAllowed(true)
-    ;
+;
