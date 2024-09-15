@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2706a5b73fcdef3f4aad21ec6e4b5139",
+    "content-hash": "d1a73e55914636f0476c7ad495d8acff",
     "packages": [
         {
             "name": "composer/semver",
@@ -1533,6 +1533,78 @@
                 "source": "https://github.com/protocolbuffers/protobuf-php/tree/v4.28.1"
             },
             "time": "2024-09-11T15:26:51+00:00"
+        },
+        {
+            "name": "jblond/php-diff",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JBlond/php-diff.git",
+                "reference": "dce86957bab74696d2b00ec0e2e2d1a95d61d17b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JBlond/php-diff/zipball/dce86957bab74696d2b00ec0e2e2d1a95d61d17b",
+                "reference": "dce86957bab74696d2b00ec0e2e2d1a95d61d17b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-pcre": "*",
+                "php": ">=7.3",
+                "symfony/polyfill-mbstring": "^1"
+            },
+            "require-dev": {
+                "digilive/git-changelog": "^2",
+                "jblond/php-cli": "^1.0",
+                "phpmd/phpmd": "2.*",
+                "phpunit/phpunit": "^8 || ^9",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "suggest": {
+                "ext-json": "*",
+                "jblond/php-cli": "^1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jblond\\": "lib/jblond"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Mario",
+                    "email": "leet31337@web.de"
+                },
+                {
+                    "name": "Ferry Cools",
+                    "email": "info@digilive.nl"
+                },
+                {
+                    "name": "Chris Boulton",
+                    "email": "chris.boulton@interspire.com"
+                }
+            ],
+            "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
+            "keywords": [
+                "diff",
+                "php",
+                "side-by-sidediff",
+                "udiff",
+                "unidiff",
+                "unified",
+                "unified diff"
+            ],
+            "support": {
+                "issues": "https://github.com/JBlond/php-diff/issues",
+                "source": "https://github.com/JBlond/php-diff/tree/master"
+            },
+            "time": "2023-08-01T13:59:33+00:00"
         },
         {
             "name": "monolog/monolog",

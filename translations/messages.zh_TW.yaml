@@ -47,6 +47,7 @@ challenge.error-type.server: 伺服器錯誤
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案
+result_presenter.tabs.diff: 答案比較
 result_presenter.tabs.events: 查詢記錄
 
 solution_event_status.unspecified: 未知值
@@ -64,3 +65,6 @@ form:
   password_submit: 更新密碼
   name_new: 名稱
   name_submit: 更新名稱
+diff:
+  answer: 正確答案
+  yours: 你的答案
