@@ -41,6 +41,7 @@ Content: 內容
 CommentLikeEvent: 留言點讚事件
 Liker: 點讚者
 Back to App: 返回 App
+Reindex: 進行搜尋索引
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤
@@ -68,3 +69,7 @@ form:
 diff:
   answer: 正確答案
   yours: 你的答案
+
+questions:
+  reindex:
+    success: 「問題」的搜尋索引重建成功。
