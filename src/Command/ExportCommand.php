@@ -7,6 +7,7 @@ namespace App\Command;
 use App\Entity\ExportDto\QuestionDto;
 use App\Entity\ExportDto\SchemaDto;
 use App\Repository\QuestionRepository;
+use App\Repository\SchemaRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,6 +22,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ExportCommand extends Command
 {
     public function __construct(
+        private readonly SchemaRepository $schemaRepository,
         private readonly QuestionRepository $questionRepository,
     ) {
         parent::__construct();
@@ -49,25 +51,19 @@ class ExportCommand extends Command
          * @var array<string, SchemaDto> $schemas
          */
         $schemas = [];
+        foreach ($this->schemaRepository->findAll() as $schema) {
+            $io->info("Exporting schema {$schema->getId()}…");
+            $schemas[$schema->getId()] = SchemaDto::fromEntity($schema);
+        }
 
         /**
          * @var QuestionDto[] $questions
          */
         $questions = [];
-
-        $io->info('Querying schema and questions…');
-        $questionsFromDatabase = $this->questionRepository->findBy(
+        foreach ($this->questionRepository->findBy(
             [],
             orderBy: ['id' => 'ASC'],
-        );
-
-        foreach ($questionsFromDatabase as $question) {
-            $schema = $question->getSchema();
-            if ($schema && !isset($schemas[$schema->getId()])) {
-                $io->info("Exporting schema {$schema->getId()}…");
-                $schemas[$schema->getId()] = SchemaDto::fromEntity($schema);
-            }
-
+        ) as $question) {
             $io->info("Exporting question {$question->getId()}…");
             $questions[] = QuestionDto::fromEntity($question);
         }
