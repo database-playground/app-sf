@@ -12,6 +12,14 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 final class AnswerPresenter
 {
+    /**
+     * @param string $key The key of this presenter.
+     *
+     * Workaround for the morphing issue:
+     * https://symfony.com/bundles/ux-live-component/current/index.html#key-prop
+     */
+    public string $key;
+
     public ?Payload $payload = null;
 
     public function getResult(): ?ResultPayload

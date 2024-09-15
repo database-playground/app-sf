@@ -11,7 +11,7 @@
                 </div>
             {% endif %}
         {% endif %}
-        <twig:Challenge:ResultPresenterModule:Table :result="this.result.queryResult"/>
+        <twig:Challenge:ResultPresenterModule:Table key="{{ key }}" :result="this.result.queryResult"/>
     {% elseif this.error %}
     <div class="alert alert-danger" role="alert">
         <strong>{{ this.error.property|trans }}：</strong>{{ this.error.message }}
