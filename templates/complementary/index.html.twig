@@ -11,23 +11,25 @@
     <section class="schemas mb-5">
         <h3 class="mb-3">Schema SQLs</h3>
 
-        <div class="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        <div class="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
         {% for schema in schemas %}
-            <div class="card col">
-                <div class="card-body">
-                    <h5 class="card-title">{{ schema.id }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ schema.description|striptags }}</h6>
-                    <div class="card-text">
-                        <p class="text-secondary">適用題目：{{
-                            schema.questions
-                                | map((question) => "\##{question.id}")
-                                | join("、")
-                        }}</p>
-                        {% if schema.picture %}
-                            <img src="{{ schema.picture }}" class="img-fluid mt-3" alt="Schema Picture">
-                        {% endif %}
+            <div class="col">
+                <div class="card">
+                    <img src="{{ schema.picture }}" class="card-img-top object-fit-cover w-100" alt="{{ schema.id }} 的結構圖">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ schema.id }}</h5>
+                        <div class="card-text">
+                            {{ schema.description|striptags }}
+
+                            <p class="text-secondary">適用題目：{{
+                                schema.questions
+                                    | map((question) => "\##{question.id}")
+                                    | join("、")
+                                    ?: "無"
+                            }}</p>
+                        </div>
+                        <a href="{{ path('app_complementary_schema_retrieve', { schema: schema }) }}" class="card-link">下載 SQL 檔案</a>
                     </div>
-                    <a href="{{ path('app_complementary_schema_retrieve', { schema: schema }) }}" class="card-link">下載 SQL 檔案</a>
                 </div>
             </div>
         {% endfor %}
