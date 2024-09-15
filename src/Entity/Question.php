@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -91,6 +92,7 @@ class Question
         return $this;
     }
 
+    #[Groups(['searchable'])]
     public function getType(): string
     {
         return (string) $this->type;
@@ -103,6 +105,7 @@ class Question
         return $this;
     }
 
+    #[Groups(['searchable'])]
     public function getDifficulty(): QuestionDifficulty
     {
         return $this->difficulty ?? QuestionDifficulty::Unspecified;
@@ -115,6 +118,7 @@ class Question
         return $this;
     }
 
+    #[Groups(['searchable'])]
     public function getTitle(): string
     {
         return (string) $this->title;
@@ -127,6 +131,7 @@ class Question
         return $this;
     }
 
+    #[Groups(['searchable'])]
     public function getDescription(): ?string
     {
         return $this->description;

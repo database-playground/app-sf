@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Meilisearch\Bundle\SearchService;
 
 /**
  * @extends ServiceEntityRepository<Question>
@@ -74,29 +75,27 @@ class QuestionRepository extends ServiceEntityRepository
      *
      * @return Question[] The list of questions for the given page
      */
-    public function search(?string $query, ?string $type, int $page, ?int $pageSize): array
+    public function search(SearchService $searchService, ?string $query, ?string $type, int $page, ?int $pageSize): array
     {
-        $pageSize ??= self::$PAGE_SIZE;
-        $qb = $this->createQueryBuilder('q');
-
-        if ($query) {
-            $qb = $qb->andWhere('q.title LIKE :query')
-                ->setParameter('query', "%$query%");
-        }
-
+        $filters = [];
         if ($type) {
-            $qb = $qb->andWhere('q.type = :type')
-                ->setParameter('type', $type);
+            $escapedType = addslashes($type);
+            $filters[] = "type = \"{$escapedType}\"";
         }
 
-        $questionResults = $qb->orderBy('q.id')
-            ->setFirstResult(($page - 1) * $pageSize)
-            ->setMaxResults($pageSize)
-            ->getQuery()->getResult();
+        return $searchService->search($this->getEntityManager(), Question::class, $query ?: '', [
+            'limit' => $pageSize ?? self::$PAGE_SIZE,
+            'page' => $page,
+            'filter' => $filters,
+        ]);
+    }
 
-        \assert(\is_array($questionResults), 'The question results should be an array.');
-
-        return $questionResults;
+    /**
+     * Reindex all the questions.
+     */
+    public function reindex(SearchService $searchService): void
+    {
+        $searchService->index($this->getEntityManager(), $this->findAll());
     }
 
     /**

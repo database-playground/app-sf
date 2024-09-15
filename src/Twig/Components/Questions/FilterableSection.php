@@ -6,6 +6,7 @@ namespace App\Twig\Components\Questions;
 
 use App\Entity\Question;
 use App\Repository\QuestionRepository;
+use Meilisearch\Bundle\SearchService;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -33,6 +34,7 @@ final class FilterableSection
 
     public function __construct(
         private readonly QuestionRepository $questionRepository,
+        private readonly SearchService $searchService,
     ) {
         $this->pageSize = QuestionRepository::$PAGE_SIZE;
     }
@@ -45,6 +47,7 @@ final class FilterableSection
     public function getQuestions(): array
     {
         return $this->questionRepository->search(
+            $this->searchService,
             query: $this->query,
             type: $this->type,
             page: $this->getCurrentPage(),
