@@ -24,6 +24,7 @@ final class DiffPresenter
 
     /**
      * @return ?string The HTML string of the diff.
+     *                 "" if the diff is empty.
      *                 Null if the diff cannot be calculated, for example, no results.
      */
     public function getDiff(): ?string
@@ -43,7 +44,7 @@ final class DiffPresenter
 
         $result = $diff->render($renderer);
         if (!$result) {
-            return "<p>{$this->translator->trans('diff.answer-correct')}</p>";
+            return '';
         }
 
         \assert(\is_string($result));

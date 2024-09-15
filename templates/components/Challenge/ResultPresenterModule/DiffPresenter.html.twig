@@ -1,5 +1,5 @@
 <div{{ attributes }}>
-    {% if this.diff %}
+    {% if this.diff != "" %}
         {{ this.diff|raw }}
 
         <style>
@@ -159,6 +159,10 @@
                 background-image: linear-gradient(-45deg, #CCCCCC 0%, #FFDD88 100%);
             }
         </style>
+    {% elseif this.diff == "" %}
+        <div class="alert alert-success" role="alert">
+            你的答案是正確的！
+        </div>
     {% else %}
         <div class="alert alert-warning" role="alert">
             沒有可以比較的項目。你可能是還沒有進行答案提交，或者是你提交的答案在語法上是錯的。
