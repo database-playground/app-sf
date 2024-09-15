@@ -10,15 +10,19 @@
     </p>
 
     {% if question.schema %}
-    <p>
-        <strong>Schema：</strong>本次使用的 <code>{{ question.schema.id }}</code> schema，可以從「<a
-                href="{{ path("app_complementary") }}">補充資料</a>」中下載。<br>
+        <p><strong>Schema ({{ question.schema.id }}): </strong>
+            {% if question.schema.description %}
+                {{ question.schema.description|striptags|trim("。.") }}。
+            {% endif %}
+            可以從「<a href="{{ path("app_complementary") }}">補充資料</a>」中下載。
+        </p>
 
-        {% if question.schema.description %}
-            {{ question.schema.description|raw }}
-        {% else %}
-            <span class="text-muted">除此之外這個 Schema 沒有額外說明。</span>
+        {% if question.schema.picture %}
+        <figure class="figure">
+            <img src="{{ question.schema.picture }}" class="figure-img img-fluid rounded"
+                 alt="Schema {{ question.schema.id }} 的結構圖">
+            <figcaption class="figure-caption text-center">{{ question.schema.id }} 的結構圖</figcaption>
+        </figure>
         {% endif %}
-    </p>
     {% endif %}
 </section>
