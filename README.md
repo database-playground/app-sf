@@ -23,12 +23,13 @@ This platform allows you to exercise your SQL skills through a simple gamificati
 
 ## Deployment
 
-1. Deploy Redis and PostgreSQL on Zeabur.
+1. Deploy Redis, PostgreSQL, and Meilisearch on Zeabur.
 2. Deploy the application in Git mode on Zeabur.
 3. Add the following environment variables to the application:
    ```env
    DATABASE_URL=postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgresql.zeabur.internal:5432/${POSTGRES_DATABASE}?serverVersion=16&charset=utf8
    SERVER_NAME=:${PORT}
    APP_SECRET=${PASSWORD}
+   MEILISEARCH_URL=http://meilisearch.zeabur.internal:7700
    ```
 4. Bind your domain, and it will be ready for use.
