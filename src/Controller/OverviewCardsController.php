@@ -17,6 +17,9 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 #[Route('/overview/cards', name: 'app_overview_cards_')]
 class OverviewCardsController extends AbstractController
 {
+    /**
+     * Retrieve the card showing the experience point (XP).
+     */
     #[Route('/points', name: 'points')]
     public function points(
         #[CurrentUser] User $user,
@@ -29,6 +32,9 @@ class OverviewCardsController extends AbstractController
         ]);
     }
 
+    /**
+     * Retrieve the card showing the level.
+     */
     #[Route('/level', name: 'level')]
     public function level(
         #[CurrentUser] User $user,
@@ -49,6 +55,9 @@ class OverviewCardsController extends AbstractController
         ]);
     }
 
+    /**
+     * Retrieve the card showing the total number of questions solved.
+     */
     #[Route('/questions/solved', name: 'solved_questions')]
     public function solvedQuestions(
         #[CurrentUser] User $user,
@@ -61,6 +70,9 @@ class OverviewCardsController extends AbstractController
         ]);
     }
 
+    /**
+     * Retrieve the card showing the total number of questions.
+     */
     #[Route('/questions/count', name: 'questions_count')]
     public function questionCount(
         QuestionRepository $questionRepository,
@@ -70,6 +82,10 @@ class OverviewCardsController extends AbstractController
         ]);
     }
 
+    /**
+     * Retrieve the card showing the total number of solution events,
+     * which means, the total number of times the user has solved a question.
+     */
     #[Route('/events/count', name: 'events_count')]
     public function eventsCount(
         #[CurrentUser] User $user,
@@ -82,6 +98,9 @@ class OverviewCardsController extends AbstractController
         ]);
     }
 
+    /**
+     * Retrieve the timeline showing the history of the last 5 solution events.
+     */
     #[Route('/events/history', name: 'events_history')]
     public function eventHistory(
         #[CurrentUser] User $user,
