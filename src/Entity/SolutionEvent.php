@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Trait\WithUlid;
 use App\Repository\SolutionEventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SolutionEventRepository::class)]
-class SolutionEvent
+class SolutionEvent extends BaseEvent
 {
-    use WithUlid;
-
     #[ORM\ManyToOne(inversedBy: 'solutionEvents')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $submitter = null;

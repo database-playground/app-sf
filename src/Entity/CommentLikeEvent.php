@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Trait\WithUlid;
 use App\Repository\CommentLikeEventRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentLikeEventRepository::class)]
-class CommentLikeEvent
+class CommentLikeEvent extends BaseEvent
 {
-    use WithUlid;
-
     #[ORM\ManyToOne(inversedBy: 'commentLikeEvents')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $liker = null;

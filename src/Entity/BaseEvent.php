@@ -2,19 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Trait;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UlidGenerator;
 use Symfony\Component\Uid\Ulid;
 
-trait WithUlid
+#[ORM\MappedSuperclass]
+#[ORM\HasLifecycleCallbacks]
+abstract class BaseEvent
 {
     #[ORM\Id]
     #[ORM\CustomIdGenerator(class: UlidGenerator::class)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\Column(type: 'ulid', unique: true)]
     private ?Ulid $id = null;
+
+    #[ORM\Column(name: 'created_at')]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function getId(): ?Ulid
     {
@@ -28,6 +33,12 @@ trait WithUlid
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->id?->getDateTime();
+        return $this->createdAt;
+    }
+
+    #[ORM\PrePersist]
+    public function updateCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 }
