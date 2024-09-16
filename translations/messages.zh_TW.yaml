@@ -81,3 +81,6 @@ level:
   advanced: 專業
   expert: 大師
   master: 大神
+
+charts:
+  event_daily_chart: 挑戰次數

@@ -13,6 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
+
+/**
+ * The primary color.
+ *
+ * You should get it from `app.scss`.
+ */
+const PRIMARY_COLOR = '#4154f1';
 
 #[Route('/overview/cards', name: 'app_overview_cards_')]
 class OverviewCardsController extends AbstractController
@@ -110,6 +120,47 @@ class OverviewCardsController extends AbstractController
 
         return $this->render('overview/cards/events_history.html.twig', [
             'events' => $events,
+        ]);
+    }
+
+    /**
+     * Retrieve the daily bar chart of the solution events.
+     *
+     * It shows the number of solution events in the last 7 days.
+     */
+    #[Route('/events/daily-chart', name: 'events_daily_chart')]
+    public function eventDailyChart(
+        SolutionEventRepository $solutionEventRepository,
+        ChartBuilderInterface $chartBuilder,
+        TranslatorInterface $translator,
+    ): Response {
+        $eventsQuery = $solutionEventRepository->createQueryBuilder('e')
+            ->select('DATE(e.createdAt) as date, COUNT(e.id) as count')
+            ->where('e.createdAt >= :date')
+            ->orderBy('date', 'ASC')
+            ->groupBy('date')
+            ->setParameter('date', new \DateTime('-7 days'))
+            ->getQuery();
+
+        /**
+         * @var array<array{count: int, date: string}> $events
+         */
+        $events = $eventsQuery->getResult();
+
+        $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
+        $chart->setData([
+            'labels' => array_map(fn ($event) => $event['date'], $events),
+            'datasets' => [
+                [
+                    'label' => $translator->trans('charts.event_daily_chart'),
+                    'backgroundColor' => PRIMARY_COLOR,
+                    'data' => array_map(fn ($event) => $event['count'], $events),
+                ],
+            ],
+        ]);
+
+        return $this->render('overview/cards/events_daily_chart.html.twig', [
+            'chart' => $chart,
         ]);
     }
 }

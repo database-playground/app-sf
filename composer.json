@@ -26,6 +26,7 @@
     "jblond/php-diff": "*",
     "meilisearch/search-bundle": "*",
     "nyholm/psr7": "*",
+    "oro/doctrine-extensions": "dev-master",
     "runtime/frankenphp-symfony": "dev-main",
     "sensiolabs/typescript-bundle": "dev-main",
     "symfony/asset": "7.2.*",

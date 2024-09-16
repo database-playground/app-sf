@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <turbo-frame id="events_daily_chart">
+        {{ render_chart(chart) }}
+    </turbo-frame>
+{% endblock %}
