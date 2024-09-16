@@ -16,7 +16,7 @@ use Symfony\Component\Lock\LockFactory;
  * The {@link DbRunnerService} that retrieves the answer and schema
  * from the {@link Question}.
  */
-readonly class QuestionDbRunnerService
+final class QuestionDbRunnerService
 {
     public function __construct(
         protected DbRunnerService $dbRunnerService,

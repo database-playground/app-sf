@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Utils;
 
-class TablePrinter
+final class TablePrinter
 {
     /**
      * Turn a table into a string.
