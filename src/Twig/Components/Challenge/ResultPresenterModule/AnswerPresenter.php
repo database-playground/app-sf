@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge\ResultPresenterModule;
 
-use App\Twig\Components\Challenge\ErrorPayload;
 use App\Twig\Components\Challenge\Payload;
-use App\Twig\Components\Challenge\ResultPayload;
+use App\Twig\Components\Challenge\Payload\ErrorPayload;
+use App\Twig\Components\Challenge\Payload\ResultPayload;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]

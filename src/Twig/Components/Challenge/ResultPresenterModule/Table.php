@@ -42,7 +42,7 @@ final class Table
      */
     protected function getData(): array
     {
-        return \array_slice($this->result, ($this->page - 1) * self::$LIMIT, self::$LIMIT + 1);
+        return \array_slice($this->result, ($this->page - 1) * self::$limit, self::$limit + 1);
     }
 
     /**
@@ -52,6 +52,6 @@ final class Table
      */
     public function getRows(): array
     {
-        return \array_slice($this->getData(), 0, self::$LIMIT);
+        return \array_slice($this->getData(), 0, self::$limit);
     }
 }

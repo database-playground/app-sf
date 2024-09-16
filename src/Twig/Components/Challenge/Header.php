@@ -9,8 +9,6 @@ use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
-use Symfony\Contracts\Translation\TranslatableInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
@@ -43,17 +41,5 @@ final class Header
     public function getPreviousPage(): ?int
     {
         return $this->questionRepository->getPreviousPage($this->question->getId());
-    }
-}
-
-enum SolveState: string implements TranslatableInterface
-{
-    case Solved = 'solved';
-    case Failed = 'failed';
-    case NotSolved = 'not-solved';
-
-    public function trans(TranslatorInterface $translator, ?string $locale = null): string
-    {
-        return $translator->trans("challenge.solve-state.{$this->value}", locale: $locale);
     }
 }

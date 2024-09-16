@@ -7,6 +7,7 @@ namespace App\Twig\Components\Challenge;
 use App\Entity\Question;
 use App\Entity\User;
 use App\Service\QuestionDbRunnerService;
+use App\Twig\Components\Challenge\Payload\ErrorProperty;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;

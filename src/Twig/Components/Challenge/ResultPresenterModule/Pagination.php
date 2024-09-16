@@ -23,7 +23,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
  */
 trait Pagination
 {
-    private static int $LIMIT = 7;
+    private static int $limit = 7;
 
     #[LiveProp]
     public int $page = 1;
@@ -40,7 +40,7 @@ trait Pagination
 
     public function hasNext(): bool
     {
-        return \count($this->getData()) > self::$LIMIT;
+        return \count($this->getData()) > self::$limit;
     }
 
     #[LiveAction]
@@ -57,6 +57,6 @@ trait Pagination
 
     public function getCurrentOffset(): int
     {
-        return ($this->page - 1) * self::$LIMIT;
+        return ($this->page - 1) * self::$limit;
     }
 }

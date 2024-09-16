@@ -36,7 +36,7 @@ final class FilterableSection
         private readonly QuestionRepository $questionRepository,
         private readonly SearchService $searchService,
     ) {
-        $this->pageSize = QuestionRepository::$PAGE_SIZE;
+        $this->pageSize = QuestionRepository::$pageSize;
     }
 
     /**

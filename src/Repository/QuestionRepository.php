@@ -16,7 +16,7 @@ use Meilisearch\Bundle\SearchService;
  */
 class QuestionRepository extends ServiceEntityRepository
 {
-    public static int $PAGE_SIZE = 10;
+    public static int $pageSize = 10;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -84,7 +84,7 @@ class QuestionRepository extends ServiceEntityRepository
         }
 
         return $searchService->search($this->getEntityManager(), Question::class, $query ?: '', [
-            'limit' => $pageSize ?? self::$PAGE_SIZE,
+            'limit' => $pageSize ?? self::$pageSize,
             'page' => $page,
             'filter' => $filters,
             'sort' => ['id:asc'],
@@ -111,7 +111,7 @@ class QuestionRepository extends ServiceEntityRepository
     public function calculateTotalPages(?string $query, ?string $type, ?int $pageSize): int
     {
         // FIXME: This is a naive implementation, it should be optimized
-        $pageSize ??= self::$PAGE_SIZE;
+        $pageSize ??= self::$pageSize;
 
         $qb = $this->createQueryBuilder('q');
         $qb = $qb->select('COUNT(q.id)');

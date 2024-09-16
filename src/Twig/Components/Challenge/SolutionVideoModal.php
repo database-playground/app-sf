@@ -38,9 +38,9 @@ final class SolutionVideoModal
     public function getCost(): int
     {
         return match ($this->question->getDifficulty()) {
-            QuestionDifficulty::Easy => PointCalculationService::$SOLUTION_VIDEO_EACH_EVENT_EASY,
-            QuestionDifficulty::Medium => PointCalculationService::$SOLUTION_VIDEO_EACH_EVENT_MEDIUM,
-            QuestionDifficulty::Hard => PointCalculationService::$SOLUTION_VIDEO_EACH_EVENT_HARD,
+            QuestionDifficulty::Easy => PointCalculationService::$solutionVideoEventEasy,
+            QuestionDifficulty::Medium => PointCalculationService::$solutionVideoEventMedium,
+            QuestionDifficulty::Hard => PointCalculationService::$solutionVideoEventHard,
             default => 0,
         };
     }

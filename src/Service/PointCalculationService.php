@@ -15,20 +15,20 @@ use App\Repository\SolutionVideoEventRepository;
 
 final class PointCalculationService
 {
-    public static int $BASE_SCORE = 500;
+    public static int $base = 500;
 
     // SolutionEvent
-    public static int $SOLUTION_EVENT_EACH_EASY_POINT = 10;
-    public static int $SOLUTION_EVENT_EACH_MEDIUM_POINT = 20;
-    public static int $SOLUTION_EVENT_EACH_HARD_POINT = 30;
+    public static int $solutionEventEasyPoint = 10;
+    public static int $solutionEventMediumEvent = 20;
+    public static int $solutionEventHardEvent = 30;
 
     // FirstSolver
-    public static int $FIRST_SOLVER_POINT = 10;
+    public static int $firstSolverPoint = 10;
 
     // SolutionVideoEvent
-    public static int $SOLUTION_VIDEO_EACH_EVENT_EASY = 6;
-    public static int $SOLUTION_VIDEO_EACH_EVENT_MEDIUM = 12;
-    public static int $SOLUTION_VIDEO_EACH_EVENT_HARD = 18;
+    public static int $solutionVideoEventEasy = 6;
+    public static int $solutionVideoEventMedium = 12;
+    public static int $solutionVideoEventHard = 18;
 
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
@@ -39,7 +39,7 @@ final class PointCalculationService
 
     public function calculate(User $user): int
     {
-        return self::$BASE_SCORE
+        return self::$base
             + $this->calculateSolutionQuestionPoints($user)
             + $this->calculateFirstSolutionPoints($user)
             + $this->calculateSolutionVideoPoints($user);
@@ -48,7 +48,7 @@ final class PointCalculationService
     /**
      * Calculate the total points of the solution events.
      *
-     * 每位同學基本經驗值500點，成功解一題獲得經驗值增加。易:10點、 中:20點、難:30點
+     * 每位同學基本經驗值500點，成功解一題獲得經驗值增加。易:10點、中:20點、難:30點
      *
      * @param User $user The user to calculate the points for
      *
@@ -59,9 +59,9 @@ final class PointCalculationService
         $questions = $this->solutionEventRepository->findSolvedQuestions($user);
 
         return array_reduce($questions, fn (int $carry, Question $question) => $carry + match ($question->getDifficulty()) {
-            QuestionDifficulty::Easy => self::$SOLUTION_EVENT_EACH_EASY_POINT,
-            QuestionDifficulty::Medium => self::$SOLUTION_EVENT_EACH_MEDIUM_POINT,
-            QuestionDifficulty::Hard => self::$SOLUTION_EVENT_EACH_HARD_POINT,
+            QuestionDifficulty::Easy => self::$solutionEventEasyPoint,
+            QuestionDifficulty::Medium => self::$solutionEventMediumEvent,
+            QuestionDifficulty::Hard => self::$solutionEventHardEvent,
             default => 0,
         }, 0);
     }
@@ -87,7 +87,7 @@ final class PointCalculationService
                 continue;
             }
 
-            $points += self::$FIRST_SOLVER_POINT;
+            $points += self::$firstSolverPoint;
         }
 
         return $points;
@@ -105,9 +105,9 @@ final class PointCalculationService
             }
 
             $questionPointsPair[$question->getId()] = match ($question->getDifficulty()) {
-                QuestionDifficulty::Easy => self::$SOLUTION_VIDEO_EACH_EVENT_EASY,
-                QuestionDifficulty::Medium => self::$SOLUTION_VIDEO_EACH_EVENT_MEDIUM,
-                QuestionDifficulty::Hard => self::$SOLUTION_VIDEO_EACH_EVENT_HARD,
+                QuestionDifficulty::Easy => self::$solutionVideoEventEasy,
+                QuestionDifficulty::Medium => self::$solutionVideoEventMedium,
+                QuestionDifficulty::Hard => self::$solutionVideoEventHard,
                 default => 0,
             };
         }
