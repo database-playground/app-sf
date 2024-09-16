@@ -85,4 +85,7 @@ return [
     'crelt' => [
         'version' => '1.0.6',
     ],
+    'chart.js' => [
+        'version' => '3.9.1',
+    ],
 ];
