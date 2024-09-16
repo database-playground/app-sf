@@ -25,7 +25,7 @@
 
                 <div class="app-statistics vstack gap-2">
                     <twig:MetricCard title="留言總數">{{ comments|length }}</twig:MetricCard>
-                    <twig:MetricCard title="按讚總數" property="positive">{{ comments|reduce((acc, comment) => acc + comment.commentLikeEvents|length, 0) }}</twig:MetricCard>
+                    <twig:MetricCard title="按讚總數" property="positive">{{ likes }}</twig:MetricCard>
                     <p>WIP: charts</p>
                 </div>
             </section>
