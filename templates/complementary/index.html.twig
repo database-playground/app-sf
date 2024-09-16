@@ -15,7 +15,10 @@
         {% for schema in schemas %}
             <div class="col">
                 <div class="card">
+                    {% if schema.picture %}
                     <img src="{{ schema.picture }}" class="card-img-top object-fit-cover w-100" alt="{{ schema.id }} 的結構圖">
+                    {% endif %}
+
                     <div class="card-body">
                         <h5 class="card-title">{{ schema.id }}</h5>
                         <div class="card-text">
