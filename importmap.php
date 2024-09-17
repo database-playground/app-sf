@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 return [
     'app' => [
-        'path' => './assets/app.ts',
+        'path' => './assets/app/index.ts',
         'entrypoint' => true,
     ],
     '@symfony/stimulus-bundle' => [
@@ -23,6 +23,12 @@ return [
     ],
     '@symfony/ux-live-component' => [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
+    'bootstrap' => [
+        'path' => './vendor/twbs/bootstrap/dist/js/bootstrap.esm.js',
+    ],
+    'chart.js' => [
+        'version' => '4.4.4',
     ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
@@ -33,9 +39,6 @@ return [
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
         'type' => 'css',
-    ],
-    'bootstrap' => [
-        'version' => '5.3.3',
     ],
     '@popperjs/core' => [
         'version' => '2.11.8',
@@ -56,7 +59,7 @@ return [
         'version' => '6.10.2',
     ],
     '@codemirror/commands' => [
-        'version' => '6.6.1',
+        'version' => '6.6.2',
     ],
     '@codemirror/search' => [
         'version' => '6.5.6',
@@ -85,14 +88,7 @@ return [
     'crelt' => [
         'version' => '1.0.6',
     ],
-    'chart.js' => [
-        'version' => '4.4.4',
-    ],
     '@kurkle/color' => [
         'version' => '0.3.2',
-    ],
-    'bootstrap/dist/css/bootstrap.min.css' => [
-        'version' => '5.3.3',
-        'type' => 'css',
     ],
 ];
