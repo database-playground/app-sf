@@ -134,18 +134,30 @@ class OverviewCardsController extends AbstractController
         ChartBuilderInterface $chartBuilder,
         TranslatorInterface $translator,
     ): Response {
+        $startedAt = new \DateTimeImmutable('-7 days');
+
         $eventsQuery = $solutionEventRepository->createQueryBuilder('e')
             ->select('DATE(e.createdAt) as date, COUNT(e.id) as count')
             ->where('e.createdAt >= :date')
             ->orderBy('date', 'ASC')
             ->groupBy('date')
-            ->setParameter('date', new \DateTime('-7 days'))
+            ->setParameter('date', $startedAt)
             ->getQuery();
 
         /**
-         * @var array<array{count: int, date: string}> $events
+         * @var array<array{date: string, count: int}> $events
          */
         $events = $eventsQuery->getResult();
+
+        // fill 0 if there is no event in a day
+        for ($i = 0; $i < 7; ++$i) {
+            $date = $startedAt->add(new \DateInterval("P{$i}D"))->format('Y-m-d');
+            if (isset($events[$i]) && $events[$i]['date'] === $date) {
+                continue;
+            }
+
+            array_splice($events, $i, 0, [['date' => $date, 'count' => 0]]);
+        }
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
