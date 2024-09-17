@@ -21,6 +21,8 @@
         {% block importmap %}
             {{ importmap('app') }}
         {% endblock %}
+
+        <script defer src="https://{{ umami_domain }}/script.js" data-website-id="{{ umami_website_id }}"></script>
     {% endblock %}
 </head>
 <body class="bg-light">
