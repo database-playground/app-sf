@@ -1,11 +1,23 @@
+// @ts-check
+
 import { Controller } from "@hotwired/stimulus";
 import * as bootstrap from "bootstrap";
 
-export default class extends Controller<HTMLElement> {
-  #modal: bootstrap.Modal | undefined;
-  #videoUrl: string | undefined;
+/**
+ * @extends {Controller<HTMLElement>}
+ */
+export default class extends Controller {
+  /**
+   * @type {bootstrap.Modal | undefined}
+   */
+  #modal;
 
-  connect(): void {
+  /**
+   * @type {string | undefined}
+   */
+  #videoUrl;
+
+  connect() {
     this.#modal = new bootstrap.Modal(this.element);
     this.#videoUrl = this.element.dataset.videoUrl;
   }

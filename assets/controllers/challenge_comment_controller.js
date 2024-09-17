@@ -1,10 +1,26 @@
+// @ts-check
+
 import { Controller } from "@hotwired/stimulus";
-import { Component, getComponent } from "@symfony/ux-live-component";
+import { getComponent } from "@symfony/ux-live-component";
 import * as bootstrap from "bootstrap";
 
-export default class extends Controller<HTMLElement> {
-  #component: Component | undefined;
-  #modal: bootstrap.Modal | undefined;
+/**
+ * @typedef {import("@symfony/ux-live-component").Component} Component
+ */
+
+/**
+ * @extends {Controller<HTMLElement>}
+ */
+export default class extends Controller {
+  /**
+   * @type {Component | undefined}
+   */
+  #component;
+
+  /**
+   * @type {bootstrap.Modal | undefined}
+   */
+  #modal;
 
   async initialize() {
     this.#component = await getComponent(this.element);
@@ -22,12 +38,20 @@ export default class extends Controller<HTMLElement> {
       $commentBlock.classList.remove("opacity-0");
     }, 20 /* ms */);
 
-    const $confirmModal = this.element.querySelector<HTMLElement>(".challenge-comments__deletion_confirm");
+    /**
+     * @type {HTMLElement | null}
+     */
+    const $confirmModal = this.element.querySelector(".challenge-comments__deletion_confirm");
     if ($confirmModal) {
       this.#modal = new bootstrap.Modal($confirmModal);
     }
   }
 
+  /**
+   * Confirm if users want to delete the comment.
+   *
+   * @returns {Promise<void>}
+   */
   async confirm() {
     if (!this.#modal) {
       throw new Error("Not applicable.");
@@ -36,6 +60,11 @@ export default class extends Controller<HTMLElement> {
     this.#modal?.show();
   }
 
+  /**
+   * Delete the comment without confirmation.
+   *
+   * @returns {Promise<void>}
+   */
   async delete() {
     if (!this.#component || !this.#modal) {
       throw new Error("Not applicable.");

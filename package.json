@@ -2,7 +2,7 @@
   "name": "@database-playground/app-sf",
   "description": "The NPM package for the type declaration of the Symfony app.",
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -p ./jsconfig.json",
     "lint": "eslint",
     "format": "dprint fmt"
   },
