@@ -1,0 +1,12 @@
+{% extends 'app.html.twig' %}
+
+{% block nav %}
+    <twig:Navbar active=""/>{% endblock %}
+{% block title %}請求有誤{% endblock %}
+
+{% block app %}
+    <div class="align-content-center">
+        <h2>請求有誤<span class="text-muted"> – {{ status_code }}</span></h2>
+        <p>不可以壞壞 🙅 請回到<a href="{{ path('app_home') }}">主畫面</a>繼續操作。</p>
+    </div>
+{% endblock %}

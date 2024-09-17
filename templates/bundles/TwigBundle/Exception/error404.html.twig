@@ -1,0 +1,12 @@
+{% extends 'app.html.twig' %}
+
+{% block nav %}
+    <twig:Navbar active=""/>{% endblock %}
+{% block title %}找不到頁面{% endblock %}
+
+{% block app %}
+    <div class="align-content-center">
+        <h2>頁面不存在<span class="text-muted"> – {{ status_code }}</span></h2>
+        <p>不好意思讓您進入了這個荒蕪之地。建議回到<a href="{{ path('app_home') }}">主畫面</a>找到您想打開的頁面。</p>
+    </div>
+{% endblock %}
