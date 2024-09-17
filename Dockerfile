@@ -56,7 +56,6 @@ RUN set -eux; \
 	;
 
 CMD (php bin/console sass:build --watch &); \
-    (php bin/console typescript:build --watch &); \
     (frankenphp run --config /etc/caddy/Caddyfile --watch);
 
 # Prod FrankenPHP image
@@ -91,5 +90,4 @@ RUN set -eux; \
 RUN set -eux; \
     chmod +x bin/console; sync; \
     ./bin/console sass:build; \
-    ./bin/console typescript:build; \
     ./bin/console asset-map:compile;

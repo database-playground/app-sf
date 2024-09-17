@@ -169,7 +169,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-twig-component" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/runtime/frankenphp-symfony" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/sensiolabs/typescript-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/lock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jblond/php-diff" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/meilisearch/meilisearch-php" />

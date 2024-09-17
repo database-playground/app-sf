@@ -178,7 +178,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
-      <path value="$PROJECT_DIR$/vendor/sensiolabs/typescript-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/lock" />
       <path value="$PROJECT_DIR$/vendor/jblond/php-diff" />
       <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />

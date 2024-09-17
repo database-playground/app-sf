@@ -28,7 +28,6 @@
     "nyholm/psr7": "*",
     "oro/doctrine-extensions": "dev-master",
     "runtime/frankenphp-symfony": "dev-main",
-    "sensiolabs/typescript-bundle": "dev-main",
     "symfony/asset": "7.2.*",
     "symfony/asset-mapper": "7.2.*",
     "symfony/console": "7.2.*",
