@@ -76,13 +76,13 @@ class CreateUserCommand extends Command
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     public function getRolesOpt(InputInterface $input): array
     {
         $roles = $input->getOption('roles') ?? [];
 
-        \assert(\is_array($roles), 'The roles must be an array.');
+        \assert(\is_array($roles) && array_is_list($roles), 'The roles must be an array.');
 
         return $roles;
     }
