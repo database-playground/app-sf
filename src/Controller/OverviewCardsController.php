@@ -17,16 +17,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 
-/**
- * The primary color.
- *
- * You should get it from `app.scss`.
- */
-const PRIMARY_COLOR = '#4154f1';
-
 #[Route('/overview/cards', name: 'app_overview_cards_')]
 class OverviewCardsController extends AbstractController
 {
+    /**
+     * The primary color.
+     *
+     * You should get it from `app.scss`.
+     */
+    private static string $primaryColor = '#4154f1';
+
     /**
      * Retrieve the card showing the experience point (XP).
      */
@@ -147,13 +147,13 @@ class OverviewCardsController extends AbstractController
          */
         $events = $eventsQuery->getResult();
 
-        $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
             'labels' => array_map(fn ($event) => $event['date'], $events),
             'datasets' => [
                 [
                     'label' => $translator->trans('charts.event_daily_chart'),
-                    'backgroundColor' => PRIMARY_COLOR,
+                    'backgroundColor' => self::$primaryColor,
                     'data' => array_map(fn ($event) => $event['count'], $events),
                 ],
             ],

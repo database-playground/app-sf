@@ -26,7 +26,7 @@
                 <div class="app-statistics vstack gap-2">
                     <twig:MetricCard title="留言總數">{{ comments|length }}</twig:MetricCard>
                     <twig:MetricCard title="按讚總數" property="positive">{{ likes }}</twig:MetricCard>
-                    <p>WIP: charts</p>
+                    <turbo-frame id="charts_likes" src="{{ path('app_comments_likes') }}"></turbo-frame>
                 </div>
             </section>
         </div>
