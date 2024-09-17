@@ -86,6 +86,13 @@ return [
         'version' => '1.0.6',
     ],
     'chart.js' => [
-        'version' => '3.9.1',
+        'version' => '4.4.4',
+    ],
+    '@kurkle/color' => [
+        'version' => '0.3.2',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.3',
+        'type' => 'css',
     ],
 ];
