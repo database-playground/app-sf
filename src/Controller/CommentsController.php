@@ -63,7 +63,7 @@ class CommentsController extends AbstractController
 
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
         $chart->setData([
-            'labels' => array_map(fn ($comment) => "第{$comment['id']}題", $likesOfEachComment),
+            'labels' => array_map(fn ($comment) => "#{$comment['id']}", $likesOfEachComment),
             'datasets' => [
                 [
                     'label' => $translator->trans('charts.likes_of_each_comment'),

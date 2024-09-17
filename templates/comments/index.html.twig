@@ -12,7 +12,7 @@
                 <ul class="app-comments">
                     {% for comment in comments %}
                         <li class="app-comments__item">
-                            <p class="app-comments__item__commented_at text-muted mb-2 fw-bold">{{ comment.createdAt|date('Y-m-d H:i:s') }}・<i class="bi bi-hand-thumbs-up" aria-label="按讚數"></i> {{ comment.commentLikeEvents|length }}</p>
+                            <p class="app-comments__item__commented_at text-muted mb-2 fw-bold">#{{ comment.id }}・{{ comment.createdAt|date('Y-m-d H:i:s') }}・<i class="bi bi-hand-thumbs-up" aria-label="按讚數"></i> {{ comment.commentLikeEvents|length }}</p>
                             <h5 class="app-comments__item__question text-body-tertiary">在<a class="text-body text-decoration-none" href="{{ path('app_challenge', {id: comment.question.id}) }}">第 {{ comment.question.id }} 題（{{ comment.question.title }}）</a>留言了</h5>
                             <p class="app-comments__item__content">{{ comment.content|striptags }}</p>
                         </li>
