@@ -1,0 +1,23 @@
+otel_sdk:
+  resource:
+    attributes:
+      service.name: app-sf
+      deployment.environment: dev
+      deployment.version: 1.0.0
+      service.instance.id: "%env(APP_INSTANCE_ID)%"
+
+when@prod:
+  otel_sdk:
+    resource:
+        attributes:
+          deployment.environment: prod
+
+trace:
+  trace:
+    sampler: always_on
+    span:
+      processors: batch
+    exporters:
+      alloy:
+        type: otlp
+        url: "%env(OTEL_EXPORTER_OTLP_ENDPOINT)%"

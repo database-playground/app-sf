@@ -202,6 +202,24 @@
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
       <path value="$PROJECT_DIR$/vendor/symfony/ux-chartjs" />
       <path value="$PROJECT_DIR$/vendor/oro/doctrine-extensions" />
+      <path value="$PROJECT_DIR$/vendor/tbachert/spi" />
+      <path value="$PROJECT_DIR$/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/gen-otlp-protobuf" />
+      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/context" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/exporter-zipkin" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/exporter-otlp" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/contrib-sdk-bundle" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/api" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/sdk" />
+      <path value="$PROJECT_DIR$/vendor/open-telemetry/sem-conv" />
+      <path value="$PROJECT_DIR$/vendor/nyholm/psr7-server" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/vendor/php-http/httplug" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

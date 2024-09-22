@@ -181,11 +181,30 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vincentlanglet/twig-cs-fixer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/oro/doctrine-extensions" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/clue/stream-filter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7-server" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/api" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/context" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/contrib-sdk-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/exporter-otlp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/exporter-zipkin" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/gen-otlp-protobuf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/sdk" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/open-telemetry/sem-conv" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/httplug" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/message" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/collection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tbachert/spi" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bulma" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="script" level="application" />
   </component>
 </module>
