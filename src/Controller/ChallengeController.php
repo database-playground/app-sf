@@ -8,6 +8,8 @@ use App\Entity\Question;
 use App\Entity\SolutionVideoEvent;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
+use App\Service\DbRunnerService;
+use App\Service\PromptService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,5 +55,36 @@ class ChallengeController extends AbstractController
         $entityManager->flush();
 
         return $this->redirect($solutionVideo, Response::HTTP_FOUND);
+    }
+
+    // test only
+    #[Route('/challenge/{id}/hint', name: 'app_challenge_hint', methods: ['GET'])]
+    public function hint(
+        Question $question,
+        #[MapQueryParameter] string $query,
+        DbRunnerService $dbRunnerService,
+        PromptService $promptService,
+    ): Response {
+        $schema = $question->getSchema()?->getSchema() ?? '';
+        $answer = $question->getAnswer();
+
+        try {
+            $result = $dbRunnerService->runQuery($schema, $query);
+            $answerResult = $dbRunnerService->runQuery($schema, $answer);
+
+            if ($result != $answerResult) {
+                $hint = $promptService->hint($query, 'Different output', $answer);
+
+                return $this->json(['hint' => $hint]);
+            }
+        } catch (\Exception $e) {
+            $answer = $question->getAnswer();
+
+            $hint = $promptService->hint($query, $e->getMessage(), $answer);
+
+            return $this->json(['hint' => $hint]);
+        }
+
+        return $this->json(['hint' => '']);
     }
 }

@@ -6,6 +6,7 @@
 parameters:
   app.dbrunner_host: "%env(DBRUNNER_HOST)%"
   app.redis_uri: "%env(REDIS_URI)%"
+  app.openai_api_key: "%env(OPENAI_API_KEY)%"
 
 services:
   # default configuration for services in *this* file
@@ -26,3 +27,6 @@ services:
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
+  App\Service\PromptService:
+    arguments:
+      $apiKey: "%app.openai_api_key%"
