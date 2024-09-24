@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ChallengeController extends AbstractController
 {
@@ -57,8 +58,14 @@ class ChallengeController extends AbstractController
         return $this->redirect($solutionVideo, Response::HTTP_FOUND);
     }
 
-    // test only
+    /**
+     * Get the hint of the query.
+     *
+     * It is a test-only API and is only available to administrator.
+     * FIXME: remove it once the hint is fully implemented in front-end.
+     */
     #[Route('/challenge/{id}/hint', name: 'app_challenge_hint', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function hint(
         Question $question,
         #[MapQueryParameter] string $query,
