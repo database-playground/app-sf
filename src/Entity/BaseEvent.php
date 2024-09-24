@@ -16,7 +16,7 @@ abstract class BaseEvent
     #[ORM\CustomIdGenerator(class: UlidGenerator::class)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\Column(type: 'ulid', unique: true)]
-    private ?Ulid $id = null;
+    protected ?Ulid $id = null;
 
     #[ORM\Column(name: 'created_at')]
     private ?\DateTimeImmutable $createdAt = null;

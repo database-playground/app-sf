@@ -59,7 +59,7 @@ final class ResultPresenter
     /**
      * Get the wrapped payload of the answer.
      */
-    public function getAnswerPayload(): ?Payload
+    public function getAnswerPayload(): Payload
     {
         try {
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
