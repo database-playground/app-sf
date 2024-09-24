@@ -260,7 +260,6 @@ class DbRunnerTest extends TestCase
 
         if ($expect) {
             foreach ($generator as $idx => $actual) {
-                $this->assertIsArray($actual);
                 $this->assertEquals($expect[$idx], $actual);
             }
         }

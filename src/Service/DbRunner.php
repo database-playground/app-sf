@@ -8,6 +8,9 @@ use App\Exception\QueryExecuteException;
 use App\Exception\ResourceException;
 use App\Exception\SchemaExecuteException;
 use App\Exception\TimedOutException;
+use App\Service\Types\DbRunnerProcessPayload;
+use App\Service\Types\DbRunnerProcessResponse;
+use App\Service\Types\ProcessError;
 use Doctrine\SqlFormatter\SqlFormatter;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
@@ -65,7 +68,7 @@ readonly class DbRunner
      * @throws SchemaExecuteException if the schema could not be executed
      * @throws QueryExecuteException  if the query could not be executed
      * @throws ResourceException      if the resource is exhausted (exit code = 255)
-     * @throws \RuntimeException      if the unexpected error is received
+     * @throws \Throwable             if the unexpected error is received
      */
     public function runQuery(string $schema, string $query): array
     {
@@ -77,25 +80,25 @@ readonly class DbRunner
         // Our PHP process has a hard limit of the memory usage,
         // and we can crash it as early as possible when receiving a big result.
 
-        $process = new Process(['php', __DIR__.'/Processes/DbRunnerProcess.php']);
+        $process = new Process(['php', __DIR__.'/Processes/dbrunner_process.php']);
         $process->setTimeout($this->timeout);
-        $process->setInput(serialize([
-            'schema' => $schema,
-            'query' => $query,
-        ]));
+        $process->setInput(serialize(new DbRunnerProcessPayload($schema, $query)));
 
         try {
             $process->mustRun();
 
             $output = $process->getOutput();
-            $outputUnserialized = unserialize($process->getOutput());
-            if (\is_array($outputUnserialized)
-                && isset($outputUnserialized['result'])
-                && \is_array($outputUnserialized['result'])) {
-                return $outputUnserialized['result'];
+            $outputDeserialized = unserialize($output, [
+                'allowed_classes' => [
+                    DbRunnerProcessResponse::class,
+                ],
+            ]);
+
+            if (!$outputDeserialized instanceof DbRunnerProcessResponse) {
+                throw new \RuntimeException("unexpected output: $output");
             }
 
-            throw new \RuntimeException("unexpected output: $output");
+            return $outputDeserialized->getResult();
         } catch (ProcessFailedException) {
             $exitCode = $process->getExitCode();
 
@@ -105,28 +108,19 @@ readonly class DbRunner
 
             if (1 === $exitCode) {
                 $output = $process->getErrorOutput();
-                $outputUnserialized = unserialize($output);
-                if (
-                    \is_array($outputUnserialized)
-                    && isset($outputUnserialized['error'])
-                    && isset($outputUnserialized['message'])
-                    && \is_string($outputUnserialized['error'])
-                    && \is_string($outputUnserialized['message'])) {
-                    $error = $outputUnserialized['error'];
-                    $message = $outputUnserialized['message'];
+                $outputDeserialized = unserialize($output, [
+                    'allowed_classes' => true,
+                ]);
 
-                    switch ($error) {
-                        case 'RuntimeException':
-                            throw new \RuntimeException($message);
-                        case 'SchemaExecuteException':
-                            throw new SchemaExecuteException($message);
-                        case 'QueryExecuteException':
-                            throw new QueryExecuteException($message);
-                    }
+                if (!($outputDeserialized instanceof ProcessError)) {
+                    $o = json_encode($output);
+                    throw new \RuntimeException("Unexpected data received (exit code 1): $o");
                 }
+
+                $outputDeserialized->rethrow();
             }
 
-            throw new \RuntimeException("Unexpected exit code received: $exitCode");
+            throw new \RuntimeException("Unexpected exit code: $exitCode");
         } catch (ProcessTimedOutException) {
             throw new TimedOutException($this->timeout);
         }
