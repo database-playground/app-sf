@@ -23,7 +23,7 @@ This platform allows you to exercise your SQL skills through a simple gamificati
 
 ## Deployment
 
-1. Deploy Redis, PostgreSQL, and Meilisearch on Zeabur.
+1. Deploy Redis, PostgreSQL, Meilisearch, and Umami (for statistics) on Zeabur.
 2. Deploy the application in Git mode on Zeabur.
 3. Add the following environment variables to the application:
    ```env
@@ -33,4 +33,8 @@ This platform allows you to exercise your SQL skills through a simple gamificati
    MEILISEARCH_URL=http://meilisearch.zeabur.internal:7700
    MEILISEARCH_API_KEY=${MEILI_MASTER_KEY}
    ```
-4. Bind your domain, and it will be ready for use.
+4. Create an index in Meilisearch by running:
+   ```
+   php bin/console meili:create --update-settings
+   ```
+5. Bind your domain, and it will be ready for use.
