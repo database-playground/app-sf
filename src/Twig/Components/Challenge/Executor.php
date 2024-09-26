@@ -11,8 +11,8 @@ use App\Entity\User;
 use App\Exception\QueryExecuteException;
 use App\Service\QuestionDbRunnerService;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -41,15 +41,15 @@ final class Executor
      * @var string the query to execute
      */
     #[LiveProp(writable: true)]
-    public string $query = '';
+    public string $query;
 
-    /**
-     * @throws InvalidArgumentException
-     */
     #[LiveAction]
-    public function execute(): void
+    public function execute(SerializerInterface $serializer): void
     {
-        $this->emit('challenge:query-pending');
+        $payload = Payload::loading();
+        $this->emitUp('app:challenge-payload', [
+            'payload' => $serializer->serialize($payload, 'json'),
+        ]);
 
         $solutionEvent = (new SolutionEvent())
             ->setQuestion($this->question)
@@ -70,14 +70,21 @@ final class Executor
             $same = $result == $answer;
 
             $solutionEvent = $solutionEvent->setStatus($same ? SolutionEventStatus::Passed : SolutionEventStatus::Failed);
-            $this->emit('challenge:query-completed', ['result' => $result, 'same' => $result == $answer]);
+
+            $payload = Payload::result($result, same: $same);
         } catch (HttpException $e) {
             $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
-            $this->emit('challenge:query-failed', ['error' => $e->getMessage(), 'code' => $e->getStatusCode()]);
-        } catch (\Exception $e) {
+
+            $payload = Payload::errorWithCode($e->getStatusCode(), $e->getMessage());
+        } catch (\Throwable $e) {
             $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
-            $this->emit('challenge:query-failed', ['error' => $e->getMessage(), 'code' => 500]);
+
+            $payload = Payload::errorWithCode(500, $e->getMessage());
         } finally {
+            $this->emitUp('app:challenge-payload', [
+                'payload' => $serializer->serialize($payload, 'json'),
+            ]);
+
             $this->entityManager->persist($solutionEvent);
             $this->entityManager->flush();
         }

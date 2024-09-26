@@ -29,12 +29,15 @@ final class DiffPresenter
      */
     public function getDiff(): ?string
     {
-        if (!$this->answerPayload->result || !$this->userPayload?->result) {
+        $leftQueryResult = $this->answerPayload->getResult()?->getQueryResult();
+        $rightQueryResult = $this->userPayload?->getResult()?->getQueryResult();
+
+        if (!$leftQueryResult || !$rightQueryResult) {
             return null;
         }
 
-        $left = TablePrinter::toStringTable($this->answerPayload->result->queryResult);
-        $right = TablePrinter::toStringTable($this->userPayload->result->queryResult);
+        $left = TablePrinter::toStringTable($leftQueryResult);
+        $right = TablePrinter::toStringTable($rightQueryResult);
 
         $diff = new Diff(explode("\n", $left), explode("\n", $right));
         $renderer = new SideBySide([

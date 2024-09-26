@@ -9,8 +9,6 @@ use App\Entity\User;
 use App\Service\QuestionDbRunnerService;
 use App\Twig\Components\Challenge\Payload\ErrorProperty;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
-use Symfony\UX\LiveComponent\Attribute\LiveArg;
-use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -47,13 +45,15 @@ final class ResultPresenter
     #[LiveProp(writable: true)]
     public string $currentTab = 'result';
 
-    #[LiveProp]
-    public ?Payload $userPayload;
+    /**
+     * @var Payload|null $userResult the result of the user's query
+     */
+    #[LiveProp(updateFromParent: true)]
+    public ?Payload $userResult;
 
     public function __construct(
         private readonly QuestionDbRunnerService $questionDbRunnerService,
     ) {
-        $this->userPayload = null;
     }
 
     /**
@@ -64,41 +64,9 @@ final class ResultPresenter
         try {
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
         } catch (\Throwable $e) {
-            return Payload::fromError(ErrorProperty::fromCode(500), $e->getMessage());
+            return Payload::error(ErrorProperty::fromCode(500), $e->getMessage());
         }
 
-        return Payload::fromResult($answer, answer: true);
-    }
-
-    /**
-     * Trigger when the query is pending.
-     */
-    #[LiveListener('challenge:query-pending')]
-    public function onQueryPending(): void
-    {
-        $this->userPayload = Payload::loading();
-    }
-
-    /**
-     * Trigger when the query is completed.
-     *
-     * @param array<array<string, mixed>> $result
-     */
-    #[LiveListener('challenge:query-completed')]
-    public function onQueryCompleted(#[LiveArg] array $result, #[LiveArg] bool $same): void
-    {
-        $this->userPayload = Payload::fromResult($result, same: $same);
-    }
-
-    /**
-     * Trigger when the query is failed.
-     *
-     * @param string $error
-     * @param int    $code
-     */
-    #[LiveListener('challenge:query-failed')]
-    public function onQueryFailed(#[LiveArg] string $error, #[LiveArg] int $code): void
-    {
-        $this->userPayload = Payload::fromError(ErrorProperty::fromCode($code), $error);
+        return Payload::result($answer, answer: true);
     }
 }

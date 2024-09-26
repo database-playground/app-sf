@@ -16,11 +16,11 @@
         {% if currentTab == 'answer' %}
             <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="this.answerPayload"/>
         {% elseif currentTab == 'diff' %}
-            <twig:Challenge:ResultPresenterModule:DiffPresenter :userPayload="userPayload" :answerPayload="this.answerPayload" />
+            <twig:Challenge:ResultPresenterModule:DiffPresenter :userPayload="userResult" :answerPayload="this.answerPayload" />
         {% elseif currentTab == 'events' %}
             <twig:Challenge:ResultPresenterModule:EventPresenter :question="question" :user="user" />
         {% else %}
-            <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userPayload" />
+            <twig:Challenge:ResultPresenterModule:AnswerPresenter :payload="userResult" />
         {% endif %}
     </div>
 </div>

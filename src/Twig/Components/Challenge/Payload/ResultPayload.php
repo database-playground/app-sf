@@ -4,27 +4,70 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge\Payload;
 
-use Symfony\UX\LiveComponent\Attribute\LiveProp;
-
 class ResultPayload
 {
     /**
-     * The result of the query.
+     * @var array<string, array<string, mixed>>
+     */
+    private array $queryResult;
+    private bool $same;
+    private bool $answer;
+
+    /**
+     * Get the result of the query.
      *
-     * @var array<string, array<string, mixed>> $queryResult
+     * @return array<string, array<string, mixed>>
      */
-    #[LiveProp]
-    public array $queryResult;
+    public function getQueryResult(): array
+    {
+        return $this->queryResult;
+    }
 
     /**
-     * Indicate if this is same as the answer.
+     * Get if this is same as the answer.
      */
-    #[LiveProp]
-    public bool $same;
+    public function isSame(): bool
+    {
+        return $this->same;
+    }
 
     /**
-     * Indicate if this is the answer.
+     * Get if this is the answer.
      */
-    #[LiveProp]
-    public bool $answer;
+    public function isAnswer(): bool
+    {
+        return $this->answer;
+    }
+
+    /**
+     * Set the result of the query.
+     *
+     * @param array<string, array<string, mixed>> $queryResult
+     */
+    public function setQueryResult(array $queryResult): self
+    {
+        $this->queryResult = $queryResult;
+
+        return $this;
+    }
+
+    /**
+     * Set if this is same as the answer.
+     */
+    public function setSame(bool $same): self
+    {
+        $this->same = $same;
+
+        return $this;
+    }
+
+    /**
+     * Set if this is the answer.
+     */
+    public function setAnswer(bool $answer): self
+    {
+        $this->answer = $answer;
+
+        return $this;
+    }
 }
