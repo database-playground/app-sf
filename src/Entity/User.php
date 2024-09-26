@@ -70,12 +70,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: CommentLikeEvent::class, mappedBy: 'liker', orphanRemoval: true)]
     private Collection $commentLikeEvents;
 
+    /**
+     * @var Collection<int, HintOpenEvent>
+     */
+    #[ORM\OneToMany(targetEntity: HintOpenEvent::class, mappedBy: 'opener', orphanRemoval: true)]
+    private Collection $hintOpenEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
         $this->solutionVideoEvents = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->commentLikeEvents = new ArrayCollection();
+        $this->hintOpenEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,6 +308,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commentLikeEvent->getLiker() === $this) {
                 $commentLikeEvent->setLiker(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HintOpenEvent>
+     */
+    public function getHintOpenEvents(): Collection
+    {
+        return $this->hintOpenEvents;
+    }
+
+    public function addHintOpenEvent(HintOpenEvent $hintOpenEvent): static
+    {
+        if (!$this->hintOpenEvents->contains($hintOpenEvent)) {
+            $this->hintOpenEvents->add($hintOpenEvent);
+            $hintOpenEvent->setOpener($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHintOpenEvent(HintOpenEvent $hintOpenEvent): static
+    {
+        if ($this->hintOpenEvents->removeElement($hintOpenEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($hintOpenEvent->getOpener() === $this) {
+                $hintOpenEvent->setOpener(null);
             }
         }
 
