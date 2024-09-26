@@ -8,15 +8,12 @@ use App\Entity\Question;
 use App\Entity\SolutionVideoEvent;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
-use App\Service\DbRunnerService;
-use App\Service\PromptService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ChallengeController extends AbstractController
 {
@@ -56,42 +53,5 @@ class ChallengeController extends AbstractController
         $entityManager->flush();
 
         return $this->redirect($solutionVideo, Response::HTTP_FOUND);
-    }
-
-    /**
-     * Get the hint of the query.
-     *
-     * It is a test-only API and is only available to administrator.
-     * FIXME: remove it once the hint is fully implemented in front-end.
-     */
-    #[Route('/challenge/{id}/hint', name: 'app_challenge_hint', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function hint(
-        Question $question,
-        #[MapQueryParameter] string $query,
-        DbRunnerService $dbRunnerService,
-        PromptService $promptService,
-    ): Response {
-        $schema = $question->getSchema()?->getSchema() ?? '';
-        $answer = $question->getAnswer();
-
-        try {
-            $result = $dbRunnerService->runQuery($schema, $query);
-            $answerResult = $dbRunnerService->runQuery($schema, $answer);
-
-            if ($result != $answerResult) {
-                $hint = $promptService->hint($query, 'Different output', $answer);
-
-                return $this->json(['hint' => $hint]);
-            }
-        } catch (\Exception $e) {
-            $answer = $question->getAnswer();
-
-            $hint = $promptService->hint($query, $e->getMessage(), $answer);
-
-            return $this->json(['hint' => $hint]);
-        }
-
-        return $this->json(['hint' => '']);
     }
 }
