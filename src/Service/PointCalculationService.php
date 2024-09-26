@@ -9,6 +9,7 @@ use App\Entity\QuestionDifficulty;
 use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
+use App\Repository\HintOpenEventRepository;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
 use App\Repository\SolutionVideoEventRepository;
@@ -30,10 +31,14 @@ final class PointCalculationService
     public static int $solutionVideoEventMedium = 12;
     public static int $solutionVideoEventHard = 18;
 
+    // HintOpenEvent
+    public static int $hintOpenEventPoint = 2;
+
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly SolutionVideoEventRepository $solutionVideoEventRepository,
         private readonly QuestionRepository $questionRepository,
+        private readonly HintOpenEventRepository $hintOpenEventRepository,
     ) {
     }
 
@@ -42,7 +47,8 @@ final class PointCalculationService
         return self::$base
             + $this->calculateSolutionQuestionPoints($user)
             + $this->calculateFirstSolutionPoints($user)
-            + $this->calculateSolutionVideoPoints($user);
+            + $this->calculateSolutionVideoPoints($user)
+            + $this->calculateHintOpenPoints($user);
     }
 
     /**
@@ -113,5 +119,12 @@ final class PointCalculationService
         }
 
         return -array_sum($questionPointsPair);
+    }
+
+    protected function calculateHintOpenPoints(User $user): int
+    {
+        $hintOpenEvents = $this->hintOpenEventRepository->findByUser($user);
+
+        return -1 * \count($hintOpenEvents) * self::$hintOpenEventPoint;
     }
 }
