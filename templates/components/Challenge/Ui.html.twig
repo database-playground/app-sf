@@ -1,7 +1,7 @@
 <div{{ attributes }}>
     {# modals #}
     {% if question.solutionVideo %}
-        <twig:Challenge:SolutionVideoModal id="challenge-solution-video-modal" :question="question" :user="user" />
+        <twig:Challenge:SolutionVideoModal class="challenge-solution-video-modal" :question="question" :user="user" />
     {% endif %}
 
     <main>
@@ -14,7 +14,7 @@
                         <div class="btn-group">
                             <twig:Challenge:Instruction:Button :question="question" :currentUser="user" :query="query" />
                             {% if question.solutionVideo %}
-                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#challenge-solution-video-modal">解答影音</button>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target=".challenge-solution-video-modal">解答影音</button>
                             {% endif %}
                         </div>
                     </twig:block>
