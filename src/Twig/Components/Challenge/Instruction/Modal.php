@@ -54,10 +54,6 @@ final class Modal
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
     ): void {
-        $this->emitUp('app:challenge-hint', [
-            'hint' => $serializer->serialize(HintPayload::newLoading(), 'json'),
-        ]);
-
         if ('' === $this->query) {
             $this->emit('app:challenge-hint', [
                 'hint' => $serializer->serialize(HintPayload::fromError(

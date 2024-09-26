@@ -10,7 +10,6 @@ class Payload
 {
     private ?Payload\ResultPayload $result = null;
     private ?Payload\ErrorPayload $error = null;
-    private bool $loading = false;
 
     public function getResult(): ?Payload\ResultPayload
     {
@@ -22,11 +21,6 @@ class Payload
         return $this->error;
     }
 
-    public function isLoading(): bool
-    {
-        return $this->loading;
-    }
-
     public function setResult(?Payload\ResultPayload $result): void
     {
         $this->result = $result;
@@ -35,11 +29,6 @@ class Payload
     public function setError(?Payload\ErrorPayload $error): void
     {
         $this->error = $error;
-    }
-
-    public function setLoading(bool $loading): void
-    {
-        $this->loading = $loading;
     }
 
     /**
@@ -95,18 +84,5 @@ class Payload
     public static function fromErrorWithCode(int $code, string $message): self
     {
         return self::fromError(ErrorProperty::fromCode($code), $message);
-    }
-
-    /**
-     * A convenient method to create a loading payload.
-     *
-     * @return self the payload
-     */
-    public static function newLoading(): self
-    {
-        $payload = new self();
-        $payload->setLoading(true);
-
-        return $payload;
     }
 }

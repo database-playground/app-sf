@@ -46,15 +46,15 @@ final class Executor
     #[LiveAction]
     public function execute(SerializerInterface $serializer): void
     {
-        $payload = Payload::newLoading();
-        $this->emitUp('app:challenge-payload', [
-            'payload' => $serializer->serialize($payload, 'json'),
-        ]);
-
         $solutionEvent = (new SolutionEvent())
             ->setQuestion($this->question)
             ->setSubmitter($this->user)
             ->setQuery($this->query);
+
+        /**
+         * @var Payload|null $payload
+         */
+        $payload = null;
 
         try {
             $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
@@ -81,9 +81,11 @@ final class Executor
 
             $payload = Payload::fromErrorWithCode(500, $e->getMessage());
         } finally {
-            $this->emitUp('app:challenge-payload', [
-                'payload' => $serializer->serialize($payload, 'json'),
-            ]);
+            if ($payload) {
+                $this->emitUp('app:challenge-payload', [
+                    'payload' => $serializer->serialize($payload, 'json'),
+                ]);
+            }
 
             $this->entityManager->persist($solutionEvent);
             $this->entityManager->flush();

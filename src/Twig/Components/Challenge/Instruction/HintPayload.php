@@ -8,7 +8,6 @@ class HintPayload
 {
     private ?string $hint = null;
     private ?string $error = null;
-    private bool $loading = false;
 
     public function getHint(): ?string
     {
@@ -18,11 +17,6 @@ class HintPayload
     public function getError(): ?string
     {
         return $this->error;
-    }
-
-    public function getLoading(): bool
-    {
-        return $this->loading;
     }
 
     public function setHint(?string $hint): self
@@ -39,13 +33,6 @@ class HintPayload
         return $this;
     }
 
-    public function setLoading(bool $loading): self
-    {
-        $this->loading = $loading;
-
-        return $this;
-    }
-
     public static function fromHint(string $hint): self
     {
         $payload = new self();
@@ -58,14 +45,6 @@ class HintPayload
     {
         $payload = new self();
         $payload->setError($error);
-
-        return $payload;
-    }
-
-    public static function newLoading(): self
-    {
-        $payload = new self();
-        $payload->setLoading(true);
 
         return $payload;
     }

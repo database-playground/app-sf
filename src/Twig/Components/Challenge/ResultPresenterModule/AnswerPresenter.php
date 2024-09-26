@@ -23,9 +23,4 @@ final class AnswerPresenter
     {
         return $this->payload?->getError();
     }
-
-    public function isLoading(): bool
-    {
-        return $this->payload?->isLoading() ?? false;
-    }
 }
