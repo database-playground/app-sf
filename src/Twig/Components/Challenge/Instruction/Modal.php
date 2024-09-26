@@ -8,6 +8,7 @@ use App\Entity\HintOpenEvent;
 use App\Entity\Question;
 use App\Entity\User;
 use App\Service\DbRunnerService;
+use App\Service\PointCalculationService;
 use App\Service\PromptService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -20,7 +21,7 @@ use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-final class Button
+final class Modal
 {
     use ComponentToolsTrait;
     use DefaultActionTrait;
@@ -33,6 +34,11 @@ final class Button
 
     #[LiveProp(updateFromParent: true)]
     public string $query = '';
+
+    public function getCost(): int
+    {
+        return PointCalculationService::$hintOpenEventPoint;
+    }
 
     /**
      * Ask GPT to generate an instruction for the user.
@@ -53,7 +59,7 @@ final class Button
         ]);
 
         if ('' === $this->query) {
-            $this->emitUp('app:challenge-hint', [
+            $this->emit('app:challenge-hint', [
                 'hint' => $serializer->serialize(HintPayload::fromError(
                     $translator->trans('instruction.hint.no_query'),
                 ), 'json'),
@@ -80,7 +86,7 @@ final class Button
         try {
             $answerResult = $dbRunnerService->runQuery($schema, $answer);
         } catch (\Throwable $e) {
-            $this->emitUp('app:challenge-hint', [
+            $this->emit('app:challenge-hint', [
                 'hint' => $serializer->serialize(HintPayload::fromError($e->getMessage()), 'json'),
             ]);
 
@@ -102,7 +108,7 @@ final class Button
             $hint = $translator->trans('instruction.hint.no_hint');
         }
 
-        $this->emitUp('app:challenge-hint', [
+        $this->emit('app:challenge-hint', [
             'hint' => $serializer->serialize(HintPayload::fromHint($hint), 'json'),
         ]);
 

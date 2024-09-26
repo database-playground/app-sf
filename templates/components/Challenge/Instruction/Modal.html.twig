@@ -1,0 +1,29 @@
+<div {{ attributes.defaults({
+    class: 'modal fade',
+    tabindex: '-1',
+    'aria-label': '提示答案',
+    'aria-hidden': 'true',
+}|merge(stimulus_controller('challenge-instruction-modal'))) }}>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">提示答案</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+            </div>
+            <div class="modal-body">
+                請求 GPT 提示你目前這個 SQL 語句的問題，
+                會扣除 <strong class="text-danger-emphasis">{{ this.cost }}</strong> 個點數（失敗不扣除），
+                確定要提示嗎？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-action="challenge-instruction-modal#open"
+                    data-loading="addAttribute(disabled)"
+                >提示</button>
+            </div>
+        </div>
+    </div>
+</div>
