@@ -24,6 +24,7 @@
     "doctrine/sql-formatter": "^1.5",
     "easycorp/easyadmin-bundle": "^4.11",
     "jblond/php-diff": "*",
+    "league/commonmark": "^2.6@dev",
     "meilisearch/search-bundle": "*",
     "nyholm/psr7": "*",
     "openai-php/client": "dev-main",
@@ -60,8 +61,9 @@
     "symfony/yaml": "7.2.*",
     "symfonycasts/sass-bundle": "dev-main",
     "twbs/bootstrap": "dev-main",
-    "twig/extra-bundle": "^2.12|^3.0",
-    "twig/twig": "^2.12|^3.0"
+    "twig/extra-bundle": "3.x-dev",
+    "twig/markdown-extra": "3.x-dev",
+    "twig/twig": "3.x-dev"
   },
   "config": {
     "allow-plugins": {
