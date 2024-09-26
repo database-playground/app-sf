@@ -339,4 +339,29 @@ class DbRunnerTest extends TestCase
 
         $this->assertEquals([['sum(n)' => 6]], $dbrunner->runQuery('', 'SELECT sum(n) FROM (SELECT 1 AS n UNION SELECT 2 AS n UNION SELECT 3 AS n)'));
     }
+
+    public function testSchemaCache(): void
+    {
+        $dbrunner = new DbRunner();
+
+        $schema = 'CREATE TABLE test (
+            id INTEGER PRIMARY KEY,
+            name BLOB
+        );
+
+        INSERT INTO test (name) VALUES (randomblob(1000000));';
+
+        $query = 'SELECT * FROM test;';
+
+        $firstResult = $dbrunner->runQuery($schema, $query);
+
+        // check if it always ran schema
+        // for an uncached case, it should take a lot of time
+        // for a cached case, it should be fast (~3s instead of ~6s)
+        for ($i = 0; $i < 50; ++$i) {
+            $result = $dbrunner->runQuery($schema, $query);
+        }
+
+        $this->assertEquals($firstResult, $result);
+    }
 }

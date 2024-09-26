@@ -11,11 +11,114 @@ use App\Service\Types\DbRunnerProcessResponse;
 
 class DbRunnerProcessService extends ProcessService
 {
-    public \SQLite3 $sqlite;
-
-    public function __construct()
+    public function main(object $input): object
     {
-        $sqlite = new \SQLite3(':memory:');
+        if (!($input instanceof DbRunnerProcessPayload)) {
+            throw new \InvalidArgumentException('Invalid input type');
+        }
+
+        $db = $this->getPreparedDatabase($input->getSchema());
+        try {
+            // query
+            try {
+                $result = $db->query($input->getQuery());
+            } catch (\SQLite3Exception) {
+                throw new QueryExecuteException($db->lastErrorMsg());
+            }
+
+            if (\is_bool($result)) {
+                throw new QueryExecuteException("Invalid query given: '{$input->getQuery()}'");
+            }
+
+            /**
+             * @var array<array<string, mixed>> $resultArray
+             */
+            $resultArray = [];
+
+            try {
+                while ($row = $result->fetchArray(\SQLITE3_ASSOC)) {
+                    $resultArray[] = $row;
+                }
+            } finally {
+                $result->finalize();
+            }
+        } finally {
+            $db->close();
+        }
+
+        return new DbRunnerProcessResponse($resultArray);
+    }
+
+    /**
+     * Get the prepared isolated database that contains the schema.
+     *
+     * You should close the database after using it.
+     *
+     * @param string $schema the schema to run
+     *
+     * @return \SQLite3 the prepared SQLite3 instance
+     */
+    private function getPreparedDatabase(string $schema): \SQLite3
+    {
+        $schemaDbFile = $this->createDatabase($schema);
+        $schemaDb = $this->createSqliteInstance($schemaDbFile);
+
+        try {
+            $isolatedDb = $this->createSqliteInstance(':memory:');
+
+            $schemaDb->backup($isolatedDb);
+
+            return $isolatedDb;
+        } finally {
+            $schemaDb->close();
+        }
+    }
+
+    /**
+     * Create the prepared database with the schema.
+     *
+     * It returns the filename containing the database.
+     * If the database already exists, it will return the filename only.
+     *
+     * @param string $schema the schema to run
+     *
+     * @return string the filename containing the database
+     *
+     * @throws SchemaExecuteException if the schema could not be executed
+     */
+    private function createDatabase(string $schema): string
+    {
+        $tmpdir = sys_get_temp_dir();
+        $hash = hash('sha3-256', $schema);
+        $dbfile = "$tmpdir/dbrunner_$hash.db";
+
+        if (file_exists($dbfile)) {
+            return $dbfile;
+        }
+
+        $db = $this->createSqliteInstance($dbfile);
+
+        try {
+            $db->exec($schema);
+        } catch (\SQLite3Exception) {
+            throw new SchemaExecuteException($db->lastErrorMsg());
+        } finally {
+            $db->close();
+        }
+
+        return $dbfile;
+    }
+
+    /**
+     * Create a SQLite instance in memory with the schema.
+     *
+     * @param string $filename the filename to create the SQLite instance
+     *
+     * @return \SQLite3 the SQLite instance
+     */
+    private function createSqliteInstance(string $filename): \SQLite3
+    {
+        $sqlite = new \SQLite3($filename);
         $sqlite->busyTimeout(3000 /* milliseconds */);
         $sqlite->enableExceptions(true);
 
@@ -35,53 +138,8 @@ class DbRunnerProcessService extends ProcessService
             3,
         );
 
-        $this->sqlite = $sqlite;
-    }
+        $sqlite->exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL;');
 
-    public function __destruct()
-    {
-        $this->sqlite->close();
-    }
-
-    public function main(object $input): object
-    {
-        if (!($input instanceof DbRunnerProcessPayload)) {
-            throw new \InvalidArgumentException('Invalid input type');
-        }
-
-        $this->sqlite->exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL;');
-
-        // schema
-        try {
-            $this->sqlite->exec($input->getSchema());
-        } catch (\SQLite3Exception) {
-            throw new SchemaExecuteException($this->sqlite->lastErrorMsg());
-        }
-
-        // query
-        try {
-            $result = $this->sqlite->query($input->getQuery());
-        } catch (\SQLite3Exception) {
-            throw new QueryExecuteException($this->sqlite->lastErrorMsg());
-        }
-
-        if (\is_bool($result)) {
-            throw new QueryExecuteException("Invalid query given: '{$input->getQuery()}'");
-        }
-
-        /**
-         * @var array<array<string, mixed>> $resultArray
-         */
-        $resultArray = [];
-
-        try {
-            while ($row = $result->fetchArray(\SQLITE3_ASSOC)) {
-                $resultArray[] = $row;
-            }
-        } finally {
-            $result->finalize();
-        }
-
-        return new DbRunnerProcessResponse($resultArray);
+        return $sqlite;
     }
 }
