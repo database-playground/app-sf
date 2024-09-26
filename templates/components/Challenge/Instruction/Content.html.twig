@@ -11,7 +11,7 @@
     {% elseif hint and hint.hint %}
         <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">提示</h4>
-            <p>{{ hint.hint }}</p>
+            <p>{{ hint.hint|markdown_to_html }}</p>
         </div>
     {% endif %}
 </div>
