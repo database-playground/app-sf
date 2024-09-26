@@ -55,12 +55,6 @@ final class Modal
         EntityManagerInterface $entityManager,
     ): void {
         if ('' === $this->query) {
-            $this->emit('app:challenge-hint', [
-                'hint' => $serializer->serialize(HintPayload::fromError(
-                    $translator->trans('instruction.hint.no_query'),
-                ), 'json'),
-            ]);
-
             return;
         }
 

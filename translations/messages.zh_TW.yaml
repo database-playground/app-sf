@@ -91,4 +91,3 @@ charts:
 instruction:
   hint:
     no_hint: 沒有提示。
-    no_query: 你必須寫完查詢才能請求提示。

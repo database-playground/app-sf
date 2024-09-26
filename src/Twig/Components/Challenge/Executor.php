@@ -46,6 +46,10 @@ final class Executor
     #[LiveAction]
     public function execute(SerializerInterface $serializer): void
     {
+        if ('' === $this->query) {
+            return;
+        }
+
         $solutionEvent = (new SolutionEvent())
             ->setQuestion($this->question)
             ->setSubmitter($this->user)
