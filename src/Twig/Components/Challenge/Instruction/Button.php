@@ -48,6 +48,20 @@ final class Button
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
     ): void {
+        $this->emitUp('app:challenge-hint', [
+            'hint' => $serializer->serialize(HintPayload::newLoading(), 'json'),
+        ]);
+
+        if ('' === $this->query) {
+            $this->emitUp('app:challenge-hint', [
+                'hint' => $serializer->serialize(HintPayload::fromError(
+                    $translator->trans('instruction.hint.no_query'),
+                ), 'json'),
+            ]);
+
+            return;
+        }
+
         $schema = $this->question->getSchema()?->getSchema();
         if (!$schema) {
             $logger->warning('No schema found for question', ['question' => $this->question->getId()]);
@@ -66,7 +80,7 @@ final class Button
             $answerResult = $dbRunnerService->runQuery($schema, $answer);
         } catch (\Throwable $e) {
             $this->emitUp('app:challenge-hint', [
-                'hint' => $serializer->serialize((new HintPayload())->setError($e->getMessage()), 'json'),
+                'hint' => $serializer->serialize(HintPayload::fromError($e->getMessage()), 'json'),
             ]);
 
             return;
@@ -88,7 +102,7 @@ final class Button
         }
 
         $this->emitUp('app:challenge-hint', [
-            'hint' => $serializer->serialize((new HintPayload())->setHint($hint), 'json'),
+            'hint' => $serializer->serialize(HintPayload::fromHint($hint), 'json'),
         ]);
 
         $hintOpenEvent = $hintOpenEvent->setResponse($hint);

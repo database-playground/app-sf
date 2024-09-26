@@ -7,6 +7,7 @@ namespace App\Twig\Components\Challenge;
 use App\Entity\Question;
 use App\Entity\User;
 use App\Twig\Components\Challenge\Instruction\HintPayload;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -58,9 +59,12 @@ final class Ui
 
     #[LiveListener('app:challenge-hint')]
     public function updateHint(
+        LoggerInterface $logger,
         SerializerInterface $serializer,
         #[LiveArg('hint')] string $rawHint,
     ): void {
+        $logger->debug('Received hint', ['hint' => $rawHint]);
+
         $hint = $serializer->deserialize($rawHint, HintPayload::class, 'json');
 
         $this->hint = $hint;

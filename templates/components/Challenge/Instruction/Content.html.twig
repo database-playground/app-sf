@@ -1,3 +1,17 @@
 <div{{ attributes }}>
-    <!-- component html -->
+    {% if hint and hint.loading %}
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">正在載入提示⋯⋯</span>
+        </div>
+    {% elseif hint and hint.error %}
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">無法取得提示</h4>
+            <p>{{ hint.error }}</p>
+        </div>
+    {% elseif hint and hint.hint %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">提示</h4>
+            <p>{{ hint.hint }}</p>
+        </div>
+    {% endif %}
 </div>

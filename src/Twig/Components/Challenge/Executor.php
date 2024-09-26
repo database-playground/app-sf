@@ -46,7 +46,7 @@ final class Executor
     #[LiveAction]
     public function execute(SerializerInterface $serializer): void
     {
-        $payload = Payload::loading();
+        $payload = Payload::newLoading();
         $this->emitUp('app:challenge-payload', [
             'payload' => $serializer->serialize($payload, 'json'),
         ]);
@@ -71,15 +71,15 @@ final class Executor
 
             $solutionEvent = $solutionEvent->setStatus($same ? SolutionEventStatus::Passed : SolutionEventStatus::Failed);
 
-            $payload = Payload::result($result, same: $same);
+            $payload = Payload::fromResult($result, same: $same);
         } catch (HttpException $e) {
             $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
 
-            $payload = Payload::errorWithCode($e->getStatusCode(), $e->getMessage());
+            $payload = Payload::fromErrorWithCode($e->getStatusCode(), $e->getMessage());
         } catch (\Throwable $e) {
             $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
 
-            $payload = Payload::errorWithCode(500, $e->getMessage());
+            $payload = Payload::fromErrorWithCode(500, $e->getMessage());
         } finally {
             $this->emitUp('app:challenge-payload', [
                 'payload' => $serializer->serialize($payload, 'json'),

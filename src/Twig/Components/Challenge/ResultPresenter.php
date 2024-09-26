@@ -64,9 +64,9 @@ final class ResultPresenter
         try {
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
         } catch (\Throwable $e) {
-            return Payload::error(ErrorProperty::fromCode(500), $e->getMessage());
+            return Payload::fromError(ErrorProperty::fromCode(500), $e->getMessage());
         }
 
-        return Payload::result($answer, answer: true);
+        return Payload::fromResult($answer, answer: true);
     }
 }

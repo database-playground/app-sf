@@ -12,7 +12,7 @@
                 <twig:Challenge:Executor class="mt-2" data-model="result:result query:query" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
-                            <twig:Challenge:Instruction:Button :question="question" :currentUser="currentUser" :query="query" />
+                            <twig:Challenge:Instruction:Button :question="question" :currentUser="user" :query="query" />
                             {% if question.solutionVideo %}
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#challenge-solution-video-modal">解答影音</button>
                             {% endif %}
@@ -25,6 +25,7 @@
             </div>
 
             <div class="challenge-primary__right col-12 col-md-6">
+                <twig:Challenge:Instruction:Content :hint="hint" class="mb-2" />
                 <twig:Challenge:ResultPresenter :userResult="result" :question="question" :user="user" />
             </div>
         </section>

@@ -51,7 +51,7 @@ class Payload
      *
      * @return self the payload
      */
-    public static function result(array $queryResult, bool $same = false, bool $answer = false): self
+    public static function fromResult(array $queryResult, bool $same = false, bool $answer = false): self
     {
         $payload = new self();
         $payload->setResult(
@@ -72,7 +72,7 @@ class Payload
      *
      * @return self the payload
      */
-    public static function error(ErrorProperty $property, string $message): self
+    public static function fromError(ErrorProperty $property, string $message): self
     {
         $payload = new self();
         $payload->setError(
@@ -92,9 +92,9 @@ class Payload
      *
      * @return self the payload
      */
-    public static function errorWithCode(int $code, string $message): self
+    public static function fromErrorWithCode(int $code, string $message): self
     {
-        return self::error(ErrorProperty::fromCode($code), $message);
+        return self::fromError(ErrorProperty::fromCode($code), $message);
     }
 
     /**
@@ -102,7 +102,7 @@ class Payload
      *
      * @return self the payload
      */
-    public static function loading(): self
+    public static function newLoading(): self
     {
         $payload = new self();
         $payload->setLoading(true);

@@ -42,6 +42,8 @@ CommentLikeEvent: 留言點讚事件
 Liker: 點讚者
 Back to App: 返回 App
 Reindex: 進行搜尋索引
+HintOpenEvent: 提示打開事件
+Response: 回應
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤
@@ -89,3 +91,4 @@ charts:
 instruction:
   hint:
     no_hint: 沒有提示。
+    no_query: 你必須寫完查詢才能請求提示。
