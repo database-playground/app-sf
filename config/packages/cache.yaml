@@ -7,7 +7,7 @@ framework:
 
     pools:
       app.dbrunner:
-        adapter: cache.adapter.redis
+        adapter: cache.adapter.apcu
         default_lifetime: "1 hour"
     # Unique name of your app: used to compute stable namespaces for cache keys.
     #prefix_seed: your_vendor_name/app_name
