@@ -15,6 +15,10 @@ class HintOpenEvent extends BaseEvent
     #[ORM\JoinColumn(nullable: false)]
     private ?User $opener = null;
 
+    #[ORM\ManyToOne(inversedBy: 'hintOpenEvents')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Question $question = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $response = null;
 
@@ -53,6 +57,18 @@ class HintOpenEvent extends BaseEvent
     public function setQuery(string $query): static
     {
         $this->query = $query;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?Question $question): static
+    {
+        $this->question = $question;
 
         return $this;
     }

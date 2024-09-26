@@ -63,11 +63,18 @@ class Question
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'question', orphanRemoval: true)]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, HintOpenEvent>
+     */
+    #[ORM\OneToMany(targetEntity: HintOpenEvent::class, mappedBy: 'question', orphanRemoval: true)]
+    private Collection $hintOpenEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
         $this->solutionVideoEvents = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->hintOpenEvents = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -253,6 +260,36 @@ class Question
             // set the owning side to null (unless already changed)
             if ($comment->getQuestion() === $this) {
                 $comment->setQuestion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HintOpenEvent>
+     */
+    public function getHintOpenEvents(): Collection
+    {
+        return $this->hintOpenEvents;
+    }
+
+    public function addHintOpenEvent(HintOpenEvent $hintOpenEvent): static
+    {
+        if (!$this->hintOpenEvents->contains($hintOpenEvent)) {
+            $this->hintOpenEvents->add($hintOpenEvent);
+            $hintOpenEvent->setQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHintOpenEvent(HintOpenEvent $hintOpenEvent): static
+    {
+        if ($this->hintOpenEvents->removeElement($hintOpenEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($hintOpenEvent->getQuestion() === $this) {
+                $hintOpenEvent->setQuestion(null);
             }
         }
 

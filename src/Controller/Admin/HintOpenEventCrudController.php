@@ -28,6 +28,7 @@ class HintOpenEventCrudController extends AbstractCrudController
         return [
             IdField::new('id', 'ID'),
             AssociationField::new('opener', 'Opener'),
+            AssociationField::new('question', 'Question'),
             TextField::new('query', 'Query'),
             TextEditorField::new('response', 'Response'),
             DateTimeField::new('createdAt', 'Created at'),
@@ -37,7 +38,8 @@ class HintOpenEventCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('opener');
+            ->add('opener')
+            ->add('question');
     }
 
     public function configureActions(Actions $actions): Actions

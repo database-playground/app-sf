@@ -73,6 +73,7 @@ final class Button
 
         $hintOpenEvent = (new HintOpenEvent())
             ->setOpener($this->currentUser)
+            ->setQuestion($this->question)
             ->setQuery($this->query);
 
         // run answer. if it failed, we should consider it an error
