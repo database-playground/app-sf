@@ -85,3 +85,7 @@ level:
 charts:
   event_daily_chart: 挑戰次數
   likes_of_each_comment: 每則留言的點讚數
+
+instruction:
+  hint:
+    no_hint: 沒有提示。
