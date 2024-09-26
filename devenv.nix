@@ -12,7 +12,7 @@
   # https://devenv.sh/languages/
   languages.php.enable = true;
   languages.php.version = "8.3";
-  languages.php.extensions = [ "xdebug" "redis" "sysvsem" ];
+  languages.php.extensions = [ "apcu" "intl" "opcache" "zip" "redis" "pdo_pgsql" "sysvsem" "xdebug" ];
 
   languages.javascript.enable = true;
   languages.javascript.corepack.enable = true;
