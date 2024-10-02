@@ -47,10 +47,10 @@ return [
         'version' => '6.0.1',
     ],
     '@codemirror/lang-sql' => [
-        'version' => '6.7.1',
+        'version' => '6.8.0',
     ],
     '@codemirror/view' => [
-        'version' => '6.33.0',
+        'version' => '6.34.1',
     ],
     '@codemirror/state' => [
         'version' => '6.4.1',

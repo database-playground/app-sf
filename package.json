@@ -7,7 +7,7 @@
     "format": "dprint fmt"
   },
   "dependencies": {
-    "@codemirror/lang-sql": "^6.7.1",
+    "@codemirror/lang-sql": "^6.8.0",
     "@symfony/stimulus-bridge": "^3.2.2",
     "codemirror": "^6.0.1",
     "typescript": "^5.6.2"
@@ -20,7 +20,7 @@
     "bootstrap": "^5.3.3",
     "dprint": "^0.47.2",
     "eslint": "^9.11.1",
-    "globals": "^15.9.0",
-    "typescript-eslint": "^8.7.0"
+    "globals": "^15.10.0",
+    "typescript-eslint": "^8.8.0"
   }
 }
