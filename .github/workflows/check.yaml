@@ -1,0 +1,67 @@
+name: PHP Check
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Install devenv.sh
+        run: nix profile install nixpkgs#devenv
+
+      - uses: actions/checkout@v4
+
+      - name: Validate composer.json and composer.lock
+        run: devenv shell composer -- validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: |
+          devenv shell composer -- install --prefer-dist --no-progress
+          devenv shell pnpm install
+
+      - name: Lint PHP files
+        run: devenv shell composer run-script lint
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Install devenv.sh
+        run: nix profile install nixpkgs#devenv
+
+      - uses: actions/checkout@v4
+
+      - name: Validate composer.json and composer.lock
+        run: devenv shell composer -- validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: devenv shell composer -- install --prefer-dist --no-progress
+
+      - name: Run test
+        run: devenv shell ./bin/phpunit -- --colors=always
