@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4231ba6cbace46ed320ec94cf5c4f410",
+    "content-hash": "f5b342163804ecec59659cf6ea34c91b",
     "packages": [
         {
             "name": "composer/semver",
@@ -2465,12 +2465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "ed16f5209c597c564da6efa54f771e8bda743f07"
+                "reference": "82fe4c73ef3363caed49ff8dd1539ba06044910d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/ed16f5209c597c564da6efa54f771e8bda743f07",
-                "reference": "ed16f5209c597c564da6efa54f771e8bda743f07",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/82fe4c73ef3363caed49ff8dd1539ba06044910d",
+                "reference": "82fe4c73ef3363caed49ff8dd1539ba06044910d",
                 "shasum": ""
             },
             "require": {
@@ -2535,9 +2535,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/discovery/issues",
-                "source": "https://github.com/php-http/discovery/tree/1.x"
+                "source": "https://github.com/php-http/discovery/tree/1.20.0"
             },
-            "time": "2024-04-22T09:10:37+00:00"
+            "time": "2024-10-02T11:20:13+00:00"
         },
         {
             "name": "php-http/multipart-stream-builder",
@@ -2545,12 +2545,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/multipart-stream-builder.git",
-                "reference": "10086e6de6f53489cca5ecc45b6f468604d3460e"
+                "reference": "afaf3dea8d7ffe47cfbb2d8484b9671d9a6e40a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/multipart-stream-builder/zipball/10086e6de6f53489cca5ecc45b6f468604d3460e",
-                "reference": "10086e6de6f53489cca5ecc45b6f468604d3460e",
+                "url": "https://api.github.com/repos/php-http/multipart-stream-builder/zipball/afaf3dea8d7ffe47cfbb2d8484b9671d9a6e40a7",
+                "reference": "afaf3dea8d7ffe47cfbb2d8484b9671d9a6e40a7",
                 "shasum": ""
             },
             "require": {
@@ -2592,9 +2592,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/multipart-stream-builder/issues",
-                "source": "https://github.com/php-http/multipart-stream-builder/tree/1.4.2"
+                "source": "https://github.com/php-http/multipart-stream-builder/tree/1.x"
             },
-            "time": "2024-09-04T13:22:54+00:00"
+            "time": "2024-10-02T11:51:28+00:00"
         },
         {
             "name": "psr/cache",
@@ -8353,12 +8353,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "ee18195591e46dc3d5fa65389889294bc20b9681"
+                "reference": "81a6f40ff2c67ff704f957dd90c82fa895740f7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/ee18195591e46dc3d5fa65389889294bc20b9681",
-                "reference": "ee18195591e46dc3d5fa65389889294bc20b9681",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/81a6f40ff2c67ff704f957dd90c82fa895740f7d",
+                "reference": "81a6f40ff2c67ff704f957dd90c82fa895740f7d",
                 "shasum": ""
             },
             "require": {
@@ -8429,7 +8429,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-28T01:37:17+00:00"
+            "time": "2024-10-02T14:08:03+00:00"
         },
         {
             "name": "symfony/validator",
@@ -8820,12 +8820,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "2fab352a6cf12ccf33f22ccc81a3188fa404334c"
+                "reference": "d07536f7f6f5d66da25bbae19b33364356c65245"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/2fab352a6cf12ccf33f22ccc81a3188fa404334c",
-                "reference": "2fab352a6cf12ccf33f22ccc81a3188fa404334c",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/d07536f7f6f5d66da25bbae19b33364356c65245",
+                "reference": "d07536f7f6f5d66da25bbae19b33364356c65245",
                 "shasum": ""
             },
             "replace": {
@@ -8863,7 +8863,7 @@
                 "issues": "https://github.com/twbs/bootstrap/issues",
                 "source": "https://github.com/twbs/bootstrap/tree/main"
             },
-            "time": "2024-10-02T05:31:47+00:00"
+            "time": "2024-10-02T13:28:49+00:00"
         },
         {
             "name": "twig/extra-bundle",
@@ -9018,12 +9018,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "915dea1f7c1c4c9e581f12e48bb9fca155366e75"
+                "reference": "69c2202081de3215283c258c6d8dc29ebe30f10b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/915dea1f7c1c4c9e581f12e48bb9fca155366e75",
-                "reference": "915dea1f7c1c4c9e581f12e48bb9fca155366e75",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/69c2202081de3215283c258c6d8dc29ebe30f10b",
+                "reference": "69c2202081de3215283c258c6d8dc29ebe30f10b",
                 "shasum": ""
             },
             "require": {
@@ -9090,7 +9090,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-02T08:02:50+00:00"
+            "time": "2024-10-02T14:18:34+00:00"
         }
     ],
     "packages-dev": [
@@ -9828,12 +9828,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "34796c47095877781c10789fc474066b78145b2d"
+                "reference": "877e5ce1dcc74b8d70d2ddf168faf2d89a139489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/34796c47095877781c10789fc474066b78145b2d",
-                "reference": "34796c47095877781c10789fc474066b78145b2d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/877e5ce1dcc74b8d70d2ddf168faf2d89a139489",
+                "reference": "877e5ce1dcc74b8d70d2ddf168faf2d89a139489",
                 "shasum": ""
             },
             "require": {
@@ -9879,7 +9879,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-02T08:26:41+00:00"
+            "time": "2024-10-02T14:23:51+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -12485,19 +12485,16 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "jblond/php-diff": 20,
         "league/commonmark": 20,
+        "meilisearch/search-bundle": 20,
+        "nyholm/psr7": 20,
         "openai-php/client": 20,
         "oro/doctrine-extensions": 20,
         "runtime/frankenphp-symfony": 20,
         "sensiolabs/typescript-bundle": 20,
-        "symfony/ux-chartjs": 20,
-        "symfony/ux-live-component": 20,
-        "symfony/ux-twig-component": 20,
         "symfonycasts/sass-bundle": 20,
         "twbs/bootstrap": 20,
-        "twig/extra-bundle": 20,
-        "twig/markdown-extra": 20,
-        "twig/twig": 20,
         "friendsofphp/php-cs-fixer": 20,
         "phpstan/phpstan": 20,
         "vincentlanglet/twig-cs-fixer": 20
