@@ -2,6 +2,7 @@ name: PHP Check
 
 on:
   push:
+  workflow_dispatch:
 
 permissions:
   contents: read
