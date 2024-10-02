@@ -13,6 +13,7 @@
   languages.php.enable = true;
   languages.php.version = "8.3";
   languages.php.extensions = [ "apcu" "intl" "opcache" "zip" "redis" "pdo_pgsql" "sysvsem" "xdebug" ];
+  languages.php.disableExtensions = [ "soap" ];
 
   languages.javascript.enable = true;
   languages.javascript.corepack.enable = true;
