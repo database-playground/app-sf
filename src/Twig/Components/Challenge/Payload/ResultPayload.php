@@ -7,7 +7,7 @@ namespace App\Twig\Components\Challenge\Payload;
 class ResultPayload
 {
     /**
-     * @var array<string, array<string, mixed>>
+     * @var array<array<string, mixed>>
      */
     private array $queryResult;
     private bool $same;
@@ -16,7 +16,7 @@ class ResultPayload
     /**
      * Get the result of the query.
      *
-     * @return array<string, array<string, mixed>>
+     * @return array<array<string, mixed>>
      */
     public function getQueryResult(): array
     {
@@ -42,7 +42,7 @@ class ResultPayload
     /**
      * Set the result of the query.
      *
-     * @param array<string, array<string, mixed>> $queryResult
+     * @param array<array<string, mixed>> $queryResult
      */
     public function setQueryResult(array $queryResult): self
     {

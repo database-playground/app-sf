@@ -80,11 +80,23 @@ class CreateUserCommand extends Command
      */
     public function getRolesOpt(InputInterface $input): array
     {
-        $roles = $input->getOption('roles') ?? [];
+        $roles = $input->getOption('roles');
 
         \assert(\is_array($roles) && array_is_list($roles), 'The roles must be an array.');
 
-        return $roles;
+        /**
+         * @var list<string> $rolesCasted
+         */
+        $rolesCasted = [];
+
+        foreach ($roles as $role) {
+            if (!\is_string($role)) {
+                throw new \InvalidArgumentException('The roles must be strings.');
+            }
+            $rolesCasted[] = $role;
+        }
+
+        return $rolesCasted;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

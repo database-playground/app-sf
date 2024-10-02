@@ -37,7 +37,15 @@ class DbRunnerProcessService extends ProcessService
 
             try {
                 while ($row = $result->fetchArray(\SQLITE3_ASSOC)) {
-                    $resultArray[] = $row;
+                    $rowCasted = [];
+
+                    foreach ($row as $key => $value) {
+                        \assert(\is_string($key));
+
+                        $rowCasted[$key] = $value;
+                    }
+
+                    $resultArray[] = $rowCasted;
                 }
             } finally {
                 $result->finalize();
