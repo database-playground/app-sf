@@ -44,6 +44,8 @@ Back to App: 返回 App
 Reindex: 進行搜尋索引
 HintOpenEvent: 提示打開事件
 Response: 回應
+LoginEvent: 登入事件
+Account: 帳號
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤

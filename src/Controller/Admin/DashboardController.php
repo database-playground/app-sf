@@ -8,6 +8,7 @@ use App\Entity\Comment;
 use App\Entity\CommentLikeEvent;
 use App\Entity\Group;
 use App\Entity\HintOpenEvent;
+use App\Entity\LoginEvent;
 use App\Entity\Question;
 use App\Entity\Schema;
 use App\Entity\SolutionEvent;
@@ -54,5 +55,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('SolutionEvent', 'fa fa-check', SolutionEvent::class);
         yield MenuItem::linkToCrud('SolutionVideoEvent', 'fa fa-video', SolutionVideoEvent::class);
         yield MenuItem::linkToCrud('HintOpenEvent', 'fa fa-lightbulb', HintOpenEvent::class);
+        yield MenuItem::linkToCrud('LoginEvent', 'fa fa-sign-in', LoginEvent::class);
     }
 }
