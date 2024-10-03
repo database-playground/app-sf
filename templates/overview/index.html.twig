@@ -13,7 +13,7 @@
     <section class="app-overview-dashboard__weekly-metrics">
         <h3 class="mb-3">每週學習概況</h3>
 
-        <div class="row g-2">
+        <div class="row g-3">
             <div class="col-12 col-md-6">
                 <div class="vstack gap-1">
                     <turbo-frame id="solved_questions" src="{{ path('app_overview_cards_solved_questions') }}"></turbo-frame>
@@ -30,7 +30,7 @@
     <section class="app-overview-dashboard__historic-statistics">
         <h3 class="mb-3">學習歷程</h3>
 
-        <div class="row g-5 g-md-2">
+        <div class="row g-5">
             <div class="col-12 col-md-6">
                 <div class="vstack gap-1">
                     <turbo-frame id="solved_questions" src="{{ path('app_overview_cards_solved_questions') }}"></turbo-frame>
@@ -38,7 +38,7 @@
                     <turbo-frame id="questions_count" src="{{ path('app_overview_cards_questions_count') }}"></turbo-frame>
                 </div>
             </div>
-            <div class="col-12 col-md-6t">
+            <div class="col-12 col-md-6">
                 <turbo-frame id="events_history" src="{{ path('app_overview_cards_events_history') }}"></turbo-frame>
             </div>
         </div>
