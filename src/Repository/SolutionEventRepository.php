@@ -133,4 +133,50 @@ class SolutionEventRepository extends ServiceEntityRepository
 
         return null;
     }
+
+    /**
+     * List the users leaderboard by the number of questions they have solved.
+     *
+     * @param string $interval The interval to count the leaderboard
+     *
+     * @return list<array{user: User, count: int}> The leaderboard
+     */
+    public function listLeaderboard(string $interval): array
+    {
+        $startedFrom = new \DateTimeImmutable("-$interval");
+
+        $qb = $this->createQueryBuilder('e')
+            ->from(User::class, 'u')
+            ->select('u AS user', 'COUNT(e.id) AS count')
+            ->where('e.submitter = u')
+            ->andWhere('e.status = :status')
+            ->andWhere('e.createdAt >= :startedFrom')
+            ->groupBy('u.id')
+            ->orderBy('count', 'DESC')
+            ->setParameter('status', SolutionEventStatus::Passed)
+            ->setParameter('startedFrom', $startedFrom);
+
+        $result = $qb->getQuery()->getResult();
+        \assert(\is_array($result) && array_is_list($result));
+
+        /**
+         * @var list<array{user: User, count: int}> $leaderboard
+         */
+        $leaderboard = [];
+
+        foreach ($result as $item) {
+            \assert(\is_array($item));
+            \assert(\array_key_exists('user', $item));
+            \assert(\array_key_exists('count', $item));
+            \assert($item['user'] instanceof User);
+            \assert(\is_int($item['count']));
+
+            $leaderboard[] = [
+                'user' => $item['user'],
+                'count' => $item['count'],
+            ];
+        }
+
+        return $leaderboard;
+    }
 }

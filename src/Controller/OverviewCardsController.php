@@ -183,4 +183,18 @@ class OverviewCardsController extends AbstractController
             'chart' => $chart,
         ]);
     }
+
+    /**
+     * List the top users with the highest solved questions.
+     */
+    #[Route('/leaderboard', name: 'leaderboard')]
+    public function leaderboard(
+        SolutionEventRepository $solutionEventRepository,
+    ): Response {
+        $leaderboard = $solutionEventRepository->listLeaderboard('7 days');
+
+        return $this->render('overview/cards/leaderboard.html.twig', [
+            'leaderboard' => $leaderboard,
+        ]);
+    }
 }
