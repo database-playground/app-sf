@@ -120,7 +120,19 @@ ul.credit {
   }
 
   &__operations {
-    @extend .d-flex, .gap-2, .justify-content-start, .align-items-center;
+    @extend .d-flex, .gap-3, .justify-content-start, .align-items-center;
+  }
+
+  .question-card__pass-rate {
+    &[data-pass-rate~="high"] {
+      @extend .text-success;
+    }
+    &[data-pass-rate~="medium"] {
+      @extend .text-warning;
+    }
+    &[data-pass-rate~="low"] {
+      @extend .text-danger;
+    }
   }
 }
 
