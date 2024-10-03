@@ -170,6 +170,14 @@ class OverviewCardsController extends AbstractController
                 ],
             ],
         ]);
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'beginAtZero' => true,
+                    'min' => 0,
+                ],
+            ],
+        ]);
 
         return $this->render('overview/cards/events_daily_chart.html.twig', [
             'chart' => $chart,

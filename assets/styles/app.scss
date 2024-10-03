@@ -323,3 +323,28 @@ ul.credit {
     transition: opacity 300ms;
   }
 }
+
+.app-overview-dashboard {
+  display: grid;
+  gap: 3rem;
+  grid-template:
+    "hello-text          hello-text          hello-text   hello-text" auto
+    "weekly-metrics      weekly-metrics      leaderboard  leaderboard" 1fr
+    "historic-statistics historic-statistics leaderboard  leaderboard" 1fr;
+
+  &__hello-text {
+    grid-area: hello-text;
+  }
+
+  &__weekly-metrics {
+    grid-area: weekly-metrics;
+  }
+
+  &__historic-statistics {
+    grid-area: historic-statistics;
+  }
+
+  &__leaderboard {
+    grid-area: leaderboard;
+  }
+}
