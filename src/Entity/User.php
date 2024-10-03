@@ -76,6 +76,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: HintOpenEvent::class, mappedBy: 'opener', orphanRemoval: true)]
     private Collection $hintOpenEvents;
 
+    /**
+     * @var Collection<int, LoginEvent>
+     */
+    #[ORM\OneToMany(targetEntity: LoginEvent::class, mappedBy: 'account', orphanRemoval: true)]
+    private Collection $loginEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
@@ -83,6 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->commentLikeEvents = new ArrayCollection();
         $this->hintOpenEvents = new ArrayCollection();
+        $this->loginEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -338,6 +345,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($hintOpenEvent->getOpener() === $this) {
                 $hintOpenEvent->setOpener(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LoginEvent>
+     */
+    public function getLoginEvents(): Collection
+    {
+        return $this->loginEvents;
+    }
+
+    public function addLoginEvent(LoginEvent $loginEvent): static
+    {
+        if (!$this->loginEvents->contains($loginEvent)) {
+            $this->loginEvents->add($loginEvent);
+            $loginEvent->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoginEvent(LoginEvent $loginEvent): static
+    {
+        if ($this->loginEvents->removeElement($loginEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($loginEvent->getAccount() === $this) {
+                $loginEvent->setAccount(null);
             }
         }
 
