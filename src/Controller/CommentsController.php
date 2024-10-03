@@ -77,6 +77,7 @@ class CommentsController extends AbstractController
                 'y' => [
                     'ticks' => [
                         'beginAtZero' => true,
+                        'min' => 0,
                         'stepSize' => 5,
                     ],
                 ],
