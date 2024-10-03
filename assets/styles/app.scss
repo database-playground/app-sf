@@ -160,6 +160,15 @@ ul.credit {
     li {
       @extend .list-inline-item;
     }
+
+    &__pass_rate {
+      &__value {
+        @extend .text-body;
+
+        border-bottom: 1px dotted black;
+        text-decoration: none;
+      }
+    }
   }
 }
 
