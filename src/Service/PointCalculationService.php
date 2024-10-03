@@ -8,11 +8,14 @@ use App\Entity\Question;
 use App\Entity\QuestionDifficulty;
 use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
+use App\Entity\SolutionVideoEvent;
 use App\Entity\User;
 use App\Repository\HintOpenEventRepository;
-use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
 use App\Repository\SolutionVideoEventRepository;
+use Psr\Cache\InvalidArgumentException;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class PointCalculationService
 {
@@ -37,11 +40,14 @@ final class PointCalculationService
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly SolutionVideoEventRepository $solutionVideoEventRepository,
-        private readonly QuestionRepository $questionRepository,
         private readonly HintOpenEventRepository $hintOpenEventRepository,
+        private readonly TagAwareCacheInterface $cache,
     ) {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function calculate(User $user): int
     {
         return self::$base
@@ -76,40 +82,82 @@ final class PointCalculationService
      * Calculate the points if the user is the first solver of a question.
      *
      * 第一位解題成功者加10點。
+     *
+     * @throws InvalidArgumentException
      */
     protected function calculateFirstSolutionPoints(User $user): int
     {
-        $questions = $this->questionRepository->findAll();
+        // select the question this user has ever solved
+        $qb = $this->solutionEventRepository->createQueryBuilder('e')
+            ->select('q')
+            ->from(Question::class, 'q')
+            ->where('e.question = q.id')
+            ->andWhere('e.status = :status')
+            ->andWhere('e.submitter = :submitter')
+            ->setParameter('status', SolutionEventStatus::Passed)
+            ->setParameter('submitter', $user);
 
+        /**
+         * @var Question[] $questions
+         */
+        $questions = $qb->getQuery()->getResult();
+
+        // check if the user is the first solver of each question
         $points = 0;
 
-        // list the first solver of each question
         foreach ($questions as $question) {
-            $solutionEvent = $question
-                ->getSolutionEvents()
-                ->findFirst(fn ($_, SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus());
-
-            if (!$solutionEvent || $solutionEvent->getSubmitter() !== $user) {
-                continue;
+            $firstSolver = $this->listFirstSolversOfQuestion($question);
+            if ($firstSolver && $firstSolver === $user->getId()) {
+                $points += self::$firstSolverPoint;
             }
-
-            $points += self::$firstSolverPoint;
         }
 
         return $points;
     }
 
+    /**
+     * List and cache the first solvers of each question.
+     *
+     * @param Question $question the question to get the first solver
+     *
+     * @returns int|null the first solver ID of the question
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function listFirstSolversOfQuestion(Question $question): ?int
+    {
+        return $this->cache->get(
+            "question.q{$question->getId()}.first-solver",
+            function (ItemInterface $item) use ($question) {
+                $item->tag(['question', 'first-solver']);
+
+                $solutionEvent = $question
+                    ->getSolutionEvents()
+                    ->findFirst(fn ($_, SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus());
+
+                return $solutionEvent?->getSubmitter()?->getId();
+            }
+        );
+    }
+
     protected function calculateSolutionVideoPoints(User $user): int
     {
-        $solutionVideoEvents = $this->solutionVideoEventRepository->findByUser($user);
+        /**
+         * @var Question[] $questions
+         */
+        $questions = $this->solutionVideoEventRepository->createQueryBuilder('sve')
+            ->from(Question::class, 'q')
+            ->select('q')
+            ->where('sve.opener = :user')
+            ->andWhere('sve.question = q.id')
+            ->groupBy('q.id')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
 
         $questionPointsPair = [];
-        foreach ($solutionVideoEvents as $event) {
-            $question = $event->getQuestion();
-            if (!$question) {
-                continue;
-            }
 
+        foreach ($questions as $question) {
             $questionPointsPair[$question->getId()] = match ($question->getDifficulty()) {
                 QuestionDifficulty::Easy => self::$solutionVideoEventEasy,
                 QuestionDifficulty::Medium => self::$solutionVideoEventMedium,
