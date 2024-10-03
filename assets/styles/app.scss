@@ -328,9 +328,17 @@ ul.credit {
   display: grid;
   gap: 3rem;
   grid-template:
-    "hello-text          hello-text          hello-text   hello-text" auto
-    "weekly-metrics      weekly-metrics      leaderboard  leaderboard" 1fr
-    "historic-statistics historic-statistics leaderboard  leaderboard" 1fr;
+    "hello-text" auto
+    "weekly-metrics" auto
+    "historic-statistics" auto
+    "leaderboard" auto;
+
+  @media (min-width: 768px) {
+    grid-template:
+      "hello-text          hello-text          hello-text   hello-text" auto
+      "weekly-metrics      weekly-metrics      leaderboard  leaderboard" 1fr
+      "historic-statistics historic-statistics leaderboard  leaderboard" 1fr;
+  }
 
   &__hello-text {
     grid-area: hello-text;

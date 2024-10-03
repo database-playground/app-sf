@@ -4,8 +4,8 @@
 {% block title %}個人資料{% endblock %}
 
 {% block app %}
-    <div class="profile d-flex row">
-        <turbo-frame id="app-profile-information" class="profile__information col gr-5">
+    <div class="profile d-flex row g-5">
+        <turbo-frame id="app-profile-information" class="profile__information col-12 col-md-6">
             <h2 class="mb-3">
                 {{ user.name }}
 
@@ -47,7 +47,7 @@
             </ul>
         </turbo-frame>
 
-        <section class="profile__update col">
+        <section class="profile__update col-12 col-md-6">
             <h2 class="mb-4">更新帳號資訊</h2>
 
             <div class="vstack gap-4">
