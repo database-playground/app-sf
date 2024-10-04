@@ -127,7 +127,7 @@ final class PointCalculationService
      */
     protected function listFirstSolversOfQuestion(Question $question, ?Group $group): ?int
     {
-        $groupId = $group ? "g{$group->getId()}" : 'g-none';
+        $groupId = $group ? "{$group->getId()}" : '-none';
 
         return $this->cache->get(
             "question.q{$question->getId()}.g{$groupId}.first-solver",
