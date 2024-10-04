@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Question;
-use App\Exception\NoSchemaException;
 use App\Exception\QueryExecuteException;
 use App\Exception\SchemaExecuteException;
 use Psr\Cache\InvalidArgumentException;
@@ -39,9 +38,6 @@ final class QuestionDbRunnerService
     protected function getResult(Question $question, string $query): array
     {
         $schema = $question->getSchema();
-        if (!$schema) {
-            throw new NoSchemaException($question->getId());
-        }
 
         return $this->dbRunnerService->runQuery(
             $schema->getSchema(),

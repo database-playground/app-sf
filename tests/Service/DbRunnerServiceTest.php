@@ -26,11 +26,11 @@ class DbRunnerServiceTest extends KernelTestCase
         $query = 'SELECT * FROM newsletter';
 
         $result = $dbRunnerService->runQuery($schema, $query);
-        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
 
         $hashedSchema = $dbRunnerService->getDbRunner()->hashStatement($schema);
         $hashedQuery = $dbRunnerService->getDbRunner()->hashStatement($query);
-        $this->assertTrue($cache->hasItem("dbrunner.$hashedSchema.$hashedQuery"));
+        self::assertTrue($cache->hasItem("dbrunner.$hashedSchema.$hashedQuery"));
 
         $result = $dbRunnerService->runQuery(
             "
@@ -39,8 +39,8 @@ class DbRunnerServiceTest extends KernelTestCase
                     INSERT INTO newsletter (content) VALUES ('hello');",
             'SELECT * FROM newsletter'
         );
-        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
-        $this->assertCount(1, $cache->getValues(), 'cache hit');
+        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertCount(1, $cache->getValues(), 'cache hit');
 
         $result = $dbRunnerService->runQuery(
             "
@@ -48,8 +48,8 @@ class DbRunnerServiceTest extends KernelTestCase
                     INSERT INTO newsletter (content) VALUES ('hello');",
             'SELECT * FROM newsletter -- normalization test'
         );
-        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
-        $this->assertCount(1, $cache->getValues(), 'cache hit');
+        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertCount(1, $cache->getValues(), 'cache hit');
 
         $result = $dbRunnerService->runQuery(
             "
@@ -57,8 +57,8 @@ class DbRunnerServiceTest extends KernelTestCase
                     INSERT INTO newsletter (content) VALUES ('hello');",
             "SELECT * FROM newsletter WHERE content == 'hello'"
         );
-        $this->assertEquals([['id' => 1, 'content' => 'hello']], $result);
-        $this->assertCount(2, $cache->getValues(), 'cache not hit');
+        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertCount(2, $cache->getValues(), 'cache not hit');
     }
 
     /**

@@ -32,7 +32,7 @@ final class DiffPresenter
         $leftQueryResult = $this->answerPayload->getResult()?->getQueryResult();
         $rightQueryResult = $this->userPayload?->getResult()?->getQueryResult();
 
-        if (!$leftQueryResult || !$rightQueryResult) {
+        if (null === $leftQueryResult || null === $rightQueryResult) {
             return null;
         }
 
@@ -46,7 +46,7 @@ final class DiffPresenter
         ]);
 
         $result = $diff->render($renderer);
-        if (!$result) {
+        if (null === $result || false === $result) {
             return '';
         }
 

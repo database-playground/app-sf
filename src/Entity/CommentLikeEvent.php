@@ -12,30 +12,30 @@ class CommentLikeEvent extends BaseEvent
 {
     #[ORM\ManyToOne(inversedBy: 'commentLikeEvents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $liker = null;
+    private User $liker;
 
     #[ORM\ManyToOne(inversedBy: 'commentLikeEvents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Comment $comment = null;
+    private Comment $comment;
 
-    public function getLiker(): ?User
+    public function getLiker(): User
     {
         return $this->liker;
     }
 
-    public function setLiker(?User $liker): static
+    public function setLiker(User $liker): static
     {
         $this->liker = $liker;
 
         return $this;
     }
 
-    public function getComment(): ?Comment
+    public function getComment(): Comment
     {
         return $this->comment;
     }
 
-    public function setComment(?Comment $comment): static
+    public function setComment(Comment $comment): static
     {
         $this->comment = $comment;
 

@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        if (!$this->getUser()) {
+        if (null === $this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 

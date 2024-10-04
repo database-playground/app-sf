@@ -41,7 +41,7 @@ class SolutionEventRepository extends ServiceEntityRepository
         foreach ($solvedQuestionEvents as $event) {
             $question = $event->getQuestion();
 
-            if (null !== $question && !isset($questions[$question->getId()])) {
+            if (!isset($questions[$question->getId()])) {
                 $questions[$question->getId()] = $question;
             }
         }
@@ -159,7 +159,7 @@ class SolutionEventRepository extends ServiceEntityRepository
             ->setParameter('startedFrom', $startedFrom);
 
         // filter by group
-        if ($group) {
+        if (null !== $group) {
             $qb = $qb->andWhere('u.group = :group')
                 ->setParameter('group', $group);
         } else {
@@ -205,7 +205,7 @@ class SolutionEventRepository extends ServiceEntityRepository
             ->where('se.question = :question')
             ->setParameter('question', $question);
 
-        if ($group) {
+        if (null !== $group) {
             $qb->andWhere('submitter.group = :group')
                 ->setParameter('group', $group);
         } else {

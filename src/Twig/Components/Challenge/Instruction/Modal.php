@@ -58,13 +58,7 @@ final class Modal
             return;
         }
 
-        $schema = $this->question->getSchema()?->getSchema();
-        if (!$schema) {
-            $logger->warning('No schema found for question', ['question' => $this->question->getId()]);
-
-            return;
-        }
-
+        $schema = $this->question->getSchema()->getSchema();
         $answer = $this->question->getAnswer();
 
         $hintOpenEvent = (new HintOpenEvent())
@@ -90,7 +84,7 @@ final class Modal
             $hint = $promptService->hint($this->query, $e->getMessage(), $answer);
         }
 
-        if (isset($result) && $result != $answerResult) {
+        if (isset($result) && $result !== $answerResult) {
             $hint = $promptService->hint($this->query, 'Different output', $answer);
         }
 

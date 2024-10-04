@@ -23,10 +23,10 @@ class Group
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $description = null;
+    private ?string $description;
 
     /**
      * @var Collection<int, User>
@@ -56,7 +56,7 @@ class Group
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -101,7 +101,7 @@ class Group
     public function removeUser(User $user): static
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($user->getGroup() === $this) {
                 $user->setGroup(null);
             }

@@ -12,30 +12,30 @@ class SolutionVideoEvent extends BaseEvent
 {
     #[ORM\ManyToOne(inversedBy: 'solutionVideoEvents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $opener = null;
+    private User $opener;
 
     #[ORM\ManyToOne(inversedBy: 'solutionVideoEvents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Question $question = null;
+    private Question $question;
 
-    public function getOpener(): ?User
+    public function getOpener(): User
     {
         return $this->opener;
     }
 
-    public function setOpener(?User $opener): static
+    public function setOpener(User $opener): static
     {
         $this->opener = $opener;
 
         return $this;
     }
 
-    public function getQuestion(): ?Question
+    public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    public function setQuestion(?Question $question): static
+    public function setQuestion(Question $question): static
     {
         $this->question = $question;
 

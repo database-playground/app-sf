@@ -7,7 +7,6 @@ namespace App\Command;
 use App\Entity\ExportDto\QuestionDto;
 use App\Entity\ExportDto\SchemaDto;
 use App\Entity\Schema;
-use App\Repository\SchemaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -55,13 +54,11 @@ class ImportCommand extends Command
             return Command::FAILURE;
         }
 
+        /**
+         * @var \stdClass $data
+         */
         $data = json_decode($content, flags: \JSON_THROW_ON_ERROR);
 
-        if (!\is_object($data)) {
-            $io->error('The data must be an object.');
-
-            return Command::FAILURE;
-        }
         if (!isset($data->schemas) || !isset($data->questions)) {
             $io->error('The schemas and questions must be set.');
 
@@ -81,7 +78,6 @@ class ImportCommand extends Command
         try {
             $this->entityManager->wrapInTransaction(function (EntityManagerInterface $em) use ($io, $data): void {
                 $schemaRepository = $em->getRepository(Schema::class);
-                \assert($schemaRepository instanceof SchemaRepository);
 
                 $io->info('Importing schema…');
                 foreach ((array) $data->schemas as $schema) {
@@ -91,7 +87,8 @@ class ImportCommand extends Command
 
                     $dto = SchemaDto::fromJsonObject($schema);
 
-                    if ($schemaRepository->find($dto->id)) {
+                    $schema = $schemaRepository->find($dto->id);
+                    if (null !== $schema) {
                         $io->info("Schema {$dto->id} already exists, skipping…");
                         continue;
                     }

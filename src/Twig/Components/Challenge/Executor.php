@@ -71,7 +71,7 @@ final class Executor
             }
 
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
-            $same = $result == $answer;
+            $same = $result === $answer;
 
             $solutionEvent = $solutionEvent->setStatus($same ? SolutionEventStatus::Passed : SolutionEventStatus::Failed);
 
@@ -85,7 +85,7 @@ final class Executor
 
             $payload = Payload::fromErrorWithCode(500, $e->getMessage());
         } finally {
-            if ($payload) {
+            if (null !== $payload) {
                 $this->emitUp('app:challenge-payload', [
                     'payload' => $serializer->serialize($payload, 'json'),
                 ]);

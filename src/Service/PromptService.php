@@ -85,7 +85,7 @@ class PromptService
         foreach ($response->choices as $choice) {
             if (
                 'assistant' === $choice->message->role
-                && $choice->message->content
+                && null !== $choice->message->content
                 && 'stop' === $choice->finishReason) {
                 return $choice->message->content;
             }

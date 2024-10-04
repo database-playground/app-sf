@@ -24,15 +24,15 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $commenter = null;
+    private User $commenter;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Question $question = null;
+    private Question $question;
 
     #[ORM\Column(type: Types::TEXT)]
     #[NotBlank]
-    private ?string $content = null;
+    private string $content;
 
     /**
      * @var Collection<int, CommentLikeEvent>
@@ -50,31 +50,31 @@ class Comment
         return $this->id;
     }
 
-    public function getCommenter(): ?User
+    public function getCommenter(): User
     {
         return $this->commenter;
     }
 
-    public function setCommenter(?User $commenter): static
+    public function setCommenter(User $commenter): static
     {
         $this->commenter = $commenter;
 
         return $this;
     }
 
-    public function getQuestion(): ?Question
+    public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    public function setQuestion(?Question $question): static
+    public function setQuestion(Question $question): static
     {
         $this->question = $question;
 
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -107,9 +107,9 @@ class Comment
     public function removeCommentLikeEvent(CommentLikeEvent $commentLikeEvent): static
     {
         if ($this->commentLikeEvents->removeElement($commentLikeEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($commentLikeEvent->getComment() === $this) {
-                $commentLikeEvent->setComment(null);
+                $commentLikeEvent->setComment(new self());
             }
         }
 

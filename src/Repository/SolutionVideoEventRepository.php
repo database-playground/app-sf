@@ -32,12 +32,12 @@ class SolutionVideoEventRepository extends ServiceEntityRepository
             ->where('sve.opener = :user')
             ->setParameter('user', $user);
 
-        $query = $qb->getQuery();
+        /**
+         * @var SolutionVideoEvent[] $query
+         */
+        $query = $qb->getQuery()->getResult();
 
-        /** @var SolutionVideoEvent[] $result */
-        $result = $query->getResult();
-
-        return $result;
+        return $query;
     }
 
     /**

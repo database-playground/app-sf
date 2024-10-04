@@ -42,7 +42,7 @@ class ChallengeController extends AbstractController
         }
 
         $solutionVideo = $question->getSolutionVideo();
-        if (!$solutionVideo) {
+        if (null === $solutionVideo) {
             throw $this->createNotFoundException('There is no solution video for this question.');
         }
 

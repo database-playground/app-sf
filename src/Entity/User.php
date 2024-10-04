@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -32,20 +33,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /**
-     * @var ?string The hashed password.
-     *              It usually contains a value.
+     * @var string the hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private string $password;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Group $group = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    private ?string $email = null;
+    #[NotBlank]
+    private string $email;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
     /**
      * @var Collection<int, SolutionEvent>
@@ -110,9 +111,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        \assert(!empty($this->email), 'The email should not be empty.');
+        \assert('' !== $this->email);
 
-        return (string) $this->email;
+        return $this->email;
     }
 
     /**
@@ -147,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): static
@@ -178,7 +179,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -223,9 +224,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeSolutionEvent(SolutionEvent $solutionEvent): static
     {
         if ($this->solutionEvents->removeElement($solutionEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($solutionEvent->getSubmitter() === $this) {
-                $solutionEvent->setSubmitter(null);
+                $solutionEvent->setSubmitter(new self());
             }
         }
 
@@ -253,9 +254,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeSolutionVideoEvent(SolutionVideoEvent $solutionVideoEvent): static
     {
         if ($this->solutionVideoEvents->removeElement($solutionVideoEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($solutionVideoEvent->getOpener() === $this) {
-                $solutionVideoEvent->setOpener(null);
+                $solutionVideoEvent->setOpener(new self());
             }
         }
 
@@ -283,9 +284,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeComment(Comment $comment): static
     {
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($comment->getCommenter() === $this) {
-                $comment->setCommenter(null);
+                $comment->setCommenter(new self());
             }
         }
 
@@ -313,9 +314,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCommentLikeEvent(CommentLikeEvent $commentLikeEvent): static
     {
         if ($this->commentLikeEvents->removeElement($commentLikeEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($commentLikeEvent->getLiker() === $this) {
-                $commentLikeEvent->setLiker(null);
+                $commentLikeEvent->setLiker(new self());
             }
         }
 
@@ -343,9 +344,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeHintOpenEvent(HintOpenEvent $hintOpenEvent): static
     {
         if ($this->hintOpenEvents->removeElement($hintOpenEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($hintOpenEvent->getOpener() === $this) {
-                $hintOpenEvent->setOpener(null);
+                $hintOpenEvent->setOpener(new self());
             }
         }
 
@@ -373,9 +374,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeLoginEvent(LoginEvent $loginEvent): static
     {
         if ($this->loginEvents->removeElement($loginEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($loginEvent->getAccount() === $this) {
-                $loginEvent->setAccount(null);
+                $loginEvent->setAccount(new self());
             }
         }
 

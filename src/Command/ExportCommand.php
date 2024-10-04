@@ -70,7 +70,7 @@ class ExportCommand extends Command
 
         $io->info('Exporting schema and questions…');
         $f = fopen($filename, 'w');
-        if (!$f) {
+        if (false === $f) {
             $io->error("Cannot open $filename for writing.");
 
             return Command::FAILURE;

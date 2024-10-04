@@ -42,7 +42,7 @@ class CreateUserCommand extends Command
         if (!\is_string($name)) {
             throw new \InvalidArgumentException('The name must be a string.');
         }
-        if (empty($name)) {
+        if ('' === $name) {
             throw new \InvalidArgumentException('The name cannot be empty.');
         }
 
@@ -55,7 +55,7 @@ class CreateUserCommand extends Command
         if (!\is_string($email)) {
             throw new \InvalidArgumentException('The email must be a string.');
         }
-        if (empty($email)) {
+        if ('' === $email) {
             throw new \InvalidArgumentException('The email cannot be empty.');
         }
 
@@ -68,7 +68,7 @@ class CreateUserCommand extends Command
         if (!\is_string($password)) {
             throw new \InvalidArgumentException('The password must be a string.');
         }
-        if (empty($password)) {
+        if ('' === $password) {
             throw new \InvalidArgumentException('The password cannot be empty.');
         }
 

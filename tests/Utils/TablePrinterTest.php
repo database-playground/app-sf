@@ -25,7 +25,7 @@ class TablePrinterTest extends TestCase
 
             EOT;
 
-        $this->assertEquals($expected, TablePrinter::toStringTable($table));
+        self::assertEquals($expected, TablePrinter::toStringTable($table));
     }
 
     public function testToNullTable(): void
@@ -44,14 +44,14 @@ class TablePrinterTest extends TestCase
 
             EOT;
 
-        $this->assertEquals($expected, TablePrinter::toStringTable($table));
+        self::assertEquals($expected, TablePrinter::toStringTable($table));
     }
 
     public function testEmptyTable(): void
     {
         $table = [];
 
-        $this->assertEquals('', TablePrinter::toStringTable($table));
+        self::assertEquals('', TablePrinter::toStringTable($table));
     }
 
     public function testEmptyRow(): void
@@ -70,7 +70,7 @@ class TablePrinterTest extends TestCase
 
             EOT;
 
-        $this->assertEquals($expected, TablePrinter::toStringTable($table));
+        self::assertEquals($expected, TablePrinter::toStringTable($table));
     }
 
     public function testEmptyColumn(): void
@@ -89,7 +89,7 @@ class TablePrinterTest extends TestCase
 
             EOT;
 
-        $this->assertEquals($expected, TablePrinter::toStringTable($table));
+        self::assertEquals($expected, TablePrinter::toStringTable($table));
     }
 
     public function testNotPrimitive(): void
@@ -108,7 +108,7 @@ class TablePrinterTest extends TestCase
 
             EOT;
 
-        $this->assertEquals($expected, TablePrinter::toStringTable($table));
+        self::assertEquals($expected, TablePrinter::toStringTable($table));
     }
 
     public function testIntegerKey(): void
@@ -127,6 +127,6 @@ class TablePrinterTest extends TestCase
 
             EOT;
 
-        $this->assertEquals($expected, TablePrinter::toStringTable($table));
+        self::assertEquals($expected, TablePrinter::toStringTable($table));
     }
 }

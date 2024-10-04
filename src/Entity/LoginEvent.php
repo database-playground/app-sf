@@ -12,14 +12,14 @@ class LoginEvent extends BaseEvent
 {
     #[ORM\ManyToOne(inversedBy: 'loginEvents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $account = null;
+    private User $account;
 
-    public function getAccount(): ?User
+    public function getAccount(): User
     {
         return $this->account;
     }
 
-    public function setAccount(?User $account): static
+    public function setAccount(User $account): static
     {
         $this->account = $account;
 

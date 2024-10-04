@@ -27,7 +27,7 @@ class QuestionDtoTest extends TestCase
 
         $questionDto = QuestionDto::fromEntity($entity);
 
-        $this->assertEquals(
+        self::assertEquals(
             new QuestionDto(
                 schemaId: '1',
                 type: 'type',
@@ -53,7 +53,7 @@ class QuestionDtoTest extends TestCase
             solutionVideo: 'SolutionVideoTest',
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             json_encode([
                 'schemaId' => '1',
                 'type' => 'type',
@@ -81,7 +81,7 @@ class QuestionDtoTest extends TestCase
 
         $questionDto = QuestionDto::fromJsonObject($json);
 
-        $this->assertEquals(
+        self::assertEquals(
             new QuestionDto(
                 schemaId: '1',
                 type: 'type',
@@ -114,9 +114,9 @@ class QuestionDtoTest extends TestCase
 
         $dto = QuestionDto::fromJsonObject($o);
 
-        $this->assertEquals(QuestionDifficulty::Unspecified, $dto->difficulty);
-        $this->assertNull($dto->description);
-        $this->assertNotTrue(isset($o->description));
+        self::assertEquals(QuestionDifficulty::Unspecified, $dto->difficulty);
+        self::assertNull($dto->description);
+        self::assertNotTrue(isset($o->description));
     }
 
     public function testDtoFromJsonInvalidDifficulty(): void
@@ -131,7 +131,7 @@ class QuestionDtoTest extends TestCase
             'solutionVideo' => 'SolutionVideoTest',
         ]);
 
-        $this->assertEquals(QuestionDifficulty::Unspecified, $dto->difficulty);
+        self::assertEquals(QuestionDifficulty::Unspecified, $dto->difficulty);
     }
 
     /**
@@ -156,7 +156,7 @@ class QuestionDtoTest extends TestCase
 
         $entity = $questionDto->toEntity($schemaRepository);
 
-        $this->assertEquals(
+        self::assertEquals(
             (new Question())
                 ->setSchema((new Schema())->setId('1'))
                 ->setType('type')

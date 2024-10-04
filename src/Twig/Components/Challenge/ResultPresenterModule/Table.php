@@ -25,7 +25,7 @@ final class Table
      */
     public function getHeader(): array
     {
-        if (!$this->result) {
+        if (0 === \count($this->result)) {
             return [];
         }
 

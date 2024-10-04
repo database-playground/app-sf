@@ -37,7 +37,7 @@ class ProfileController extends AbstractController
     ): Response {
         // If it is not opened from Turbo, we redirect to the profile page
         $frameId = $request->headers->get('Turbo-Frame');
-        if (!$frameId) {
+        if (null === $frameId) {
             return $this->redirectToRoute('app_profile');
         }
 
@@ -74,7 +74,7 @@ class ProfileController extends AbstractController
     ): Response {
         // If it is not opened from Turbo, we redirect to the profile page
         $frameId = $request->headers->get('Turbo-Frame');
-        if (!$frameId) {
+        if (null === $frameId) {
             return $this->redirectToRoute('app_profile');
         }
 

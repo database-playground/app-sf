@@ -29,7 +29,7 @@ final class Description
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
 
             // check if we have at least one row
-            if (empty($answer)) {
+            if (0 === \count($answer)) {
                 return [];
             }
 

@@ -19,16 +19,16 @@ class Schema
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private ?string $id = null;
+    private string $id;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $picture = null;
+    private ?string $picture;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    private ?string $description;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $schema = null;
+    private string $schema;
 
     /**
      * @var Collection<int, Question>
@@ -48,7 +48,7 @@ class Schema
 
     public function getId(): string
     {
-        return (string) $this->id;
+        return $this->id;
     }
 
     public function setId(string $id): static
@@ -84,7 +84,7 @@ class Schema
 
     public function getSchema(): string
     {
-        return (string) $this->schema;
+        return $this->schema;
     }
 
     public function setSchema(string $schema): static
@@ -115,9 +115,9 @@ class Schema
     public function removeQuestion(Question $question): static
     {
         if ($this->questions->removeElement($question)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($question->getSchema() === $this) {
-                $question->setSchema(null);
+                $question->setSchema(new self());
             }
         }
 

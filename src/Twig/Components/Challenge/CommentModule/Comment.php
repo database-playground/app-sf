@@ -47,7 +47,6 @@ final class Comment
     public function isOwned(): bool
     {
         $commenter = $this->comment->getCommenter();
-        \assert(null !== $commenter);
 
         return $this->currentUser->getUserIdentifier() === $commenter->getUserIdentifier();
     }

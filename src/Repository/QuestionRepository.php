@@ -78,12 +78,12 @@ class QuestionRepository extends ServiceEntityRepository
     public function search(SearchService $searchService, ?string $query, ?string $type, int $page, ?int $pageSize): array
     {
         $filters = [];
-        if ($type) {
+        if (null !== $type && '' !== $type) {
             $escapedType = addslashes($type);
             $filters[] = "type = \"{$escapedType}\"";
         }
 
-        return $searchService->search($this->getEntityManager(), Question::class, $query ?: '', [
+        return $searchService->search($this->getEntityManager(), Question::class, $query ?? '', [
             'limit' => $pageSize ?? self::$pageSize,
             'page' => $page,
             'filter' => $filters,
@@ -116,12 +116,12 @@ class QuestionRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('q');
         $qb = $qb->select('COUNT(q.id)');
 
-        if ($query) {
+        if (null !== $query) {
             $qb = $qb->andWhere('q.title LIKE :query')
                 ->setParameter('query', "%$query%");
         }
 
-        if ($type) {
+        if (null !== $type) {
             $qb = $qb->andWhere('q.type = :type')
                 ->setParameter('type', $type);
         }
@@ -143,7 +143,9 @@ class QuestionRepository extends ServiceEntityRepository
         $qb = $qb->select('q.type')
             ->distinct();
 
-        /** @var string[] $result */
+        /**
+         * @var string[] $result
+         */
         $result = $qb->getQuery()->getSingleColumnResult();
 
         return $result;

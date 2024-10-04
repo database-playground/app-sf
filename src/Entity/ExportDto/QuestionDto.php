@@ -24,7 +24,7 @@ readonly class QuestionDto implements Importable
     public static function fromEntity(Question $question): self
     {
         return new self(
-            schemaId: $question->getSchema()?->getId(),
+            schemaId: $question->getSchema()->getId(),
             type: $question->getType(),
             difficulty: $question->getDifficulty(),
             title: $question->getTitle(),
@@ -37,6 +37,9 @@ readonly class QuestionDto implements Importable
     public function toEntity(SchemaRepository $schemaRepository): Question
     {
         $schema = $schemaRepository->find($this->schemaId);
+        if (null === $schema) {
+            throw new \RuntimeException("Schema {$this->schemaId} not found");
+        }
 
         return (new Question())
             ->setSchema($schema)
@@ -94,7 +97,7 @@ readonly class QuestionDto implements Importable
         if (!isset($json->description)) {
             $json->description = null;
         }
-        if (!\is_string($json->description) && null !== $json->description) {
+        if (!\is_string($json->description)) {
             throw new \InvalidArgumentException('description must be of type string');
         }
 

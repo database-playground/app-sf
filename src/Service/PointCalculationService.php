@@ -107,7 +107,7 @@ final class PointCalculationService
 
         foreach ($questions as $question) {
             $firstSolver = $this->listFirstSolversOfQuestion($question, $user->getGroup());
-            if ($firstSolver && $firstSolver === $user->getId()) {
+            if (null !== $firstSolver && $firstSolver === $user->getId()) {
                 $points += self::$firstSolverPoint;
             }
         }
@@ -127,7 +127,7 @@ final class PointCalculationService
      */
     protected function listFirstSolversOfQuestion(Question $question, ?Group $group): ?int
     {
-        $groupId = $group ? "{$group->getId()}" : '-none';
+        $groupId = null !== $group ? "{$group->getId()}" : '-none';
 
         return $this->cache->get(
             "question.q{$question->getId()}.g{$groupId}.first-solver",
@@ -136,7 +136,7 @@ final class PointCalculationService
 
                 $solutionEvent = $question
                     ->getSolutionEvents()
-                    ->filter(fn (SolutionEvent $event) => $group === $event->getSubmitter()?->getGroup())
+                    ->filter(fn (SolutionEvent $event) => $group === $event->getSubmitter()->getGroup())
                     ->findFirst(fn ($_, SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus());
 
                 return $solutionEvent?->getSubmitter()?->getId();

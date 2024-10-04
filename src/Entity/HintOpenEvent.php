@@ -13,31 +13,31 @@ class HintOpenEvent extends BaseEvent
 {
     #[ORM\ManyToOne(inversedBy: 'hintOpenEvents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $opener = null;
+    private User $opener;
 
     #[ORM\ManyToOne(inversedBy: 'hintOpenEvents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Question $question = null;
+    private Question $question;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $response = null;
+    private string $response;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $query = null;
+    private string $query;
 
-    public function getOpener(): ?User
+    public function getOpener(): User
     {
         return $this->opener;
     }
 
-    public function setOpener(?User $opener): static
+    public function setOpener(User $opener): static
     {
         $this->opener = $opener;
 
         return $this;
     }
 
-    public function getResponse(): ?string
+    public function getResponse(): string
     {
         return $this->response;
     }
@@ -49,7 +49,7 @@ class HintOpenEvent extends BaseEvent
         return $this;
     }
 
-    public function getQuery(): ?string
+    public function getQuery(): string
     {
         return $this->query;
     }
@@ -61,12 +61,12 @@ class HintOpenEvent extends BaseEvent
         return $this;
     }
 
-    public function getQuestion(): ?Question
+    public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    public function setQuestion(?Question $question): static
+    public function setQuestion(Question $question): static
     {
         $this->question = $question;
 

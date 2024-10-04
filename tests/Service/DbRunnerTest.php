@@ -227,7 +227,7 @@ class DbRunnerTest extends TestCase
         $leftHash = $dbrunner->hashStatement($leftStmt);
         $rightHash = $dbrunner->hashStatement($rightStmt);
 
-        $this->assertEquals($leftHash, $rightHash);
+        self::assertEquals($leftHash, $rightHash);
     }
 
     #[DataProvider('hashProvider')]
@@ -252,15 +252,15 @@ class DbRunnerTest extends TestCase
 
         if (null !== $exception) {
             $this->expectException($exception);
-        } elseif (!$expect) {
+        } elseif (null === $expect) {
             $this->expectNotToPerformAssertions();
         }
 
         $generator = $dbrunner->runQuery($schema, $query);
 
-        if ($expect) {
+        if (null !== $expect) {
             foreach ($generator as $idx => $actual) {
-                $this->assertEquals($expect[$idx], $actual);
+                self::assertEquals($expect[$idx], $actual);
             }
         }
     }
@@ -308,36 +308,36 @@ class DbRunnerTest extends TestCase
     {
         $dbrunner = new DbRunner();
 
-        $this->assertEquals([['year("2021-01-01")' => 2021]], $dbrunner->runQuery('', 'SELECT year("2021-01-01")'));
+        self::assertEquals([['year("2021-01-01")' => 2021]], $dbrunner->runQuery('', 'SELECT year("2021-01-01")'));
     }
 
     public function testRunQueryMonth(): void
     {
         $dbrunner = new DbRunner();
 
-        $this->assertEquals([['month("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT month("2021-01-01")'));
+        self::assertEquals([['month("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT month("2021-01-01")'));
     }
 
     public function testRunQueryDay(): void
     {
         $dbrunner = new DbRunner();
 
-        $this->assertEquals([['day("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT day("2021-01-01")'));
+        self::assertEquals([['day("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT day("2021-01-01")'));
     }
 
     public function testRunQueryIf(): void
     {
         $dbrunner = new DbRunner();
 
-        $this->assertEquals([['if(1, 2, 3)' => 2]], $dbrunner->runQuery('', 'SELECT if(1, 2, 3)'));
-        $this->assertEquals([['if(0, 2, 3)' => 3]], $dbrunner->runQuery('', 'SELECT if(0, 2, 3)'));
+        self::assertEquals([['if(1, 2, 3)' => 2]], $dbrunner->runQuery('', 'SELECT if(1, 2, 3)'));
+        self::assertEquals([['if(0, 2, 3)' => 3]], $dbrunner->runQuery('', 'SELECT if(0, 2, 3)'));
     }
 
     public function testRunQuerySum(): void
     {
         $dbrunner = new DbRunner();
 
-        $this->assertEquals([['sum(n)' => 6]], $dbrunner->runQuery('', 'SELECT sum(n) FROM (SELECT 1 AS n UNION SELECT 2 AS n UNION SELECT 3 AS n)'));
+        self::assertEquals([['sum(n)' => 6]], $dbrunner->runQuery('', 'SELECT sum(n) FROM (SELECT 1 AS n UNION SELECT 2 AS n UNION SELECT 3 AS n)'));
     }
 
     public function testSchemaCache(): void
@@ -354,14 +354,15 @@ class DbRunnerTest extends TestCase
         $query = 'SELECT * FROM test;';
 
         $firstResult = $dbrunner->runQuery($schema, $query);
+        $secondResult = $firstResult;
 
         // check if it always ran schema
         // for an uncached case, it should take a lot of time
         // for a cached case, it should be fast (~3s instead of ~6s)
         for ($i = 0; $i < 50; ++$i) {
-            $result = $dbrunner->runQuery($schema, $query);
+            $secondResult = $dbrunner->runQuery($schema, $query);
         }
 
-        $this->assertEquals($firstResult, $result);
+        self::assertEquals($firstResult, $secondResult);
     }
 }

@@ -19,7 +19,7 @@ abstract class BaseEvent
     protected ?Ulid $id = null;
 
     #[ORM\Column(name: 'created_at')]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     public function getId(): ?Ulid
     {
@@ -29,9 +29,9 @@ abstract class BaseEvent
     /**
      * Get the created at date and time of the solution event.
      *
-     * @return ?\DateTimeImmutable The parsed DateTime object
+     * @return \DateTimeImmutable The parsed DateTime object
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

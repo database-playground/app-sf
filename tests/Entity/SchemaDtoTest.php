@@ -21,7 +21,7 @@ class SchemaDtoTest extends TestCase
 
         $schemaDto = SchemaDto::fromEntity($entity);
 
-        $this->assertEquals(
+        self::assertEquals(
             new SchemaDto(
                 id: 'SchemaId',
                 picture: 'PictureTest',
@@ -41,7 +41,7 @@ class SchemaDtoTest extends TestCase
 
         $schemaDto = SchemaDto::fromEntity($entity);
 
-        $this->assertEquals(
+        self::assertEquals(
             new SchemaDto(
                 id: 'SchemaId',
                 picture: null,
@@ -61,7 +61,7 @@ class SchemaDtoTest extends TestCase
             schema: 'SchemaTest',
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             json_encode([
                 'id' => 'SchemaId',
                 'picture' => 'PictureTest',
@@ -81,7 +81,7 @@ class SchemaDtoTest extends TestCase
             schema: 'SchemaTest',
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             json_encode([
                 'id' => 'SchemaId',
                 'picture' => null,
@@ -103,7 +103,7 @@ class SchemaDtoTest extends TestCase
 
         $schemaDto = SchemaDto::fromJsonObject($json);
 
-        $this->assertEquals(
+        self::assertEquals(
             new SchemaDto(
                 id: 'SchemaId',
                 picture: 'PictureTest',
@@ -124,7 +124,7 @@ class SchemaDtoTest extends TestCase
 
         $schemaDto = SchemaDto::fromJsonObject($json);
 
-        $this->assertEquals(
+        self::assertEquals(
             new SchemaDto(
                 id: 'SchemaId',
                 picture: null,
@@ -133,7 +133,7 @@ class SchemaDtoTest extends TestCase
             ),
             $schemaDto,
         );
-        $this->assertNotTrue(isset($json->picture));
+        self::assertNotTrue(isset($json->picture));
     }
 
     public function testDtoFromJsonInvalid(): void
@@ -153,9 +153,9 @@ class SchemaDtoTest extends TestCase
 
         $schema = $schemaDto->toEntity();
 
-        $this->assertEquals('SchemaId', $schema->getId());
-        $this->assertEquals('PictureTest', $schema->getPicture());
-        $this->assertEquals('DescriptionTest', $schema->getDescription());
-        $this->assertEquals('SchemaTest', $schema->getSchema());
+        self::assertEquals('SchemaId', $schema->getId());
+        self::assertEquals('PictureTest', $schema->getPicture());
+        self::assertEquals('DescriptionTest', $schema->getDescription());
+        self::assertEquals('SchemaTest', $schema->getSchema());
     }
 }

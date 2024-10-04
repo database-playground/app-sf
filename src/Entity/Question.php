@@ -25,25 +25,25 @@ class Question
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Schema $schema = null;
+    private Schema $schema;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    private string $type;
 
     #[ORM\Column(enumType: QuestionDifficulty::class)]
-    private ?QuestionDifficulty $difficulty = null;
+    private QuestionDifficulty $difficulty;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    private ?string $description;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $answer = null;
+    private string $answer;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $solution_video = null;
+    private ?string $solution_video;
 
     /**
      * @var Collection<int, SolutionEvent>
@@ -88,12 +88,12 @@ class Question
         return (int) $this->id;
     }
 
-    public function getSchema(): ?Schema
+    public function getSchema(): Schema
     {
         return $this->schema;
     }
 
-    public function setSchema(?Schema $schema): static
+    public function setSchema(Schema $schema): static
     {
         $this->schema = $schema;
 
@@ -103,7 +103,7 @@ class Question
     #[Groups(['searchable'])]
     public function getType(): string
     {
-        return (string) $this->type;
+        return $this->type;
     }
 
     public function setType(string $type): static
@@ -129,7 +129,7 @@ class Question
     #[Groups(['searchable'])]
     public function getTitle(): string
     {
-        return (string) $this->title;
+        return $this->title;
     }
 
     public function setTitle(string $title): static
@@ -154,7 +154,7 @@ class Question
 
     public function getAnswer(): string
     {
-        return (string) $this->answer;
+        return $this->answer;
     }
 
     public function setAnswer(string $answer): static
@@ -197,9 +197,9 @@ class Question
     public function removeSolutionEvent(SolutionEvent $solutionEvent): static
     {
         if ($this->solutionEvents->removeElement($solutionEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($solutionEvent->getQuestion() === $this) {
-                $solutionEvent->setQuestion(null);
+                $solutionEvent->setQuestion(new self());
             }
         }
 
@@ -227,9 +227,9 @@ class Question
     public function removeSolutionVideoEvent(SolutionVideoEvent $solutionVideoEvent): static
     {
         if ($this->solutionVideoEvents->removeElement($solutionVideoEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($solutionVideoEvent->getQuestion() === $this) {
-                $solutionVideoEvent->setQuestion(null);
+                $solutionVideoEvent->setQuestion(new self());
             }
         }
 
@@ -257,9 +257,9 @@ class Question
     public function removeComment(Comment $comment): static
     {
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($comment->getQuestion() === $this) {
-                $comment->setQuestion(null);
+                $comment->setQuestion(new self());
             }
         }
 
@@ -287,9 +287,9 @@ class Question
     public function removeHintOpenEvent(HintOpenEvent $hintOpenEvent): static
     {
         if ($this->hintOpenEvents->removeElement($hintOpenEvent)) {
-            // set the owning side to null (unless already changed)
+            // set the owning side to a default class (unless already changed)
             if ($hintOpenEvent->getQuestion() === $this) {
-                $hintOpenEvent->setQuestion(null);
+                $hintOpenEvent->setQuestion(new self());
             }
         }
 

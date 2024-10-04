@@ -132,8 +132,7 @@ class DbRunnerProcessService extends ProcessService
 
         $dateop = fn (string $format) => fn (string $date) => (int) date(
             $format,
-            strtotime($date)
-                ?: throw new \InvalidArgumentException("Failed to convert $date as $format."),
+            ($datestr = strtotime($date)) !== false ? $datestr : null,
         );
 
         // MySQL-compatible functions
