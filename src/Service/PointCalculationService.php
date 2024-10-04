@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Group;
 use App\Entity\Question;
 use App\Entity\QuestionDifficulty;
 use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
-use App\Entity\SolutionVideoEvent;
 use App\Entity\User;
 use App\Repository\HintOpenEventRepository;
 use App\Repository\SolutionEventRepository;
@@ -106,7 +106,7 @@ final class PointCalculationService
         $points = 0;
 
         foreach ($questions as $question) {
-            $firstSolver = $this->listFirstSolversOfQuestion($question);
+            $firstSolver = $this->listFirstSolversOfQuestion($question, $user->getGroup());
             if ($firstSolver && $firstSolver === $user->getId()) {
                 $points += self::$firstSolverPoint;
             }
@@ -118,21 +118,25 @@ final class PointCalculationService
     /**
      * List and cache the first solvers of each question.
      *
-     * @param Question $question the question to get the first solver
+     * @param Question   $question the question to get the first solver
+     * @param Group|null $group    the solver group (null = no group)
      *
      * @returns int|null the first solver ID of the question
      *
      * @throws InvalidArgumentException
      */
-    protected function listFirstSolversOfQuestion(Question $question): ?int
+    protected function listFirstSolversOfQuestion(Question $question, ?Group $group): ?int
     {
+        $groupId = $group ? "g{$group->getId()}" : 'g-none';
+
         return $this->cache->get(
-            "question.q{$question->getId()}.first-solver",
-            function (ItemInterface $item) use ($question) {
-                $item->tag(['question', 'first-solver']);
+            "question.q{$question->getId()}.g{$groupId}.first-solver",
+            function (ItemInterface $item) use ($group, $question) {
+                $item->tag(['question', 'first-solver', 'group']);
 
                 $solutionEvent = $question
                     ->getSolutionEvents()
+                    ->filter(fn (SolutionEvent $event) => $group === $event->getSubmitter()?->getGroup())
                     ->findFirst(fn ($_, SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus());
 
                 return $solutionEvent?->getSubmitter()?->getId();
