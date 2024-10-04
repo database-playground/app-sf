@@ -5,10 +5,11 @@
         <li class="challenge-header__lists__type">{{ question.type }}</li>
         <li class="challenge-header__lists__pass_rate">
             通過率
+            {% set passRate = this.passRate %}
             <a class="challenge-header__lists__pass_rate__value" href="#" rel="help" data-bs-toggle="tooltip"
                data-bs-placement="bottom"
-               data-bs-title="{{ question.totalAttemptCount(user.group) }} 次挑戰中有 {{ question.totalSolvedCount(user.group) }} 次成功">
-                {{ question.passRate(user.group) }}%
+               data-bs-title="{{ passRate.total }} 次挑戰中有 {{ passRate.passed }} 次成功">
+                {{ passRate.passRate }}%
             </a>
         </li>
     </ul>

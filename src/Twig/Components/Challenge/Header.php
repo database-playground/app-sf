@@ -9,6 +9,8 @@ use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
+use App\Service\PassRateService;
+use App\Service\Types\PassRate;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
@@ -21,6 +23,7 @@ final class Header
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly QuestionRepository $questionRepository,
+        private readonly PassRateService $passRateService,
     ) {
     }
 
@@ -41,5 +44,10 @@ final class Header
     public function getPreviousPage(): ?int
     {
         return $this->questionRepository->getPreviousPage($this->question->getId());
+    }
+
+    public function getPassRate(): PassRate
+    {
+        return $this->passRateService->getPassRate($this->question, $this->user->getGroup());
     }
 }

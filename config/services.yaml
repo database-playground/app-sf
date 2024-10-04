@@ -23,6 +23,7 @@ services:
       - "../src/Entity/"
       - "../src/Kernel.php"
       - "../src/Service/Processes/"
+      - "../src/Service/Types/"
       - "../src/Twig/Components/Challenge/EventConstant.php"
 
   # add more service definitions when explicit configuration is needed

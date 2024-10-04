@@ -189,4 +189,34 @@ class SolutionEventRepository extends ServiceEntityRepository
 
         return $leaderboard;
     }
+
+    /**
+     * Get the total attempts made on the question.
+     *
+     * @param Question   $question the question to query
+     * @param Group|null $group    the group to filter the attempts by (null = no group)
+     *
+     * @return SolutionEvent[] the total attempts made on the question
+     */
+    public function getTotalAttempts(Question $question, ?Group $group): array
+    {
+        $qb = $this->createQueryBuilder('se')
+            ->join('se.submitter', 'submitter')
+            ->where('se.question = :question')
+            ->setParameter('question', $question);
+
+        if ($group) {
+            $qb->andWhere('submitter.group = :group')
+                ->setParameter('group', $group);
+        } else {
+            $qb->andWhere('submitter.group IS NULL');
+        }
+
+        /**
+         * @var SolutionEvent[] $result
+         */
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
 }

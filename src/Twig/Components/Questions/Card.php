@@ -6,6 +6,8 @@ namespace App\Twig\Components\Questions;
 
 use App\Entity\Question;
 use App\Entity\User;
+use App\Service\PassRateService;
+use App\Service\Types\PassRate;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
@@ -14,21 +16,16 @@ final class Card
     public Question $question;
     public User $currentUser;
 
-    /**
-     * Get the pass rate level of the question.
-     *
-     * Low: 0% - 40%
-     * Medium: 41 – 70%
-     * High: 71% - 100%
-     */
-    public function getPassRateLevel(): string
-    {
-        $passRate = $this->question->getPassRate($this->currentUser->getGroup());
+    public function __construct(
+        private readonly PassRateService $passRateService,
+    ) {
+    }
 
-        return match (true) {
-            $passRate <= 40 => 'low',
-            $passRate <= 70 => 'medium',
-            default => 'high',
-        };
+    /**
+     * Get the pass rate of the question.
+     */
+    public function getPassRate(): PassRate
+    {
+        return $this->passRateService->getPassRate($this->question, $this->currentUser->getGroup());
     }
 }

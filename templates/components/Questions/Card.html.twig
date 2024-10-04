@@ -11,7 +11,8 @@
 
             <div class="question-card__operations">
                 <a role="button" class="btn btn-primary" href="{{ path('app_challenge', {id: question.id}) }}">進行測驗</a>
-                <div class="question-card__pass-rate" data-pass-rate="{{ this.passRateLevel }}">通過率 {{ question.passRate(currentUser.group) }}%</div>
+                {% set passRate = this.passRate %}
+                <div class="question-card__pass-rate" data-pass-rate="{{ passRate.level }}">通過率 {{ passRate.passRate }}%</div>
             </div>
 
             <div class="question-card__background">
