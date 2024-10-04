@@ -179,38 +179,49 @@ class Question
     /**
      * Get the pass rate of the question.
      *
+     * @param Group|null $group the group to filter the attempts by (null = no group)
+     *
      * @return float the pass rate of the question
      */
-    public function getPassRate(): float
+    public function getPassRate(?Group $group): float
     {
-        $totalAttemptCount = $this->getTotalAttemptCount();
+        $totalAttemptCount = $this->getTotalAttemptCount($group);
         if (0 === $totalAttemptCount) {
             return 0;
         }
 
-        return round($this->getTotalSolvedCount() / $totalAttemptCount * 100, 2);
+        return round($this->getTotalSolvedCount($group) / $totalAttemptCount * 100, 2);
     }
 
     /**
      * Get the total number of attempts made on the question.
      *
+     * @param Group|null $group the group to filter the attempts by (null = no group)
+     *
      * @return int the total number of attempts made on the question
      */
-    public function getTotalAttemptCount(): int
+    public function getTotalAttemptCount(?Group $group): int
     {
-        return $this->getSolutionEvents()->count();
+        return $this->getSolutionEvents()
+            ->filter(fn (SolutionEvent $solutionEvent) => $group === $solutionEvent->getSubmitter()?->getGroup())
+            ->count();
     }
 
     /**
      * Get the total number of times the question has been solved.
      *
+     * @param Group|null $group the group to filter the attempts by (null = no group)
+     *
      * @return int the total number of times the question has been solved
      */
-    public function getTotalSolvedCount(): int
+    public function getTotalSolvedCount(?Group $group): int
     {
         return $this->getSolutionEvents()
             ->filter(
-                fn (SolutionEvent $solutionEvent) => SolutionEventStatus::Passed === $solutionEvent->getStatus()
+                fn (SolutionEvent $solutionEvent) => (
+                    SolutionEventStatus::Passed === $solutionEvent->getStatus()
+                        && $group === $solutionEvent->getSubmitter()?->getGroup()
+                )
             )->count();
     }
 

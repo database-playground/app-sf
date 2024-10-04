@@ -44,7 +44,7 @@
     <section aria-label="題庫" class="question-filterable-section__list row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         {% for item in this.questions %}
             <div class="col">
-                <twig:Questions:Card :question="item"></twig:Questions:Card>
+                <twig:Questions:Card :currentUser="currentUser" :question="item"></twig:Questions:Card>
             </div>
         {% endfor %}
     </section>

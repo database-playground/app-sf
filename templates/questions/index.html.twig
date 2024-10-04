@@ -5,5 +5,5 @@
 {% block title %}練習題目{% endblock %}
 
 {% block app %}
-    <twig:Questions:FilterableSection />
+    <twig:Questions:FilterableSection :currentUser="currentUser" />
 {% endblock %}

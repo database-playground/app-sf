@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Twig\Components\Questions;
 
 use App\Entity\Question;
+use App\Entity\User;
 use App\Repository\QuestionRepository;
 use Meilisearch\Bundle\SearchService;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -22,6 +23,9 @@ final class FilterableSection
     public readonly int $pageSize;
 
     public string $title = '題庫一覽';
+
+    #[LiveProp]
+    public User $currentUser;
 
     #[LiveProp(writable: true, url: new UrlMapping(as: 'q'))]
     public string $query = '';

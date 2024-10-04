@@ -7,8 +7,8 @@
             通過率
             <a class="challenge-header__lists__pass_rate__value" href="#" rel="help" data-bs-toggle="tooltip"
                data-bs-placement="bottom"
-               data-bs-title="{{ question.totalAttemptCount }} 次挑戰中有 {{ question.totalSolvedCount }} 次成功">
-                {{ question.passRate }}%
+               data-bs-title="{{ question.totalAttemptCount(user.group) }} 次挑戰中有 {{ question.totalSolvedCount(user.group) }} 次成功">
+                {{ question.passRate(user.group) }}%
             </a>
         </li>
     </ul>
