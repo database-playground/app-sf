@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Group;
 use App\Entity\Question;
 use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
@@ -137,11 +138,12 @@ class SolutionEventRepository extends ServiceEntityRepository
     /**
      * List the users leaderboard by the number of questions they have solved.
      *
-     * @param string $interval The interval to count the leaderboard
+     * @param Group|null $group    the group to filter the attempts by (null = no group)
+     * @param string     $interval The interval to count the leaderboard
      *
      * @return list<array{user: User, count: int}> The leaderboard
      */
-    public function listLeaderboard(string $interval): array
+    public function listLeaderboard(?Group $group, string $interval): array
     {
         $startedFrom = new \DateTimeImmutable("-$interval");
 
@@ -155,6 +157,14 @@ class SolutionEventRepository extends ServiceEntityRepository
             ->orderBy('count', 'DESC')
             ->setParameter('status', SolutionEventStatus::Passed)
             ->setParameter('startedFrom', $startedFrom);
+
+        // filter by group
+        if ($group) {
+            $qb = $qb->andWhere('u.group = :group')
+                ->setParameter('group', $group);
+        } else {
+            $qb = $qb->andWhere('u.group IS NULL');
+        }
 
         $result = $qb->getQuery()->getResult();
         \assert(\is_array($result) && array_is_list($result));

@@ -189,9 +189,10 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/leaderboard', name: 'leaderboard')]
     public function leaderboard(
+        #[CurrentUser] User $user,
         SolutionEventRepository $solutionEventRepository,
     ): Response {
-        $leaderboard = $solutionEventRepository->listLeaderboard('7 days');
+        $leaderboard = $solutionEventRepository->listLeaderboard($user->getGroup(), '7 days');
 
         return $this->render('overview/cards/leaderboard.html.twig', [
             'leaderboard' => $leaderboard,
