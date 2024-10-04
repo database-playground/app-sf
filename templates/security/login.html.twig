@@ -3,13 +3,13 @@
 {% block title %}登入{% endblock %}
 
 {% block body %}
-    <main class="w-40 container-sm v-center">
+    <main class="w-75 w-md-40 container-sm v-center">
         <div class="d-flex justify-content-between align-items-end">
             <h1 class="mb-4" aria-label="資料庫練功房 - 登入">
                 <img src="{{ asset('branding.svg') }}" alt="資料庫練功房" height="72px" />
             </h1>
 
-            <p class="opacity-75 small fst-italic">
+            <p class="opacity-75 small fst-italic d-none d-md-block">
                 雙雙瓦雀行書案，點點楊花入硯池<br>
                 閒坐小窗學SQL，不知春去幾多時
             </p>
@@ -51,7 +51,7 @@
                    value="{{ csrf_token('authenticate') }}"
             >
 
-            <div class="d-flex gap-3 justify-content-between align-items-end">
+            <div class="d-flex flex-column flex-md-row gap-3 justify-content-md-between align-items-md-end">
                 <button class="btn btn-primary" type="submit">
                     登入
                 </button>
