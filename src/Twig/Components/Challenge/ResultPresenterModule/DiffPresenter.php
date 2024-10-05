@@ -39,11 +39,11 @@ final class DiffPresenter
 
         $left = $this->serializer->serialize($leftQueryResult, 'csv', [
             'csv_delimiter' => "\t",
-            'csv_enclosure' => '',
+            'csv_enclosure' => ' ',
         ]);
         $right = $this->serializer->serialize($rightQueryResult, 'csv', [
             'csv_delimiter' => "\t",
-            'csv_enclosure' => '',
+            'csv_enclosure' => ' ',
         ]);
 
         $diff = new Diff(explode("\n", $left), explode("\n", $right));
