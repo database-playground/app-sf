@@ -83,7 +83,7 @@ return [
         'version' => '2.2.8',
     ],
     '@lezer/common' => [
-        'version' => '1.2.1',
+        'version' => '1.2.2',
     ],
     'crelt' => [
         'version' => '1.0.6',
