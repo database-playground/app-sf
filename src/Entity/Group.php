@@ -26,7 +26,7 @@ class Group
     private string $name;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $description;
+    private ?string $description = null;
 
     /**
      * @var Collection<int, User>

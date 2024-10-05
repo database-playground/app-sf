@@ -97,8 +97,8 @@ readonly class QuestionDto implements Importable
         if (!isset($json->description)) {
             $json->description = null;
         }
-        if (!\is_string($json->description)) {
-            throw new \InvalidArgumentException('description must be of type string');
+        if (!\is_string($json->description) && null !== $json->description) {
+            throw new \InvalidArgumentException('description must be of type string or be null');
         }
 
         if (!isset($json->solutionVideo)) {

@@ -22,10 +22,10 @@ class Schema
     private string $id;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $picture;
+    private ?string $picture = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description;
+    private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private string $schema;

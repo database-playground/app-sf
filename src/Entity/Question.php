@@ -37,13 +37,13 @@ class Question
     private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description;
+    private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private string $answer;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $solution_video;
+    private ?string $solution_video = null;
 
     /**
      * @var Collection<int, SolutionEvent>
