@@ -7,7 +7,6 @@ namespace App\Twig\Components\Questions;
 use App\Entity\Question;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
-use Meilisearch\Bundle\SearchService;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -19,8 +18,6 @@ use Symfony\UX\LiveComponent\Metadata\UrlMapping;
 final class FilterableSection
 {
     use DefaultActionTrait;
-
-    public readonly int $pageSize;
 
     public string $title = '題庫一覽';
 
@@ -38,9 +35,7 @@ final class FilterableSection
 
     public function __construct(
         private readonly QuestionRepository $questionRepository,
-        private readonly SearchService $searchService,
     ) {
-        $this->pageSize = QuestionRepository::$pageSize;
     }
 
     /**
@@ -51,11 +46,9 @@ final class FilterableSection
     public function getQuestions(): array
     {
         return $this->questionRepository->search(
-            $this->searchService,
             query: $this->query,
             type: $this->type,
             page: $this->getCurrentPage(),
-            pageSize: $this->pageSize,
         );
     }
 
@@ -70,25 +63,13 @@ final class FilterableSection
     }
 
     /**
-     * Get the total number of pages.
-     */
-    public function getTotalPages(): int
-    {
-        return $this->questionRepository->calculateTotalPages(
-            query: $this->query,
-            type: $this->type,
-            pageSize: $this->pageSize,
-        );
-    }
-
-    /**
      * Get the current page number, clamped to the valid range.
      *
      * @return int The current page number
      */
     public function getCurrentPage(): int
     {
-        return max(min($this->currentPage, $this->getTotalPages()), 1);
+        return $this->currentPage;
     }
 
     /**
@@ -98,7 +79,7 @@ final class FilterableSection
      */
     public function setCurrentPage(int $page): void
     {
-        $this->currentPage = max(min($page, $this->getTotalPages()), 1);
+        $this->currentPage = max(1, $page);
     }
 
     /**
@@ -106,7 +87,14 @@ final class FilterableSection
      */
     public function hasNext(): bool
     {
-        return $this->getCurrentPage() < $this->getTotalPages();
+        $total = $this->questionRepository->countSearchResults(
+            query: $this->query,
+            type: $this->type,
+        );
+
+        $totalPage = ceil($total / QuestionRepository::$pageSize);
+
+        return $this->getCurrentPage() < $totalPage;
     }
 
     /**

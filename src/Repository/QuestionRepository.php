@@ -16,10 +16,12 @@ use Meilisearch\Bundle\SearchService;
  */
 class QuestionRepository extends ServiceEntityRepository
 {
-    public static int $pageSize = 10;
+    public static int $pageSize = 12;
 
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private readonly SearchService $searchService,
+    ) {
         parent::__construct($registry, Question::class);
     }
 
@@ -75,7 +77,7 @@ class QuestionRepository extends ServiceEntityRepository
      *
      * @return Question[] The list of questions for the given page
      */
-    public function search(SearchService $searchService, ?string $query, ?string $type, int $page, ?int $pageSize): array
+    public function search(?string $query, ?string $type, int $page, ?int $pageSize = null): array
     {
         $filters = [];
         if (null !== $type && '' !== $type) {
@@ -83,9 +85,9 @@ class QuestionRepository extends ServiceEntityRepository
             $filters[] = "type = \"$escapedType\"";
         }
 
-        return $searchService->search($this->getEntityManager(), Question::class, $query ?? '', [
+        return $this->searchService->search($this->getEntityManager(), Question::class, $query ?? '', [
             'limit' => $pageSize ?? self::$pageSize,
-            'page' => $page,
+            'offset' => ($page - 1) * ($pageSize ?? self::$pageSize),
             'filter' => $filters,
             'sort' => ['id:asc'],
         ]);
@@ -96,40 +98,34 @@ class QuestionRepository extends ServiceEntityRepository
      */
     public function reindex(SearchService $searchService): void
     {
+        $searchService->clear(Question::class);
         $searchService->index($this->getEntityManager(), $this->findAll());
     }
 
     /**
-     * Calculate the total number of pages for a given query and page size.
+     * Count the total search results based on a query and type.
      *
-     * @param string|null $query    The search query
-     * @param string|null $type     The question type
-     * @param int|null    $pageSize The number of items per page
+     * @param string|null $query The search query
+     * @param string|null $type  The question type
      *
-     * @return int The total number of pages
+     * @return int The total result count
      */
-    public function calculateTotalPages(?string $query, ?string $type, ?int $pageSize): int
+    public function countSearchResults(?string $query, ?string $type): int
     {
-        // FIXME: This is a naive implementation, it should be optimized
-        $pageSize ??= self::$pageSize;
-
-        $qb = $this->createQueryBuilder('q');
-        $qb = $qb->select('COUNT(q.id)');
-
-        if (null !== $query) {
-            $qb = $qb->andWhere('q.title LIKE :query')
-                ->setParameter('query', "%$query%");
+        $filters = [];
+        if (null !== $type && '' !== $type) {
+            $escapedType = addslashes($type);
+            $filters[] = "type = \"$escapedType\"";
         }
 
-        if (null !== $type) {
-            $qb = $qb->andWhere('q.type = :type')
-                ->setParameter('type', $type);
-        }
+        $result = $this->searchService->rawSearch(Question::class, $query ?? '', [
+            'filter' => $filters,
+            'attributesToRetrieve' => ['estimatedTotalHits'],
+        ]);
 
-        $questionsCount = $qb->getQuery()->getSingleScalarResult();
-        \assert(\is_int($questionsCount), 'The questions count should be an integer.');
+        \assert(isset($result['estimatedTotalHits']) && \is_int($result['estimatedTotalHits']), 'estimatedTotalHits should be set and must be a integer');
 
-        return (int) ceil($questionsCount / $pageSize);
+        return $result['estimatedTotalHits'];
     }
 
     /**
