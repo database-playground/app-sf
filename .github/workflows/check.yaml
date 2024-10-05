@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+env:
+  # Used for PHPStan to initialize the Symfony check
+  APP_SECRET: TIRKxo3IEcWIr0x4EM6D
+
 jobs:
   lint:
     runs-on: ubuntu-latest
