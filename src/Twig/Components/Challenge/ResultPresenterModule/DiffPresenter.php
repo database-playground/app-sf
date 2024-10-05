@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Twig\Components\Challenge\ResultPresenterModule;
 
 use App\Twig\Components\Challenge\Payload;
-use App\Utils\TablePrinter;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\SideBySide;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -19,6 +19,7 @@ final class DiffPresenter
 
     public function __construct(
         private readonly TranslatorInterface $translator,
+        private readonly SerializerInterface $serializer,
     ) {
     }
 
@@ -36,8 +37,14 @@ final class DiffPresenter
             return null;
         }
 
-        $left = TablePrinter::toStringTable($leftQueryResult);
-        $right = TablePrinter::toStringTable($rightQueryResult);
+        $left = $this->serializer->serialize($leftQueryResult, 'csv', [
+            'csv_delimiter' => "\t",
+            'csv_enclosure' => '',
+        ]);
+        $right = $this->serializer->serialize($rightQueryResult, 'csv', [
+            'csv_delimiter' => "\t",
+            'csv_enclosure' => '',
+        ]);
 
         $diff = new Diff(explode("\n", $left), explode("\n", $right));
         $renderer = new SideBySide([

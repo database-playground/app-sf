@@ -9,9 +9,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * The plain old PHP object for the change password form.
- */
 class PasswordChangeModel
 {
     #[SecurityAssert\UserPassword]

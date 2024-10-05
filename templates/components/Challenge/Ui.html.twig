@@ -8,8 +8,8 @@
     <main>
         <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" :user="user" />
         <hr class="opacity-50">
-        <section class="challenge-primary row g-4">
-            <div class="challenge-primary__left col-12 col-md-6">
+        <section class="app-challenge-primary row g-4">
+            <div class="app-challenge-primary__left col-12 col-md-6">
                 <twig:Challenge:Executor class="mt-2" data-model="result:result query:query" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
@@ -25,13 +25,13 @@
                 <twig:Challenge:Description class="mt-4" :question="question" loading="defer" />
             </div>
 
-            <div class="challenge-primary__right col-12 col-md-6">
+            <div class="app-challenge-primary__right col-12 col-md-6">
                 <twig:Challenge:Instruction:Content :hint="hint" class="mb-2" />
                 <twig:Challenge:ResultPresenter :userResult="result" :question="question" :user="user" />
             </div>
         </section>
 
-        <section class="challenge-comment mt-4" id="comments">
+        <section class="app-challenge-primary__comments mt-4" id="comments">
             <h3 class="mb-3">留言區</h3>
             <twig:Challenge:Comment :question="question" :currentUser="user" loading="lazy" />
         </section>

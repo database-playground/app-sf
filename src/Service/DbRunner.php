@@ -19,7 +19,7 @@ use Symfony\Component\Process\Process;
 /**
  * A class to run queries on a SQLite3 database.
  */
-readonly class DbRunner
+final readonly class DbRunner
 {
     private SqlFormatter $formatter;
 

@@ -13,10 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait WithModelTimeInfo
 {
-    #[ORM\Column(name: 'created_at')]
+    #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
-    #[ORM\Column(name: 'updated_at')]
+    #[ORM\Column]
     private \DateTimeImmutable $updatedAt;
 
     public function getCreatedAt(): \DateTimeImmutable

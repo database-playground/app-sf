@@ -1,9 +1,9 @@
-<div {{ attributes.defaults({class: 'challenge-comments'}) }}>
-    <div class="challenge-comments__new mb-4">
+<div {{ attributes.defaults({class: 'app-challenge-comments'}) }}>
+    <div class="app-challenge-comments__new mb-4">
         <twig:Challenge:CommentModule:CommentForm :question="question" :commenter="currentUser" />
     </div>
 
-    <div class="challenge-comment__comments vstack gap-2">
+    <div class="app-challenge-comments__comments vstack gap-2">
         {% for comment in this.comments %}
             <twig:Challenge:CommentModule:Comment key="app-question-{{ question.id }}-comment-{{ comment.id }}" :comment="comment" :currentUser="currentUser" />
         {% else %}

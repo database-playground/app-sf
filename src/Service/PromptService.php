@@ -6,13 +6,13 @@ namespace App\Service;
 
 use Psr\Log\LoggerInterface;
 
-class PromptService
+final readonly class PromptService
 {
     protected \OpenAI\Client $client;
 
     public function __construct(
-        private readonly string $apiKey,
-        private readonly LoggerInterface $logger,
+        private string $apiKey,
+        private LoggerInterface $logger,
     ) {
         $this->client = \OpenAI::client($this->apiKey);
     }

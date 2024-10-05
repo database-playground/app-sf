@@ -4,7 +4,7 @@
 
 {% block body %}
     <main class="app-login">
-        <div class="d-flex justify-content-between align-items-end">
+        <header class="app-login__header d-flex justify-content-between align-items-end">
             <h1 class="mb-4" aria-label="資料庫練功房 - 登入">
                 <img src="{{ asset('branding.svg') }}" alt="資料庫練功房" height="72px" />
             </h1>
@@ -13,20 +13,20 @@
                 雙雙瓦雀行書案，點點楊花入硯池<br>
                 閒坐小窗學SQL，不知春去幾多時
             </p>
-        </div>
+        </header>
 
-        <form method="post">
+        <form method="post" class="app-login__form">
             {% if error %}
-                <div class="alert alert-danger mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="app-login__form__error alert alert-danger mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
             {% if app.user %}
-                <div class="alert alert-info mb-3">
+                <div class="app-login__form__authed alert alert-info mb-3">
                     哈囉 {{ app.user.name }}，看起來您已經登入過了！或許你想要 <a href="{{ path('app_home') }}">回到主程式</a>？
                 </div>
             {% endif %}
 
-            <section class="d-flex flex-column gap-2 mb-5">
+            <section class="app-login__form__login-form d-flex flex-column gap-2 mb-5">
                 <div class="form-floating">
                     <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control"
                            autocomplete="email" required autofocus placeholder="yourusername@nkust.edu.tw">
@@ -51,12 +51,12 @@
                    value="{{ csrf_token('authenticate') }}"
             >
 
-            <div class="d-flex flex-column flex-md-row gap-3 justify-content-md-between align-items-md-end">
+            <div class="app-login__form__login-form__operation d-flex flex-column flex-md-row gap-3 justify-content-md-between align-items-md-end">
                 <button class="btn btn-primary" type="submit">
                     登入
                 </button>
 
-                <ul class="credit credit__lists">
+                <ul class="app-login__form__login-form__operation__credit credit">
                     <li>
                         <a href="https://github.com/database-playground/app-sf">GitHub</a
                         >｜<a href="https://uptime.dbplay.pan93.com">服務狀態</a></li>

@@ -21,26 +21,6 @@ class SolutionVideoEventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all events this user has triggered.
-     *
-     * @return SolutionVideoEvent[]
-     */
-    public function findByUser(User $user): array
-    {
-        $qb = $this->createQueryBuilder('sve')
-            ->distinct()
-            ->where('sve.opener = :user')
-            ->setParameter('user', $user);
-
-        /**
-         * @var SolutionVideoEvent[] $query
-         */
-        $query = $qb->getQuery()->getResult();
-
-        return $query;
-    }
-
-    /**
      * Check if the user has triggered the event.
      */
     public function hasTriggered(User $user, Question $question): bool

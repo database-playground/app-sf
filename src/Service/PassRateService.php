@@ -12,7 +12,7 @@ use App\Service\Types\PassRate;
 /**
  * Get the pass rate of a question in the optimized matter.
  */
-readonly class PassRateService
+final readonly class PassRateService
 {
     public function __construct(
         private SolutionEventRepository $solutionEventRepository,

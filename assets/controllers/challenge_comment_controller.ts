@@ -11,7 +11,7 @@ export default class extends Controller<HTMLElement> {
   }
 
   async connect() {
-    const $commentBlock = this.element.querySelector(".challenge-comments__comment");
+    const $commentBlock = this.element.querySelector(".app-challenge-comment__main");
     if (!$commentBlock) {
       console.warn("No comment element found. Cannot fade in.");
       return;
@@ -22,7 +22,7 @@ export default class extends Controller<HTMLElement> {
       $commentBlock.classList.remove("opacity-0");
     }, 20 /* ms */);
 
-    const $confirmModal = this.element.querySelector<HTMLElement>(".challenge-comments__deletion_confirm");
+    const $confirmModal = this.element.querySelector<HTMLElement>(".app-challenge-comment__deletion_confirm");
     if ($confirmModal) {
       this.#modal = new bootstrap.Modal($confirmModal);
     }

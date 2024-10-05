@@ -13,8 +13,8 @@
     </li>
 {% endmacro %}
 
-<section{{ attributes.defaults({class: 'question-filterable-section'}) }}>
-    <section aria-label="標題和搜尋列" class="question-filterable-section__header d-flex justify-content-between flex-column flex-md-row mb-4 gap-2">
+<section{{ attributes.defaults({class: 'app-question-filterable-section'}) }}>
+    <section aria-label="標題和搜尋列" class="app-question-filterable-section__header d-flex justify-content-between flex-column flex-md-row mb-4 gap-2">
         <h2>{{ title }}</h2>
 
         <div class="d-flex gap-1">
@@ -25,7 +25,7 @@
         </div>
     </section>
 
-    <section aria-label="篩選器" class="question-filterable-section__filters mb-4">
+    <section aria-label="篩選器" class="app-question-filterable-section__filters mb-4">
         <ul class="nav nav-pills">
             {{ _self.navItem('', type) }}
 
@@ -36,12 +36,12 @@
     </section>
 
     {% if this.questions|length == 0 %}
-        <div aria-label="錯誤訊息" class="question-filterable-section__errors alert alert-secondary" role="alert">
+        <div aria-label="錯誤訊息" class="app-question-filterable-section__errors alert alert-secondary" role="alert">
             找不到符合「{{ query }}」關鍵字的結果。試著更換一個關鍵字？
         </div>
     {% endif %}
 
-    <section aria-label="題庫" class="question-filterable-section__list row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <section aria-label="題庫" class="app-question-filterable-section__list row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         {% for item in this.questions %}
             <div class="col">
                 <twig:Questions:Card :currentUser="currentUser" :question="item"></twig:Questions:Card>
@@ -49,7 +49,7 @@
         {% endfor %}
     </section>
 
-    <nav aria-label="頁面導航" class="question-filterable-section__navigation mt-5">
+    <nav aria-label="頁面導航" class="app-question-filterable-section__navigation mt-5">
         <ul class="pagination justify-content-center">
             <li class="page-item">
                 <button class="page-link {{ this.hasPrevious ? '' : 'disabled' }}"

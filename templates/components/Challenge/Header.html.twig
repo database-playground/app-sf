@@ -1,12 +1,12 @@
-<div{{ attributes.defaults({class: 'challenge-header bg-light mx-2 my-2'}) }}>
-    <h2 class="challenge-header__title">#{{ question.id }} {{ question.title }}</h2>
-    <ul class="challenge-header__lists">
-        <li class="challenge-header__lists__difficulty">{{ question.difficulty|trans }}</li>
-        <li class="challenge-header__lists__type">{{ question.type }}</li>
-        <li class="challenge-header__lists__pass_rate">
+<div{{ attributes.defaults({class: 'app-challenge-header bg-light mx-2 my-2'}) }}>
+    <h2 class="app-challenge-header__title">#{{ question.id }} {{ question.title }}</h2>
+    <ul class="app-challenge-header__lists">
+        <li class="app-challenge-header__lists__difficulty">{{ question.difficulty|trans }}</li>
+        <li class="app-challenge-header__lists__type">{{ question.type }}</li>
+        <li class="app-challenge-header__lists__pass_rate">
             通過率
             {% set passRate = this.passRate %}
-            <a class="challenge-header__lists__pass_rate__value" href="#" rel="help" data-bs-toggle="tooltip"
+            <a class="app-challenge-header__lists__pass_rate__value" href="#" rel="help" data-bs-toggle="tooltip"
                data-bs-placement="bottom"
                data-bs-title="{{ passRate.total }} 次挑戰中有 {{ passRate.passed }} 次成功">
                 {{ passRate.passRate }}%
@@ -15,10 +15,10 @@
     </ul>
 
     <div class="d-flex justify-content-between align-items-end mt-1">
-        <div class="challenge-header__status" data-status="{{ this.solveState.value }}">
+        <div class="app-challenge-header__status" data-status="{{ this.solveState.value }}">
             {{ this.solveState|trans }}
         </div>
-        <div class="challenge-header__actions">
+        <div class="app-challenge-header__actions">
             <div class="btn-group" role="group" aria-label="題目切換">
                 <a
                         class="btn btn-secondary {{ not this.previousPage ? 'disabled' : '' }}"

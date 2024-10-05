@@ -18,7 +18,7 @@ abstract class BaseEvent
     #[ORM\Column(type: 'ulid', unique: true)]
     protected ?Ulid $id = null;
 
-    #[ORM\Column(name: 'created_at')]
+    #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
     public function getId(): ?Ulid

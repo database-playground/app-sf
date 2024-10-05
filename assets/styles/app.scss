@@ -90,7 +90,7 @@ ul.credit {
   }
 }
 
-.question-card {
+.app-question-card {
   @extend .card;
   overflow: hidden;
   min-height: 14em;
@@ -135,7 +135,7 @@ ul.credit {
     @extend .d-flex, .gap-3, .justify-content-start, .align-items-center;
   }
 
-  .question-card__pass-rate {
+  &__pass-rate {
     &[data-pass-rate~="high"] {
       @extend .text-success;
     }
@@ -148,8 +148,7 @@ ul.credit {
   }
 }
 
-/* ChallengeHeader */
-.challenge-header {
+.app-challenge-header {
   &__title {
     font-weight: bold;
   }
@@ -184,11 +183,11 @@ ul.credit {
   }
 }
 
-.challenge-result-event-presenter {
+.app-challenge-result-event-presenter {
   table-layout: fixed;
 }
 
-.challenge-primary {
+.app-challenge-primary {
   min-height: 55vh;
 }
 
@@ -330,8 +329,8 @@ ul.credit {
   }
 }
 
-.challenge-comments {
-  &__comment {
+.app-challenge-comment {
+  &__main {
     transition: opacity 300ms;
   }
 }

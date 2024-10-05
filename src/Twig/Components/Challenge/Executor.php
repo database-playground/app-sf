@@ -8,7 +8,6 @@ use App\Entity\Question;
 use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
-use App\Exception\QueryExecuteException;
 use App\Service\QuestionDbRunnerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -55,20 +54,8 @@ final class Executor
             ->setSubmitter($this->user)
             ->setQuery($this->query);
 
-        /**
-         * @var Payload|null $payload
-         */
-        $payload = null;
-
         try {
             $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
-
-            // check if the result is UTF-8 encoded
-            try {
-                json_encode($result, \JSON_THROW_ON_ERROR);
-            } catch (\JsonException $e) {
-                throw new QueryExecuteException('The result is not UTF-8 encoded.', previous: $e);
-            }
 
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
             $same = $result === $answer;
@@ -84,15 +71,24 @@ final class Executor
             $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
 
             $payload = Payload::fromErrorWithCode(500, $e->getMessage());
-        } finally {
-            if (null !== $payload) {
-                $this->emitUp('app:challenge-payload', [
-                    'payload' => $serializer->serialize($payload, 'json'),
-                ]);
-            }
-
-            $this->entityManager->persist($solutionEvent);
-            $this->entityManager->flush();
         }
+
+        try {
+            $serializedPayload = $serializer->serialize($payload, 'json');
+        } catch (\Throwable $e) {
+            $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
+
+            $serializedPayload = $serializer->serialize(
+                Payload::fromErrorWithCode(500, $e->getMessage()),
+                'json'
+            );
+        }
+
+        $this->emitUp('app:challenge-payload', [
+            'payload' => $serializedPayload,
+        ]);
+
+        $this->entityManager->persist($solutionEvent);
+        $this->entityManager->flush();
     }
 }

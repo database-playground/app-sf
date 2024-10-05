@@ -1,42 +1,46 @@
 {% extends 'app.html.twig' %}
 
-{% block nav %}<twig:Navbar active="complementary" />{% endblock %}
+{% block nav %}
+    <twig:Navbar active="complementary"/>{% endblock %}
 {% block title %}補充資料{% endblock %}
 
 {% block app %}
-    <section class="header mb-5">
-        <h2>補充資料</h2>
-    </section>
+    <main class="app-complementary">
+        <section class="app-complementary__header mb-5">
+            <h2>補充資料</h2>
+        </section>
 
-    <section class="schemas mb-5">
-        <h3 class="mb-3">Schema SQLs</h3>
+        <section class="app-complementary__schema mb-5">
+            <h3 class="mb-3">Schema SQLs</h3>
 
-        <div class="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
-        {% for schema in schemas %}
-            <div class="col">
-                <div class="card">
-                    {% if schema.picture %}
-                    <img src="{{ schema.picture }}" class="card-img-top object-fit-cover w-100" alt="{{ schema.id }} 的結構圖">
-                    {% endif %}
+            <div class="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                {% for schema in schemas %}
+                    <div class="col">
+                        <div class="app-complementary__schema__card card">
+                            {% if schema.picture %}
+                                <img src="{{ schema.picture }}" class="card-img-top object-fit-cover w-100"
+                                     alt="{{ schema.id }} 的結構圖">
+                            {% endif %}
 
-                    <div class="card-body">
-                        <h5 class="card-title">{{ schema.id }}</h5>
-                        <div class="card-text">
-                            {{ schema.description|striptags }}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ schema.id }}</h5>
+                                <div class="card-text">
+                                    {{ schema.description|striptags }}
 
-                            <p class="text-secondary">適用題目：{{
-                                schema.questions
-                                    |sort
-                                    |map((question) => "\##{question.id}")
-                                    |join('、')
-                                    ?: '無'
-                            }}</p>
+                                    <p class="text-secondary">適用題目：{{ schema.questions
+                                        |sort
+                                        |map((question) => "\##{question.id}")
+                                        |join('、')
+                                        ?: '無' }}</p>
+                                </div>
+                                <a href="{{ path('app_complementary_schema_retrieve', {schema: schema}) }}"
+                                   class="card-link">下載 SQL 檔案</a>
+                            </div>
                         </div>
-                        <a href="{{ path('app_complementary_schema_retrieve', {schema: schema}) }}" class="card-link">下載 SQL 檔案</a>
                     </div>
-                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-        </div>
-    </section>
+        </section>
+    </main>
+
 {% endblock %}
