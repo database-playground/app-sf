@@ -40,12 +40,10 @@ class ExportCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        /**
+         * @var string $filename
+         */
         $filename = $input->getArgument('filename');
-        if (!\is_string($filename)) {
-            $io->error('The filename must be a string.');
-
-            return Command::FAILURE;
-        }
 
         /**
          * @var array<string, SchemaDto> $schemas

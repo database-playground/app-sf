@@ -36,77 +36,29 @@ class CreateUserCommand extends Command
         $this->addOption('roles', 'r', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The roles of this account. Can specify multiple times.');
     }
 
-    public function getNameArg(InputInterface $input): string
-    {
-        $name = $input->getArgument('name');
-        if (!\is_string($name)) {
-            throw new \InvalidArgumentException('The name must be a string.');
-        }
-        if ('' === $name) {
-            throw new \InvalidArgumentException('The name cannot be empty.');
-        }
-
-        return $name;
-    }
-
-    public function getEmailArg(InputInterface $input): string
-    {
-        $email = $input->getArgument('email');
-        if (!\is_string($email)) {
-            throw new \InvalidArgumentException('The email must be a string.');
-        }
-        if ('' === $email) {
-            throw new \InvalidArgumentException('The email cannot be empty.');
-        }
-
-        return $email;
-    }
-
-    public function getPasswordArg(InputInterface $input): string
-    {
-        $password = $input->getOption('password');
-        if (!\is_string($password)) {
-            throw new \InvalidArgumentException('The password must be a string.');
-        }
-        if ('' === $password) {
-            throw new \InvalidArgumentException('The password cannot be empty.');
-        }
-
-        return $password;
-    }
-
-    /**
-     * @return list<string>
-     */
-    public function getRolesOpt(InputInterface $input): array
-    {
-        $roles = $input->getOption('roles');
-
-        \assert(\is_array($roles) && array_is_list($roles), 'The roles must be an array.');
-
-        /**
-         * @var list<string> $rolesCasted
-         */
-        $rolesCasted = [];
-
-        foreach ($roles as $role) {
-            if (!\is_string($role)) {
-                throw new \InvalidArgumentException('The roles must be strings.');
-            }
-            $rolesCasted[] = $role;
-        }
-
-        return $rolesCasted;
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $name = $this->getNameArg($input);
-        $email = $this->getEmailArg($input);
-        $password = $this->getPasswordArg($input);
-        $roles = $this->getRolesOpt($input);
+        /**
+         * @var string $name
+         */
+        $name = $input->getArgument('name');
+
+        /**
+         * @var string $email
+         */
+        $email = $input->getArgument('email');
+
+        /**
+         * @var string $password
+         */
+        $password = $input->getOption('password');
+
+        /**
+         * @var list<string> $roles
+         */
+        $roles = $input->getOption('roles');
 
         $user = (new User())->setName($name)->setEmail($email)->setRoles($roles);
         $hashedPassword = $this->passwordHasher->hashPassword($user, $password);

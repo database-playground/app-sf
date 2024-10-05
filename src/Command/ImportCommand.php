@@ -39,12 +39,10 @@ class ImportCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        /**
+         * @var string $filename
+         */
         $filename = $input->getArgument('filename');
-        if (!\is_string($filename)) {
-            $io->error('The filename must be a string.');
-
-            return Command::FAILURE;
-        }
 
         $io->info('Unmarshaling schema and questions…');
         $content = file_get_contents($filename);
