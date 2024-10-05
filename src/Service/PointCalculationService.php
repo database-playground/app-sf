@@ -130,7 +130,7 @@ final class PointCalculationService
         $groupId = null !== $group ? "{$group->getId()}" : '-none';
 
         return $this->cache->get(
-            "question.q{$question->getId()}.g{$groupId}.first-solver",
+            "question.q{$question->getId()}.g$groupId.first-solver",
             function (ItemInterface $item) use ($group, $question) {
                 $item->tag(['question', 'first-solver', 'group']);
 

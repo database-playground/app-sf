@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
 use App\Service\PointCalculationService;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -34,8 +35,16 @@ class OverviewCardsController extends AbstractController
     public function points(
         #[CurrentUser] User $user,
         PointCalculationService $pointCalculationService,
+        LoggerInterface $logger,
     ): Response {
-        $points = $pointCalculationService->calculate($user);
+        try {
+            $points = $pointCalculationService->calculate($user);
+        } catch (\Throwable) {
+            $logger->warning('Failed to calculate the points for the user.', [
+                'user' => $user->getId(),
+            ]);
+            $points = 0;
+        }
 
         return $this->render('overview/cards/points.html.twig', [
             'points' => $points,

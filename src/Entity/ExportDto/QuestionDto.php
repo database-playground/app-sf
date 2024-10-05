@@ -118,7 +118,7 @@ class QuestionDto
     {
         $schema = $schemaRepository->find($this->schemaId);
         if (null === $schema) {
-            throw new \RuntimeException("Schema {$this->schemaId} not found");
+            throw new \RuntimeException("Schema $this->schemaId not found");
         }
 
         return (new Question())

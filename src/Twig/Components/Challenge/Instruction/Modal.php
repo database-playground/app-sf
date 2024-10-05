@@ -11,7 +11,6 @@ use App\Service\DbRunnerService;
 use App\Service\PointCalculationService;
 use App\Service\PromptService;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -43,14 +42,13 @@ final class Modal
     /**
      * Ask GPT to generate an instruction for the user.
      *
-     * It will emit an event {@link \App\Twig\Components\Challenge\Instruction\Content} will listen to.
+     * It will emit an event {@link Content} will listen to.
      */
     #[LiveAction]
     public function instruct(
         DbRunnerService $dbRunnerService,
         PromptService $promptService,
         TranslatorInterface $translator,
-        LoggerInterface $logger,
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
     ): void {

@@ -244,6 +244,8 @@ class DbRunnerTest extends TestCase
     /**
      * @param ?array<array<string, mixed>> $expect
      * @param ?class-string<\Throwable>    $exception
+     *
+     * @throws \Throwable
      */
     #[DataProvider('runQueryProvider')]
     public function testRunQuery(string $schema, string $query, ?array $expect, ?string $exception): void
@@ -284,10 +286,7 @@ class DbRunnerTest extends TestCase
         SELECT * FROM cte;';
 
         $this->expectException(ResourceException::class);
-        $generator = $dbrunner->runQuery($schema, $query);
-
-        foreach ($generator as $idx => $actual) {
-        }
+        $dbrunner->runQuery($schema, $query);
     }
 
     public function testRunQueryBigPayload(): void
@@ -298,10 +297,7 @@ class DbRunnerTest extends TestCase
         $query = 'SELECT 1,2,3,4,5,6,randomblob(1000000000);';
 
         $this->expectException(TimedOutException::class);
-        $generator = $dbrunner->runQuery($schema, $query);
-
-        foreach ($generator as $idx => $actual) {
-        }
+        $dbrunner->runQuery($schema, $query);
     }
 
     public function testRunQueryYear(): void

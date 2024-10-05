@@ -41,15 +41,14 @@ readonly class SchemaDatabase
      */
     public function query(string $query): \SQLite3Result
     {
-        // query
         try {
             $result = $this->db->query($query);
-        } catch (\SQLite3Exception) {
+        } catch (\Throwable) {
             throw new QueryExecuteException($this->db->lastErrorMsg());
         }
 
         if (\is_bool($result)) {
-            throw new QueryExecuteException("Invalid query given: '{$query}'");
+            throw new QueryExecuteException("Invalid query given: '$query'");
         }
 
         return $result;

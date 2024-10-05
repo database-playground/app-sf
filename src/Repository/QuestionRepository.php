@@ -80,7 +80,7 @@ class QuestionRepository extends ServiceEntityRepository
         $filters = [];
         if (null !== $type && '' !== $type) {
             $escapedType = addslashes($type);
-            $filters[] = "type = \"{$escapedType}\"";
+            $filters[] = "type = \"$escapedType\"";
         }
 
         return $searchService->search($this->getEntityManager(), Question::class, $query ?? '', [

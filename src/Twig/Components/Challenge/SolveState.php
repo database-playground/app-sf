@@ -15,6 +15,6 @@ enum SolveState: string implements TranslatableInterface
 
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
-        return $translator->trans("challenge.solve-state.{$this->value}", locale: $locale);
+        return $translator->trans("challenge.solve-state.$this->value", locale: $locale);
     }
 }

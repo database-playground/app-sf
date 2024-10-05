@@ -36,7 +36,7 @@ class Group
 
     public function __toString(): string
     {
-        return "{$this->name}";
+        return $this->name;
     }
 
     public function __construct()

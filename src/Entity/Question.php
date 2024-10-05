@@ -79,7 +79,7 @@ class Question
 
     public function __toString(): string
     {
-        return "#{$this->id}: {$this->title}";
+        return "#$this->id: $this->title";
     }
 
     #[Groups(['searchable'])]
