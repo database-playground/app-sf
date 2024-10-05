@@ -6,3 +6,5 @@ parameters:
         - public/
         - src/
         - tests/
+    symfony:
+        consoleApplicationLoader: tests/console-application.php
