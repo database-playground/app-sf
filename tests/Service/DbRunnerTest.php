@@ -114,7 +114,7 @@ class DbRunnerTest extends TestCase
                 INSERT INTO test (name) VALUES ('Bob');",
                 "UPDATE test SET name = 'Charlie' WHERE id = 1;",
                 null, /* result */
-                null, /* exception */
+                QueryExecuteException::class, /* exception */
             ],
             [
                 "CREATE TABLE test (
@@ -128,7 +128,7 @@ class DbRunnerTest extends TestCase
                 [
                     ['id' => 1, 'name' => 'Charlie'],
                 ], /* result */
-                null, /* exception */
+                QueryExecuteException::class, /* exception */
             ],
             [
                 "CREATE TABLE test (
