@@ -15,24 +15,28 @@
     </ul>
 
     <div class="d-flex justify-content-between align-items-end mt-1">
-        <div class="app-challenge-header__status" data-status="{{ this.solveState.value }}">
-            {{ this.solveState|trans }}
+        {% set solveState = this.solveState %}
+        <div class="app-challenge-header__status" data-status="{{ solveState.value }}">
+            {{ solveState|trans }}
         </div>
         <div class="app-challenge-header__actions">
+            {% set previousPage = this.previousPage %}
+            {% set nextPage = this.nextPage %}
+
             <div class="btn-group" role="group" aria-label="題目切換">
                 <a
-                        class="btn btn-secondary {{ not this.previousPage ? 'disabled' : '' }}"
+                        class="btn btn-secondary {{ not previousPage ? 'disabled' : '' }}"
                         role="button"
-                        href="{{ this.previousPage ? path('app_challenge', {id: this.previousPage}) : '#' }}"
+                        href="{{ previousPage ? path('app_challenge', {id: previousPage}) : '#' }}"
                         aria-label="上一題"
                 >
                     <i class="bi bi-arrow-left"></i>
                 </a>
 
                 <a
-                        class="btn btn-secondary {{ not this.nextPage ? 'disabled' : '' }}"
+                        class="btn btn-secondary {{ not nextPage ? 'disabled' : '' }}"
                         role="button"
-                        href="{{ this.nextPage ? path('app_challenge', {id: this.nextPage}) : '#' }}"
+                        href="{{ nextPage ? path('app_challenge', {id: nextPage}) : '#' }}"
                         aria-label="下一題"
                 >
                     <i class="bi bi-arrow-right"></i>

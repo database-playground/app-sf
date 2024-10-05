@@ -14,7 +14,8 @@
         <twig:Challenge:ResultPresenterModule:Table :result="this.result.queryResult"/>
     {% elseif this.error %}
     <div class="alert alert-danger" role="alert">
-        <strong>{{ this.error.property|trans }}：</strong>{{ this.error.message }}
+        {% set error = this.error %}
+        <strong>{{ error.property|trans }}：</strong>{{ error.message }}
     </div>
     {% else %}
     <div class="alert alert-info" role="alert">

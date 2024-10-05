@@ -1,6 +1,8 @@
 <div{{ attributes }}>
-    {% if this.diff != '' %}
-        {{ this.diff|raw }}
+    {% set diff = this.diff %}
+
+    {% if diff %}
+        {{ diff|raw }}
 
         <style>
             /*

@@ -15,10 +15,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
             </div>
             <div class="modal-body">
+                {% set cost = this.cost %}
+
                 {% if this.unlocked %}
-                    您已經打開過這部解答影片並扣除了 {{ this.cost }} 點數。點選「打開影片」即可再次觀看而不扣點。
+                    您已經打開過這部解答影片並扣除了 {{ cost }} 點數。點選「打開影片」即可再次觀看而不扣點。
                 {% else %}
-                    打開解答影片會扣除 <strong class="text-danger-emphasis">{{ this.cost }}</strong> 點數，確定要打開嗎？
+                    打開解答影片會扣除 <strong class="text-danger-emphasis">{{ cost }}</strong> 點數，確定要打開嗎？
                 {% endif %}
             </div>
             <div class="modal-footer">
