@@ -14,6 +14,10 @@
   languages.php.version = "8.3";
   languages.php.extensions = [ "apcu" "intl" "opcache" "zip" "redis" "pdo_pgsql" "sysvsem" "xdebug" ];
   languages.php.disableExtensions = [ "soap" ];
+  languages.php.ini = ''
+    date.timezone = "Asia/Taipei"
+    memory_limit = "512M"
+  '';
 
   languages.javascript.enable = true;
   languages.javascript.corepack.enable = true;
