@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Entity\ExportDto\ExportedDataDto;
 use App\Entity\ExportDto\QuestionDto;
 use App\Entity\ExportDto\SchemaDto;
 use App\Repository\QuestionRepository;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[AsCommand(
     name: 'app:export-schema',
@@ -24,6 +26,7 @@ class ExportCommand extends Command
     public function __construct(
         private readonly SchemaRepository $schemaRepository,
         private readonly QuestionRepository $questionRepository,
+        private readonly SerializerInterface $serializer,
     ) {
         parent::__construct();
     }
@@ -33,9 +36,6 @@ class ExportCommand extends Command
         $this->addArgument('filename', InputArgument::REQUIRED, 'The JSON filename to export the schema and questions.');
     }
 
-    /**
-     * @throws \JsonException
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -45,6 +45,8 @@ class ExportCommand extends Command
          */
         $filename = $input->getArgument('filename');
 
+        $exportedData = new ExportedDataDto();
+
         /**
          * @var array<string, SchemaDto> $schemas
          */
@@ -53,9 +55,10 @@ class ExportCommand extends Command
             $io->info("Exporting schema {$schema->getId()}…");
             $schemas[$schema->getId()] = SchemaDto::fromEntity($schema);
         }
+        $exportedData->setSchemas($schemas);
 
         /**
-         * @var QuestionDto[] $questions
+         * @var list<QuestionDto> $questions
          */
         $questions = [];
         foreach ($this->questionRepository->findBy(
@@ -65,20 +68,18 @@ class ExportCommand extends Command
             $io->info("Exporting question {$question->getId()}…");
             $questions[] = QuestionDto::fromEntity($question);
         }
+        $exportedData->setQuestions($questions);
 
         $io->info('Exporting schema and questions…');
-        $f = fopen($filename, 'w');
-        if (false === $f) {
-            $io->error("Cannot open $filename for writing.");
+        $serialized = $this->serializer->serialize($exportedData, 'json', [
+            'json_encode_options' => \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE,
+        ]);
+
+        if (false === file_put_contents($filename, $serialized)) {
+            $io->error("Cannot write to the file $filename.");
 
             return Command::FAILURE;
         }
-
-        fwrite($f, json_encode([
-            'schemas' => $schemas,
-            'questions' => $questions,
-        ], \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR));
-        fclose($f);
 
         $io->success("Exported schema and questions to $filename.");
 

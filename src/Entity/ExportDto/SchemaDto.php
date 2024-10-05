@@ -6,24 +6,68 @@ namespace App\Entity\ExportDto;
 
 use App\Entity\Schema;
 
-readonly class SchemaDto implements Importable
+class SchemaDto
 {
-    public function __construct(
-        public string $id,
-        public ?string $picture,
-        public ?string $description,
-        public string $schema,
-    ) {
+    private string $id;
+    private ?string $picture = null;
+    private ?string $description = null;
+    private string $schema;
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSchema(): string
+    {
+        return $this->schema;
+    }
+
+    public function setSchema(string $schema): self
+    {
+        $this->schema = $schema;
+
+        return $this;
     }
 
     public static function fromEntity(Schema $schema): self
     {
-        return new self(
-            id: $schema->getId(),
-            picture: $schema->getPicture(),
-            description: $schema->getDescription(),
-            schema: $schema->getSchema(),
-        );
+        return (new self())
+            ->setId($schema->getId())
+            ->setPicture($schema->getPicture())
+            ->setDescription($schema->getDescription())
+            ->setSchema($schema->getSchema());
     }
 
     public function toEntity(): Schema
@@ -33,49 +77,5 @@ readonly class SchemaDto implements Importable
             ->setPicture($this->picture)
             ->setDescription($this->description)
             ->setSchema($this->schema);
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     */
-    public static function fromJsonObject(object $json): self
-    {
-        /** @var \stdClass $json */
-        $json = clone $json;
-
-        if (!isset($json->id)) {
-            throw new \InvalidArgumentException('The id must be set.');
-        }
-        if (!\is_string($json->id)) {
-            throw new \InvalidArgumentException('The id must be a string.');
-        }
-
-        if (!isset($json->picture)) {
-            $json->picture = null;
-        }
-        if (!\is_string($json->picture) && null !== $json->picture) {
-            throw new \InvalidArgumentException('The picture must be a string.');
-        }
-
-        if (!isset($json->description)) {
-            $json->description = null;
-        }
-        if (!\is_string($json->description) && null !== $json->description) {
-            throw new \InvalidArgumentException('The description must be a string.');
-        }
-
-        if (!isset($json->schema)) {
-            throw new \InvalidArgumentException('The schema must be set.');
-        }
-        if (!\is_string($json->schema)) {
-            throw new \InvalidArgumentException('The schema must be a string.');
-        }
-
-        return new self(
-            id: $json->id,
-            picture: $json->picture,
-            description: $json->description,
-            schema: $json->schema,
-        );
     }
 }

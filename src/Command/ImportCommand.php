@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\ExportDto\QuestionDto;
-use App\Entity\ExportDto\SchemaDto;
+use App\Entity\ExportDto\ExportedDataDto;
 use App\Entity\Schema;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -14,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[AsCommand(
     name: 'app:import-schema',
@@ -23,6 +23,7 @@ class ImportCommand extends Command
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly SerializerInterface $serializer,
     ) {
         parent::__construct();
     }
@@ -32,9 +33,6 @@ class ImportCommand extends Command
         $this->addArgument('filename', InputArgument::REQUIRED, 'The JSON filename to import the schema and questions.');
     }
 
-    /**
-     * @throws \JsonException
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -52,69 +50,32 @@ class ImportCommand extends Command
             return Command::FAILURE;
         }
 
-        /**
-         * @var \stdClass $data
-         */
-        $data = json_decode($content, flags: \JSON_THROW_ON_ERROR);
+        $exportedData = $this->serializer->deserialize($content, ExportedDataDto::class, 'json');
 
-        if (!isset($data->schemas) || !isset($data->questions)) {
-            $io->error('The schemas and questions must be set.');
+        $this->entityManager->wrapInTransaction(function (EntityManagerInterface $em) use ($io, $exportedData): void {
+            $schemaRepository = $em->getRepository(Schema::class);
 
-            return Command::FAILURE;
-        }
-        if (!\is_object($data->schemas)) {
-            $io->error('The schemas must be an object.');
-
-            return Command::FAILURE;
-        }
-        if (!\is_array($data->questions)) {
-            $io->error('The questions must be an array.');
-
-            return Command::FAILURE;
-        }
-
-        try {
-            $this->entityManager->wrapInTransaction(function (EntityManagerInterface $em) use ($io, $data): void {
-                $schemaRepository = $em->getRepository(Schema::class);
-
-                $io->info('Importing schema…');
-                foreach ((array) $data->schemas as $schema) {
-                    if (!\is_object($schema)) {
-                        throw new \InvalidArgumentException('The schema must be an object.');
-                    }
-
-                    $dto = SchemaDto::fromJsonObject($schema);
-
-                    $schema = $schemaRepository->find($dto->id);
-                    if (null !== $schema) {
-                        $io->info("Schema {$dto->id} already exists, skipping…");
-                        continue;
-                    }
-
-                    $io->info("Importing schema {$dto->id}…");
-                    $em->persist($dto->toEntity());
+            $io->info('Importing schema…');
+            foreach ($exportedData->getSchemas() as $schema) {
+                $existingSchema = $schemaRepository->find($schema->getId());
+                if (null !== $existingSchema) {
+                    $io->info("Schema {$schema->getId()} already exists, skipping…");
+                    continue;
                 }
 
-                $io->info('Importing questions…');
-                foreach ($data->questions as $question) {
-                    if (!\is_object($question)) {
-                        throw new \InvalidArgumentException('The question must be an object.');
-                    }
+                $io->info("Importing schema {$schema->getId()}…");
+                $em->persist($schema->toEntity());
+            }
 
-                    $dto = QuestionDto::fromJsonObject($question);
+            $io->info('Importing questions…');
+            foreach ($exportedData->getQuestions() as $question) {
+                $io->info("Importing question {$question->getTitle()}…");
 
-                    $io->info("Importing question {$dto->title}…");
+                $em->persist($question->toEntity($schemaRepository));
+            }
 
-                    $em->persist($dto->toEntity($schemaRepository));
-                }
-
-                $em->flush();
-            });
-        } catch (\InvalidArgumentException $e) {
-            $io->error($e->getMessage());
-
-            return Command::FAILURE;
-        }
+            $em->flush();
+        });
 
         $io->success("Imported schema and questions from $filename.");
 
