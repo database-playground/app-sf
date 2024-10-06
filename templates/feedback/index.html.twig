@@ -13,6 +13,13 @@
         <turbo-frame id="feedback-form">
         {% if form is not null %}
             {{ form(form) }}
+
+            <style>
+                #feedback_form_description {
+                    /* https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing */
+                    field-sizing: content;
+                }
+            </style>
         {% else %}
             <div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">感謝您的意見回饋！</h4>
