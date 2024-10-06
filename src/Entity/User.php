@@ -84,6 +84,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: LoginEvent::class, mappedBy: 'account', orphanRemoval: true)]
     private Collection $loginEvents;
 
+    /**
+     * @var Collection<int, Feedback>
+     */
+    #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'sender')]
+    private Collection $feedback;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
@@ -92,6 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commentLikeEvents = new ArrayCollection();
         $this->hintOpenEvents = new ArrayCollection();
         $this->loginEvents = new ArrayCollection();
+        $this->feedback = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -377,6 +384,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to a default class (unless already changed)
             if ($loginEvent->getAccount() === $this) {
                 $loginEvent->setAccount(new self());
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Feedback>
+     */
+    public function getFeedback(): Collection
+    {
+        return $this->feedback;
+    }
+
+    public function addFeedback(Feedback $feedback): static
+    {
+        if (!$this->feedback->contains($feedback)) {
+            $this->feedback->add($feedback);
+            $feedback->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedback(Feedback $feedback): static
+    {
+        if ($this->feedback->removeElement($feedback)) {
+            // set the owning side to null
+            if ($feedback->getSender() === $this) {
+                $feedback->setSender(null);
             }
         }
 
