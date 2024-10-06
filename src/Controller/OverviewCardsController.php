@@ -39,9 +39,10 @@ class OverviewCardsController extends AbstractController
     ): Response {
         try {
             $points = $pointCalculationService->calculate($user);
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
             $logger->warning('Failed to calculate the points for the user.', [
                 'user' => $user->getId(),
+                'exception' => $e,
             ]);
             $points = 0;
         }
