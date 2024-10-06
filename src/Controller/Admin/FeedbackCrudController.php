@@ -55,7 +55,11 @@ class FeedbackCrudController extends AbstractCrudController
 
     public function configureFilters(Filters $filters): Filters
     {
-        return $filters->add('sender')->add('type')->add('status');
+        return $filters
+            ->add('sender')
+            ->add('type')
+            ->add(FeedbackStatusFilter::new('status'))
+        ;
     }
 
     public function configureActions(Actions $actions): Actions
