@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% block header %}
-        <header>
-            {% block nav %}
-            <twig:Navbar active="" />
-            {% endblock %}
-        </header>
-    {% endblock %}
-
-    <div class="app container mt-4">
-        {% block app %}
-
+    <div class="app-layout d-flex flex-column min-vh-100">
+        {% block header %}
+            <header>
+                {% block nav %}
+                <twig:Navbar active="" />
+                {% endblock %}
+            </header>
         {% endblock %}
+
+        <div class="app container mt-4 flex-grow-1">
+            {% block app %}
+
+            {% endblock %}
+        </div>
+
+        <twig:AppFooter />
     </div>
 {% endblock %}
