@@ -58,6 +58,9 @@ class Feedback
     #[ORM\Column]
     private \DateTimeImmutable $updated_at;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $comment = null;
+
     public function getId(): ?Ulid
     {
         return $this->id;
@@ -190,5 +193,17 @@ class Feedback
     public function updateUpdatedAtValue(): void
     {
         $this->updated_at = new \DateTimeImmutable();
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): static
+    {
+        $this->comment = $comment;
+
+        return $this;
     }
 }
