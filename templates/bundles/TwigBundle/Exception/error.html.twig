@@ -8,14 +8,18 @@
     <h2>系統出錯 😰</h2>
     <p>系統發生 HTTP {{ status_code }} {{ status_text }} 錯誤。</p>
     <p>
-        請聯絡<a href="mailto:dbplay@pan93.com">系統管理員</a>進行修正，並附上下面錯誤資訊的所有內容。
-        如果你想挑戰修正這個問題，下方為相關的堆疊資訊，您可以到 <a href="https://github.com/database-playground/app-sf">GitHub</a>
+        請 <a href="{{ url('app_feedback', {
+            url: app.request.uri,
+            description: "請在這裡撰寫回饋訊息。不要刪到下面的資訊。\n\n---\nException:\n#{exception.message} (#{exception.file}:#{exception.line})\n#{exception.traceAsString}",
+        }) }}">點選這個連結打開回饋表單</a> 進行問題回報。
+        如果你想挑戰修正這個問題，下方為相關的堆疊資訊，您可以到
+        <a href="https://github.com/database-playground/app-sf">GitHub</a>
         上送交修正。
     </p>
 
     <h3>錯誤資訊</h3>
     <p><strong>{{ exception.message }}</strong> ({{ exception.file }}:{{ exception.line }})</p>
     <pre>
-{{ exception.trace|json_encode(constant('JSON_PRETTY_PRINT')) }}
+{{ exception.traceAsString }}
     </pre>
 {% endblock %}
