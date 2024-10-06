@@ -46,6 +46,12 @@ HintOpenEvent: 提示打開事件
 Response: 回應
 LoginEvent: 登入事件
 Account: 帳號
+Feedback: 回饋
+Sender: 寄件者
+Contact: 聯絡方式
+Metadata: 中繼資料
+Mark Resolved: 標記為已解決
+Mark Closed: 標記為已關閉
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤
@@ -93,3 +99,38 @@ charts:
 instruction:
   hint:
     no_hint: 沒有提示。
+
+feedback:
+  type:
+    bugs: 錯誤報告
+    improvements: 功能建議
+    others: 其他意見
+
+  form:
+    account: 意見回應帳號
+    subject: 主旨
+    description: 詳細說明
+    type: 回饋類型
+    description_help: |
+      <p>「詳細說明」應該包括：</p>
+      <ol>
+        <li>問題的清楚描述，比如「錯誤的 SQL 語法會導致伺服器錯誤」。</li>
+        <li>如何重現問題，比如「在答案欄輸入 'SELECT * FROM' 後按下提交」。</li>
+        <li>預期的行為，比如「應該顯示『語法錯誤』」。</li>
+        <li>實際的行為，比如「顯示『伺服器錯誤』」。</li>
+      </ol>
+      <p>「重現問題」最好包括螢幕截圖和螢幕錄影。你可以上傳到雲端空間，然後將連結複製給我們。</p>
+    contact: 聯絡方式
+    contact_help: |
+      如果有其他需要確認，或者是你想要收到問題的回應進度，請留下你的聯絡方式。
+      如果不填寫，則使用你帳號的電子信箱進行回覆（如果沒有登入則不會回覆）。
+    submit: 送出回饋
+
+  status:
+    backlog: 待處理
+    new: 新問題
+    in_progress: 處理中
+    resolved: 已解決
+    closed: 已關閉
+
+  marked: 已經將選擇的回饋標記為「%status%」。
