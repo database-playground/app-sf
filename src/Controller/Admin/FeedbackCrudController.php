@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -41,15 +42,16 @@ class FeedbackCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->setDisabled(),
-            AssociationField::new('sender')->hideWhenUpdating(),
-            TextField::new('title')->hideWhenUpdating(),
-            TextEditorField::new('description')->hideWhenUpdating(),
             ChoiceField::new('type')->hideWhenUpdating(),
-            TextField::new('contact')->hideWhenUpdating(),
-            ArrayField::new('metadata')->hideWhenUpdating(),
+            AssociationField::new('sender')->hideOnIndex()->hideWhenUpdating(),
+            TextField::new('title')->hideWhenUpdating(),
+            TextEditorField::new('description')->hideOnIndex()->hideWhenUpdating(),
+            TextField::new('contact')->hideOnIndex()->hideWhenUpdating(),
+            ArrayField::new('metadata')->hideOnIndex()->hideWhenUpdating(),
+            TextareaField::new('comment', 'feedback.comment')->hideOnIndex(),
             ChoiceField::new('status'),
             DateTimeField::new('createdAt', 'Created at')->setDisabled(),
-            DateTimeField::new('updatedAt', 'Updated at')->setDisabled(),
+            DateTimeField::new('updatedAt', 'Updated at')->hideOnIndex()->setDisabled(),
         ];
     }
 

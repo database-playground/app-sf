@@ -136,6 +136,7 @@ feedback:
     closed: 已關閉
 
   marked: 已經將選擇的回饋標記為「%status%」。
+  comment: 回饋備註
 
 notification:
   on-feedback-created:
