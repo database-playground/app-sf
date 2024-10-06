@@ -23,12 +23,17 @@ class FeedbackController extends AbstractController
         EntityManagerInterface $entityManager,
         #[CurrentUser] ?User $user,
         #[MapQueryParameter] string $url,
+        #[MapQueryParameter] ?string $description = null,
     ): Response {
         $feedback = (new Feedback())
             ->setSender($user)
             ->setMetadata([
                 'url' => $url,
             ]);
+
+        if (null !== $description) {
+            $feedback->setDescription($description);
+        }
 
         $form = $this->createForm(FeedbackFormType::class, $feedback);
         $form = $form->handleRequest($request);
