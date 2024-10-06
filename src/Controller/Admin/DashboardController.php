@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Comment;
 use App\Entity\CommentLikeEvent;
+use App\Entity\Feedback;
 use App\Entity\Group;
 use App\Entity\HintOpenEvent;
 use App\Entity\LoginEvent;
@@ -56,5 +57,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('SolutionVideoEvent', 'fa fa-video', SolutionVideoEvent::class);
         yield MenuItem::linkToCrud('HintOpenEvent', 'fa fa-lightbulb', HintOpenEvent::class);
         yield MenuItem::linkToCrud('LoginEvent', 'fa fa-sign-in', LoginEvent::class);
+
+        yield MenuItem::section('Feedback');
+        yield MenuItem::linkToCrud('Feedback', 'fa fa-comments', Feedback::class);
     }
 }
