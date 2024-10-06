@@ -23,23 +23,23 @@ final class PointCalculationService
 
     // SolutionEvent
     public const int solutionEventEasyPoint = 10;
-    public const int solutionEventMediumEvent = 20;
-    public const int solutionEventHardEvent = 30;
+    public const int solutionEventMediumPoint = 20;
+    public const int solutionEventHardPoint = 30;
 
     // FirstSolver
     public const int firstSolverPoint = 10;
 
     // SolutionVideoEvent
-    public const int solutionVideoEventEasy = 6;
-    public const int solutionVideoEventMedium = 12;
-    public const int solutionVideoEventHard = 18;
+    public const int solutionVideoEventEasyPoint = 6;
+    public const int solutionVideoEventMediumPoint = 12;
+    public const int solutionVideoEventHardPoint = 18;
 
     // HintOpenEvent
     public const int hintOpenEventPoint = 2;
 
     // Weekly Question XP (#33)
-    public const int weeklyMinSolvedQuestion = 5;
-    public const int weeklyPerQuestionXP = 4;
+    public const int weeklyMinSolvedQuestionPoint = 5;
+    public const int weeklyPerQuestionXpPoint = 4;
 
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
@@ -79,8 +79,8 @@ final class PointCalculationService
 
         return array_reduce($questions, fn (int $carry, Question $question) => $carry + match ($question->getDifficulty()) {
             QuestionDifficulty::Easy => self::solutionEventEasyPoint,
-            QuestionDifficulty::Medium => self::solutionEventMediumEvent,
-            QuestionDifficulty::Hard => self::solutionEventHardEvent,
+            QuestionDifficulty::Medium => self::solutionEventMediumPoint,
+            QuestionDifficulty::Hard => self::solutionEventHardPoint,
             default => 0,
         }, 0);
     }
@@ -176,9 +176,9 @@ final class PointCalculationService
 
         foreach ($questions as $question) {
             $questionPointsPair[$question->getId()] = match ($question->getDifficulty()) {
-                QuestionDifficulty::Easy => self::solutionVideoEventEasy,
-                QuestionDifficulty::Medium => self::solutionVideoEventMedium,
-                QuestionDifficulty::Hard => self::solutionVideoEventHard,
+                QuestionDifficulty::Easy => self::solutionVideoEventEasyPoint,
+                QuestionDifficulty::Medium => self::solutionVideoEventMediumPoint,
+                QuestionDifficulty::Hard => self::solutionVideoEventHardPoint,
                 default => 0,
             };
         }
@@ -205,8 +205,8 @@ final class PointCalculationService
      */
     protected function calculateWeeklySolvedPunishPoints(User $user): int
     {
-        $weeklyMinSolvedQuestion = self::weeklyMinSolvedQuestion;
-        $weeklyPerQuestionXP = self::weeklyPerQuestionXP;
+        $weeklyMinSolvedQuestion = self::weeklyMinSolvedQuestionPoint;
+        $weeklyPerQuestionXP = self::weeklyPerQuestionXpPoint;
 
         // Current date and week
         $currentDate = new \DateTime();
