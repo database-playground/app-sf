@@ -134,3 +134,11 @@ feedback:
     closed: 已關閉
 
   marked: 已經將選擇的回饋標記為「%status%」。
+
+notification:
+  on-feedback-created:
+    content: |
+      使用者 %account% 提交了一份意見回饋，主旨是「%subject%」。
+      閱讀意見回饋 → %link%
+
+    anonymous: <匿名>
