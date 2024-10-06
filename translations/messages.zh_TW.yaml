@@ -107,7 +107,7 @@ feedback:
     others: 其他意見
 
   form:
-    account: 意見回應帳號
+    account: 意見回饋帳號
     subject: 主旨
     description: 詳細說明
     type: 回饋類型
