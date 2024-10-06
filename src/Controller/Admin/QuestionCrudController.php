@@ -61,9 +61,6 @@ class QuestionCrudController extends AbstractCrudController
         $questionRepository->reindex($searchService);
         $this->addFlash('success', t('questions.reindex.success'));
 
-        return $this->redirect($adminUrlGenerator
-            ->setController(self::class)
-            ->setAction(Action::INDEX)
-            ->generateUrl());
+        return $this->redirect($adminUrlGenerator->setAction(Crud::PAGE_INDEX)->generateUrl());
     }
 }
