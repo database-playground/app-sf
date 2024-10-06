@@ -39,6 +39,11 @@ security:
     # login page
     - { route: app_login, roles: PUBLIC_ACCESS }
 
+    # feedback page
+    # Note that we provide the feedback form in login page,
+    # so we need to allow public access to this page.
+    - { route: app_feedback, roles: PUBLIC_ACCESS }
+
     # admin
     - { path: ^/admin, roles: ROLE_ADMIN }
 

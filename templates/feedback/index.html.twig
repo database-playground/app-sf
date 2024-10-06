@@ -1,0 +1,24 @@
+{% extends 'app.html.twig' %}
+
+{% block nav %}<twig:Navbar active="" hasUserInfo="false"/>{% endblock %}
+{% block title %}留言一覽{% endblock %}
+
+{% block app %}
+    <main>
+        <h2 class="mb-4">意見回饋</h2>
+
+        <p>感謝您提出的意見回饋！請填寫下方的意見回饋表單，我們會在 24 小時內回覆您。</p>
+        <p>注意這份表單已經附上您目前的瀏覽器及環境資訊、回報的連結和使用者資訊，不過您也可以補充上其他您覺得有必要的資訊。</p>
+
+        <turbo-frame id="feedback-form">
+        {% if form is not null %}
+            {{ form(form) }}
+        {% else %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">感謝您的意見回饋！</h4>
+                <p>我們已經收到您的意見回饋，我們會在 24 小時內回覆您。</p>
+            </div>
+        {% endif %}
+        </turbo-frame>
+    </main>
+{% endblock %}
