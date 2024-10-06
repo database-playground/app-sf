@@ -41,9 +41,9 @@ class FeedbackCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->setDisabled(),
+            IdField::new('id')->hideOnIndex()->setDisabled(),
             ChoiceField::new('type')->hideWhenUpdating(),
-            AssociationField::new('sender')->hideOnIndex()->hideWhenUpdating(),
+            AssociationField::new('sender')->hideWhenUpdating(),
             TextField::new('title')->hideWhenUpdating(),
             TextEditorField::new('description')->hideOnIndex()->hideWhenUpdating(),
             TextField::new('contact')->hideOnIndex()->hideWhenUpdating(),
