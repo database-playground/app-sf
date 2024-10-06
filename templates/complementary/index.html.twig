@@ -5,15 +5,11 @@
 {% block title %}補充資料{% endblock %}
 
 {% block app %}
-    <main class="app-complementary">
-        <section class="app-complementary__header mb-5">
-            <h2>補充資料</h2>
-        </section>
+    <main class="app-complementary row row-cols-1 row-cols-md-2">
+        <section class="app-complementary__schema mb-5 col">
+            <h2 class="mb-3">Schema SQLs</h2>
 
-        <section class="app-complementary__schema mb-5">
-            <h3 class="mb-3">Schema SQLs</h3>
-
-            <div class="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+            <div class="row row-cols-1 row-cols-xl-2 g-4">
                 {% for schema in schemas %}
                     <div class="col">
                         <div class="app-complementary__schema__card card">
@@ -40,6 +36,46 @@
                     </div>
                 {% endfor %}
             </div>
+        </section>
+
+        <section class="app-complementary__scoring_rules mb-5 col">
+            <h2 class="mb-3">計分規則</h2>
+
+            <ul>
+                <li>每個人有 {{ constant('\\App\\Service\\PointCalculationService::base') }} 基本分。</li>
+                <li>
+                    解一題根據難度會加分，注意重複解題分數不會累計。
+                    <ul>
+                        <li>簡單題：{{ constant('\\App\\Service\\PointCalculationService::solutionEventEasyPoint') }} 分</li>
+                        <li>中等題：{{ constant('\\App\\Service\\PointCalculationService::solutionEventMediumPoint') }} 分</li>
+                        <li>困難題：{{ constant('\\App\\Service\\PointCalculationService::solutionEventHardPoint') }} 分</li>
+                    </ul>
+                </li>
+                <li>
+                    如果是第一個解出題目的人，會再加 {{ constant('\\App\\Service\\PointCalculationService::firstSolverPoint') }} 分。
+                </li>
+                <li>
+                    打開解答影片根據題型會扣分。注意同題目的解答影片不會重複扣分。
+                    <ul>
+                        <li>簡單題：{{ constant('\\App\\Service\\PointCalculationService::solutionVideoEventEasyPoint') }} 分</li>
+                        <li>中等題：{{ constant('\\App\\Service\\PointCalculationService::solutionVideoEventMediumPoint') }} 分</li>
+                        <li>困難題：{{ constant('\\App\\Service\\PointCalculationService::solutionVideoEventHardPoint') }} 分</li>
+                    </ul>
+                </li>
+                <li>
+                    打開提示會扣 {{ constant('\\App\\Service\\PointCalculationService::hintOpenEventPoint') }} 分。重複打開提示會重複扣分。
+                </li>
+                <li>
+                    如果當周做題未達 {{ constant('\\App\\Service\\PointCalculationService::weeklyMinSolvedQuestionPoint') }}
+                    題，少的每題扣 {{ constant('\\App\\Service\\PointCalculationService::weeklyPerQuestionXpPoint') }} 分。
+                </li>
+            </ul>
+
+            <p>
+                相關計分原始碼可以參考
+                <a href="https://github.com/database-playground/app-sf/blob/master/src/Service/PointCalculationService.php"
+                >GitHub 的對應程式碼</a
+                >。</p>
         </section>
     </main>
 {% endblock %}
