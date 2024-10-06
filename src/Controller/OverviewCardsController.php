@@ -26,7 +26,7 @@ class OverviewCardsController extends AbstractController
      *
      * You should get it from `app.scss`.
      */
-    private static string $primaryColor = '#4154f1';
+    private const string primaryColor = '#4154f1';
 
     /**
      * Retrieve the card showing the experience point (XP).
@@ -175,7 +175,7 @@ class OverviewCardsController extends AbstractController
             'datasets' => [
                 [
                     'label' => $translator->trans('charts.event_daily_chart'),
-                    'backgroundColor' => self::$primaryColor,
+                    'backgroundColor' => self::primaryColor,
                     'data' => array_map(fn ($event) => $event['count'], $events),
                 ],
             ],

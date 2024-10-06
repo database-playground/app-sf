@@ -36,7 +36,7 @@ final class Modal
 
     public function getCost(): int
     {
-        return PointCalculationService::$hintOpenEventPoint;
+        return PointCalculationService::hintOpenEventPoint;
     }
 
     /**

@@ -34,7 +34,7 @@ final class EventPresenter
      */
     public function getEvents(): array
     {
-        return \array_slice($this->getData(), 0, self::$limit);
+        return \array_slice($this->getData(), 0, self::limit);
     }
 
     /**
@@ -50,8 +50,8 @@ final class EventPresenter
         return $this->solutionEventRepository->findUserQuestionEvents(
             question: $this->question,
             user: $this->user,
-            limit: self::$limit + 1 /* more? */,
-            offset: ($this->page - 1) * self::$limit,
+            limit: self::limit + 1 /* more? */,
+            offset: ($this->page - 1) * self::limit,
         );
     }
 }

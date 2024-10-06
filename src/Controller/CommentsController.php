@@ -23,7 +23,7 @@ class CommentsController extends AbstractController
      *
      * You should get it from `app.scss`.
      */
-    private static string $primaryColor = '#4154f1';
+    private const string primaryColor = '#4154f1';
 
     #[Route('/', name: '')]
     public function index(#[CurrentUser] User $user, CommentRepository $commentRepository): Response
@@ -67,7 +67,7 @@ class CommentsController extends AbstractController
             'datasets' => [
                 [
                     'label' => $translator->trans('charts.likes_of_each_comment'),
-                    'backgroundColor' => self::$primaryColor,
+                    'backgroundColor' => self::primaryColor,
                     'data' => array_map(fn ($comment) => $comment['count'], $likesOfEachComment),
                 ],
             ],

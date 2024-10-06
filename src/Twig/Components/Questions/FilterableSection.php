@@ -92,7 +92,7 @@ final class FilterableSection
             type: $this->type,
         );
 
-        $totalPage = ceil($total / QuestionRepository::$pageSize);
+        $totalPage = ceil($total / QuestionRepository::pageSize);
 
         return $this->getCurrentPage() < $totalPage;
     }

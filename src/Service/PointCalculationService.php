@@ -19,23 +19,23 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class PointCalculationService
 {
-    public static int $base = 500;
+    public const int base = 500;
 
     // SolutionEvent
-    public static int $solutionEventEasyPoint = 10;
-    public static int $solutionEventMediumEvent = 20;
-    public static int $solutionEventHardEvent = 30;
+    public const int solutionEventEasyPoint = 10;
+    public const int solutionEventMediumEvent = 20;
+    public const int solutionEventHardEvent = 30;
 
     // FirstSolver
-    public static int $firstSolverPoint = 10;
+    public const int firstSolverPoint = 10;
 
     // SolutionVideoEvent
-    public static int $solutionVideoEventEasy = 6;
-    public static int $solutionVideoEventMedium = 12;
-    public static int $solutionVideoEventHard = 18;
+    public const int solutionVideoEventEasy = 6;
+    public const int solutionVideoEventMedium = 12;
+    public const int solutionVideoEventHard = 18;
 
     // HintOpenEvent
-    public static int $hintOpenEventPoint = 2;
+    public const int hintOpenEventPoint = 2;
 
     // Weekly Question XP (#33)
     public const int weeklyMinSolvedQuestion = 5;
@@ -54,7 +54,7 @@ final class PointCalculationService
      */
     public function calculate(User $user): int
     {
-        return self::$base
+        return self::base
             + $this->calculateSolutionQuestionPoints($user)
             + $this->calculateFirstSolutionPoints($user)
             + $this->calculateSolutionVideoPoints($user)
@@ -77,9 +77,9 @@ final class PointCalculationService
         $questions = $this->solutionEventRepository->findSolvedQuestions($user);
 
         return array_reduce($questions, fn (int $carry, Question $question) => $carry + match ($question->getDifficulty()) {
-            QuestionDifficulty::Easy => self::$solutionEventEasyPoint,
-            QuestionDifficulty::Medium => self::$solutionEventMediumEvent,
-            QuestionDifficulty::Hard => self::$solutionEventHardEvent,
+            QuestionDifficulty::Easy => self::solutionEventEasyPoint,
+            QuestionDifficulty::Medium => self::solutionEventMediumEvent,
+            QuestionDifficulty::Hard => self::solutionEventHardEvent,
             default => 0,
         }, 0);
     }
@@ -114,7 +114,7 @@ final class PointCalculationService
         foreach ($questions as $question) {
             $firstSolver = $this->listFirstSolversOfQuestion($question, $user->getGroup());
             if (null !== $firstSolver && $firstSolver === $user->getId()) {
-                $points += self::$firstSolverPoint;
+                $points += self::firstSolverPoint;
             }
         }
 
@@ -169,9 +169,9 @@ final class PointCalculationService
 
         foreach ($questions as $question) {
             $questionPointsPair[$question->getId()] = match ($question->getDifficulty()) {
-                QuestionDifficulty::Easy => self::$solutionVideoEventEasy,
-                QuestionDifficulty::Medium => self::$solutionVideoEventMedium,
-                QuestionDifficulty::Hard => self::$solutionVideoEventHard,
+                QuestionDifficulty::Easy => self::solutionVideoEventEasy,
+                QuestionDifficulty::Medium => self::solutionVideoEventMedium,
+                QuestionDifficulty::Hard => self::solutionVideoEventHard,
                 default => 0,
             };
         }
@@ -183,7 +183,7 @@ final class PointCalculationService
     {
         $hintOpenEvents = $this->hintOpenEventRepository->findByUser($user);
 
-        return -1 * \count($hintOpenEvents) * self::$hintOpenEventPoint;
+        return -1 * \count($hintOpenEvents) * self::hintOpenEventPoint;
     }
 
     /**

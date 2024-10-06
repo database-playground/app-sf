@@ -16,7 +16,7 @@ use Meilisearch\Bundle\SearchService;
  */
 class QuestionRepository extends ServiceEntityRepository
 {
-    public static int $pageSize = 12;
+    public const int pageSize = 12;
 
     public function __construct(
         ManagerRegistry $registry,
@@ -86,8 +86,8 @@ class QuestionRepository extends ServiceEntityRepository
         }
 
         return $this->searchService->search($this->getEntityManager(), Question::class, $query ?? '', [
-            'limit' => $pageSize ?? self::$pageSize,
-            'offset' => ($page - 1) * ($pageSize ?? self::$pageSize),
+            'limit' => $pageSize ?? self::pageSize,
+            'offset' => ($page - 1) * ($pageSize ?? self::pageSize),
             'filter' => $filters,
             'sort' => ['id:asc'],
         ]);
