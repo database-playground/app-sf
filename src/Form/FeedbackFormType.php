@@ -46,6 +46,7 @@ class FeedbackFormType extends AbstractType
             ->add('contact', TextType::class, [
                 'label' => t('feedback.form.contact'),
                 'help' => t('feedback.form.contact_help'),
+                'required' => false,
             ])
             ->add('metadata', HiddenType::class)
             ->add('submit', SubmitType::class, [
