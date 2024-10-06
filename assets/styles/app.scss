@@ -87,6 +87,21 @@ ul.credit {
   list-style: none;
   margin-bottom: 0;
   padding-left: 0;
+
+  &__links {
+    display: inline;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline;
+    }
+
+    li:not(:last-child)::after {
+      content: "｜";
+    }
+  }
 }
 
 // overrides

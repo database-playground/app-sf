@@ -58,10 +58,18 @@
 
                 <ul class="app-login__form__login-form__operation__credit credit">
                     <li>
-                        <a href="https://github.com/database-playground/app-sf" target="_blank">GitHub</a
-                        >｜<a href="https://uptime.dbplay.pan93.com">服務狀態</a>｜<a href="{{ url('app_feedback', {url: app.request.uri}) }}" target="_blank">
-                            意見回饋
-                        </a></li>
+                        <ul class="credit__links">
+                            <li>
+                                <a href="https://github.com/database-playground/app-sf" target="_blank">GitHub</a>
+                            </li>
+                            <li>
+                                <a href="https://uptime.dbplay.pan93.com">服務狀態</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('app_feedback', {url: app.request.uri}) }}" target="_blank">意見回饋</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li>Designed by <a href="https://eclab.nkust.edu.tw/" target="_blank">傅家子弟電商實驗室</a></li>
                 </ul>
             </div>
