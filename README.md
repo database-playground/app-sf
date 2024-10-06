@@ -1,27 +1,40 @@
 # Database Playground
 
-This platform allows you to exercise your SQL skills through a simple gamification system.
+The Database Playground is a platform designed to enhance your SQL skills through an engaging gamification system.
 
 ## Development
 
 ### Preparation
 
-- Use PhpStorm for PHP and Twig development, and VS Code for TypeScript development.
-- [Devenv](https://devenv.sh) provides the development environment, including pre-commit hooks, PHP, and Node.js runtimes.
-- [Docker Compose](https://docs.docker.com/compose/) sets up the development runtime environment.
+- Use **PhpStorm** for PHP and Twig development, and **VS Code** for TypeScript development.
+- **Devenv** provides a comprehensive development environment, including pre-commit hooks and runtimes for PHP and
+  Node.js. Learn more at [Devenv](https://devenv.sh).
+- **Docker Compose** is utilized to set up the development runtime environment. For more details, visit
+  the [Docker Compose documentation](https://docs.docker.com/compose/).
 
 ### Setup
 
 1. Clone the repository.
 2. Run `devenv up` to start the development environment.
-3. Execute `composer install` to install the PHP dependencies.
-4. Run `pnpm install` to install the Node.js dependencies. This step is optional but helpful if you prefer type declarations when developing TypeScript.
-5. Start the database, Redis, and PHP runtime by running `docker compose up -d`.
-6. Create an administrator user with the command: `php ./bin/console app:create-user -p "yourpassword" -r "ROLE_ADMIN" "admin" "admin@youremail.tld"`.
-7. (Optional) Import the schema and questions by running `php ./bin/console app:import schema.json`.
-8. Navigate to `https://localhost` to access the application. Use `https://localhost/admin` to access the admin panel.
+3. Execute `composer install` to install PHP dependencies.
+4. Run `pnpm install` to install Node.js dependencies, which is useful for type checking.
+5. Start the database, Redis, and PHP runtime for development:
+   ```bash
+   docker compose up -d
+   ```
+6. Create an administrator user by running:
+   ```bash
+   php ./bin/console app:create-user -p "yourpassword" -r "ROLE_ADMIN" "admin" "admin@youremail.tld"
+   ```
+7. (Optional) Import the schema and questions using:
+   ```bash
+   php ./bin/console app:import schema.json
+   ```
+8. Access the application at `https://localhost`, and use `https://localhost/admin` to access the admin panel.
 
 ## Deployment
+
+### Zeabur
 
 1. Deploy Redis, PostgreSQL, Meilisearch, and Umami (for statistics) on Zeabur.
 2. Deploy the application in Git mode on Zeabur.
@@ -32,9 +45,26 @@ This platform allows you to exercise your SQL skills through a simple gamificati
    APP_SECRET=${PASSWORD}
    MEILISEARCH_URL=http://meilisearch.zeabur.internal:7700
    MEILISEARCH_API_KEY=${MEILI_MASTER_KEY}
+   UMAMI_DOMAIN=your-umami-domain.tld
+   UMAMI_WEBSITE_ID=your-website-id
+   OPENAI_API_KEY=your-openai-api-key
+   LINE_NOTIFY_DSN=linenotify://line-notify-token@default
    ```
 4. Create an index in Meilisearch by running:
-   ```
+   ```bash
    php bin/console meili:create --update-settings
    ```
-5. Bind your domain, and it will be ready for use.
+5. Bind your domain, and the application will be ready for use.
+
+### Docker
+
+We provide a Docker Compose configuration based on [Symfony Docker](https://github.com/dunglas/symfony-docker) for
+deployment. The prebuilt image is available at
+the [GitHub Registry](https://github.com/database-playground/app-sf/pkgs/container/app-sf).
+
+To deploy the application, you may need to update the secret or environment variables in the `compose.yaml` and
+`compose.prod.yaml` files, and then run the following command:
+
+```bash
+docker compose -f compose.yaml -f compose.prod.yaml up -d
+```
