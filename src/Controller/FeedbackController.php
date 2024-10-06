@@ -35,11 +35,13 @@ class FeedbackController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // add more metadata that does not affect by requests (e.g. user agent)
+            // if we don't know the user, we store the IP address so we can track it.
             $feedback->setMetadata(array_merge(
                 $feedback->getMetadata(),
                 [
                     'user_agent' => $request->headers->get('User-Agent'),
                     'user' => $user?->getUserIdentifier(),
+                    'ip' => null === $user ? $request->getClientIp() : null,
                 ],
             ));
 

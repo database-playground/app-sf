@@ -12,6 +12,12 @@
 
         <turbo-frame id="feedback-form">
         {% if form is not null %}
+            {% if app.user is null %}
+                <div class="alert alert-warning">
+                    因為您沒有登入，我們還會額外記錄 IP 地址，以便追蹤回饋來源。
+                </div>
+            {% endif %}
+
             {{ form(form) }}
 
             <style>
