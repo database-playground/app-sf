@@ -66,7 +66,8 @@ final class PointCalculationService
     /**
      * Calculate the total points of the solution events.
      *
-     * 每位同學基本經驗值500點，成功解一題獲得經驗值增加。易:10點、中:20點、難:30點
+     * Successfully solving a problem increases experience points.
+     * Easy: 10 points, Medium: 20 points, Hard: 30 points.
      *
      * @param User $user The user to calculate the points for
      *
@@ -87,7 +88,7 @@ final class PointCalculationService
     /**
      * Calculate the points if the user is the first solver of a question.
      *
-     * 第一位解題成功者加10點。
+     * The first person to solve the problem gets 10 points.
      *
      * @throws InvalidArgumentException
      */
@@ -150,6 +151,12 @@ final class PointCalculationService
         );
     }
 
+    /**
+     * Calculate the points of the solution video events.
+     *
+     * Each student will lose experience points for watching a solution video.
+     * Easy: 6 points, Medium: 12 points, Hard: 18 points.
+     */
     protected function calculateSolutionVideoPoints(User $user): int
     {
         /**
@@ -188,6 +195,11 @@ final class PointCalculationService
 
     /**
      * Calculate the weekly solved question punish points.
+     *
+     * You need to solve at least 5 problems each week.
+     * For each problem you fall short, you will lose 20 experience points.
+     *
+     * @param User $user The user to calculate the points for
      *
      * @return int The punish points, negative value
      */
