@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UlidGenerator;
+use Symfony\Bridge\Doctrine\Types\UlidType;
 use Symfony\Component\Uid\Ulid;
 
 #[ORM\MappedSuperclass]
@@ -15,7 +16,7 @@ abstract class BaseEvent
     #[ORM\Id]
     #[ORM\CustomIdGenerator(class: UlidGenerator::class)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\Column(type: 'ulid', unique: true)]
+    #[ORM\Column(type: UlidType::NAME, unique: true)]
     protected ?Ulid $id = null;
 
     #[ORM\Column]
