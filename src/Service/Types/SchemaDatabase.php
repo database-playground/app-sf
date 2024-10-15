@@ -99,7 +99,9 @@ readonly class SchemaDatabase
         $db->enableExceptions(true);
 
         try {
+            $db->exec('BEGIN EXCLUSIVE');
             $db->exec($schema);
+            $db->exec('COMMIT');
             $db->close();
         } catch (\Throwable) {
             $lastErrorMessage = $db->lastErrorMsg();
