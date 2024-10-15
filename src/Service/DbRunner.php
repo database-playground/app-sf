@@ -24,10 +24,10 @@ final readonly class DbRunner
     private SqlFormatter $formatter;
 
     /**
-     * @param float $timeout The timeout in seconds. Default is 3 seconds.
+     * @param float $timeout The timeout in seconds. Default is 60 seconds.
      */
     public function __construct(
-        protected float $timeout = 3,
+        protected float $timeout = 60,
     ) {
         $this->formatter = new SqlFormatter();
     }

@@ -274,7 +274,7 @@ class DbRunnerTest extends TestCase
 
     public function testRunQueryCte(): void
     {
-        $dbrunner = new DbRunner();
+        $dbrunner = new DbRunner(5);
 
         $schema = "CREATE TABLE test (
             id INTEGER PRIMARY KEY,
