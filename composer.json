@@ -138,7 +138,7 @@
     "phpstan/phpstan-phpunit": "2.0.x-dev",
     "phpstan/phpstan-strict-rules": "2.0.x-dev",
     "phpstan/phpstan-symfony": "2.0.x-dev",
-    "phpunit/phpunit": "^10",
+    "phpunit/phpunit": "^9",
     "symfony/browser-kit": "7.2.*",
     "symfony/css-selector": "7.2.*",
     "symfony/debug-bundle": "7.2.*",

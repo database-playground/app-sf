@@ -34,7 +34,7 @@ return [
         'version' => '3.2.2',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.10',
+        'version' => '8.0.12',
     ],
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
@@ -59,7 +59,7 @@ return [
         'version' => '6.10.3',
     ],
     '@codemirror/commands' => [
-        'version' => '6.6.2',
+        'version' => '6.7.0',
     ],
     '@codemirror/search' => [
         'version' => '6.5.6',
