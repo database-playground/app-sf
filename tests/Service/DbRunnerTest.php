@@ -219,7 +219,9 @@ class DbRunnerTest extends TestCase
         ];
     }
 
-    #[DataProvider('hashProvider')]
+    /**
+     * @dataProvider hashProvider
+     */
     public function testHashStatement(string $leftStmt, string $rightStmt): void
     {
         $dbrunner = new DbRunner();
@@ -230,7 +232,9 @@ class DbRunnerTest extends TestCase
         self::assertEquals($leftHash, $rightHash);
     }
 
-    #[DataProvider('hashProvider')]
+    /**
+     * @dataProvider hashProvider
+     */
     public function testHashInvalidStatement(string $invalidStmt): void
     {
         $this->expectNotToPerformAssertions();
@@ -242,12 +246,13 @@ class DbRunnerTest extends TestCase
     }
 
     /**
+     * @dataProvider runQueryProvider
+     *
      * @param ?array<array<string, mixed>> $expect
      * @param ?class-string<\Throwable>    $exception
      *
      * @throws \Throwable
      */
-    #[DataProvider('runQueryProvider')]
     public function testRunQuery(string $schema, string $query, ?array $expect, ?string $exception): void
     {
         $dbrunner = new DbRunner();

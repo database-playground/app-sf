@@ -39,6 +39,9 @@ final class CommentForm
     ) {
     }
 
+    /**
+     * @return FormInterface<CommentEntity>
+     */
     protected function instantiateForm(): FormInterface
     {
         $this->initialComment = (new CommentEntity())

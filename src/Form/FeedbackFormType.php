@@ -17,6 +17,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function Symfony\Component\Translation\t;
 
+/**
+ * @extends AbstractType<Feedback>
+ */
 class FeedbackFormType extends AbstractType
 {
     public function __construct(
