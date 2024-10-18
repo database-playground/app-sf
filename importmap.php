@@ -28,7 +28,7 @@ return [
         'path' => './vendor/twbs/bootstrap/dist/js/bootstrap.esm.js',
     ],
     'chart.js' => [
-        'version' => '4.4.4',
+        'version' => '4.4.5',
     ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
@@ -83,7 +83,7 @@ return [
         'version' => '2.2.8',
     ],
     '@lezer/common' => [
-        'version' => '1.2.2',
+        'version' => '1.2.3',
     ],
     'crelt' => [
         'version' => '1.0.6',
