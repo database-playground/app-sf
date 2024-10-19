@@ -140,6 +140,7 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/events/daily-chart', name: 'events_daily_chart')]
     public function eventDailyChart(
+        #[CurrentUser] User $user,
         SolutionEventRepository $solutionEventRepository,
         ChartBuilderInterface $chartBuilder,
         TranslatorInterface $translator,
@@ -147,11 +148,14 @@ class OverviewCardsController extends AbstractController
         $startedAt = new \DateTimeImmutable('-7 days');
 
         $eventsQuery = $solutionEventRepository->createQueryBuilder('e')
+            ->join('e.submitter', 'u')
             ->select('DATE(e.createdAt) as date, COUNT(e.id) as count')
             ->where('e.createdAt >= :date')
+            ->andWhere('u = :user')
             ->orderBy('date', 'ASC')
             ->groupBy('date')
             ->setParameter('date', $startedAt)
+            ->setParameter('user', $user)
             ->getQuery();
 
         /**
