@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Entity\Group;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
@@ -61,7 +62,7 @@ class CreateUsersCommand extends Command
         $io->title("Creating users from $filename");
 
         /**
-         * @var array{email: string, name: string, roles: list<string>}[] $users
+         * @var array{email: string, name: string, roles: list<string>, group: string|null}[] $users
          */
         $users = $io->progressIterate(self::parseUsers($filename));
 
@@ -75,7 +76,25 @@ class CreateUsersCommand extends Command
         foreach ($users as $user) {
             $password = self::generateRandomPassword();
 
-            $user = (new User())->setName($user['name'])->setEmail($user['email'])->setRoles($user['roles']);
+            /**
+             * @var Group|null $group
+             */
+            $group = null;
+
+            if (null !== $user['group']) {
+                $group = $this->entityManager->getRepository(Group::class)->findOneBy(['name' => $user['group']]);
+                if (null === $group) {
+                    $io->warning("Group {$user['group']} not found for user {$user['email']}. Skipping.");
+                    continue;
+                }
+            }
+
+            $user = (new User())
+                ->setName($user['name'])
+                ->setEmail($user['email'])
+                ->setRoles($user['roles'])
+                ->setGroup($group);
+
             $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
             $user->setPassword($hashedPassword);
 
@@ -102,7 +121,7 @@ class CreateUsersCommand extends Command
     }
 
     /**
-     * @return array{email: string, name: string, roles: list<string>}[]
+     * @return array{email: string, name: string, roles: list<string>, group: string|null}[]
      */
     private static function parseUsers(string $filename): array
     {
@@ -119,6 +138,7 @@ class CreateUsersCommand extends Command
         $emailIndex = array_search('email', $header, true);
         $nameIndex = array_search('name', $header, true);
         $rolesIndex = array_search('roles', $header, true);
+        $groupIndex = array_search('group', $header, true);
 
         if (!\is_int($emailIndex) || !\is_int($nameIndex) || !\is_int($rolesIndex)) {
             throw new \RuntimeException("Could not find email, name, or roles in the header of $filename.");
@@ -129,8 +149,9 @@ class CreateUsersCommand extends Command
             $email = $row[$emailIndex];
             $name = $row[$nameIndex];
             $roles = $row[$rolesIndex];
+            $group = false !== $groupIndex ? $row[$groupIndex] : null;
 
-            if (!\is_string($email) || !\is_string($name) || !\is_string($roles)) {
+            if (!\is_string($email) || !\is_string($name) || !\is_string($roles) || (!\is_string($group) && null !== $group)) {
                 throw new \RuntimeException("Invalid row in $filename.");
             }
 
@@ -138,6 +159,7 @@ class CreateUsersCommand extends Command
                 'email' => $email,
                 'name' => $name,
                 'roles' => explode(',', $roles),
+                'group' => $group,
             ];
         }
 
