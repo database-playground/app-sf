@@ -41,6 +41,7 @@ The Database Playground is a platform designed to enhance your SQL skills throug
 3. Add the following environment variables to the application:
    ```env
    DATABASE_URL=postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgresql.zeabur.internal:5432/${POSTGRES_DATABASE}?serverVersion=16&charset=utf8
+   REDIS_URI=${REDIS_CONNECTION_STRING}
    SERVER_NAME=:${PORT}
    APP_SECRET=${PASSWORD}
    MEILISEARCH_URL=http://meilisearch.zeabur.internal:7700
