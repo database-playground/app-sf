@@ -59,7 +59,7 @@ return [
         'version' => '6.10.3',
     ],
     '@codemirror/commands' => [
-        'version' => '6.7.0',
+        'version' => '6.7.1',
     ],
     '@codemirror/search' => [
         'version' => '6.5.6',

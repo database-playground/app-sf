@@ -19,9 +19,9 @@
     "@hotwired/stimulus": "^3.2.2",
     "@types/bootstrap": "^5.2.10",
     "bootstrap": "^5.3.3",
-    "dprint": "^0.47.2",
+    "dprint": "^0.47.4",
     "eslint": "^9.13.0",
     "globals": "^15.11.0",
-    "typescript-eslint": "^8.10.0"
+    "typescript-eslint": "^8.11.0"
   }
 }
