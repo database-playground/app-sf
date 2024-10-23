@@ -54,6 +54,7 @@ Mark Resolved: 標記為已解決
 Mark Closed: 標記為已關閉
 New & In Progress: 新問題 & 處理中
 Resolved & Closed: 已解決 & 已關閉
+Impersonate: 模擬使用者
 
 challenge.error-type.user: 輸入錯誤
 challenge.error-type.server: 伺服器錯誤

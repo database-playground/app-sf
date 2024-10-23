@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -53,5 +56,14 @@ class UserCrudController extends AbstractCrudController
             DateTimeField::new('created_at', 'Created at')->hideOnForm(),
             DateTimeField::new('updated_at', 'Updated at')->hideOnForm(),
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions->add(
+            Crud::PAGE_INDEX,
+            Action::new('impersonate', 'Impersonate')
+                ->linkToUrl(fn (User $user) => "/?_switch_user={$user->getUserIdentifier()}")
+        );
     }
 }
