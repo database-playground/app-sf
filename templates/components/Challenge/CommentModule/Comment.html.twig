@@ -16,11 +16,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
                     </div>
                     <div class="modal-body">
-                        確定要移除「{{
-                        plainContent|length > previewCommentCharLimit
-                        ? plainContent|slice(0, previewCommentCharLimit) ~ '……'
-                        : plainContent
-                        }}」這則留言嗎？
+                        確定要移除「{{ plainContent|u.truncate(100, '……') }}」這則留言嗎？
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>

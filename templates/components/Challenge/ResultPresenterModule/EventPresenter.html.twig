@@ -9,7 +9,7 @@
         <tbody>
         {% for event in this.events %}
             <tr key="{{ event.id }}">
-                <th scope="row" class="text-truncate"><code>{{ event.query }}</code></th>
+                <th scope="row"><code>{{ event.query|u.truncate(50, '…') }}</code></th>
                 <td>
                     {% if event.status == constant('\\App\\Entity\\SolutionEventStatus::Failed') %}
                         ❌
