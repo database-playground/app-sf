@@ -149,7 +149,7 @@ class SolutionEventRepository extends ServiceEntityRepository
 
         $qb = $this->createQueryBuilder('e')
             ->from(User::class, 'u')
-            ->select('u AS user', 'COUNT(e.id) AS count')
+            ->select('u AS user', 'COUNT(DISTINCT e.question) AS count')
             ->where('e.submitter = u')
             ->andWhere('e.status = :status')
             ->andWhere('e.createdAt >= :startedFrom')
