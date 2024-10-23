@@ -25,7 +25,10 @@ export default class extends Controller<HTMLElement> {
       throw new Error(`Element not found: ${editorSelector}`);
     }
 
+    const lastQuery = this.element.dataset["lastQuery"];
+
     this.view = new EditorView({
+      doc: lastQuery,
       extensions: [
         basicSetup,
         sql(),

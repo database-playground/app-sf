@@ -8,6 +8,7 @@ use App\Entity\Question;
 use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
+use App\Repository\SolutionEventRepository;
 use App\Service\QuestionDbRunnerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -26,6 +27,7 @@ final class Executor
 
     public function __construct(
         private readonly QuestionDbRunnerService $questionDbRunnerService,
+        private readonly SolutionEventRepository $solutionEventRepository,
         private readonly EntityManagerInterface $entityManager,
     ) {
     }
@@ -41,6 +43,16 @@ final class Executor
      */
     #[LiveProp(writable: true)]
     public string $query;
+
+    public function getPreviousQuery(): string
+    {
+        $se = $this->solutionEventRepository->findOneBy([
+            'question' => $this->question,
+            'submitter' => $this->user,
+        ], orderBy: ['id' => 'DESC']);
+
+        return $se?->getQuery() ?? '';
+    }
 
     #[LiveAction]
     public function execute(SerializerInterface $serializer): void
