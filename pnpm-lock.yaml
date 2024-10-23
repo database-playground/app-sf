@@ -10,6 +10,9 @@ importers:
       "@codemirror/lang-sql":
         specifier: ^6.8.0
         version: 6.8.0(@codemirror/view@6.34.1)
+      "@codemirror/state":
+        specifier: ^6.4.1
+        version: 6.4.1
       "@symfony/stimulus-bridge":
         specifier: ^3.2.2
         version: 3.2.2(@hotwired/stimulus@3.2.2)

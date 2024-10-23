@@ -67,6 +67,7 @@
     "twbs/bootstrap": "dev-main",
     "twig/extra-bundle": "3.*",
     "twig/markdown-extra": "3.*",
+    "twig/string-extra": "3.*",
     "twig/twig": "3.*"
   },
   "config": {
