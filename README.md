@@ -26,6 +26,9 @@ The Database Playground is a platform designed to enhance your SQL skills throug
    ```bash
    php ./bin/console app:create-user -p "yourpassword" -r "ROLE_ADMIN" "admin" "admin@youremail.tld"
    ```
+   - `ROLE_USER` is the default role suitable for regular users, such as students.
+   - `ROLE_ADMIN` is the administrator role that grants access to the admin panel, enables management of questions, and allows viewing of all submissions and feedback.
+   - `ROLE_ALLOWED_TO_SWITCH` is the role that permits switching (impersonating) to another user, which is useful for debugging.
 7. (Optional) Import the schema and questions using:
    ```bash
    php ./bin/console app:import schema.json
