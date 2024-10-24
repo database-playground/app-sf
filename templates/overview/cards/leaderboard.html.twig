@@ -12,7 +12,7 @@
         <tbody>
         {% for item in leaderboard %}
             <tr>
-                <th scope="row">{{ item.user.name|u.truncate(24, '…') }}</th>
+                <th scope="row" class="text-truncate">{{ item.user.name|u.truncate(24, '…') }}</th>
                 <td>{{ item.count }}</td>
             </tr>
         {% endfor %}

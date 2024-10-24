@@ -389,7 +389,7 @@ ul.credit {
     "historic-statistics" auto
     "leaderboard" auto;
 
-  @media (min-width: 768px) {
+  @media (min-width: 1440px) {
     grid-template:
       "hello-text          hello-text          hello-text   hello-text" auto
       "weekly-metrics      weekly-metrics      leaderboard  leaderboard" 1fr
