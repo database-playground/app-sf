@@ -207,6 +207,7 @@ class OverviewCardsController extends AbstractController
         SolutionEventRepository $solutionEventRepository,
     ): Response {
         $leaderboard = $solutionEventRepository->listLeaderboard($user->getGroup(), '7 days');
+        $leaderboard = \array_slice($leaderboard, 0, 10);
 
         return $this->render('overview/cards/leaderboard.html.twig', [
             'leaderboard' => $leaderboard,
