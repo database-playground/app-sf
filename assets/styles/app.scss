@@ -394,6 +394,7 @@ ul.credit {
       "hello-text          hello-text          hello-text   hello-text" auto
       "weekly-metrics      weekly-metrics      leaderboard  leaderboard" 1fr
       "historic-statistics historic-statistics leaderboard  leaderboard" 1fr;
+    grid-template-columns: 2fr 2fr 1fr 1fr;
   }
 
   &__hello-text {
