@@ -28,7 +28,7 @@ return [
         'path' => './vendor/twbs/bootstrap/dist/js/bootstrap.esm.js',
     ],
     'chart.js' => [
-        'version' => '4.4.5',
+        'version' => '4.4.6',
     ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
