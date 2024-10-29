@@ -67,13 +67,14 @@ readonly class SchemaDatabase
         );
 
         // MySQL-compatible functions
-        $db->createFunction('YEAR', $dateop('Y'), 1);
-        $db->createFunction('MONTH', $dateop('n'), 1);
-        $db->createFunction('DAY', $dateop('j'), 1);
+        $db->createFunction('YEAR', $dateop('Y'), 1, SQLITE3_DETERMINISTIC);
+        $db->createFunction('MONTH', $dateop('n'), 1, SQLITE3_DETERMINISTIC);
+        $db->createFunction('DAY', $dateop('j'), 1, SQLITE3_DETERMINISTIC);
         $db->createFunction(
             'IF',
             fn (bool $condition, mixed $true, mixed $false) => $condition ? $true : $false,
             3,
+            SQLITE3_DETERMINISTIC
         );
 
         return $db;
