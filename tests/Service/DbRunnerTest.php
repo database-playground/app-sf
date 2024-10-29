@@ -216,6 +216,14 @@ class DbRunnerTest extends TestCase
                 ],  /* result */
                 null, /* exception */
             ],
+            [
+                '',
+                'SELECT 1;',
+                [
+                    ['1' => 1],
+                ], /* result */
+                null, /* exception */
+            ],
         ];
     }
 

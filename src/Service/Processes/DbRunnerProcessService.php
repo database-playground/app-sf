@@ -29,9 +29,7 @@ class DbRunnerProcessService extends ProcessService
                 $rowCasted = [];
 
                 foreach ($row as $key => $value) {
-                    \assert(\is_string($key));
-
-                    $rowCasted[$key] = $value;
+                    $rowCasted[(string) $key] = $value;
                 }
 
                 $resultArray[] = $rowCasted;
