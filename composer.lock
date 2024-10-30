@@ -1411,12 +1411,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "339a627c9dc79012340c745361ed6d5329404121"
+                "reference": "b3b8869ebab3269789fd855b42f890497593800e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/339a627c9dc79012340c745361ed6d5329404121",
-                "reference": "339a627c9dc79012340c745361ed6d5329404121",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/b3b8869ebab3269789fd855b42f890497593800e",
+                "reference": "b3b8869ebab3269789fd855b42f890497593800e",
                 "shasum": ""
             },
             "require": {
@@ -1499,7 +1499,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-28T21:31:57+00:00"
+            "time": "2024-10-29T18:23:02+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -3608,12 +3608,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "de74db6d7c9f4ecabf7b4a1a20655e021b034001"
+                "reference": "c32691c80952990ee151c054f62d09aceeece23b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/de74db6d7c9f4ecabf7b4a1a20655e021b034001",
-                "reference": "de74db6d7c9f4ecabf7b4a1a20655e021b034001",
+                "url": "https://api.github.com/repos/symfony/console/zipball/c32691c80952990ee151c054f62d09aceeece23b",
+                "reference": "c32691c80952990ee151c054f62d09aceeece23b",
                 "shasum": ""
             },
             "require": {
@@ -3693,7 +3693,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-23T06:56:12+00:00"
+            "time": "2024-10-27T06:46:44+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -6881,12 +6881,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/runtime.git",
-                "reference": "049a9f3bebe7d4d9572e3d4a86f0fb7fe24fb077"
+                "reference": "06fa5c812ce91fad1789571f0239906823996cc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/runtime/zipball/049a9f3bebe7d4d9572e3d4a86f0fb7fe24fb077",
-                "reference": "049a9f3bebe7d4d9572e3d4a86f0fb7fe24fb077",
+                "url": "https://api.github.com/repos/symfony/runtime/zipball/06fa5c812ce91fad1789571f0239906823996cc2",
+                "reference": "06fa5c812ce91fad1789571f0239906823996cc2",
                 "shasum": ""
             },
             "require": {
@@ -6952,7 +6952,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-25T14:21:43+00:00"
+            "time": "2024-10-27T06:46:44+00:00"
         },
         {
             "name": "symfony/security-bundle",
@@ -7494,12 +7494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stimulus-bundle.git",
-                "reference": "60ec83e56c94d441eae0c33d858addf6f1c780dd"
+                "reference": "2dc5431fd4fd84662615b435af7a0a6affd94f2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/60ec83e56c94d441eae0c33d858addf6f1c780dd",
-                "reference": "60ec83e56c94d441eae0c33d858addf6f1c780dd",
+                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/2dc5431fd4fd84662615b435af7a0a6affd94f2d",
+                "reference": "2dc5431fd4fd84662615b435af7a0a6affd94f2d",
                 "shasum": ""
             },
             "require": {
@@ -7556,7 +7556,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-24T13:23:34+00:00"
+            "time": "2024-10-28T11:18:16+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -9247,12 +9247,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "494f010d29bf86e600fed21ce1d8477b66c475da"
+                "reference": "75751250cc8b6efd53495dfbdd50a4d424c75caa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/494f010d29bf86e600fed21ce1d8477b66c475da",
-                "reference": "494f010d29bf86e600fed21ce1d8477b66c475da",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/75751250cc8b6efd53495dfbdd50a4d424c75caa",
+                "reference": "75751250cc8b6efd53495dfbdd50a4d424c75caa",
                 "shasum": ""
             },
             "require": {
@@ -9319,7 +9319,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-25T14:01:04+00:00"
+            "time": "2024-10-30T12:17:12+00:00"
         }
     ],
     "packages-dev": [
@@ -9648,12 +9648,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "168ac89555dc3bdd9f37a89dbd38457bef85a8ff"
+                "reference": "daf0550dc3b67ff56534169181575e24c363caa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/168ac89555dc3bdd9f37a89dbd38457bef85a8ff",
-                "reference": "168ac89555dc3bdd9f37a89dbd38457bef85a8ff",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/daf0550dc3b67ff56534169181575e24c363caa4",
+                "reference": "daf0550dc3b67ff56534169181575e24c363caa4",
                 "shasum": ""
             },
             "require": {
@@ -9744,7 +9744,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-28T21:52:08+00:00"
+            "time": "2024-10-29T14:53:40+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -10106,12 +10106,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5797c27f1daad0028797475a5dc4c0130c2cde6a"
+                "reference": "2c264f467a2d1872ae9740d6cc2e1ffeddf4b2f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5797c27f1daad0028797475a5dc4c0130c2cde6a",
-                "reference": "5797c27f1daad0028797475a5dc4c0130c2cde6a",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2c264f467a2d1872ae9740d6cc2e1ffeddf4b2f5",
+                "reference": "2c264f467a2d1872ae9740d6cc2e1ffeddf4b2f5",
                 "shasum": ""
             },
             "require": {
@@ -10157,7 +10157,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-29T06:27:12+00:00"
+            "time": "2024-10-30T19:20:30+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -10165,12 +10165,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "f36d43fb20befd1f550481267b74c4f29a0c6d78"
+                "reference": "813296e18e232d8937fc2823cd987db1d0477ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/f36d43fb20befd1f550481267b74c4f29a0c6d78",
-                "reference": "f36d43fb20befd1f550481267b74c4f29a0c6d78",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/813296e18e232d8937fc2823cd987db1d0477ab1",
+                "reference": "813296e18e232d8937fc2823cd987db1d0477ab1",
                 "shasum": ""
             },
             "require": {
@@ -10229,7 +10229,7 @@
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
                 "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.x"
             },
-            "time": "2024-10-28T14:13:32+00:00"
+            "time": "2024-10-29T12:20:14+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -10338,12 +10338,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "282a6982af299730790f0583f9662b8dede12ed7"
+                "reference": "55ff7b7640c14e3daf0f25f65f183855b9950fff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/282a6982af299730790f0583f9662b8dede12ed7",
-                "reference": "282a6982af299730790f0583f9662b8dede12ed7",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/55ff7b7640c14e3daf0f25f65f183855b9950fff",
+                "reference": "55ff7b7640c14e3daf0f25f65f183855b9950fff",
                 "shasum": ""
             },
             "require": {
@@ -10402,7 +10402,7 @@
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
                 "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.x"
             },
-            "time": "2024-10-14T03:22:40+00:00"
+            "time": "2024-10-30T12:08:07+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -12696,12 +12696,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "078398ebac9b707438286e8d689b30b5ef1e6602"
+                "reference": "0228dd1180ee3ef6c85eeb51ddbe89e0eaef7d33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/078398ebac9b707438286e8d689b30b5ef1e6602",
-                "reference": "078398ebac9b707438286e8d689b30b5ef1e6602",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/0228dd1180ee3ef6c85eeb51ddbe89e0eaef7d33",
+                "reference": "0228dd1180ee3ef6c85eeb51ddbe89e0eaef7d33",
                 "shasum": ""
             },
             "require": {
@@ -12770,7 +12770,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-23T06:50:56+00:00"
+            "time": "2024-10-27T06:46:44+00:00"
         },
         {
             "name": "symfony/web-profiler-bundle",
