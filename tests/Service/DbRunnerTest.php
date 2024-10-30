@@ -224,6 +224,66 @@ class DbRunnerTest extends TestCase
                 ], /* result */
                 null, /* exception */
             ],
+            [
+                "CREATE TABLE records (
+    RecordID INTEGER PRIMARY KEY,   -- Assuming a unique identifier for each record
+    ClassNo varchar(5) NOT NULL,    -- Stores the class number as a string
+    YMD DATE NOT NULL,              -- Stores the date in 'YYYY-MM-DD' format
+    Leave INTEGER DEFAULT 0,        -- Stores the leave count for personal leave
+    SickLeave INTEGER DEFAULT 0,    -- Stores the leave count for sick leave
+    PublicLeave INTEGER DEFAULT 0,  -- Stores the leave count for public leave
+    Absent INTEGER DEFAULT 0        -- Stores the count for absences
+);
+
+INSERT INTO records (RecordID, ClassNo, YMD, Leave, SickLeave, PublicLeave, Absent) VALUES
+    (1, '101A', '2018-03-15', 2, 1, 0, 0),
+    (2, '101B', '2018-03-16', 0, 0, 1, 1),
+    (3, '102A', '2018-03-17', 1, 0, 2, 0),
+    (4, '101A', '2018-04-15', 0, 1, 0, 1),
+    (5, '102B', '2018-05-20', 3, 0, 0, 0),
+    (6, '101B', '2018-06-25', 0, 2, 0, 1),
+    (7, '101C', '2018-07-10', 1, 1, 1, 0),
+    (8, '103A', '2018-08-30', 0, 0, 3, 1),
+    (9, '101A', '2019-09-01', 2, 1, 0, 1),  -- Different year for variety
+    (10, '102A', '2018-10-11', 0, 0, 1, 0);",
+                'SELECT
+    LEFT(records.ClassNo, 3) AS 班級,
+    SUM(records.Leave) AS 事假總計,
+    SUM(records.SickLeave) AS 病假總計,
+    SUM(records.PublicLeave) AS 公假總計,
+    SUM(records.Absent) AS 曠課總計
+FROM
+    records
+WHERE
+    YEAR(YMD) = 2018
+group BY
+    LEFT(records.ClassNo, 3)
+',
+                [
+                    [
+                        '班級' => '101',
+                        '事假總計' => 3,
+                        '病假總計' => 5,
+                        '公假總計' => 2,
+                        '曠課總計' => 3,
+                    ],
+                    [
+                        '班級' => '102',
+                        '事假總計' => 4,
+                        '病假總計' => 0,
+                        '公假總計' => 3,
+                        '曠課總計' => 0,
+                    ],
+                    [
+                        '班級' => '103',
+                        '事假總計' => 0,
+                        '病假總計' => 0,
+                        '公假總計' => 3,
+                        '曠課總計' => 1,
+                    ],
+                ], /* result */
+                null, /* exception */
+            ],
         ];
     }
 
@@ -340,6 +400,18 @@ class DbRunnerTest extends TestCase
 
         self::assertEquals([['if(1, 2, 3)' => 2]], $dbrunner->runQuery('', 'SELECT if(1, 2, 3)'));
         self::assertEquals([['if(0, 2, 3)' => 3]], $dbrunner->runQuery('', 'SELECT if(0, 2, 3)'));
+    }
+
+    public function testRunQueryLeft(): void
+    {
+        $dbrunner = new DbRunner();
+
+        self::assertEquals([['left("abcdef", 3)' => 'abc']], $dbrunner->runQuery('', 'SELECT left("abcdef", 3)'));
+        self::assertEquals([['left("1234567", 8)' => '1234567']], $dbrunner->runQuery('', 'SELECT left("1234567", 8)'));
+        self::assertEquals([['left("hello", 2)' => 'he']], $dbrunner->runQuery('', 'SELECT left("hello", 2)'));
+        self::assertEquals([['left("hello", 0)' => '']], $dbrunner->runQuery('', 'SELECT left("hello", 0)'));
+        self::assertEquals([['left("hello", 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left("hello", 6)'));
+        self::assertEquals([['left(c, 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left(c, 6) FROM (SELECT \'hello\' AS c)'));
     }
 
     public function testRunQuerySum(): void

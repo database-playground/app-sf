@@ -67,14 +67,15 @@ readonly class SchemaDatabase
         );
 
         // MySQL-compatible functions
-        $db->createFunction('YEAR', $dateop('Y'), 1, SQLITE3_DETERMINISTIC);
-        $db->createFunction('MONTH', $dateop('n'), 1, SQLITE3_DETERMINISTIC);
-        $db->createFunction('DAY', $dateop('j'), 1, SQLITE3_DETERMINISTIC);
+        $db->createFunction('YEAR', $dateop('Y'), 1, \SQLITE3_DETERMINISTIC);
+        $db->createFunction('MONTH', $dateop('n'), 1, \SQLITE3_DETERMINISTIC);
+        $db->createFunction('DAY', $dateop('j'), 1, \SQLITE3_DETERMINISTIC);
+        $db->createFunction('LEFT', fn (string $str, int $len) => substr($str, 0, $len), 2, \SQLITE3_DETERMINISTIC);
         $db->createFunction(
             'IF',
             fn (bool $condition, mixed $true, mixed $false) => $condition ? $true : $false,
             3,
-            SQLITE3_DETERMINISTIC
+            \SQLITE3_DETERMINISTIC
         );
 
         return $db;
@@ -96,8 +97,7 @@ readonly class SchemaDatabase
             return;
         }
 
-        $db = new \SQLite3($filename);
-        $db->enableExceptions(true);
+        $db = self::setUp(new \SQLite3($filename));
 
         try {
             $db->exec('BEGIN EXCLUSIVE');
