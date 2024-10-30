@@ -72,7 +72,7 @@ class DbRunnerTest extends TestCase
     }
 
     /**
-     * @return array<array{string, string, array<array<string, mixed>>|null, class-string<\Throwable>|null}>
+     * @return array<array{string, string, array<array<array-key, mixed>>|null, class-string<\Throwable>|null}>
      */
     public static function runQueryProvider(): array
     {
