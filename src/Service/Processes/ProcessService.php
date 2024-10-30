@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Processes;
 
+use App\Service\Types\DbRunnerProcessPayload;
 use App\Service\Types\ProcessError;
 
 /**
@@ -22,7 +23,11 @@ abstract class ProcessService
                 throw new \RuntimeException('could not read from stdin');
             }
 
-            $input = unserialize($stdin);
+            $input = unserialize($stdin, [
+                'allowed_classes' => [
+                    DbRunnerProcessPayload::class,
+                ],
+            ]);
             if (!\is_object($input)) {
                 throw new \InvalidArgumentException('input must be an object');
             }
