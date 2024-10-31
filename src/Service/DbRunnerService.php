@@ -13,7 +13,7 @@ readonly class DbRunnerService
 {
     protected DbRunner $dbRunner;
 
-    public function __construct(protected CacheInterface $appDbrunnerCache)
+    public function __construct(protected CacheInterface $cacheDbrunner)
     {
         $this->dbRunner = new DbRunner();
     }
@@ -33,6 +33,6 @@ readonly class DbRunnerService
         $queryHash = $this->dbRunner->hashStatement($query);
         $hash = "dbrunner.$schemaHash.$queryHash";
 
-        return $this->appDbrunnerCache->get($hash, fn () => $this->dbRunner->runQuery($schema, $query));
+        return $this->cacheDbrunner->get($hash, fn () => $this->dbRunner->runQuery($schema, $query));
     }
 }
