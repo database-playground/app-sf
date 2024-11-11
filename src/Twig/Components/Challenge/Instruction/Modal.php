@@ -11,6 +11,8 @@ use App\Service\DbRunnerService;
 use App\Service\PointCalculationService;
 use App\Service\PromptService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -51,7 +53,15 @@ final class Modal
         TranslatorInterface $translator,
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
+        ParameterBagInterface $parameterBag,
     ): void {
+        $appFeatureHint = $parameterBag->get('app.features.hint');
+        \assert(\is_bool($appFeatureHint));
+
+        if (!$appFeatureHint) {
+            throw new BadRequestHttpException('Hint feature is disabled.');
+        }
+
         if ('' === $this->query) {
             return;
         }
