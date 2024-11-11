@@ -4,6 +4,8 @@ twig:
   globals:
     umami_domain: "%env(UMAMI_DOMAIN)%"
     umami_website_id: "%env(UMAMI_WEBSITE_ID)%"
+    appfeatures:
+      hint: "%app.features.hint%"
 
 when@test:
   twig:

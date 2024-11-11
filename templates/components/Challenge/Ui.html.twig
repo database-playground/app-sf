@@ -3,7 +3,9 @@
     {% if question.solutionVideo %}
         <twig:Challenge:SolutionVideoModal class="challenge-solution-video-modal" :question="question" :user="user" />
     {% endif %}
-    <twig:Challenge:Instruction:Modal class="challenge-instruction-modal" :question="question" :currentUser="user" :query="query" />
+    {% if appfeatures.hint %}
+        <twig:Challenge:Instruction:Modal class="challenge-instruction-modal" :question="question" :currentUser="user" :query="query" />
+    {% endif %}
 
     <main>
         <twig:Challenge:Header class="mb-2" :question="question" :limit="limit" :user="user" />
@@ -13,7 +15,9 @@
                 <twig:Challenge:Executor class="mt-2" data-model="query:query" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target=".challenge-instruction-modal">提示</button>
+                            {% if appfeatures.hint %}
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target=".challenge-instruction-modal">提示</button>
+                            {% endif %}
                             {% if question.solutionVideo %}
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target=".challenge-solution-video-modal">解答影音</button>
                             {% endif %}
