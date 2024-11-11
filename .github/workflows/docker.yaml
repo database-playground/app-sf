@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - distro/*
     tags:
       - v*
   workflow_dispatch:
