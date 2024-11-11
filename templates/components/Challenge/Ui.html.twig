@@ -35,9 +35,11 @@
             </div>
         </section>
 
-        <section class="app-challenge-primary__comments mt-4" id="comments">
-            <h3 class="mb-3">留言區</h3>
-            <twig:Challenge:Comment :question="question" :currentUser="user" loading="lazy" />
-        </section>
+        {% if appfeatures.comment %}
+            <section class="app-challenge-primary__comments mt-4" id="comments">
+                <h3 class="mb-3">留言區</h3>
+                <twig:Challenge:Comment :question="question" :currentUser="user" loading="lazy" />
+            </section>
+        {% endif %}
     </main>
 </div>

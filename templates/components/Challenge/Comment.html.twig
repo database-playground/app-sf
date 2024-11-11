@@ -1,13 +1,15 @@
-<div {{ attributes.defaults({class: 'app-challenge-comments'}) }}>
-    <div class="app-challenge-comments__new mb-4">
-        <twig:Challenge:CommentModule:CommentForm :question="question" :commenter="currentUser" />
-    </div>
+<div {{ attributes.defaults({class: 'app-challenge-comments', 'aria-hidden': not appfeatures.comment}) }}>
+    {% if appfeatures.comment %}
+        <div class="app-challenge-comments__new mb-4">
+            <twig:Challenge:CommentModule:CommentForm :question="question" :commenter="currentUser" />
+        </div>
 
-    <div class="app-challenge-comments__comments vstack gap-2">
-        {% for comment in this.comments %}
-            <twig:Challenge:CommentModule:Comment key="app-question-{{ question.id }}-comment-{{ comment.id }}" :comment="comment" :currentUser="currentUser" />
-        {% else %}
-            <div class="text-muted">尚無留言。成為第一個留言者吧！</div>
-        {% endfor %}
-    </div>
+        <div class="app-challenge-comments__comments vstack gap-2">
+            {% for comment in this.comments %}
+                <twig:Challenge:CommentModule:Comment key="app-question-{{ question.id }}-comment-{{ comment.id }}" :comment="comment" :currentUser="currentUser" />
+            {% else %}
+                <div class="text-muted">尚無留言。成為第一個留言者吧！</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
