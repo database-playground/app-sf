@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use App\Controller\Admin\FeedbackCrudController;
 use App\Entity\Feedback;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\Events;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsEntityListener(event: Events::postPersist, method: 'onFeedbackCreated', entity: Feedback::class)]
@@ -20,7 +19,7 @@ final readonly class FeedbackCreatedListenerSubscriber
     public function __construct(
         private NotifierInterface $notifier,
         private TranslatorInterface $translator,
-        private AdminUrlGenerator $adminUrlGenerator,
+        private RouterInterface $router,
     ) {
     }
 
@@ -33,11 +32,9 @@ final readonly class FeedbackCreatedListenerSubscriber
             '%account%' => $feedback->getSender()?->getUserIdentifier()
                 ?? $this->translator->trans('notification.on-feedback-created.anonymous'),
             '%subject%' => $feedback->getTitle(),
-            '%link%' => $this->adminUrlGenerator->unsetAll()
-                ->setController(FeedbackCrudController::class)
-                ->setAction(Action::DETAIL)
-                ->setEntityId($feedback->getId())
-                ->generateUrl(),
+            '%link%' => $this->router->generate('admin_feedback_detail', [
+                'entityId' => $feedback->getId(),
+            ], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
 
         $this->notifier->send((new Notification($notificationContent))->channels(['chat/linenotify']));
