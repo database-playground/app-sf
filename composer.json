@@ -3,7 +3,7 @@
   "description": "The web application of Database Playground.",
   "type": "project",
   "license": "AGPL-3.0-or-later",
-  "minimum-stability": "dev",
+  "minimum-stability": "beta",
   "prefer-stable": false,
   "require": {
     "php": ">=8.3",
