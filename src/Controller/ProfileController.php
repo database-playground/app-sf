@@ -19,11 +19,20 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class ProfileController extends AbstractController
 {
+    public function isProfileEditable(): bool
+    {
+        $isProfileEditable = $this->getParameter('app.features.editable-profile');
+        \assert(\is_bool($isProfileEditable));
+
+        return $isProfileEditable;
+    }
+
     #[Route('/profile', name: 'app_profile')]
     public function index(#[CurrentUser] User $user): Response
     {
         return $this->render('profile/index.html.twig', [
             'user' => $user,
+            'isProfileEditable' => $this->isProfileEditable(),
         ]);
     }
 
@@ -35,6 +44,10 @@ class ProfileController extends AbstractController
         Request $request,
         #[CurrentUser] User $user,
     ): Response {
+        if (!$this->isProfileEditable()) {
+            throw $this->createNotFoundException('Feature "Editable Profile" is disabled.');
+        }
+
         $passwordChangeModel = new PasswordChangeModel();
         $passwordChangeForm = $formFactory->createBuilder(PasswordChangeFormType::class, $passwordChangeModel)
             ->setAction($this->generateUrl('app_profile_edit_password'))
@@ -66,6 +79,10 @@ class ProfileController extends AbstractController
         Request $request,
         #[CurrentUser] User $user,
     ): Response {
+        if (!$this->isProfileEditable()) {
+            throw $this->createNotFoundException('Feature "Editable Profile" is disabled.');
+        }
+
         $usernameChangeForm = $formFactory->createBuilder(NameChangeFormType::class, $user)
             ->setAction($this->generateUrl('app_profile_edit_username'))
             ->getForm();
