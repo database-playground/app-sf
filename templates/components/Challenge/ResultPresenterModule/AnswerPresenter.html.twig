@@ -3,7 +3,7 @@
         {% if not this.result.answer %}
             {% if this.result.same %}
                 <div class="alert alert-success" role="alert">
-                    答案正確 🎉！可以到 <a href="#comments">留言區</a> 和其他人分享你的寫法！
+                    答案正確 🎉！{% if appfeatures.comment %}可以到 <a href="#comments">留言區</a> 和其他人分享你的寫法！{% endif %}
                 </div>
             {% else %}
                 <div class="alert alert-danger" role="alert">
