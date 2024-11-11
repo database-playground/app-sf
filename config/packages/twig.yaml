@@ -6,6 +6,7 @@ twig:
     umami_website_id: "%env(UMAMI_WEBSITE_ID)%"
     appfeatures:
       hint: "%app.features.hint%"
+      comment: "%app.features.comment%"
 
 when@test:
   twig:

@@ -9,8 +9,10 @@ use App\Entity\Question as QuestionEntity;
 use App\Entity\User as UserEntity;
 use App\Form\CommentCreateFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -52,8 +54,15 @@ final class CommentForm
     }
 
     #[LiveAction]
-    public function save(EntityManagerInterface $entityManager): void
+    public function save(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag): void
     {
+        $appFeatureComment = $parameterBag->get('app.features.comment');
+        \assert(\is_bool($appFeatureComment));
+
+        if (!$appFeatureComment) {
+            throw new BadRequestHttpException('Comment feature is disabled.');
+        }
+
         $this->submitForm();
 
         $comment = $this->getForm()->getData();
