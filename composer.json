@@ -23,6 +23,7 @@
     "nyholm/psr7": "dev-master",
     "openai-php/client": "dev-main",
     "oro/doctrine-extensions": "dev-master",
+    "phpdocumentor/reflection-docblock": "^5.5",
     "runtime/frankenphp-symfony": "dev-main",
     "sensiolabs/typescript-bundle": "dev-main",
     "symfony/asset": "7.2.*",
