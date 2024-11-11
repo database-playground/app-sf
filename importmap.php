@@ -50,7 +50,7 @@ return [
         'version' => '6.8.0',
     ],
     '@codemirror/view' => [
-        'version' => '6.34.1',
+        'version' => '6.34.2',
     ],
     '@codemirror/state' => [
         'version' => '6.4.1',
@@ -62,7 +62,7 @@ return [
         'version' => '6.7.1',
     ],
     '@codemirror/search' => [
-        'version' => '6.5.6',
+        'version' => '6.5.7',
     ],
     '@codemirror/autocomplete' => [
         'version' => '6.18.2',
