@@ -18,7 +18,7 @@
       "firefox": "115"
     },
     "mode": "entry",
-    "coreJs": "3.38"
+    "coreJs": "3.39"
   },
   "minify": true
 }
