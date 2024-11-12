@@ -16,7 +16,7 @@ export default class extends Controller<HTMLElement> {
 
   async connect() {
     const component = await getComponent(this.element);
-    const lastQuery = this.element.dataset["lastQuery"];
+    let lastQuery = this.element.dataset["lastQuery"];
 
     const $editor = this.element.querySelector(this.editorSelectorValue);
     if (!$editor) {
@@ -35,15 +35,10 @@ export default class extends Controller<HTMLElement> {
         basicSetup,
         sql(),
         EditorView.updateListener.of(() => {
-          const doc = editorView.state.doc.toString();
+          const query = editorView.state.doc.toString();
 
-          if (doc.trim() === "" || doc === lastQuery) {
-            // Disable the button if the user does not query something new.
-            $submitButton.disabled = true;
-          } else {
-            // Enable the button if the user types something.
-            $submitButton.disabled = false;
-          }
+          // Enable the submit button only if the query is not empty and different from the last one.
+          $submitButton.disabled = query.trim() === "" || query === lastQuery;
         }),
       ],
       parent: $editor,
@@ -52,12 +47,17 @@ export default class extends Controller<HTMLElement> {
 
     // If the user presses the submit button, we'll send the query to the server.
     $submitButton.addEventListener("click", async () => {
+      // Disable the submit button while the query is being executed
+      $submitButton.disabled = true;
+
       const query = editorView.state.doc.toString();
 
       console.debug("Executing query", { query });
       await component.action("execute", {
         query,
       });
+
+      lastQuery = query;
     });
   }
 
