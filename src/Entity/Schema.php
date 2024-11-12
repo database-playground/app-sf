@@ -19,7 +19,7 @@ class Schema
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $id;
+    private string $id = '';
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $picture = null;

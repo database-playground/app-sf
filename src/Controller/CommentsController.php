@@ -28,6 +28,10 @@ class CommentsController extends AbstractController
     #[Route('/', name: '')]
     public function index(#[CurrentUser] User $user, CommentRepository $commentRepository): Response
     {
+        if (!$this->isCommentFeatureEnabled()) {
+            throw $this->createNotFoundException('"Comment" feature is disabled.');
+        }
+
         $comments = $commentRepository->findUserComments($user);
         $likes = array_reduce($comments, fn (int $carry, Comment $comment) => $carry + $comment->getCommentLikeEvents()->count(), 0);
 
@@ -47,6 +51,10 @@ class CommentsController extends AbstractController
         ChartBuilderInterface $chartBuilder,
         TranslatorInterface $translator,
     ): Response {
+        if (!$this->isCommentFeatureEnabled()) {
+            throw $this->createNotFoundException('"Comment" feature is disabled.');
+        }
+
         $q = $commentRepository->createQueryBuilder('c')
             ->select('c.id AS id, COUNT(cle.id) AS count')
             ->leftJoin('c.commentLikeEvents', 'cle')
@@ -87,5 +95,15 @@ class CommentsController extends AbstractController
         return $this->render('comments/likes.html.twig', [
             'chart' => $chart,
         ]);
+    }
+
+    private function isCommentFeatureEnabled(): bool
+    {
+        $comment = $this->getParameter('app.features.comment');
+        if (!\is_bool($comment)) {
+            throw new \RuntimeException('The "app.features.comment" parameter must be a boolean.');
+        }
+
+        return $comment;
     }
 }

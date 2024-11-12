@@ -6,26 +6,30 @@
         name: '學習概況',
         icon: 'bi bi-bar-chart-fill',
         path: path('app_overview'),
+        disabled: false,
     },
     {
         pageId: 'questions',
         name: '練習題目',
         icon: 'bi bi-pencil-fill',
         path: path('app_questions'),
+        disabled: false,
     },
     {
         pageId: 'comments',
         name: '留言一覽',
         icon: 'bi bi-chat-left-text-fill',
         path: path('app_comments'),
+        disabled: not appfeatures.comment,
     },
     {
         pageId: 'complementary',
         name: '補充資料',
         icon: 'bi bi-book-fill',
         path: path('app_complementary'),
+        disabled: false,
     },
-] %}
+]|filter(el => not el.disabled) %}
 
 <nav{{ attributes.defaults({class: 'app-navbar navbar navbar-expand-lg bg-light'}) }}>
     <div class="container-fluid">
