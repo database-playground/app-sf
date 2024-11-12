@@ -1,8 +1,8 @@
 {% set previousQuery = this.previousQuery %}
 
 <section {{ attributes.defaults({class: 'challenge-sql-executor'}|merge(stimulus_controller('challenge-executor', {
-    modelName: 'query',
     editorSelector: '.challenge-sql-executor__editor',
+    submitButtonSelector: '.challenge-sql-executor__action__submit',
 }))) }} data-last-query="{{ previousQuery }}">
     <section class="challenge-sql-executor__actions hstack">
         <div class="challenge-sql-executor__actions__left me-auto">
@@ -10,20 +10,10 @@
         </div>
 
         <div class="challenge-sql-executor__actions__right">
-            {% if query is not empty and query is not same as(previousQuery) %}
-                <button type="button" class="btn btn-primary"
-                        data-loading="action(execute)|addAttribute(disabled)"
-                        data-action="live#action"
-                        data-live-action-param="execute">
-                    <i class="bi bi-send"></i>
-                    提交
-                </button>
-            {% else %}
-                <button type="button" class="btn btn-primary" disabled>
-                    <i class="bi bi-send"></i>
-                    提交
-                </button>
-            {% endif %}
+            <button type="button" class="btn btn-primary challenge-sql-executor__action__submit">
+                <i class="bi bi-send"></i>
+                提交
+            </button>
         </div>
     </section>
     <hr>

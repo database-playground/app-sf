@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -38,12 +39,6 @@ final class Executor
     #[LiveProp]
     public User $user;
 
-    /**
-     * @var string the query to execute
-     */
-    #[LiveProp(writable: true)]
-    public string $query;
-
     public function getPreviousQuery(): string
     {
         $se = $this->solutionEventRepository->findOneBy([
@@ -55,19 +50,21 @@ final class Executor
     }
 
     #[LiveAction]
-    public function execute(SerializerInterface $serializer): void
-    {
-        if ('' === $this->query) {
+    public function execute(
+        SerializerInterface $serializer,
+        #[LiveArg] string $query,
+    ): void {
+        if ('' === $query) {
             return;
         }
 
         $solutionEvent = (new SolutionEvent())
             ->setQuestion($this->question)
             ->setSubmitter($this->user)
-            ->setQuery($this->query);
+            ->setQuery($query);
 
         try {
-            $result = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
+            $result = $this->questionDbRunnerService->getQueryResult($this->question, $query);
 
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
             $same = $result === $answer;
