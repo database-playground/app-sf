@@ -1,0 +1,173 @@
+<div{{ attributes }}>
+    {% set diff = this.diff %}
+
+    {% if diff %}
+        {{ diff|raw }}
+
+        <style>
+            /*
+             * HTML Renderers - General
+             */
+            .Differences {
+                border-collapse: collapse;
+                border-spacing:  0;
+                empty-cells:     show;
+                width:           100%;
+                overflow:        scroll;
+            }
+
+            .Differences thead th {
+                background:    #AAAAAA;
+                border-bottom: 1px solid #000000;
+                color:         #000000;
+                padding:       4px;
+                text-align:    left;
+            }
+
+            .Differences tbody th {
+                background:     #CCCCCC;
+                border-right:   1px solid #000000;
+                font-size:      13px;
+                padding:        1px 2px;
+                text-align:     right;
+                vertical-align: top;
+                width:          4em;
+            }
+
+            .Differences td {
+                font-family:    Consolas, monospace;
+                font-size:      13px;
+                padding:        1px 2px;
+                vertical-align: top;
+            }
+
+            .Differences .Skipped {
+                background: #F7F7F7;
+                display:    block;
+            }
+
+            /*
+             * HTML Side by Side Diff
+             */
+            .DifferencesSideBySide .ChangeInsert td.Left {
+                background: #DDFFDD;
+            }
+
+            .DifferencesSideBySide .ChangeInsert td.Right {
+                background: #CCFFCC;
+            }
+
+            .DifferencesSideBySide .ChangeDelete td.Left {
+                background: #FF8888;
+            }
+
+            .DifferencesSideBySide .ChangeDelete td.Right {
+                background: #FFAAAA;
+            }
+
+            .DifferencesSideBySide .ChangeReplace .Left {
+                background: #FFEE99;
+            }
+
+            .DifferencesSideBySide .ChangeReplace .Right {
+                background: #FFDD88;
+            }
+
+            .DifferencesSideBySide .ChangeIgnore .Left,
+            .DifferencesSideBySide .ChangeIgnore .Right {
+                background: #FBF2BF;
+            }
+
+            .DifferencesSideBySide .ChangeIgnore .Left.Ignore {
+                background: #F7F7F7;
+            }
+
+            .DifferencesSideBySide .ChangeIgnore .Right.Ignore {
+                background: #F7F7F7;
+            }
+
+            .Differences ins,
+            .Differences del {
+                text-decoration: none;
+            }
+
+            .DifferencesSideBySide .ChangeReplace ins,
+            .DifferencesSideBySide .ChangeReplace del {
+                background: #FFCC00;
+            }
+
+            /*
+             * HTML Unified Diff
+             */
+            .DifferencesUnified .ChangeReplace .Left,
+            .DifferencesUnified .ChangeDelete .Left {
+                background: #FFDDDD;
+            }
+
+            .DifferencesUnified .ChangeReplace .Right,
+            .DifferencesUnified .ChangeInsert .Right {
+                background: #DDFFDD;
+            }
+
+            .DifferencesUnified .ChangeReplace ins {
+                background: #99EE99;
+            }
+
+            .DifferencesUnified .ChangeReplace del {
+                background: #EE9999;
+            }
+
+            .DifferencesUnified .ChangeIgnore .Left,
+            .DifferencesUnified .ChangeIgnore .Right {
+                background: #FBF2BF;
+            }
+
+            .DifferencesUnified .ChangeIgnore .Left.Ignore {
+                background: #F7F7F7;
+            }
+
+            .DifferencesUnified .ChangeIgnore .Right.Ignore {
+                background: #F7F7F7;
+            }
+
+            /*
+             * HTML Merged Diff
+             */
+            .DifferencesMerged td.ChangeReplace {
+                background: #FFDD88;
+            }
+
+            .DifferencesMerged .ChangeDelete {
+                background: #FFDDDD;
+            }
+
+            .DifferencesMerged .ChangeInsert {
+                background: #DDFFDD;
+            }
+
+            .DifferencesMerged .ChangeReplace ins {
+                background: #99EE99;
+            }
+
+            .DifferencesMerged .ChangeReplace del {
+                background: #EE9999;
+            }
+
+            .DifferencesMerged th.ChangeDelete {
+                background-image: linear-gradient(-45deg, #CCCCCC 0%, #EE9999 100%);
+            }
+
+            .DifferencesMerged th.ChangeReplace {
+                background-image: linear-gradient(-45deg, #CCCCCC 0%, #FFDD88 100%);
+            }
+        </style>
+    {% elseif this.diff is same as('') %}
+        <div class="alert alert-success" role="alert">
+            比較結果無差異。
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            沒有可以比較的項目。你可能是還沒有進行答案提交，或者是你提交的答案在語法上是錯的。
+        </div>
+    {% endif %}
+</div>

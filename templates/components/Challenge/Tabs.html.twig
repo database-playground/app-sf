@@ -17,6 +17,8 @@
             <twig:Challenge:Tabs:AnswerQueryResult :question="question" />
         {% elseif currentTab == 'events' %}
             <twig:Challenge:Tabs:Events :question="question" :user="user" />
+        {% elseif currentTab == 'diff' %}
+            <twig:Challenge:Tabs:DiffPresenter :question="question" :user="user" />
         {% else %}
             <twig:Challenge:Tabs:UserQueryResult :question="question" :user="user" loading="defer" />
         {% endif %}
