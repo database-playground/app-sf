@@ -56,9 +56,6 @@ New & In Progress: 新問題 & 處理中
 Resolved & Closed: 已解決 & 已關閉
 Impersonate: 模擬使用者
 
-challenge.error-type.user: 輸入錯誤
-challenge.error-type.server: 伺服器錯誤
-
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案
 result_presenter.tabs.diff: 答案比較
