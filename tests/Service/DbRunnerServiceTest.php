@@ -26,7 +26,7 @@ class DbRunnerServiceTest extends KernelTestCase
         $query = 'SELECT * FROM newsletter';
 
         $result = $dbRunnerService->runQuery($schema, $query);
-        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertEquals([['id', 'content'], ['1', 'hello']], $result->getResult());
 
         $hashedSchema = $dbRunnerService->getDbRunner()->hashStatement($schema);
         $hashedQuery = $dbRunnerService->getDbRunner()->hashStatement($query);
@@ -39,7 +39,7 @@ class DbRunnerServiceTest extends KernelTestCase
                     INSERT INTO newsletter (content) VALUES ('hello');",
             'SELECT * FROM newsletter'
         );
-        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertEquals([['id', 'content'], ['1', 'hello']], $result->getResult());
         self::assertCount(1, $cache->getValues(), 'cache hit');
 
         $result = $dbRunnerService->runQuery(
@@ -48,7 +48,7 @@ class DbRunnerServiceTest extends KernelTestCase
                     INSERT INTO newsletter (content) VALUES ('hello');",
             'SELECT * FROM newsletter -- normalization test'
         );
-        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertEquals([['id', 'content'], ['1', 'hello']], $result->getResult());
         self::assertCount(1, $cache->getValues(), 'cache hit');
 
         $result = $dbRunnerService->runQuery(
@@ -57,7 +57,7 @@ class DbRunnerServiceTest extends KernelTestCase
                     INSERT INTO newsletter (content) VALUES ('hello');",
             "SELECT * FROM newsletter WHERE content == 'hello'"
         );
-        self::assertEquals([['id' => 1, 'content' => 'hello']], $result);
+        self::assertEquals([['id', 'content'], ['1', 'hello']], $result->getResult());
         self::assertCount(2, $cache->getValues(), 'cache not hit');
     }
 
