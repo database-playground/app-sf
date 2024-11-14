@@ -65,7 +65,7 @@ return [
         'version' => '6.5.7',
     ],
     '@codemirror/autocomplete' => [
-        'version' => '6.18.2',
+        'version' => '6.18.3',
     ],
     '@codemirror/lint' => [
         'version' => '6.8.2',
