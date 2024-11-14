@@ -20,7 +20,7 @@ class SolutionEvent extends BaseEvent
     private Question $question;
 
     #[ORM\Column(enumType: SolutionEventStatus::class)]
-    private SolutionEventStatus $status;
+    private SolutionEventStatus $status = SolutionEventStatus::Unspecified;
 
     #[ORM\Column(type: Types::TEXT)]
     private string $query;

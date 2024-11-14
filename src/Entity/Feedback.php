@@ -34,7 +34,7 @@ class Feedback
     private string $description;
 
     #[ORM\Column(length: 255, enumType: FeedbackType::class)]
-    private FeedbackType $type;
+    private FeedbackType $type = FeedbackType::Others;
 
     /**
      * @var array<string, string|null> $metadata the metadata for the feedback

@@ -31,7 +31,7 @@ class Question
     private string $type;
 
     #[ORM\Column(enumType: QuestionDifficulty::class)]
-    private QuestionDifficulty $difficulty;
+    private QuestionDifficulty $difficulty = QuestionDifficulty::Unspecified;
 
     #[ORM\Column(length: 255)]
     private string $title;
