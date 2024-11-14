@@ -7,6 +7,7 @@ namespace App\Twig\Components\Challenge\Instruction;
 use App\Entity\HintOpenEvent;
 use App\Entity\Question;
 use App\Entity\User;
+use App\Repository\SolutionEventRepository;
 use App\Service\DbRunnerService;
 use App\Service\PointCalculationService;
 use App\Service\PromptService;
@@ -33,9 +34,6 @@ final class Modal
     #[LiveProp]
     public Question $question;
 
-    #[LiveProp(updateFromParent: true)]
-    public string $query = '';
-
     public function getCost(): int
     {
         return PointCalculationService::hintOpenEventPoint;
@@ -48,6 +46,7 @@ final class Modal
      */
     #[LiveAction]
     public function instruct(
+        SolutionEventRepository $solutionEventRepository,
         DbRunnerService $dbRunnerService,
         PromptService $promptService,
         TranslatorInterface $translator,
@@ -62,7 +61,8 @@ final class Modal
             throw new BadRequestHttpException('Hint feature is disabled.');
         }
 
-        if ('' === $this->query) {
+        $query = $solutionEventRepository->getLatestQuery($this->question, $this->currentUser);
+        if (null === $query) {
             return;
         }
 
@@ -72,7 +72,7 @@ final class Modal
         $hintOpenEvent = (new HintOpenEvent())
             ->setOpener($this->currentUser)
             ->setQuestion($this->question)
-            ->setQuery($this->query);
+            ->setQuery($query->getQuery());
 
         // run answer. if it failed, we should consider it an error
         try {
@@ -87,13 +87,13 @@ final class Modal
 
         try {
             // run query to get the error message (or compare the result)
-            $result = $dbRunnerService->runQuery($schema, $this->query);
+            $result = $dbRunnerService->runQuery($schema, $query->getQuery());
         } catch (\Throwable $e) {
-            $hint = $promptService->hint($this->query, $e->getMessage(), $answer);
+            $hint = $promptService->hint($query->getQuery(), $e->getMessage(), $answer);
         }
 
         if (isset($result) && $result !== $answerResult) {
-            $hint = $promptService->hint($this->query, 'Different output', $answer);
+            $hint = $promptService->hint($query->getQuery(), 'Different output', $answer);
         }
 
         if (!isset($hint)) {

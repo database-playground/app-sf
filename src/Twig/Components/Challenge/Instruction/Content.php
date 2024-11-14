@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge\Instruction;
 
-use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
@@ -21,9 +20,9 @@ final class Content
     public ?HintPayload $hint = null;
 
     #[LiveListener('app:challenge-hint')]
-    public function onHintReceived(LoggerInterface $logger, #[LiveArg] #[MapRequestPayload] HintPayload $hint): void
+    public function onHintReceived(SerializerInterface $serializer, #[LiveArg] string $hint): void
     {
-        $logger->debug('Received hint', ['hint' => $hint]);
-        $this->hint = $hint;
+        $deserializedHint = $serializer->deserialize($hint, HintPayload::class, 'json');
+        $this->hint = $deserializedHint;
     }
 }

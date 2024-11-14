@@ -4,7 +4,7 @@
         <twig:Challenge:SolutionVideoModal class="challenge-solution-video-modal" :question="question" :user="user" />
     {% endif %}
     {% if appfeatures.hint %}
-        <twig:Challenge:Instruction:Modal class="challenge-instruction-modal" :question="question" :currentUser="user" :query="query" />
+        <twig:Challenge:Instruction:Modal class="challenge-instruction-modal" :question="question" :currentUser="user" />
     {% endif %}
 
     <main>
@@ -12,7 +12,7 @@
         <hr class="opacity-50">
         <section class="app-challenge-primary row g-4">
             <div class="app-challenge-primary__left col-12 col-md-6">
-                <twig:Challenge:Executor class="mt-2" data-model="query:query" :question="question" :user="user">
+                <twig:Challenge:Executor class="mt-2" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
                             {% if appfeatures.hint %}

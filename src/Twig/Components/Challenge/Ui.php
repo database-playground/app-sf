@@ -23,10 +23,4 @@ final class Ui
 
     #[LiveProp]
     public int $limit;
-
-    /**
-     * @var string $query the user's query
-     */
-    #[LiveProp(writable: true)]
-    public string $query = '';
 }
