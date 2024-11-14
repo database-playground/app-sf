@@ -9,6 +9,7 @@ use App\Entity\SolutionEvent;
 use App\Entity\User;
 use App\Repository\SolutionEventRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -53,5 +54,10 @@ final class Events
             limit: self::limit + 1 /* more? */,
             offset: ($this->page - 1) * self::limit,
         );
+    }
+
+    #[LiveListener('app:challenge-executor:query-created')]
+    public function onQueryUpdated(): void
+    {
     }
 }
