@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Question;
 use App\Entity\SolutionVideoEvent;
 use App\Entity\User;
-use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +20,10 @@ class ChallengeController extends AbstractController
     public function index(
         #[CurrentUser] User $user,
         Question $question,
-        QuestionRepository $questionRepository,
     ): Response {
         return $this->render('challenge/index.html.twig', [
             'user' => $user,
             'question' => $question,
-            'limit' => $questionRepository->count(),
         ]);
     }
 

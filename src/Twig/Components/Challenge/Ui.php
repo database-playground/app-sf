@@ -20,7 +20,4 @@ final class Ui
 
     #[LiveProp]
     public Question $question;
-
-    #[LiveProp]
-    public int $limit;
 }
