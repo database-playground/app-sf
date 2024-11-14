@@ -37,6 +37,7 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	php bin/console cache:pool:clear cache.dbrunner || true
 
 	echo "Updating Meilisearch indexes..."
+	php bin/console meili:clear || true
 	php bin/console meili:import --update-settings || true
 
 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
