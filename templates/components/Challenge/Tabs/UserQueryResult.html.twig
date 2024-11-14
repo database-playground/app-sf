@@ -3,7 +3,7 @@
 
     {% if result is null %}
         <div class="alert alert-info" role="alert">
-            提交答案後，即可在這裡看到查詢結果。
+            {{ 'challenge.errors.no-query-yet'|trans }}
         </div>
     {% elseif result.errorMessage is not null %}
         <div class="alert alert-danger" role="alert">
