@@ -14,6 +14,8 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\TwigComponent\Attribute\PostMount;
@@ -115,5 +117,11 @@ final class DiffPresenter
         \assert(\is_string($result));
 
         return $result;
+    }
+
+    #[LiveListener('app:challenge-executor:query-created')]
+    public function onQueryUpdated(#[LiveArg] string $query): void
+    {
+        $this->query = $query;
     }
 }

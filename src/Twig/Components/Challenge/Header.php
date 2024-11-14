@@ -11,14 +11,21 @@ use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
 use App\Service\PassRateService;
 use App\Service\Types\PassRate;
-use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
+use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
+use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsTwigComponent]
+#[AsLiveComponent]
 final class Header
 {
+    use DefaultActionTrait;
+
+    #[LiveProp]
     public User $user;
+
+    #[LiveProp]
     public Question $question;
-    public int $limit;
 
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
@@ -49,5 +56,11 @@ final class Header
     public function getPassRate(): PassRate
     {
         return $this->passRateService->getPassRate($this->question, $this->user->getGroup());
+    }
+
+    #[LiveListener('app:challenge-executor:query-created')]
+    public function onQueryUpdated(): void
+    {
+        // Update "Solve State" and "Pass Rate" after a new query is created.
     }
 }
