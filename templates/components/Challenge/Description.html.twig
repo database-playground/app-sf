@@ -3,11 +3,7 @@
         {{ question.description|raw }}
     </div>
 
-    <p>
-        <strong>輸出格式：</strong>欄位順序分別為：<code>{{
-            this.columnsOfAnswer|joinToQuoted('、')
-        }}</code>。
-    </p>
+    <twig:Challenge:ColumnsOfAnswer :question="question" loading="defer" />
 
     {% if question.schema %}
         <p><strong>Schema ({{ question.schema.id }}): </strong>
