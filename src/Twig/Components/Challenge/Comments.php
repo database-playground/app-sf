@@ -14,7 +14,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-final class Comment
+final class Comments
 {
     use DefaultActionTrait;
 
@@ -42,8 +42,5 @@ final class Comment
     #[LiveListener('app:comment-refresh')]
     public function refresh(): void
     {
-        // Refresh the comments.
-        //
-        // It calls "__invoke()" implicitly, so this method itself is no-op.
     }
 }

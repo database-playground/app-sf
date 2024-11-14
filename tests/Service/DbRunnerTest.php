@@ -87,8 +87,9 @@ class DbRunnerTest extends TestCase
                 INSERT INTO test (name) VALUES ('Bob');",
                 'SELECT * FROM test;',
                 [
-                    ['id' => 1, 'name' => 'Alice'],
-                    ['id' => 2, 'name' => 'Bob'],
+                    ['id', 'name'],
+                    ['1', 'Alice'],
+                    ['2', 'Bob'],
                 ], /* result */
                 null, /* exception */
             ],
@@ -126,7 +127,8 @@ class DbRunnerTest extends TestCase
                 INSERT INTO test (name) VALUES ('Bob');",
                 "UPDATE test SET name = 'Charlie' WHERE id = 1 RETURNING *;",
                 [
-                    ['id' => 1, 'name' => 'Charlie'],
+                    ['id', 'name'],
+                    ['1', 'Charlie'],
                 ], /* result */
                 QueryExecuteException::class, /* exception */
             ],
@@ -186,7 +188,8 @@ class DbRunnerTest extends TestCase
                 INSERT INTO test VALUES (1, NULL);',
                 'SELECT * FROM test;',
                 [
-                    ['id' => 1, 'name' => null],
+                    ['id', 'name'],
+                    ['1', 'NULL'],
                 ], /* result */
                 null, /* exception */
             ],
@@ -199,7 +202,8 @@ class DbRunnerTest extends TestCase
                 INSERT INTO test VALUES (1, 1.23);',
                 'SELECT * FROM test;',
                 [
-                    ['id' => 1, 'name' => 1.23],
+                    ['id', 'name'],
+                    ['1', '1.23'],
                 ], /* result */
                 null, /* exception */
             ],
@@ -212,7 +216,8 @@ class DbRunnerTest extends TestCase
                 INSERT INTO test VALUES (1, x'68656c6c6f');",
                 'SELECT * FROM test;',
                 [
-                    ['id' => 1, 'name' => 'hello'],
+                    ['id', 'name'],
+                    ['1', 'hello'],
                 ],  /* result */
                 null, /* exception */
             ],
@@ -220,7 +225,8 @@ class DbRunnerTest extends TestCase
                 '',
                 'SELECT 1;',
                 [
-                    ['1' => 1],
+                    ['1'],
+                    ['1'],
                 ], /* result */
                 null, /* exception */
             ],
@@ -260,27 +266,10 @@ group BY
     LEFT(records.ClassNo, 3)
 ',
                 [
-                    [
-                        '班級' => '101',
-                        '事假總計' => 3,
-                        '病假總計' => 5,
-                        '公假總計' => 2,
-                        '曠課總計' => 3,
-                    ],
-                    [
-                        '班級' => '102',
-                        '事假總計' => 4,
-                        '病假總計' => 0,
-                        '公假總計' => 3,
-                        '曠課總計' => 0,
-                    ],
-                    [
-                        '班級' => '103',
-                        '事假總計' => 0,
-                        '病假總計' => 0,
-                        '公假總計' => 3,
-                        '曠課總計' => 1,
-                    ],
+                    ['班級', '事假總計', '病假總計', '公假總計', '曠課總計'],
+                    ['101', '3', '5', '2', '3'],
+                    ['102', '4', '0', '3', '0'],
+                    ['103', '0', '0', '3', '1'],
                 ], /* result */
                 null, /* exception */
             ],
@@ -331,13 +320,12 @@ group BY
             $this->expectNotToPerformAssertions();
         }
 
-        $generator = $dbrunner->runQuery($schema, $query);
-
-        if (null !== $expect) {
-            foreach ($generator as $idx => $actual) {
-                self::assertEquals($expect[$idx], $actual);
-            }
+        $result = $dbrunner->runQuery($schema, $query);
+        if (null === $expect) {
+            return;
         }
+
+        self::assertEquals($expect, $result->getResult());
     }
 
     public function testRunQueryCte(): void
@@ -377,48 +365,64 @@ group BY
     {
         $dbrunner = new DbRunner();
 
-        self::assertEquals([['year("2021-01-01")' => 2021]], $dbrunner->runQuery('', 'SELECT year("2021-01-01")'));
+        $result = $dbrunner->runQuery('', 'SELECT year("2021-01-01")');
+        self::assertEquals([['year("2021-01-01")'], ['2021']], $result->getResult());
     }
 
     public function testRunQueryMonth(): void
     {
         $dbrunner = new DbRunner();
 
-        self::assertEquals([['month("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT month("2021-01-01")'));
+        $result = $dbrunner->runQuery('', 'SELECT month("2021-01-01")');
+        self::assertEquals([['month("2021-01-01")'], ['1']], $result->getResult());
     }
 
     public function testRunQueryDay(): void
     {
         $dbrunner = new DbRunner();
 
-        self::assertEquals([['day("2021-01-01")' => 1]], $dbrunner->runQuery('', 'SELECT day("2021-01-01")'));
+        $result = $dbrunner->runQuery('', 'SELECT day("2021-01-01")');
+        self::assertEquals([['day("2021-01-01")'], ['1']], $result->getResult());
     }
 
     public function testRunQueryIf(): void
     {
         $dbrunner = new DbRunner();
 
-        self::assertEquals([['if(1, 2, 3)' => 2]], $dbrunner->runQuery('', 'SELECT if(1, 2, 3)'));
-        self::assertEquals([['if(0, 2, 3)' => 3]], $dbrunner->runQuery('', 'SELECT if(0, 2, 3)'));
+        $result = $dbrunner->runQuery('', 'SELECT if(1, 2, 3)');
+        self::assertEquals([['if(1, 2, 3)'], ['2']], $result->getResult());
+
+        $result = $dbrunner->runQuery('', 'SELECT if(0, 2, 3)');
+        self::assertEquals([['if(0, 2, 3)'], ['3']], $result->getResult());
     }
 
     public function testRunQueryLeft(): void
     {
         $dbrunner = new DbRunner();
 
-        self::assertEquals([['left("abcdef", 3)' => 'abc']], $dbrunner->runQuery('', 'SELECT left("abcdef", 3)'));
-        self::assertEquals([['left("1234567", 8)' => '1234567']], $dbrunner->runQuery('', 'SELECT left("1234567", 8)'));
-        self::assertEquals([['left("hello", 2)' => 'he']], $dbrunner->runQuery('', 'SELECT left("hello", 2)'));
-        self::assertEquals([['left("hello", 0)' => '']], $dbrunner->runQuery('', 'SELECT left("hello", 0)'));
-        self::assertEquals([['left("hello", 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left("hello", 6)'));
-        self::assertEquals([['left(c, 6)' => 'hello']], $dbrunner->runQuery('', 'SELECT left(c, 6) FROM (SELECT \'hello\' AS c)'));
+        $testcases = [
+            'left("abcdef", 3)' => 'abc',
+            'left("1234567", 8)' => '1234567',
+            'left("hello", 2)' => 'he',
+            'left("hello", 0)' => '',
+            'left("hello", 6)' => 'hello',
+        ];
+
+        foreach ($testcases as $query => $expected) {
+            $result = $dbrunner->runQuery('', 'SELECT '.$query);
+            self::assertEquals([[$query], [$expected]], $result->getResult());
+        }
+
+        $result = $dbrunner->runQuery('', 'SELECT left(c, 6) FROM (SELECT \'hello\' AS c)');
+        self::assertEquals([['left(c, 6)'], ['hello']], $result->getResult());
     }
 
     public function testRunQuerySum(): void
     {
         $dbrunner = new DbRunner();
 
-        self::assertEquals([['sum(n)' => 6]], $dbrunner->runQuery('', 'SELECT sum(n) FROM (SELECT 1 AS n UNION SELECT 2 AS n UNION SELECT 3 AS n)'));
+        $result = $dbrunner->runQuery('', 'SELECT sum(1)');
+        self::assertEquals([['sum(1)'], ['1']], $result->getResult());
     }
 
     public function testSchemaCache(): void

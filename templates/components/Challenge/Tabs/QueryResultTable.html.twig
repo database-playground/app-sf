@@ -9,7 +9,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for column in this.rows %}
+        {% for column in this.paginatedRows %}
             <tr>
                 <th scope="row">{{ this.currentOffset + loop.index }}</th>
                 {% for cell in column %}
@@ -20,5 +20,5 @@
         </tbody>
     </table>
 
-    {{ include('components/Challenge/ResultPresenterModule/Pagination.html.twig') }}
+    {{ include('components/Challenge/Tabs/Pagination.html.twig') }}
 </div>

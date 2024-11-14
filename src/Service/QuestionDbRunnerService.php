@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\ChallengeDto\QueryResultDto;
 use App\Entity\Question;
 use App\Exception\QueryExecuteException;
 use App\Exception\SchemaExecuteException;
@@ -29,13 +30,13 @@ final class QuestionDbRunnerService
      * @param Question $question the question to get the result from
      * @param string   $query    the query to execute
      *
-     * @return array<array<string, mixed>> the result of the query
+     * @return QueryResultDto the result of the query
      *
      * @throws InvalidArgumentException
      * @throws SchemaExecuteException
      * @throws QueryExecuteException
      */
-    protected function getResult(Question $question, string $query): array
+    protected function getResult(Question $question, string $query): QueryResultDto
     {
         $schema = $question->getSchema();
 
@@ -50,14 +51,14 @@ final class QuestionDbRunnerService
      *
      * @param Question $question the question to get the result from
      *
-     * @return array<array<string, mixed>> the result of the query
+     * @return QueryResultDto the result of the query
      *
      * @throws NotFoundHttpException
      * @throws InvalidArgumentException
      * @throws SchemaExecuteException
      * @throws QueryExecuteException
      */
-    public function getAnswerResult(Question $question): array
+    public function getAnswerResult(Question $question): QueryResultDto
     {
         $lock = $this->lockFactory->createLock("question_{$question->getId()}_answer");
 
@@ -77,14 +78,14 @@ final class QuestionDbRunnerService
      * @param Question $question the question to get the result from
      * @param string   $query    the query to execute
      *
-     * @return array<array<string, mixed>> the result of the query
+     * @return QueryResultDto the result of the query
      *
      * @throws NotFoundHttpException
      * @throws InvalidArgumentException
      * @throws SchemaExecuteException
      * @throws QueryExecuteException
      */
-    public function getQueryResult(Question $question, string $query): array
+    public function getQueryResult(Question $question, string $query): QueryResultDto
     {
         return $this->getResult($question, $query);
     }

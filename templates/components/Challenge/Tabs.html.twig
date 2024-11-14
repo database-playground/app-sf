@@ -1,0 +1,24 @@
+<div{{ attributes }}>
+    <ul class="nav nav-underline nav-fill mb-3">
+        {% for tab in tabs %}
+            <li class="nav-item">
+                <button class="nav-link {{ tab == currentTab ? 'active' : '' }}"
+                        aria-current="page"
+                        data-model="currentTab"
+                        data-value="{{ tab }}"
+                        data-action="live#update"
+                >{{ "challenge.tabs.#{tab}"|trans }}</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="p-2" data-skip-morph>
+        {% if currentTab == 'answer' %}
+            <twig:Challenge:Tabs:AnswerQueryResult :question="question" />
+        {% elseif currentTab == 'events' %}
+            <twig:Challenge:Tabs:Events :question="question" :user="user" />
+        {% else %}
+            <twig:Challenge:Tabs:UserQueryResult :question="question" :user="user" loading="defer" />
+        {% endif %}
+    </div>
+</div>

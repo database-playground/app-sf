@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\ChallengeDto\QueryResultDto;
 use App\Exception\QueryExecuteException;
 use App\Exception\ResourceException;
 use App\Exception\SchemaExecuteException;
 use App\Exception\TimedOutException;
 use App\Service\Types\DbRunnerProcessPayload;
-use App\Service\Types\DbRunnerProcessResponse;
 use App\Service\Types\ProcessError;
 use Doctrine\SqlFormatter\SqlFormatter;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -63,14 +63,14 @@ final readonly class DbRunner
      * @param string $schema the schema to create the database
      * @param string $query  the query to run
      *
-     * @return array<array<string, mixed>> the result of the query
+     * @return QueryResultDto the result of the query
      *
      * @throws SchemaExecuteException if the schema could not be executed
      * @throws QueryExecuteException  if the query could not be executed
      * @throws ResourceException      if the resource is exhausted (exit code = 255)
      * @throws \Throwable             if the unexpected error is received
      */
-    public function runQuery(string $schema, string $query): array
+    public function runQuery(string $schema, string $query): QueryResultDto
     {
         // Use a process to prevent the SQLite3 extension from crashing the PHP process.
         // For example, CTE queries and randomblob can crash the PHP process.
@@ -90,15 +90,15 @@ final readonly class DbRunner
             $output = $process->getOutput();
             $outputDeserialized = unserialize($output, [
                 'allowed_classes' => [
-                    DbRunnerProcessResponse::class,
+                    QueryResultDto::class,
                 ],
             ]);
 
-            if (!$outputDeserialized instanceof DbRunnerProcessResponse) {
+            if (!$outputDeserialized instanceof QueryResultDto) {
                 throw new \RuntimeException("unexpected output: $output");
             }
 
-            return $outputDeserialized->getResult();
+            return $outputDeserialized;
         } catch (ProcessFailedException) {
             $exitCode = $process->getExitCode();
 

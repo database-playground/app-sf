@@ -1,0 +1,11 @@
+<div {{ attributes }}>
+    {% set answer = this.answer %}
+
+    {% if answer.errorMessage %}
+        <div class="alert alert-danger" role="alert">
+            {{ answer.errorMessage|trans }}
+        </div>
+    {% endif %}
+
+    <twig:Challenge:Tabs:QueryResultTable :result="answer.result" />
+</div>

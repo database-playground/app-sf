@@ -146,3 +146,22 @@ notification:
       閱讀意見回饋 → %link%
 
     anonymous: <匿名>
+
+challenge:
+  tabs:
+    result: 執行結果
+    answer: 正確答案
+    diff: 答案比較
+    events: 查詢記錄
+  compare-result:
+    same: 答案完全相同。
+    empty-answer: 正確答案沒有欄位，通常代表出題者寫出的查詢語句有誤，請回報給我們。
+    empty-result: 你的答案沒有任何欄位，通常代表查詢語句有誤。
+    column-different: 欄位名稱有差異，請對照正確答案修改。
+    row-different: 您回答的第 %row% 列與正確答案不同。
+    row-unmatched: 回傳列數和正確答案不一致（正確答案有 %expected% 列，你回答了 %actual% 列）。
+  errors:
+    no-query-yet: 寫完查詢後按下「提交」來查看執行結果。
+    answer-query-failure: 正確答案也是個錯誤的 SQL 查詢：%error%
+    user-query-error: 你的 SQL 查詢執行失敗：%error%
+    user-query-failure: 你的 SQL 查詢不正確：%error%

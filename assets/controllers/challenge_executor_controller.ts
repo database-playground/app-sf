@@ -53,7 +53,7 @@ export default class extends Controller<HTMLElement> {
       const query = editorView.state.doc.toString();
 
       console.debug("Executing query", { query });
-      await component.action("execute", {
+      await component.action("createNewQuery", {
         query,
       });
 

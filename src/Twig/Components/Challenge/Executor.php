@@ -9,10 +9,9 @@ use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\SolutionEventRepository;
+use App\Service\DbRunnerComparer;
 use App\Service\QuestionDbRunnerService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -41,17 +40,14 @@ final class Executor
 
     public function getPreviousQuery(): string
     {
-        $se = $this->solutionEventRepository->findOneBy([
-            'question' => $this->question,
-            'submitter' => $this->user,
-        ], orderBy: ['id' => 'DESC']);
+        $latestQuery = $this->solutionEventRepository
+            ->getLatestQuery($this->question, $this->user);
 
-        return $se?->getQuery() ?? '';
+        return $latestQuery?->getQuery() ?? '';
     }
 
     #[LiveAction]
-    public function execute(
-        SerializerInterface $serializer,
+    public function createNewQuery(
         #[LiveArg] string $query,
     ): void {
         if ('' === $query) {
@@ -64,40 +60,24 @@ final class Executor
             ->setQuery($query);
 
         try {
+            $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
             $result = $this->questionDbRunnerService->getQueryResult($this->question, $query);
 
-            $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
-            $same = $result === $answer;
-
-            $solutionEvent = $solutionEvent->setStatus($same ? SolutionEventStatus::Passed : SolutionEventStatus::Failed);
-
-            $payload = Payload::fromResult($result, same: $same);
-        } catch (HttpException $e) {
-            $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
-
-            $payload = Payload::fromErrorWithCode($e->getStatusCode(), $e->getMessage());
-        } catch (\Throwable $e) {
-            $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
-
-            $payload = Payload::fromErrorWithCode(500, $e->getMessage());
-        }
-
-        try {
-            $serializedPayload = $serializer->serialize($payload, 'json');
-        } catch (\Throwable $e) {
-            $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
-
-            $serializedPayload = $serializer->serialize(
-                Payload::fromErrorWithCode(500, $e->getMessage()),
-                'json'
+            $compareResult = DbRunnerComparer::compare($answer, $result);
+            $solutionEvent = $solutionEvent->setStatus(
+                $compareResult->correct()
+                    ? SolutionEventStatus::Passed
+                    : SolutionEventStatus::Failed
             );
+        } catch (\Throwable) {
+            $solutionEvent = $solutionEvent->setStatus(SolutionEventStatus::Failed);
         }
-
-        $this->emitUp('app:challenge-payload', [
-            'payload' => $serializedPayload,
-        ]);
 
         $this->entityManager->persist($solutionEvent);
         $this->entityManager->flush();
+
+        $this->emit('app:challenge-executor:query-created', [
+            'query' => $query,
+        ]);
     }
 }

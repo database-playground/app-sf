@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Twig\Components\Challenge\CommentModule;
+namespace App\Twig\Components\Challenge\Comments;
 
 use App\Entity\Comment as CommentEntity;
 use App\Entity\User as UserEntity;

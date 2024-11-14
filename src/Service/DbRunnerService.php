@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\ChallengeDto\QueryResultDto;
 use App\Exception\QueryExecuteException;
 use App\Exception\SchemaExecuteException;
 use Psr\Cache\InvalidArgumentException;
@@ -21,13 +22,11 @@ readonly class DbRunnerService
     /**
      * Run a query on the SQLite3 database, cached.
      *
-     * @return array<array<string, mixed>>
-     *
      * @throws InvalidArgumentException
      * @throws SchemaExecuteException
      * @throws QueryExecuteException
      */
-    public function runQuery(string $schema, string $query): array
+    public function runQuery(string $schema, string $query): QueryResultDto
     {
         $schemaHash = $this->dbRunner->hashStatement($schema);
         $queryHash = $this->dbRunner->hashStatement($query);

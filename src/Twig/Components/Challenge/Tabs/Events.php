@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Twig\Components\Challenge\ResultPresenterModule;
+namespace App\Twig\Components\Challenge\Tabs;
 
 use App\Entity\Question;
 use App\Entity\SolutionEvent;
@@ -13,12 +13,12 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-final class EventPresenter
+final class Events
 {
     use DefaultActionTrait;
     use Pagination;
 
-    #[LiveProp(updateFromParent: true)]
+    #[LiveProp]
     public Question $question;
 
     #[LiveProp]

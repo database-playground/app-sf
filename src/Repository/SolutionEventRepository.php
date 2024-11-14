@@ -219,4 +219,20 @@ class SolutionEventRepository extends ServiceEntityRepository
 
         return $result;
     }
+
+    /**
+     * Get the latest query of a user for a question.
+     *
+     * @param Question $question  The question to query
+     * @param User     $submitter The user to query
+     *
+     * @return SolutionEvent|null The latest query of the user for the question
+     */
+    public function getLatestQuery(Question $question, User $submitter): ?SolutionEvent
+    {
+        return $this->findOneBy([
+            'question' => $question,
+            'submitter' => $submitter,
+        ], orderBy: ['id' => 'DESC']);
+    }
 }

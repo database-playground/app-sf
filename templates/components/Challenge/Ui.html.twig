@@ -30,15 +30,15 @@
             </div>
 
             <div class="app-challenge-primary__right col-12 col-md-6">
-                <twig:Challenge:Instruction:Content :hint="hint" class="mb-2" />
-                <twig:Challenge:ResultPresenter :userResult="result" :question="question" :user="user" />
+                <twig:Challenge:Instruction:Content class="mb-2" />
+                <twig:Challenge:Tabs :question="question" :user="user" />
             </div>
         </section>
 
         {% if appfeatures.comment %}
             <section class="app-challenge-primary__comments mt-4" id="comments">
                 <h3 class="mb-3">留言區</h3>
-                <twig:Challenge:Comment :question="question" :currentUser="user" loading="lazy" />
+                <twig:Challenge:Comments :question="question" :currentUser="user" loading="lazy" />
             </section>
         {% endif %}
     </main>

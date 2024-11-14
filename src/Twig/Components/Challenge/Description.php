@@ -27,13 +27,13 @@ final class Description
     {
         try {
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
+            $answerResult = $answer->getResult();
 
-            // check if we have at least one row
-            if (0 === \count($answer)) {
+            if (0 === \count($answerResult)) {
                 return [];
             }
 
-            return array_keys($answer[0]);
+            return $answer->getResult()[0];
         } catch (\Throwable $e) {
             return ["⚠️ Invalid Question: {$e->getMessage()}"];
         }
