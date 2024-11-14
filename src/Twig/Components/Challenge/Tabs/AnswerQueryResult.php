@@ -7,26 +7,21 @@ namespace App\Twig\Components\Challenge\Tabs;
 use App\Entity\ChallengeDto\FallableQueryResultDto;
 use App\Entity\Question;
 use App\Service\QuestionDbRunnerService;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
-use Symfony\UX\LiveComponent\Attribute\LiveProp;
-use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 use function Symfony\Component\Translation\t;
 
-#[AsLiveComponent]
+#[AsTwigComponent]
 final class AnswerQueryResult
 {
-    use DefaultActionTrait;
-
     public function __construct(
         private readonly QuestionDbRunnerService $questionDbRunnerService,
     ) {
     }
 
     /**
-     * @var Question $question the question to present the answer
+     * @var Question the question to present the answer
      */
-    #[LiveProp]
     public Question $question;
 
     public function getAnswer(): FallableQueryResultDto
