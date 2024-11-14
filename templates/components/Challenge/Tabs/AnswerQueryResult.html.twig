@@ -7,5 +7,7 @@
         </div>
     {% endif %}
 
-    <twig:Challenge:Tabs:QueryResultTable :result="answer.result" />
+    {% if answer.result %}
+        <twig:Challenge:Tabs:QueryResultTable :result="answer.result" />
+    {% endif %}
 </div>
