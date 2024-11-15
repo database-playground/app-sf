@@ -413,3 +413,21 @@ ul.credit {
     grid-area: leaderboard;
   }
 }
+
+// The placeholder that shows only after 100ms
+// to prevent the flickering.
+.app-placeholder {
+  animation: fade-in 200ms;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
