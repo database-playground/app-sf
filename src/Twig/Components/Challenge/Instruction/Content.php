@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge\Instruction;
 
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
@@ -17,12 +16,15 @@ final class Content
     use DefaultActionTrait;
 
     #[LiveProp(writable: true)]
-    public ?HintPayload $hint = null;
+    public ?string $type = null;
+
+    #[LiveProp(writable: true)]
+    public ?string $hint = null;
 
     #[LiveListener('app:challenge-hint')]
-    public function onHintReceived(SerializerInterface $serializer, #[LiveArg] string $hint): void
+    public function onHintReceived(#[LiveArg] string $type, #[LiveArg] string $hint): void
     {
-        $deserializedHint = $serializer->deserialize($hint, HintPayload::class, 'json');
-        $this->hint = $deserializedHint;
+        $this->type = $type;
+        $this->hint = $hint;
     }
 }

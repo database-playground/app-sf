@@ -1,13 +1,18 @@
 <div{{ attributes }}>
-    {% if hint and hint.error %}
-        <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">無法取得提示</h4>
-            <p>{{ hint.error }}</p>
-        </div>
-    {% elseif hint and hint.hint %}
-        <div class="alert alert-info" role="alert">
-            <h4 class="alert-heading">提示</h4>
-            <p>{{ hint.hint|markdown_to_html }}</p>
-        </div>
+    {% if hint %}
+        {% if type == 'informative' %}
+            <div class="alert alert-warning" role="alert">
+                {{ hint }}
+            </div>
+        {% elseif type == 'hint' %}
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">提示</h4>
+                <p>{{ hint|markdown_to_html }}</p>
+            </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                <p>發現一個未知類型的提示（{{ type }}：{{ hint }}）</p>
+            </div>
+        {% endif %}
     {% endif %}
 </div>

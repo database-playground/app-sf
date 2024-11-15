@@ -6,15 +6,17 @@ namespace App\Twig\Components\Challenge\Instruction;
 
 use App\Entity\HintOpenEvent;
 use App\Entity\Question;
+use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\SolutionEventRepository;
+use App\Service\DbRunnerComparer;
 use App\Service\DbRunnerService;
 use App\Service\PointCalculationService;
 use App\Service\PromptService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -22,11 +24,18 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
+use function Symfony\Component\Translation\t;
+
 #[AsLiveComponent]
 final class Modal
 {
     use ComponentToolsTrait;
     use DefaultActionTrait;
+
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+    ) {
+    }
 
     #[LiveProp]
     public User $currentUser;
@@ -50,7 +59,6 @@ final class Modal
         DbRunnerService $dbRunnerService,
         PromptService $promptService,
         TranslatorInterface $translator,
-        SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         ParameterBagInterface $parameterBag,
     ): void {
@@ -63,49 +71,77 @@ final class Modal
 
         $query = $solutionEventRepository->getLatestQuery($this->question, $this->currentUser);
         if (null === $query) {
+            $this->flushHint('informative', t('instruction.hint.not_submitted'));
+
+            return;
+        }
+        if (SolutionEventStatus::Passed === $query->getStatus()) {
+            $this->flushHint('informative', t('instruction.hint.solved'));
+
             return;
         }
 
-        $schema = $this->question->getSchema()->getSchema();
-        $answer = $this->question->getAnswer();
+        $schema = $query->getQuestion()->getSchema();
+
+        try {
+            $answer = $query->getQuestion()->getAnswer();
+            $answerResult = $dbRunnerService->runQuery($schema->getSchema(), $answer);
+        } catch (\Throwable $e) {
+            $this->flushHint('informative', t('instruction.hint.error', [
+                '%error%' => $e->getMessage(),
+            ]));
+
+            return;
+        }
 
         $hintOpenEvent = (new HintOpenEvent())
             ->setOpener($this->currentUser)
             ->setQuestion($this->question)
             ->setQuery($query->getQuery());
 
-        // run answer. if it failed, we should consider it an error
         try {
-            $answerResult = $dbRunnerService->runQuery($schema, $answer);
-        } catch (\Throwable $e) {
-            $this->emit('app:challenge-hint', [
-                'hint' => $serializer->serialize(HintPayload::fromError($e->getMessage()), 'json'),
-            ]);
+            try {
+                $userResult = $dbRunnerService->runQuery($schema->getSchema(), $query->getQuery());
+            } catch (\Throwable $e) {
+                $hint = $promptService->hint($query->getQuery(), $e->getMessage(), $answer);
+                $hintOpenEvent->setResponse($hint);
 
-            return;
+                $this->flushHint('hint', $hint);
+
+                return;
+            }
+
+            $compareResult = DbRunnerComparer::compare($answerResult, $userResult);
+            if ($compareResult->correct()) {
+                $this->flushHint('informative', t('instruction.hint.solved'));
+
+                return;
+            }
+
+            $compareReason = $compareResult->reason()->trans($translator, 'en_US');
+            $hint = $promptService->hint($query->getQuery(), "Different result: {$compareReason}", $answer);
+            $hintOpenEvent->setResponse($hint);
+
+            $this->flushHint('hint', $hint);
+        } finally {
+            $entityManager->persist($hintOpenEvent);
+            $entityManager->flush();
         }
+    }
 
-        try {
-            // run query to get the error message (or compare the result)
-            $result = $dbRunnerService->runQuery($schema, $query->getQuery());
-        } catch (\Throwable $e) {
-            $hint = $promptService->hint($query->getQuery(), $e->getMessage(), $answer);
-        }
-
-        if (isset($result) && $result !== $answerResult) {
-            $hint = $promptService->hint($query->getQuery(), 'Different output', $answer);
-        }
-
-        if (!isset($hint)) {
-            $hint = $translator->trans('instruction.hint.no_hint');
-        }
-
+    /**
+     * Flush the hint to the client.
+     *
+     * @param string                     $type the type of the hint (informative or hint)
+     * @param string|TranslatableMessage $hint the hint to flush
+     */
+    private function flushHint(string $type, string|TranslatableMessage $hint): void
+    {
         $this->emit('app:challenge-hint', [
-            'hint' => $serializer->serialize(HintPayload::fromHint($hint), 'json'),
+            'type' => $type,
+            'hint' => $hint instanceof TranslatableMessage
+                ? $hint->trans($this->translator)
+                : $hint,
         ]);
-
-        $hintOpenEvent = $hintOpenEvent->setResponse($hint);
-        $entityManager->persist($hintOpenEvent);
-        $entityManager->flush();
     }
 }

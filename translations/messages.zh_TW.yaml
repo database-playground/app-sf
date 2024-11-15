@@ -98,7 +98,9 @@ charts:
 
 instruction:
   hint:
-    no_hint: 沒有提示。
+    not_submitted: 提交答案之後才能請 GPT 提示。
+    solved: 正確答案不需要提示。
+    error: 無法取得正確答案：%error%
 
 feedback:
   type:

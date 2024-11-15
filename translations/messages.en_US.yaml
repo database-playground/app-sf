@@ -1,0 +1,8 @@
+challenge:
+  compare-result:
+    same: The answers are completely identical.
+    empty-answer: The correct answer has no fields, which usually indicates that the query statement written by the questioner is incorrect. Please report this to us.
+    empty-result: Your answer has no fields, which usually indicates that the query statement is incorrect.
+    column-different: The column names differ; please compare and modify according to the correct answer.
+    row-different: The %row% row you answered is different from the correct answer.
+    row-unmatched: The number of returned rows does not match the correct answer (the correct answer has %expected% rows, while you answered %actual% rows).
