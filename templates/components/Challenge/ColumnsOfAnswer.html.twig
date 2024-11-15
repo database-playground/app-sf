@@ -1,5 +1,11 @@
 <p {{ attributes }}>
-    <strong>輸出格式：</strong>欄位順序分別為：<code>{{
+    <strong>輸出格式：</strong>欄位順序分別為 <code>{{
         this.columnsOfAnswer|joinToQuoted('、')
         }}</code>。
 </p>
+
+{% macro placeholder(props) %}
+    <p>
+        <strong>輸出格式：</strong>欄位順序分別為
+    </p>
+{% endmacro %}

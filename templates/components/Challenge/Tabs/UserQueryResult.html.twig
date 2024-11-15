@@ -16,6 +16,13 @@
     {% endif %}
 
     {% if result is not null and result.result %}
-        <twig:Challenge:Tabs:QueryResultTable :result="result.result" />
+        <twig:Challenge:Tabs:QueryResultTable :result="result.result"/>
     {% endif %}
 </div>
+
+{% macro placeholder(props) %}
+    <div class="alert alert-info d-flex gap-3 align-items-center">
+        <div class="spinner-grow" role="status" aria-hidden="true"></div>
+        <div>正在取回答案⋯⋯</div>
+    </div>
+{% endmacro %}
