@@ -50,7 +50,7 @@ return [
         'version' => '6.8.0',
     ],
     '@codemirror/view' => [
-        'version' => '6.34.2',
+        'version' => '6.34.3',
     ],
     '@codemirror/state' => [
         'version' => '6.4.1',
