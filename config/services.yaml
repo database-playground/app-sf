@@ -8,9 +8,9 @@ parameters:
   app.redis_uri: "%env(REDIS_URI)%"
   app.openai_api_key: "%env(OPENAI_API_KEY)%"
 
-  app.features.hint: true
-  app.features.editable-profile: true
-  app.features.comment: true
+  app.features.hint: false
+  app.features.editable-profile: false
+  app.features.comment: false
 
 services:
   # default configuration for services in *this* file
