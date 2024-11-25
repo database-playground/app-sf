@@ -49,7 +49,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('User management');
         yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);
-        yield MenuItem::linkToCrud('Group', 'fa fa-group', Group::class);
+        yield MenuItem::linkToCrud('Group', 'fa fa-users', Group::class);
 
         yield MenuItem::section('Question management');
         yield MenuItem::linkToCrud('Schema', 'fa fa-database', Schema::class);
@@ -63,7 +63,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('SolutionEvent', 'fa fa-check', SolutionEvent::class);
         yield MenuItem::linkToCrud('SolutionVideoEvent', 'fa fa-video', SolutionVideoEvent::class);
         yield MenuItem::linkToCrud('HintOpenEvent', 'fa fa-lightbulb', HintOpenEvent::class);
-        yield MenuItem::linkToCrud('LoginEvent', 'fa fa-sign-in', LoginEvent::class);
+        yield MenuItem::linkToCrud('LoginEvent', 'fa fa-right-to-bracket', LoginEvent::class);
 
         yield MenuItem::section('Feedback');
         yield MenuItem::linkToCrud('Feedback', 'fa fa-comments', Feedback::class);
