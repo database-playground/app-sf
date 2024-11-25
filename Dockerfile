@@ -89,9 +89,11 @@ RUN set -eux; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync;
 
-# build sass and asset maps
+# build route cache, sass and asset maps
 RUN set -eux; \
     chmod +x bin/console; sync; \
+    ./bin/console cache:clear; \
+    ./bin/console cache:warmup; \
     ./bin/console sass:build; \
     ./bin/console typescript:build; \
     ./bin/console asset-map:compile;
