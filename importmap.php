@@ -50,25 +50,25 @@ return [
         'version' => '6.8.0',
     ],
     '@codemirror/view' => [
-        'version' => '6.34.3',
+        'version' => '6.35.0',
     ],
     '@codemirror/state' => [
         'version' => '6.4.1',
     ],
     '@codemirror/language' => [
-        'version' => '6.10.3',
+        'version' => '6.10.4',
     ],
     '@codemirror/commands' => [
         'version' => '6.7.1',
     ],
     '@codemirror/search' => [
-        'version' => '6.5.7',
+        'version' => '6.5.8',
     ],
     '@codemirror/autocomplete' => [
         'version' => '6.18.3',
     ],
     '@codemirror/lint' => [
-        'version' => '6.8.2',
+        'version' => '6.8.3',
     ],
     '@lezer/highlight' => [
         'version' => '1.2.1',
@@ -89,6 +89,6 @@ return [
         'version' => '1.0.6',
     ],
     '@kurkle/color' => [
-        'version' => '0.3.2',
+        'version' => '0.3.4',
     ],
 ];
