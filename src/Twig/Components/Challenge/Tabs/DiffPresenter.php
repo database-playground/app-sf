@@ -105,8 +105,8 @@ final class DiffPresenter
 
         $diff = new Diff(explode("\n", $leftQueryResult), explode("\n", $rightQueryResult));
         $renderer = new SideBySide([
-            'title1' => $this->translator->trans('diff.answer'),
-            'title2' => $this->translator->trans('diff.yours'),
+            'title1' => $this->translator->trans('diff.yours'),
+            'title2' => $this->translator->trans('diff.answer'),
         ]);
 
         $result = $diff->render($renderer);
