@@ -12,7 +12,7 @@
   # https://devenv.sh/languages/
   languages.php.enable = true;
   languages.php.version = "8.3";
-  languages.php.extensions = [ "apcu" "intl" "opcache" "zip" "redis" "pdo_pgsql" "sysvsem" "xdebug" ];
+  languages.php.extensions = [ "apcu" "curl" "intl" "opcache" "zip" "redis" "pdo_pgsql" "sysvsem" "xdebug" ];
   languages.php.disableExtensions = [ "soap" ];
   languages.php.ini = builtins.readFile ./frankenphp/conf.d/10-app.ini;
 
