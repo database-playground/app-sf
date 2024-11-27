@@ -1,12 +1,13 @@
 import { Controller } from "@hotwired/stimulus";
-import * as bootstrap from "bootstrap";
+import type * as bootstrap from "bootstrap";
 
 export default class extends Controller<HTMLElement> {
   #modal: bootstrap.Modal | undefined;
   #videoUrl: string | undefined;
 
-  connect(): void {
-    this.#modal = new bootstrap.Modal(this.element);
+  async connect() {
+    const bs = await import("bootstrap");
+    this.#modal = new bs.Modal(this.element);
     this.#videoUrl = this.element.dataset.videoUrl;
   }
 

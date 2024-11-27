@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import { Component, getComponent } from "@symfony/ux-live-component";
-import * as bootstrap from "bootstrap";
+import type * as bootstrap from "bootstrap";
 
 export default class extends Controller<HTMLElement> {
   #component: Component | undefined;
@@ -24,7 +24,8 @@ export default class extends Controller<HTMLElement> {
 
     const $confirmModal = this.element.querySelector<HTMLElement>(".app-challenge-comment__deletion_confirm");
     if ($confirmModal) {
-      this.#modal = new bootstrap.Modal($confirmModal);
+      const bs = await import("bootstrap");
+      this.#modal = new bs.Modal($confirmModal);
     }
   }
 

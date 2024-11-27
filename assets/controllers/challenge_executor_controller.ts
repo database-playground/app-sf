@@ -1,7 +1,7 @@
 import { sql } from "@codemirror/lang-sql";
 import { Controller } from "@hotwired/stimulus";
 import { getComponent } from "@symfony/ux-live-component";
-import { basicSetup, EditorView } from "codemirror";
+import type { EditorView } from "codemirror";
 
 export default class extends Controller<HTMLElement> {
   static values = {
@@ -15,6 +15,8 @@ export default class extends Controller<HTMLElement> {
   #editorView: EditorView | undefined;
 
   async connect() {
+    const { basicSetup, EditorView } = await import("codemirror");
+
     const component = await getComponent(this.element);
     let lastQuery = this.element.dataset["lastQuery"];
 

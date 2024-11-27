@@ -1,29 +1,6 @@
 @use "sass:list";
 @use "sass:map";
-@import "../../vendor/twbs/bootstrap/scss/functions";
-
-// Variables
-$prefix: bs-;
-$spacer: 0.8rem;
-$primary: #4154f1;
-$navbar-padding-x: 2rem;
-$navbar-padding-y: $spacer * 0.85;
-$input-btn-border-width: var(--#{$prefix}border-width);
-$input-border-width: $input-btn-border-width;
-$input-height-border: calc(#{$input-border-width} * 2);
-$form-floating-height: add(3.5rem * 0.8, $input-height-border);
-$form-floating-padding-y: 0.65rem;
-
-$timeline-color: #808080;
-$timeline-width: 2px;
-
-@import "../../vendor/twbs/bootstrap/scss/bootstrap-reboot";
-$font-family-sans-serif: list.join(
-  ("LXGW WenKai TC", cursive),
-  $font-family-sans-serif
-);
-
-@import "../../vendor/twbs/bootstrap/scss/bootstrap";
+@import "./bootstrap";
 
 // global
 html {
