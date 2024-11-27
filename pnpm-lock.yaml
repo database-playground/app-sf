@@ -69,9 +69,9 @@ packages:
       integrity: sha512-aGLmY4OwGqN3TdSx3h6QeA1NrvaYtF7kkoWR/+W7/JzB0gQtJ+VJxewlnE3+VImhA4WVlhmkJr109PefOOhjLg==,
     }
 
-  "@codemirror/language@6.10.4":
+  "@codemirror/language@6.10.5":
     resolution: {
-      integrity: sha512-qjt7Wn/nxGuI278GYVlqE5V93Xn8ZQwzqZtgS0FaWr7K2yWgd5/FlBNqNi4jtUvBVvWJzAGfnggIlpyjTOaF4A==,
+      integrity: sha512-sECWJyNmwqw6mSO6Qf0IVPHwhEnuYbqHBZaaIbdcXtZ6Y2r5vU/dxgC7K1ppWaJFy8XGtTBC0Pd60qI7NfJreQ==,
     }
 
   "@codemirror/lint@6.8.3":
@@ -1001,24 +1001,24 @@ packages:
     engines: { node: ">=10" }
 
 snapshots:
-  "@codemirror/autocomplete@6.18.3(@codemirror/language@6.10.4)(@codemirror/state@6.4.1)(@codemirror/view@6.35.0)(@lezer/common@1.2.3)":
+  "@codemirror/autocomplete@6.18.3(@codemirror/language@6.10.5)(@codemirror/state@6.4.1)(@codemirror/view@6.35.0)(@lezer/common@1.2.3)":
     dependencies:
-      "@codemirror/language": 6.10.4
+      "@codemirror/language": 6.10.5
       "@codemirror/state": 6.4.1
       "@codemirror/view": 6.35.0
       "@lezer/common": 1.2.3
 
   "@codemirror/commands@6.7.1":
     dependencies:
-      "@codemirror/language": 6.10.4
+      "@codemirror/language": 6.10.5
       "@codemirror/state": 6.4.1
       "@codemirror/view": 6.35.0
       "@lezer/common": 1.2.3
 
   "@codemirror/lang-sql@6.8.0(@codemirror/view@6.35.0)":
     dependencies:
-      "@codemirror/autocomplete": 6.18.3(@codemirror/language@6.10.4)(@codemirror/state@6.4.1)(@codemirror/view@6.35.0)(@lezer/common@1.2.3)
-      "@codemirror/language": 6.10.4
+      "@codemirror/autocomplete": 6.18.3(@codemirror/language@6.10.5)(@codemirror/state@6.4.1)(@codemirror/view@6.35.0)(@lezer/common@1.2.3)
+      "@codemirror/language": 6.10.5
       "@codemirror/state": 6.4.1
       "@lezer/common": 1.2.3
       "@lezer/highlight": 1.2.1
@@ -1026,7 +1026,7 @@ snapshots:
     transitivePeerDependencies:
       - "@codemirror/view"
 
-  "@codemirror/language@6.10.4":
+  "@codemirror/language@6.10.5":
     dependencies:
       "@codemirror/state": 6.4.1
       "@codemirror/view": 6.35.0
@@ -1315,9 +1315,9 @@ snapshots:
 
   codemirror@6.0.1(@lezer/common@1.2.3):
     dependencies:
-      "@codemirror/autocomplete": 6.18.3(@codemirror/language@6.10.4)(@codemirror/state@6.4.1)(@codemirror/view@6.35.0)(@lezer/common@1.2.3)
+      "@codemirror/autocomplete": 6.18.3(@codemirror/language@6.10.5)(@codemirror/state@6.4.1)(@codemirror/view@6.35.0)(@lezer/common@1.2.3)
       "@codemirror/commands": 6.7.1
-      "@codemirror/language": 6.10.4
+      "@codemirror/language": 6.10.5
       "@codemirror/lint": 6.8.3
       "@codemirror/search": 6.5.8
       "@codemirror/state": 6.4.1

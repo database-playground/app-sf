@@ -56,7 +56,7 @@ return [
         'version' => '6.4.1',
     ],
     '@codemirror/language' => [
-        'version' => '6.10.4',
+        'version' => '6.10.5',
     ],
     '@codemirror/commands' => [
         'version' => '6.7.1',
