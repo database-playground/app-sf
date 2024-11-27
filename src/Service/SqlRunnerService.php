@@ -10,8 +10,6 @@ use App\Entity\SqlRunnerDto\SqlRunnerResult;
 use App\Exception\SqlRunner\QueryExecuteException;
 use App\Exception\SqlRunner\RunnerException;
 use App\Exception\SqlRunner\SchemaExecuteException;
-use App\Exception\SqlRunner\StructureMismatchException;
-use App\Exception\SqlRunner\UnavailableException;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -41,11 +39,9 @@ final readonly class SqlRunnerService
      *
      * @returns SqlRunnerResult The result of the query
      *
-     * @throws UnavailableException       When the SQL runner is unavailable (cannot request)
-     * @throws StructureMismatchException When the response structure does not match the expected structure
-     * @throws QueryExecuteException      When the query execution fails
-     * @throws SchemaExecuteException     When the schema execution fails
-     * @throws RunnerException            When the runner fails (internal error?)
+     * @throws QueryExecuteException  When the query execution fails
+     * @throws SchemaExecuteException When the schema execution fails
+     * @throws RunnerException        When the runner fails (internal error or client error)
      */
     public function runQuery(SqlRunnerRequest $request): SqlRunnerResult
     {
@@ -53,14 +49,14 @@ final readonly class SqlRunnerService
 
         try {
             $response = $this->httpClient->request('POST', $endpoint, [
-                'json' => $request,
+                'json' => (array) $request,
                 'headers' => [
                     'User-Agent' => 'dbrunner/v1',
                 ],
             ]);
-            $content = $response->getContent();
+            $content = $response->getContent(false);
         } catch (\Throwable $e) {
-            throw new UnavailableException($e);
+            throw new RunnerException('CLIENT_ERROR', $e->getMessage(), previous: $e);
         }
 
         try {
@@ -71,7 +67,7 @@ final readonly class SqlRunnerService
                 $this->context,
             );
         } catch (\Throwable $e) {
-            throw new StructureMismatchException($e);
+            throw new RunnerException('PROTOCOL_ERROR', $e->getMessage(), $e);
         }
 
         if (!$response->isSuccess()) {
@@ -83,8 +79,6 @@ final readonly class SqlRunnerService
                     throw new QueryExecuteException($response->getMessage());
                 case 'SCHEMA_ERROR':
                     throw new SchemaExecuteException($response->getMessage());
-                case 'BAD_PAYLOAD':
-                    throw new StructureMismatchException(new RunnerException($response->getCode(), $response->getMessage()));
                 default:
                     throw new RunnerException($response->getCode(), $response->getMessage());
             }

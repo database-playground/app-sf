@@ -4,38 +4,22 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge\Tabs;
 
-use App\Entity\ChallengeDto\QueryResultDto;
+use App\Entity\SqlRunnerDto\SqlRunnerResult;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-final class QueryResultTable
+final class SqlRunnerResultTable
 {
     use DefaultActionTrait;
     use Pagination;
 
     /**
-     * @var QueryResultDto the result of this query
+     * @var SqlRunnerResult the result of this query
      */
     #[LiveProp(updateFromParent: true)]
-    public QueryResultDto $result;
-
-    /**
-     * @return array<string> the header
-     */
-    public function getHeader(): array
-    {
-        return $this->result->getResult()[0];
-    }
-
-    /**
-     * @return array<array<string>> the rows
-     */
-    public function getRows(): array
-    {
-        return \array_slice($this->result->getResult(), 1);
-    }
+    public SqlRunnerResult $result;
 
     /**
      * Get the paginated rows and another row to determine if there are more pages.
@@ -44,7 +28,7 @@ final class QueryResultTable
      */
     protected function getData(): array
     {
-        return \array_slice($this->getRows(), ($this->page - 1) * self::limit, self::limit + 1);
+        return \array_slice($this->result->getRows(), ($this->page - 1) * self::limit, self::limit + 1);
     }
 
     /**

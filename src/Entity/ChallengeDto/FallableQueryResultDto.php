@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\ChallengeDto;
 
+use App\Entity\SqlRunnerDto\SqlRunnerResult;
 use Symfony\Component\Translation\TranslatableMessage;
 
 /**
@@ -13,15 +14,15 @@ use Symfony\Component\Translation\TranslatableMessage;
  */
 class FallableQueryResultDto
 {
-    public ?QueryResultDto $result = null;
+    public ?SqlRunnerResult $result = null;
     public ?TranslatableMessage $errorMessage = null;
 
-    public function getResult(): ?QueryResultDto
+    public function getResult(): ?SqlRunnerResult
     {
         return $this->result;
     }
 
-    public function setResult(?QueryResultDto $result): self
+    public function setResult(?SqlRunnerResult $result): self
     {
         $this->result = $result;
 

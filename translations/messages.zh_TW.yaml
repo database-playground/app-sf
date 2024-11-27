@@ -161,6 +161,10 @@ challenge:
     row-unmatched: 回傳列數和正確答案不一致（正確答案有 %expected% 列，你回答了 %actual% 列）。
   errors:
     no-query-yet: 寫完查詢後按下「提交」來查看執行結果。
+    unavailable: |
+      SQL Runner 服務發生故障，請稍後再試。
+      錯誤：%error%
+    schema-error: Schema 有問題，請回報給我們：%error%
     answer-query-failure: 正確答案也是個錯誤的 SQL 查詢：%error%
     user-query-error: 你的 SQL 查詢執行失敗：%error%
     user-query-failure: 你的 SQL 查詢不正確：%error%

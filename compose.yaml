@@ -44,7 +44,7 @@ services:
       retries: 3
       timeout: 5s
   sqlrunner:
-    image: ghcr.io/database-playground/sqlrunner-v2
+    image: ghcr.io/database-playground/sqlrunner-v2:main
   php:
     image: ${IMAGES_PREFIX:-}app-php
     restart: unless-stopped

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Twig\Components\Challenge;
 
 use App\Entity\Question;
-use App\Service\QuestionDbRunnerService;
+use App\Service\QuestionSqlRunnerService;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -16,7 +16,7 @@ final class ColumnsOfAnswer
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly QuestionDbRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionDbRunnerService,
     ) {
     }
 
@@ -32,13 +32,8 @@ final class ColumnsOfAnswer
     {
         try {
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
-            $answerResult = $answer->getResult();
 
-            if (0 === \count($answerResult)) {
-                return [];
-            }
-
-            return $answer->getResult()[0];
+            return $answer->getColumns();
         } catch (\Throwable $e) {
             return ["⚠️ Invalid Question: {$e->getMessage()}"];
         }

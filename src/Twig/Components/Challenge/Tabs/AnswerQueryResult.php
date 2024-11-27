@@ -6,7 +6,7 @@ namespace App\Twig\Components\Challenge\Tabs;
 
 use App\Entity\ChallengeDto\FallableQueryResultDto;
 use App\Entity\Question;
-use App\Service\QuestionDbRunnerService;
+use App\Service\QuestionSqlRunnerService;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 use function Symfony\Component\Translation\t;
@@ -15,7 +15,7 @@ use function Symfony\Component\Translation\t;
 final class AnswerQueryResult
 {
     public function __construct(
-        private readonly QuestionDbRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionDbRunnerService,
     ) {
     }
 

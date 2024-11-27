@@ -6,8 +6,8 @@ namespace App\Entity\SqlRunnerDto;
 
 class SqlRunnerRequest
 {
-    private string $schema;
-    private string $query;
+    public string $schema;
+    public string $query;
 
     public function getSchema(): string
     {

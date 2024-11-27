@@ -9,8 +9,8 @@ use App\Entity\SolutionEvent;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\SolutionEventRepository;
-use App\Service\DbRunnerComparer;
-use App\Service\QuestionDbRunnerService;
+use App\Service\QuestionSqlRunnerService;
+use App\Service\SqlRunnerComparer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -26,7 +26,7 @@ final class Executor
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly QuestionDbRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionDbRunnerService,
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly EntityManagerInterface $entityManager,
     ) {
@@ -63,7 +63,7 @@ final class Executor
             $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
             $result = $this->questionDbRunnerService->getQueryResult($this->question, $query);
 
-            $compareResult = DbRunnerComparer::compare($answer, $result);
+            $compareResult = SqlRunnerComparer::compare($answer, $result);
             $solutionEvent = $solutionEvent->setStatus(
                 $compareResult->correct()
                     ? SolutionEventStatus::Passed

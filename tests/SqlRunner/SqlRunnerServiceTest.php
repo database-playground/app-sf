@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace App\Tests\SqlRunner;
 
 use App\Entity\SqlRunnerDto\SqlRunnerResponse;
-use App\Exception\SqlRunner\UnavailableException;
+use App\Exception\SqlRunner\RunnerException;
 use Monolog\Test\TestCase;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class SqlRunnerServiceTest extends TestCase
 {
-    public function testRunQueryUnavailable(): void
+    public function testRunQueryClientError(): void
     {
-        $this->expectException(UnavailableException::class);
+        $this->expectException(RunnerException::class);
+        $this->expectExceptionMessageMatches('/^CLIENT_ERROR: /');
 
         $httpClient = self::createMock(HttpClientInterface::class);
         $httpClient
@@ -34,15 +36,16 @@ final class SqlRunnerServiceTest extends TestCase
         $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
     }
 
-    public function testRunQueryStructureMismatch(): void
+    public function testRunQueryProtocolError(): void
     {
-        $this->expectException(\App\Exception\SqlRunner\StructureMismatchException::class);
+        $this->expectException(RunnerException::class);
+        $this->expectExceptionMessageMatches('/^PROTOCOL_ERROR: /');
 
         $httpClient = self::createMock(HttpClientInterface::class);
         $httpClient
             ->expects(self::once())
             ->method('request')
-            ->willReturn(self::createMock(\Symfony\Contracts\HttpClient\ResponseInterface::class))
+            ->willReturn(self::createMock(ResponseInterface::class))
         ;
 
         $serializer = self::createMock(SerializerInterface::class);
@@ -58,14 +61,14 @@ final class SqlRunnerServiceTest extends TestCase
 
     public function testRunQueryRunnerException(): void
     {
-        $this->expectException(\App\Exception\SqlRunner\RunnerException::class);
+        $this->expectException(RunnerException::class);
         $this->expectExceptionMessage('INTERNAL_ERROR: Internal error');
 
         $httpClient = self::createMock(HttpClientInterface::class);
         $httpClient
             ->expects(self::once())
             ->method('request')
-            ->willReturn(self::createMock(\Symfony\Contracts\HttpClient\ResponseInterface::class))
+            ->willReturn(self::createMock(ResponseInterface::class))
         ;
 
         $serializer = self::createMock(SerializerInterface::class);
@@ -93,7 +96,7 @@ final class SqlRunnerServiceTest extends TestCase
         $httpClient
             ->expects(self::once())
             ->method('request')
-            ->willReturn(self::createMock(\Symfony\Contracts\HttpClient\ResponseInterface::class))
+            ->willReturn(self::createMock(ResponseInterface::class))
         ;
 
         $serializer = self::createMock(SerializerInterface::class);
@@ -121,7 +124,7 @@ final class SqlRunnerServiceTest extends TestCase
         $httpClient
             ->expects(self::once())
             ->method('request')
-            ->willReturn(self::createMock(\Symfony\Contracts\HttpClient\ResponseInterface::class))
+            ->willReturn(self::createMock(ResponseInterface::class))
         ;
 
         $serializer = self::createMock(SerializerInterface::class);
@@ -142,13 +145,14 @@ final class SqlRunnerServiceTest extends TestCase
 
     public function testRunQueryBadPayload(): void
     {
-        $this->expectException(\App\Exception\SqlRunner\StructureMismatchException::class);
+        $this->expectException(RunnerException::class);
+        $this->expectExceptionMessageMatches('/^BAD_PAYLOAD: /');
 
         $httpClient = self::createMock(HttpClientInterface::class);
         $httpClient
             ->expects(self::once())
             ->method('request')
-            ->willReturn(self::createMock(\Symfony\Contracts\HttpClient\ResponseInterface::class))
+            ->willReturn(self::createMock(ResponseInterface::class))
         ;
 
         $serializer = self::createMock(SerializerInterface::class);
@@ -173,7 +177,7 @@ final class SqlRunnerServiceTest extends TestCase
         $httpClient
             ->expects(self::once())
             ->method('request')
-            ->willReturn(self::createMock(\Symfony\Contracts\HttpClient\ResponseInterface::class))
+            ->willReturn(self::createMock(ResponseInterface::class))
         ;
 
         $result = (new \App\Entity\SqlRunnerDto\SqlRunnerResult())

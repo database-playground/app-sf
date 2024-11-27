@@ -7,7 +7,7 @@ namespace App\Twig\Components\Challenge\Tabs;
 use App\Entity\Question;
 use App\Entity\User;
 use App\Repository\SolutionEventRepository;
-use App\Service\QuestionDbRunnerService;
+use App\Service\QuestionSqlRunnerService;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\SideBySide;
 use Psr\Log\LoggerInterface;
@@ -26,7 +26,7 @@ final class DiffPresenter
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly QuestionDbRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionDbRunnerService,
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly TranslatorInterface $translator,
         private readonly SerializerInterface $serializer,
@@ -54,7 +54,9 @@ final class DiffPresenter
         try {
             $resultDto = $this->questionDbRunnerService->getAnswerResult($this->question);
 
-            return $this->serializer->serialize($resultDto->getResult(), 'csv', [
+            $columnsAndRows = [$resultDto->getColumns(), ...$resultDto->getRows()];
+
+            return $this->serializer->serialize($columnsAndRows, 'csv', [
                 'csv_delimiter' => "\t",
                 'csv_enclosure' => ' ',
             ]);
@@ -76,7 +78,9 @@ final class DiffPresenter
         try {
             $resultDto = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
 
-            return $this->serializer->serialize($resultDto->getResult(), 'csv', [
+            $columnsAndRows = [$resultDto->getColumns(), ...$resultDto->getRows()];
+
+            return $this->serializer->serialize($columnsAndRows, 'csv', [
                 'csv_delimiter' => "\t",
                 'csv_enclosure' => ' ',
             ]);

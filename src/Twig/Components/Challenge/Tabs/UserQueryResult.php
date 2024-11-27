@@ -7,9 +7,12 @@ namespace App\Twig\Components\Challenge\Tabs;
 use App\Entity\ChallengeDto\FallableQueryResultDto;
 use App\Entity\Question;
 use App\Entity\User;
+use App\Exception\SqlRunner\QueryExecuteException;
+use App\Exception\SqlRunner\SchemaExecuteException;
 use App\Repository\SolutionEventRepository;
-use App\Service\DbRunnerComparer;
-use App\Service\QuestionDbRunnerService;
+use App\Service\QuestionSqlRunnerService;
+use App\Service\SqlRunnerComparer;
+use Psr\Log\LoggerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
@@ -25,8 +28,9 @@ final class UserQueryResult
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly QuestionDbRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionDbRunnerService,
         private readonly SolutionEventRepository $solutionEventRepository,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -59,8 +63,32 @@ final class UserQueryResult
 
         try {
             $answerResultDto = $this->questionDbRunnerService->getAnswerResult($this->question);
-        } catch (\Throwable $e) {
+        } catch (SchemaExecuteException $e) {
+            $this->logger->error('Schema Error', [
+                'exception' => $e,
+            ]);
+
+            $errorMessage = t('challenge.errors.schema-error', [
+                '%error%' => $e->getMessage(),
+            ]);
+
+            return (new FallableQueryResultDto())->setErrorMessage($errorMessage);
+        } catch (QueryExecuteException $e) {
+            $this->logger->error('Failed to get the answer result', [
+                'exception' => $e,
+            ]);
+
             $errorMessage = t('challenge.errors.answer-query-failure', [
+                '%error%' => $e->getMessage(),
+            ]);
+
+            return (new FallableQueryResultDto())->setErrorMessage($errorMessage);
+        } catch (\Throwable $e) {
+            $this->logger->error('SQL Runner failed when running answer', [
+                'exception' => $e,
+            ]);
+
+            $errorMessage = t('challenge.errors.unavailable', [
                 '%error%' => $e->getMessage(),
             ]);
 
@@ -69,8 +97,28 @@ final class UserQueryResult
 
         try {
             $resultDto = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
-        } catch (\Throwable $e) {
+        } catch (SchemaExecuteException $e) {
+            $this->logger->error('Schema Error', [
+                'exception' => $e,
+            ]);
+
+            $errorMessage = t('challenge.errors.schema-error', [
+                '%error%' => $e->getMessage(),
+            ]);
+
+            return (new FallableQueryResultDto())->setErrorMessage($errorMessage);
+        } catch (QueryExecuteException $e) {
             $errorMessage = t('challenge.errors.user-query-error', [
+                '%error%' => $e->getMessage(),
+            ]);
+
+            return (new FallableQueryResultDto())->setErrorMessage($errorMessage);
+        } catch (\Throwable $e) {
+            $this->logger->error('SQL Runner failed when running user queries', [
+                'exception' => $e,
+            ]);
+
+            $errorMessage = t('challenge.errors.unavailable', [
                 '%error%' => $e->getMessage(),
             ]);
 
@@ -78,7 +126,7 @@ final class UserQueryResult
         }
 
         // compare the result
-        $compareResult = DbRunnerComparer::compare($answerResultDto, $resultDto);
+        $compareResult = SqlRunnerComparer::compare($answerResultDto, $resultDto);
         if ($compareResult->correct()) {
             return (new FallableQueryResultDto())->setResult($resultDto);
         }
