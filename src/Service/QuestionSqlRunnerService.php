@@ -10,7 +10,6 @@ use App\Entity\SqlRunnerDto\SqlRunnerResult;
 use App\Exception\SqlRunner\QueryExecuteException;
 use App\Exception\SqlRunner\RunnerException;
 use App\Exception\SqlRunner\SchemaExecuteException;
-use Symfony\Component\Lock\LockFactory;
 
 /**
  * The {@link SqlRunnerService} that retrieves the answer and schema
@@ -20,7 +19,6 @@ final class QuestionSqlRunnerService
 {
     public function __construct(
         protected SqlRunnerService $sqlRunnerService,
-        protected LockFactory $lockFactory,
     ) {
     }
 
@@ -60,16 +58,7 @@ final class QuestionSqlRunnerService
      */
     public function getAnswerResult(Question $question): SqlRunnerResult
     {
-        $lock = $this->lockFactory->createLock("question_{$question->getId()}_answer");
-
-        try {
-            $lock->acquire(true);
-            $result = $this->getResult($question, $question->getAnswer());
-        } finally {
-            $lock->release();
-        }
-
-        return $result;
+        return $this->getResult($question, $question->getAnswer());
     }
 
     /**
