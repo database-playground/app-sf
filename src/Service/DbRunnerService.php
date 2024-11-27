@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\ChallengeDto\QueryResultDto;
-use App\Exception\QueryExecuteException;
-use App\Exception\SchemaExecuteException;
+use App\Exception\SqlRunner\QueryExecuteException;
+use App\Exception\SqlRunner\SchemaExecuteException;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Contracts\Cache\CacheInterface;
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\ChallengeDto\QueryResultDto;
-use App\Exception\QueryExecuteException;
 use App\Exception\ResourceException;
-use App\Exception\SchemaExecuteException;
+use App\Exception\SqlRunner\QueryExecuteException;
+use App\Exception\SqlRunner\SchemaExecuteException;
 use App\Exception\TimedOutException;
 use App\Service\Types\DbRunnerProcessPayload;
 use App\Service\Types\ProcessError;

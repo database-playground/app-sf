@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge;
 
+use App\Entity\PassRate;
 use App\Entity\Question;
 use App\Entity\SolutionEventStatus;
 use App\Entity\User;
 use App\Repository\QuestionRepository;
 use App\Repository\SolutionEventRepository;
 use App\Service\PassRateService;
-use App\Service\Types\PassRate;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;

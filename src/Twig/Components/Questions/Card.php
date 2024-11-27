@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Questions;
 
+use App\Entity\PassRate;
 use App\Entity\Question;
 use App\Entity\User;
 use App\Service\PassRateService;
-use App\Service\Types\PassRate;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]

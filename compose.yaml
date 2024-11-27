@@ -43,6 +43,8 @@ services:
       test: set -o pipefail;curl -fsS http://localhost:7700/health | grep -q '{"status":"available"}'
       retries: 3
       timeout: 5s
+  sqlrunner:
+    image: ghcr.io/database-playground/sqlrunner-v2
   php:
     image: ${IMAGES_PREFIX:-}app-php
     restart: unless-stopped
@@ -52,6 +54,7 @@ services:
       REDIS_URI: "redis://redis:6379"
       MEILISEARCH_URL: "http://meilisearch:7700"
       MEILISEARCH_API_KEY: ${MEILI_MASTER_KEY:-!MasterChangeMe!}
+      SQLRUNNER_URL: "http://sqlrunner:8080"
     volumes:
       - caddy_data:/data
       - caddy_config:/config

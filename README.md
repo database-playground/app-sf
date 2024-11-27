@@ -53,6 +53,7 @@ The Database Playground is a platform designed to enhance your SQL skills throug
    UMAMI_WEBSITE_ID=your-website-id
    OPENAI_API_KEY=your-openai-api-key
    LINE_NOTIFY_DSN=linenotify://line-notify-token@default
+   SQLRUNNER_URL=http://sqlrunner.zeabur.internal:8080
    ```
 4. Create an index in Meilisearch by running:
    ```bash

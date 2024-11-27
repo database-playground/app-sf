@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Types;
-
-use App\Entity\SolutionEvent;
-use App\Entity\SolutionEventStatus;
+namespace App\Entity;
 
 /**
  * The pass rate of a question.

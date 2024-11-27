@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Types;
 
-use App\Exception\QueryExecuteException;
-use App\Exception\SchemaExecuteException;
+use App\Exception\SqlRunner\QueryExecuteException;
+use App\Exception\SqlRunner\SchemaExecuteException;
 
 /**
  * The SQLite 3 database for caching and duplicating the schema.

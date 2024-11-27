@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Group;
+use App\Entity\PassRate;
 use App\Entity\Question;
 use App\Repository\SolutionEventRepository;
-use App\Service\Types\PassRate;
 
 /**
  * Get the pass rate of a question in the optimized matter.
