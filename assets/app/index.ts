@@ -9,8 +9,8 @@ document.addEventListener("turbo:load", () => {
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
   // Destroy tooltips when navigating to a new page
-  document.addEventListener("turbo:before-visit", async () => {
-    for await (const tooltip of tooltipList) {
+  document.addEventListener("turbo:before-visit", () => {
+    for (const tooltip of tooltipList) {
       tooltip.dispose();
     }
   }, {
