@@ -46,7 +46,7 @@ class QuestionCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $reindex = Action::new('reindex', 'Reindex', 'fa fa-refresh')
+        $reindex = Action::new('reindex', 'Reindex', 'fa fa-arrows-rotate')
             ->linkToCrudAction('reindex')
             ->createAsGlobalAction();
 
