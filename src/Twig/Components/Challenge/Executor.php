@@ -26,7 +26,7 @@ final class Executor
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly QuestionSqlRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly EntityManagerInterface $entityManager,
     ) {
@@ -60,8 +60,8 @@ final class Executor
             ->setQuery($query);
 
         try {
-            $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
-            $result = $this->questionDbRunnerService->getQueryResult($this->question, $query);
+            $answer = $this->questionSqlRunnerService->getAnswerResult($this->question);
+            $result = $this->questionSqlRunnerService->getQueryResult($this->question, $query);
 
             $compareResult = SqlRunnerComparer::compare($answer, $result);
             $solutionEvent = $solutionEvent->setStatus(

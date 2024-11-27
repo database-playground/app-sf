@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Challenge\Tabs;
 
-use App\Entity\ChallengeDto\FallableQueryResultDto;
+use App\Entity\ChallengeDto\FallableSqlRunnerResult;
 use App\Entity\Question;
 use App\Service\QuestionSqlRunnerService;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
@@ -15,7 +15,7 @@ use function Symfony\Component\Translation\t;
 final class AnswerQueryResult
 {
     public function __construct(
-        private readonly QuestionSqlRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
     ) {
     }
 
@@ -24,18 +24,18 @@ final class AnswerQueryResult
      */
     public Question $question;
 
-    public function getAnswer(): FallableQueryResultDto
+    public function getAnswer(): FallableSqlRunnerResult
     {
         try {
-            $resultDto = $this->questionDbRunnerService->getAnswerResult($this->question);
+            $resultDto = $this->questionSqlRunnerService->getAnswerResult($this->question);
 
-            return (new FallableQueryResultDto())->setResult($resultDto);
+            return (new FallableSqlRunnerResult())->setResult($resultDto);
         } catch (\Throwable $e) {
             $errorMessage = t('challenge.errors.answer-query-failure', [
                 '%error%' => $e->getMessage(),
             ]);
 
-            return (new FallableQueryResultDto())->setErrorMessage($errorMessage);
+            return (new FallableSqlRunnerResult())->setErrorMessage($errorMessage);
         }
     }
 }

@@ -7,12 +7,13 @@ namespace App\Twig\Components\Challenge\Instruction;
 use App\Entity\HintOpenEvent;
 use App\Entity\Question;
 use App\Entity\SolutionEventStatus;
+use App\Entity\SqlRunnerDto\SqlRunnerRequest;
 use App\Entity\User;
 use App\Repository\SolutionEventRepository;
-use App\Service\DbRunnerComparer;
-use App\Service\DbRunnerService;
 use App\Service\PointCalculationService;
 use App\Service\PromptService;
+use App\Service\SqlRunnerComparer;
+use App\Service\SqlRunnerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -56,7 +57,7 @@ final class Modal
     #[LiveAction]
     public function instruct(
         SolutionEventRepository $solutionEventRepository,
-        DbRunnerService $dbRunnerService,
+        SqlRunnerService $sqlRunnerService,
         PromptService $promptService,
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
@@ -85,7 +86,11 @@ final class Modal
 
         try {
             $answer = $query->getQuestion()->getAnswer();
-            $answerResult = $dbRunnerService->runQuery($schema->getSchema(), $answer);
+            $answerResult = $sqlRunnerService->runQuery(
+                (new SqlRunnerRequest())
+                    ->setSchema($schema->getSchema())
+                    ->setQuery($answer),
+            );
         } catch (\Throwable $e) {
             $this->flushHint('informative', t('instruction.hint.error', [
                 '%error%' => $e->getMessage(),
@@ -101,7 +106,11 @@ final class Modal
 
         try {
             try {
-                $userResult = $dbRunnerService->runQuery($schema->getSchema(), $query->getQuery());
+                $userResult = $sqlRunnerService->runQuery(
+                    (new SqlRunnerRequest())
+                        ->setSchema($schema->getSchema())
+                        ->setQuery($query->getQuery()),
+                );
             } catch (\Throwable $e) {
                 $hint = $promptService->hint($query->getQuery(), $e->getMessage(), $answer);
                 $hintOpenEvent->setResponse($hint);
@@ -111,7 +120,7 @@ final class Modal
                 return;
             }
 
-            $compareResult = DbRunnerComparer::compare($answerResult, $userResult);
+            $compareResult = SqlRunnerComparer::compare($answerResult, $userResult);
             if ($compareResult->correct()) {
                 $this->flushHint('informative', t('instruction.hint.solved'));
 

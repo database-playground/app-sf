@@ -26,7 +26,7 @@ final class DiffPresenter
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly QuestionSqlRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly TranslatorInterface $translator,
         private readonly SerializerInterface $serializer,
@@ -52,7 +52,7 @@ final class DiffPresenter
     public function getAnswerResult(): ?string
     {
         try {
-            $resultDto = $this->questionDbRunnerService->getAnswerResult($this->question);
+            $resultDto = $this->questionSqlRunnerService->getAnswerResult($this->question);
 
             $columnsAndRows = [$resultDto->getColumns(), ...$resultDto->getRows()];
 
@@ -76,7 +76,7 @@ final class DiffPresenter
         }
 
         try {
-            $resultDto = $this->questionDbRunnerService->getQueryResult($this->question, $this->query);
+            $resultDto = $this->questionSqlRunnerService->getQueryResult($this->question, $this->query);
 
             $columnsAndRows = [$resultDto->getColumns(), ...$resultDto->getRows()];
 

@@ -51,7 +51,7 @@ final readonly class SqlRunnerService
             $response = $this->httpClient->request('POST', $endpoint, [
                 'json' => (array) $request,
                 'headers' => [
-                    'User-Agent' => 'dbrunner/v1',
+                    'User-Agent' => 'dbplay/v1',
                 ],
             ]);
             $content = $response->getContent(false);

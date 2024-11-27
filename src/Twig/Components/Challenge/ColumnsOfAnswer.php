@@ -16,7 +16,7 @@ final class ColumnsOfAnswer
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly QuestionSqlRunnerService $questionDbRunnerService,
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
     ) {
     }
 
@@ -31,7 +31,7 @@ final class ColumnsOfAnswer
     public function getColumnsOfAnswer(): array
     {
         try {
-            $answer = $this->questionDbRunnerService->getAnswerResult($this->question);
+            $answer = $this->questionSqlRunnerService->getAnswerResult($this->question);
 
             return $answer->getColumns();
         } catch (\Throwable $e) {

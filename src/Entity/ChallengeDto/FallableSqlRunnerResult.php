@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Entity\ChallengeDto;
 
 use App\Entity\SqlRunnerDto\SqlRunnerResult;
+use App\Service\SqlRunnerService;
 use Symfony\Component\Translation\TranslatableMessage;
 
 /**
- * A DTO for the result of a query that may contain the error from DbRunner.
+ * A DTO for the result of a query that may contain the error from {@link SqlRunnerService}.
  *
  * If there is no error, the errorCode will be 0.
  */
-class FallableQueryResultDto
+class FallableSqlRunnerResult
 {
     public ?SqlRunnerResult $result = null;
     public ?TranslatableMessage $errorMessage = null;
