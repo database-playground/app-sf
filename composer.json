@@ -57,6 +57,7 @@
     "symfony/ux-turbo": "2.*",
     "symfony/ux-twig-component": "2.*",
     "symfony/validator": "7.3.*",
+    "symfony/web-link": "7.3.*",
     "symfony/yaml": "7.3.*",
     "symfonycasts/sass-bundle": "dev-main",
     "twbs/bootstrap": "dev-main",
