@@ -11,13 +11,17 @@ VOLUME /app/var/
 
 # persistent / runtime deps
 RUN set -eux; \
-    apt-get update \
-      && apt-get install -y --no-install-recommends \
-	    acl \
-	    file \
-	    gettext \
-	    git \
-	  && rm -rf /var/lib/apt/lists/*
+    curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh \
+    && bash nodesource_setup.sh \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+      acl \
+      file \
+      gettext \
+      git \
+      nodejs \
+    && corepack enable \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
 	install-php-extensions \
@@ -58,7 +62,10 @@ RUN set -eux; \
 		xdebug \
 	;
 
-CMD (php bin/console sass:build --watch &); \
+CMD set -eux; \
+    corepack prepare; \
+    pnpm install --prod --prefer-frozen-lockfile; \
+    (php bin/console sass:build --watch &); \
     (php bin/console typescript:build --watch &); \
     (frankenphp run --config /etc/caddy/Caddyfile --watch);
 
@@ -75,9 +82,11 @@ COPY --link frankenphp/conf.d/20-app.prod.ini $PHP_INI_DIR/app.conf.d/
 COPY --link frankenphp/worker.Caddyfile /etc/caddy/worker.Caddyfile
 
 # prevent the reinstallation of vendors at every changes in the source code
-COPY --link composer.* symfony.* ./
+COPY --link composer.* symfony.* package.json* pnpm-lock.yaml* ./
 RUN set -eux; \
-	composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+    corepack prepare; \
+	composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
+    pnpm install --prod --prefer-frozen-lockfile;
 
 # copy sources
 COPY --link . ./

@@ -1,2 +1,2 @@
 sensiolabs_typescript:
-  swc_version: v1.9.3
+  swc_binary: "node_modules/.bin/swc"

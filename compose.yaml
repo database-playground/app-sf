@@ -58,6 +58,7 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
+      - web_node_modules:/app/node_modules
     ports:
       # HTTP
       - target: 80
@@ -80,3 +81,4 @@ volumes:
   caddy_data:
   caddy_config:
   meili_data:
+  web_node_modules:
