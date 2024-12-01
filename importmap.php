@@ -56,7 +56,7 @@ return [
         'version' => '6.4.1',
     ],
     '@codemirror/language' => [
-        'version' => '6.10.5',
+        'version' => '6.10.6',
     ],
     '@codemirror/commands' => [
         'version' => '6.7.1',
@@ -68,7 +68,7 @@ return [
         'version' => '6.18.3',
     ],
     '@codemirror/lint' => [
-        'version' => '6.8.3',
+        'version' => '6.8.4',
     ],
     '@lezer/highlight' => [
         'version' => '1.2.1',

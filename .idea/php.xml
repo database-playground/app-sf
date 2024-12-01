@@ -216,6 +216,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
       <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/vendor/twig/string-extra" />
+      <path value="$PROJECT_DIR$/vendor/symfony/amazon-mailer" />
+      <path value="$PROJECT_DIR$/vendor/async-aws/ses" />
+      <path value="$PROJECT_DIR$/vendor/async-aws/core" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
