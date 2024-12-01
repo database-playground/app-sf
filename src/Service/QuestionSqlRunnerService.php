@@ -7,9 +7,9 @@ namespace App\Service;
 use App\Entity\Question;
 use App\Entity\SqlRunnerDto\SqlRunnerRequest;
 use App\Entity\SqlRunnerDto\SqlRunnerResult;
-use App\Exception\SqlRunner\QueryExecuteException;
-use App\Exception\SqlRunner\RunnerException;
-use App\Exception\SqlRunner\SchemaExecuteException;
+use App\Exception\QueryExecuteException;
+use App\Exception\SchemaExecuteException;
+use App\Exception\SqlRunnerException;
 
 /**
  * The {@link SqlRunnerService} that retrieves the answer and schema
@@ -32,7 +32,7 @@ final class QuestionSqlRunnerService
      *
      * @throws QueryExecuteException  when the query execution fails
      * @throws SchemaExecuteException when the schema execution fails
-     * @throws RunnerException        when the runner fails (internal error or client error)
+     * @throws SqlRunnerException     when the runner fails (internal error or client error)
      */
     protected function getResult(Question $question, string $query): SqlRunnerResult
     {
@@ -54,7 +54,7 @@ final class QuestionSqlRunnerService
      *
      * @throws QueryExecuteException  when the query execution fails
      * @throws SchemaExecuteException when the schema execution fails
-     * @throws RunnerException        when the runner fails (internal error or client error)
+     * @throws SqlRunnerException     when the runner fails (internal error or client error)
      */
     public function getAnswerResult(Question $question): SqlRunnerResult
     {
@@ -71,7 +71,7 @@ final class QuestionSqlRunnerService
      *
      * @throws QueryExecuteException  when the query execution fails
      * @throws SchemaExecuteException when the schema execution fails
-     * @throws RunnerException        when the runner fails (internal error or client error)
+     * @throws SqlRunnerException     when the runner fails (internal error or client error)
      */
     public function getQueryResult(Question $question, string $query): SqlRunnerResult
     {

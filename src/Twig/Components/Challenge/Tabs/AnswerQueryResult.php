@@ -6,8 +6,8 @@ namespace App\Twig\Components\Challenge\Tabs;
 
 use App\Entity\ChallengeDto\FallableSqlRunnerResult;
 use App\Entity\Question;
-use App\Exception\SqlRunner\QueryExecuteException;
-use App\Exception\SqlRunner\SchemaExecuteException;
+use App\Exception\QueryExecuteException;
+use App\Exception\SchemaExecuteException;
 use App\Service\QuestionSqlRunnerService;
 use Psr\Log\LoggerInterface;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;

@@ -7,9 +7,9 @@ namespace App\Service;
 use App\Entity\SqlRunnerDto\SqlRunnerRequest;
 use App\Entity\SqlRunnerDto\SqlRunnerResponse;
 use App\Entity\SqlRunnerDto\SqlRunnerResult;
-use App\Exception\SqlRunner\QueryExecuteException;
-use App\Exception\SqlRunner\RunnerException;
-use App\Exception\SqlRunner\SchemaExecuteException;
+use App\Exception\QueryExecuteException;
+use App\Exception\SchemaExecuteException;
+use App\Exception\SqlRunnerException;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -41,7 +41,7 @@ final readonly class SqlRunnerService
      *
      * @throws QueryExecuteException  When the query execution fails
      * @throws SchemaExecuteException When the schema execution fails
-     * @throws RunnerException        When the runner fails (internal error or client error)
+     * @throws SqlRunnerException     When the runner fails (internal error or client error)
      */
     public function runQuery(SqlRunnerRequest $request): SqlRunnerResult
     {
@@ -56,7 +56,7 @@ final readonly class SqlRunnerService
             ]);
             $content = $response->getContent(false);
         } catch (\Throwable $e) {
-            throw new RunnerException('CLIENT_ERROR', $e->getMessage(), previous: $e);
+            throw new SqlRunnerException('CLIENT_ERROR', $e->getMessage(), previous: $e);
         }
 
         try {
@@ -67,7 +67,7 @@ final readonly class SqlRunnerService
                 $this->context,
             );
         } catch (\Throwable $e) {
-            throw new RunnerException('PROTOCOL_ERROR', $e->getMessage(), $e);
+            throw new SqlRunnerException('PROTOCOL_ERROR', $e->getMessage(), $e);
         }
 
         if (!$response->isSuccess()) {
@@ -80,7 +80,7 @@ final readonly class SqlRunnerService
                 case 'SCHEMA_ERROR':
                     throw new SchemaExecuteException($response->getMessage());
                 default:
-                    throw new RunnerException($response->getCode(), $response->getMessage());
+                    throw new SqlRunnerException($response->getCode(), $response->getMessage());
             }
         }
 

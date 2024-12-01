@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Exception\SqlRunner;
+namespace App\Exception;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class RunnerException extends HttpException
+class SqlRunnerException extends HttpException
 {
     public function __construct(string $code, string $message, ?\Throwable $previous = null)
     {

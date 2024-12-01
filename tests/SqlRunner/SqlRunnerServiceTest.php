@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\SqlRunner;
 
 use App\Entity\SqlRunnerDto\SqlRunnerResponse;
-use App\Exception\SqlRunner\RunnerException;
+use App\Exception\SqlRunnerException;
 use Monolog\Test\TestCase;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -16,7 +16,7 @@ final class SqlRunnerServiceTest extends TestCase
 {
     public function testRunQueryClientError(): void
     {
-        $this->expectException(RunnerException::class);
+        $this->expectException(SqlRunnerException::class);
         $this->expectExceptionMessageMatches('/^CLIENT_ERROR: /');
 
         $httpClient = self::createMock(HttpClientInterface::class);
@@ -38,7 +38,7 @@ final class SqlRunnerServiceTest extends TestCase
 
     public function testRunQueryProtocolError(): void
     {
-        $this->expectException(RunnerException::class);
+        $this->expectException(SqlRunnerException::class);
         $this->expectExceptionMessageMatches('/^PROTOCOL_ERROR: /');
 
         $httpClient = self::createMock(HttpClientInterface::class);
@@ -61,7 +61,7 @@ final class SqlRunnerServiceTest extends TestCase
 
     public function testRunQueryRunnerException(): void
     {
-        $this->expectException(RunnerException::class);
+        $this->expectException(SqlRunnerException::class);
         $this->expectExceptionMessage('INTERNAL_ERROR: Internal error');
 
         $httpClient = self::createMock(HttpClientInterface::class);
@@ -89,7 +89,7 @@ final class SqlRunnerServiceTest extends TestCase
 
     public function testRunQueryQueryException(): void
     {
-        $this->expectException(\App\Exception\SqlRunner\QueryExecuteException::class);
+        $this->expectException(\App\Exception\QueryExecuteException::class);
         $this->expectExceptionMessage('Query error');
 
         $httpClient = self::createMock(HttpClientInterface::class);
@@ -117,7 +117,7 @@ final class SqlRunnerServiceTest extends TestCase
 
     public function testRunQuerySchemaException(): void
     {
-        $this->expectException(\App\Exception\SqlRunner\SchemaExecuteException::class);
+        $this->expectException(\App\Exception\SchemaExecuteException::class);
         $this->expectExceptionMessage('Schema error');
 
         $httpClient = self::createMock(HttpClientInterface::class);
@@ -145,7 +145,7 @@ final class SqlRunnerServiceTest extends TestCase
 
     public function testRunQueryBadPayload(): void
     {
-        $this->expectException(RunnerException::class);
+        $this->expectException(SqlRunnerException::class);
         $this->expectExceptionMessageMatches('/^BAD_PAYLOAD: /');
 
         $httpClient = self::createMock(HttpClientInterface::class);
