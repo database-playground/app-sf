@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <turbo-frame id="announcements">
+        <div class="app-overview-announcements w-100">
+        {% for announcement in announcements %}
+            <div class="app-overview-announcements__announcement alert alert-primary" role="alert">
+                {{ announcement.content|raw }}
+            </div>
+        {% endfor %}
+        </div>
+    </turbo-frame>
+{% endblock %}

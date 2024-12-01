@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\Announcement;
 use App\Entity\Comment;
 use App\Entity\CommentLikeEvent;
 use App\Entity\Feedback;
@@ -54,6 +55,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Question management');
         yield MenuItem::linkToCrud('Schema', 'fa fa-database', Schema::class);
         yield MenuItem::linkToCrud('Questions', 'fa fa-question', Question::class);
+
+        yield MenuItem::section('System Management');
+        yield MenuItem::linkToCrud('Announcement', 'fa fa-bullhorn', Announcement::class);
 
         yield MenuItem::section('Comments');
         yield MenuItem::linkToCrud('Comment', 'fa fa-comment', Comment::class);
