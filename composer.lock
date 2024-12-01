@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7eed5df058de2b26a2bf8aba230f6c91",
+    "content-hash": "1ab48f775ea4df46f9388b8feb2f8a90",
     "packages": [
         {
             "name": "composer/semver",
@@ -9379,16 +9379,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "3.x-dev",
+            "version": "3.14.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "c5ebc12cde6f3f0de033184cc8f4a9efb7fac27f"
+                "reference": "0b6f9d8370bb3b7f1ce5313ed8feb0fafd6e399a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c5ebc12cde6f3f0de033184cc8f4a9efb7fac27f",
-                "reference": "c5ebc12cde6f3f0de033184cc8f4a9efb7fac27f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/0b6f9d8370bb3b7f1ce5313ed8feb0fafd6e399a",
+                "reference": "0b6f9d8370bb3b7f1ce5313ed8feb0fafd6e399a",
                 "shasum": ""
             },
             "require": {
@@ -9399,11 +9399,9 @@
                 "symfony/polyfill-php81": "^1.29"
             },
             "require-dev": {
-                "phpstan/phpstan": "^2.0",
                 "psr/container": "^1.0|^2.0",
                 "symfony/phpunit-bridge": "^5.4.9|^6.4|^7.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -9444,7 +9442,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/3.x"
+                "source": "https://github.com/twigphp/Twig/tree/v3.14.2"
             },
             "funding": [
                 {
@@ -9456,7 +9454,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-30T09:52:06+00:00"
+            "time": "2024-11-07T12:36:22+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -10302,12 +10300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "97ba50af456b28c156727c0c908266d1482885dd"
+                "reference": "9bfe4a4ffb7047d595d55d6c30646727ba6c7947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/97ba50af456b28c156727c0c908266d1482885dd",
-                "reference": "97ba50af456b28c156727c0c908266d1482885dd",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9bfe4a4ffb7047d595d55d6c30646727ba6c7947",
+                "reference": "9bfe4a4ffb7047d595d55d6c30646727ba6c7947",
                 "shasum": ""
             },
             "require": {
@@ -10353,7 +10351,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-30T15:33:55+00:00"
+            "time": "2024-12-01T14:23:59+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
