@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Exception\HintException;
 use Psr\Log\LoggerInterface;
 
 final readonly class PromptService
@@ -25,6 +26,8 @@ final readonly class PromptService
      * @param string $answer the answer to the query
      *
      * @return string the complete hint for the user
+     *
+     * @throws HintException if the hint cannot be generated
      */
     public function hint(string $query, string $error, string $answer): string
     {
@@ -46,37 +49,41 @@ final readonly class PromptService
             You should write your response in Chinese (Traditional, Taiwan) with the Taiwan native vocabularies.
             PROMPT;
 
-        $response = $this->client->chat()->create([
-            'model' => 'gpt-4o-mini',
-            'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => [
-                        [
-                            'text' => $systemPrompt,
-                            'type' => 'text',
+        try {
+            $response = $this->client->chat()->create([
+                'model' => 'gpt-4o',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => [
+                            [
+                                'text' => $systemPrompt,
+                                'type' => 'text',
+                            ],
+                        ],
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => [
+                            [
+                                'text' => "$query\n---\n$error\n---\n$answer",
+                                'type' => 'text',
+                            ],
                         ],
                     ],
                 ],
-                [
-                    'role' => 'user',
-                    'content' => [
-                        [
-                            'text' => "$query\n---\n$error\n---\n$answer",
-                            'type' => 'text',
-                        ],
-                    ],
+                'temperature' => 0.2,
+                'max_tokens' => 2048,
+                'top_p' => 1,
+                'frequency_penalty' => 0,
+                'presence_penalty' => 0,
+                'response_format' => [
+                    'type' => 'text',
                 ],
-            ],
-            'temperature' => 0.2,
-            'max_tokens' => 2048,
-            'top_p' => 1,
-            'frequency_penalty' => 0,
-            'presence_penalty' => 0,
-            'response_format' => [
-                'type' => 'text',
-            ],
-        ]);
+            ]);
+        } catch (\Throwable $e) {
+            throw new HintException($e);
+        }
 
         $this->logger->debug('Hinted.', [
             'response' => $response,

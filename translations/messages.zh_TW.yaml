@@ -100,7 +100,8 @@ instruction:
   hint:
     not_submitted: 提交答案之後才能請 GPT 提示。
     solved: 正確答案不需要提示。
-    error: 無法取得正確答案：%error%
+    answer-wrong: 無法取得正確答案：%error%
+    hint-service-error: 無法取得提示：%error%
 
 feedback:
   type:

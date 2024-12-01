@@ -9,12 +9,14 @@ use App\Entity\Question;
 use App\Entity\SolutionEventStatus;
 use App\Entity\SqlRunnerDto\SqlRunnerRequest;
 use App\Entity\User;
+use App\Exception\HintException;
 use App\Repository\SolutionEventRepository;
 use App\Service\PointCalculationService;
 use App\Service\PromptService;
 use App\Service\SqlRunnerComparer;
 use App\Service\SqlRunnerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -35,6 +37,7 @@ final class Modal
 
     public function __construct(
         private readonly TranslatorInterface $translator,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -92,7 +95,7 @@ final class Modal
                     ->setQuery($answer),
             );
         } catch (\Throwable $e) {
-            $this->flushHint('informative', t('instruction.hint.error', [
+            $this->flushHint('informative', t('instruction.hint.answer-wrong', [
                 '%error%' => $e->getMessage(),
             ]));
 
@@ -113,8 +116,7 @@ final class Modal
                 );
             } catch (\Throwable $e) {
                 $hint = $promptService->hint($query->getQuery(), $e->getMessage(), $answer);
-                $hintOpenEvent->setResponse($hint);
-
+                $entityManager->persist($hintOpenEvent->setResponse($hint));
                 $this->flushHint('hint', $hint);
 
                 return;
@@ -128,12 +130,21 @@ final class Modal
             }
 
             $compareReason = $compareResult->reason()->trans($translator, 'en_US');
-            $hint = $promptService->hint($query->getQuery(), "Different result: {$compareReason}", $answer);
-            $hintOpenEvent->setResponse($hint);
 
+            $hint = $promptService->hint($query->getQuery(), "Different result: {$compareReason}", $answer);
+            $entityManager->persist($hintOpenEvent->setResponse($hint));
             $this->flushHint('hint', $hint);
+        } catch (HintException $e) {
+            $this->logger->error('Failed to generate hint', [
+                'exception' => $e,
+                'query' => $query->getQuery(),
+                'answer' => $answer,
+            ]);
+
+            $this->flushHint('informative', t('instruction.hint.hint-service-error', [
+                '%error%' => $e->getPrevious()?->getMessage() ?? $e->getMessage(),
+            ]));
         } finally {
-            $entityManager->persist($hintOpenEvent);
             $entityManager->flush();
         }
     }
