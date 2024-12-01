@@ -15,6 +15,7 @@
 
 {$SERVER_NAME:localhost} {
 	log {
+		{$CADDY_SERVER_LOG_OPTIONS}
 		# Redact the authorization query parameter that can be set by Mercure
 		format filter {
 			request>uri query {
@@ -23,13 +24,24 @@
 		}
 	}
 
-	root * /app/public
+	root /app/public
 	encode zstd br gzip
+
+	vulcain
 
 	{$CADDY_SERVER_EXTRA_DIRECTIVES}
 
 	# Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
 	header ?Permissions-Policy "browsing-topics=()"
 
-	php_server
+	@phpRoute {
+		not path /.well-known/mercure*
+		not file {path}
+	}
+	rewrite @phpRoute index.php
+
+	@frontController path index.php
+	php @frontController
+
+	file_server
 }

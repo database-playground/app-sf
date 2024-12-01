@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Versions
-FROM dunglas/frankenphp:1-php8.3-alpine AS frankenphp_upstream
+FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
 
 # Base FrankenPHP image
 FROM frankenphp_upstream AS frankenphp_base
@@ -11,13 +11,13 @@ VOLUME /app/var/
 
 # persistent / runtime deps
 RUN set -eux; \
-    apk add --no-cache \
-        acl \
-        fcgi \
-        file \
-        gettext \
-        git \
-    ;
+    apt-get update \
+      && apt-get install -y --no-install-recommends \
+	    acl \
+	    file \
+	    gettext \
+	    git \
+	  && rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
 	install-php-extensions \
