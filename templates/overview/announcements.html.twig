@@ -4,12 +4,12 @@
     <turbo-frame id="announcements">
         <div class="app-overview-announcements w-100">
         {% for announcement in announcements %}
-            <div class="app-overview-announcements__announcement alert alert-primary d-flex align-items-center justify-content-between" role="alert">
+            <div class="app-overview-announcements__announcement alert alert-primary d-flex align-items-center justify-content-between gap-2" role="alert">
                 <div class="app-overview-announcements__announcement__content d-inline">
-                    {{ announcement.createdAt|date('m/d') }} – {{ announcement.content|striptags('<b><a><i><strong><em>')|raw }}
+                    {{ announcement.content|striptags('<b><a><i><strong><em>')|raw }}
                 </div>
                 {% if announcement.url %}
-                    <a href="{{ announcement.url }}" class="app-overview-announcements__announcement__link text-decoration-none text-black">了解更多 →</a>
+                    <a href="{{ announcement.url }}" class="app-overview-announcements__announcement__link text-decoration-none text-black flex-shrink-0">了解更多 →</a>
                 {% endif %}
             </div>
         {% endfor %}
