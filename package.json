@@ -7,7 +7,7 @@
     "format": "dprint fmt"
   },
   "dependencies": {
-    "@swc/cli": "^0.5.1",
+    "@swc/cli": "^0.5.2",
     "@swc/core": "^1.9.3"
   },
   "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab",
@@ -20,10 +20,10 @@
     "@types/bootstrap": "^5.2.10",
     "bootstrap": "^5.3.3",
     "codemirror": "^6.0.1",
-    "dprint": "^0.47.5",
+    "dprint": "^0.47.6",
     "eslint": "^9.16.0",
-    "globals": "^15.12.0",
+    "globals": "^15.13.0",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.16.0"
+    "typescript-eslint": "^8.17.0"
   }
 }

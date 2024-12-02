@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3669817e19896eaa4a91a0496d35cc44",
+    "content-hash": "f459ad30f7f54194e3f29cb05fec14fb",
     "packages": [
         {
             "name": "composer/semver",
@@ -1893,12 +1893,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/meilisearch/meilisearch-symfony.git",
-                "reference": "e38bad8aa88e5e2b905492b3235e01d6eb4ecc64"
+                "reference": "d46b2da1865ef228aaca67eeac9e6851022dbeaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/meilisearch/meilisearch-symfony/zipball/e38bad8aa88e5e2b905492b3235e01d6eb4ecc64",
-                "reference": "e38bad8aa88e5e2b905492b3235e01d6eb4ecc64",
+                "url": "https://api.github.com/repos/meilisearch/meilisearch-symfony/zipball/d46b2da1865ef228aaca67eeac9e6851022dbeaf",
+                "reference": "d46b2da1865ef228aaca67eeac9e6851022dbeaf",
                 "shasum": ""
             },
             "require": {
@@ -1965,7 +1965,7 @@
                 "issues": "https://github.com/meilisearch/meilisearch-symfony/issues",
                 "source": "https://github.com/meilisearch/meilisearch-symfony/tree/main"
             },
-            "time": "2024-11-30T19:19:14+00:00"
+            "time": "2024-12-01T18:32:28+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8082,12 +8082,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bridge.git",
-                "reference": "9958f5a5b6640734fe4b24c18897191f77a02c61"
+                "reference": "1343696b988e72beafc63a6cf386922ccb314a08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/9958f5a5b6640734fe4b24c18897191f77a02c61",
-                "reference": "9958f5a5b6640734fe4b24c18897191f77a02c61",
+                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/1343696b988e72beafc63a6cf386922ccb314a08",
+                "reference": "1343696b988e72beafc63a6cf386922ccb314a08",
                 "shasum": ""
             },
             "require": {
@@ -8168,7 +8168,7 @@
             "description": "Provides integration for Twig with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/twig-bridge/tree/v7.2.0"
+                "source": "https://github.com/symfony/twig-bridge/tree/7.2"
             },
             "funding": [
                 {
@@ -8184,7 +8184,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-25T14:26:33+00:00"
+            "time": "2024-12-02T12:43:01+00:00"
         },
         {
             "name": "symfony/twig-bundle",
@@ -9382,12 +9382,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/markdown-extra.git",
-                "reference": "25f23c02936f8c7157a8413154c06a462c9c20d3"
+                "reference": "76219b06e104a706879752e6e4d79f63ef7e9f23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/markdown-extra/zipball/25f23c02936f8c7157a8413154c06a462c9c20d3",
-                "reference": "25f23c02936f8c7157a8413154c06a462c9c20d3",
+                "url": "https://api.github.com/repos/twigphp/markdown-extra/zipball/76219b06e104a706879752e6e4d79f63ef7e9f23",
+                "reference": "76219b06e104a706879752e6e4d79f63ef7e9f23",
                 "shasum": ""
             },
             "require": {
@@ -9396,7 +9396,7 @@
                 "twig/twig": "^3.13|^4.0"
             },
             "require-dev": {
-                "erusev/parsedown": "^1.7",
+                "erusev/parsedown": "dev-master as 1.x-dev",
                 "league/commonmark": "^1.0|^2.0",
                 "league/html-to-markdown": "^4.8|^5.0",
                 "michelf/php-markdown": "^1.8|^2.0",
@@ -9435,7 +9435,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/markdown-extra/tree/v3.16.0"
+                "source": "https://github.com/twigphp/markdown-extra/tree/3.x"
             },
             "funding": [
                 {
@@ -9447,7 +9447,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-03T20:17:35+00:00"
+            "time": "2024-12-02T08:57:02+00:00"
         },
         {
             "name": "twig/string-extra",
@@ -9519,16 +9519,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "3.14.x-dev",
+            "version": "3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "0b6f9d8370bb3b7f1ce5313ed8feb0fafd6e399a"
+                "reference": "57bf519af2bd60fe181fd632bd268e73daab807f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/0b6f9d8370bb3b7f1ce5313ed8feb0fafd6e399a",
-                "reference": "0b6f9d8370bb3b7f1ce5313ed8feb0fafd6e399a",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/57bf519af2bd60fe181fd632bd268e73daab807f",
+                "reference": "57bf519af2bd60fe181fd632bd268e73daab807f",
                 "shasum": ""
             },
             "require": {
@@ -9539,9 +9539,11 @@
                 "symfony/polyfill-php81": "^1.29"
             },
             "require-dev": {
+                "phpstan/phpstan": "^2.0",
                 "psr/container": "^1.0|^2.0",
                 "symfony/phpunit-bridge": "^5.4.9|^6.4|^7.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -9582,7 +9584,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.14.2"
+                "source": "https://github.com/twigphp/Twig/tree/3.x"
             },
             "funding": [
                 {
@@ -9594,7 +9596,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-07T12:36:22+00:00"
+            "time": "2024-12-02T09:21:10+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -10440,12 +10442,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "9bfe4a4ffb7047d595d55d6c30646727ba6c7947"
+                "reference": "f8d27d5b81b23d9b679ca2ccac09261c461a15f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9bfe4a4ffb7047d595d55d6c30646727ba6c7947",
-                "reference": "9bfe4a4ffb7047d595d55d6c30646727ba6c7947",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f8d27d5b81b23d9b679ca2ccac09261c461a15f4",
+                "reference": "f8d27d5b81b23d9b679ca2ccac09261c461a15f4",
                 "shasum": ""
             },
             "require": {
@@ -10491,7 +10493,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-01T14:23:59+00:00"
+            "time": "2024-12-02T07:51:15+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -10499,12 +10501,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "410ed26764d092437dcfe6179676d7089b784a84"
+                "reference": "bdb6a835c5aa9725979694ae9b70591e180f4853"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/410ed26764d092437dcfe6179676d7089b784a84",
-                "reference": "410ed26764d092437dcfe6179676d7089b784a84",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/bdb6a835c5aa9725979694ae9b70591e180f4853",
+                "reference": "bdb6a835c5aa9725979694ae9b70591e180f4853",
                 "shasum": ""
             },
             "require": {
@@ -10561,9 +10563,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.x"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.1"
             },
-            "time": "2024-11-20T15:58:40+00:00"
+            "time": "2024-12-02T16:48:00+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
