@@ -59,6 +59,11 @@ System Management: 系統管理
 Announcement: 公告
 URL: 網址
 Published: 發布
+Preview: 預覽
+To User: 收件使用者
+To Address: 收件信箱
+Subject: 主旨
+EmailEvent: 信件事件
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案

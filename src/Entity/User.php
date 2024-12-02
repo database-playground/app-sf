@@ -90,6 +90,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'sender')]
     private Collection $feedback;
 
+    /**
+     * @var Collection<int, EmailEvent>
+     */
+    #[ORM\OneToMany(targetEntity: EmailEvent::class, mappedBy: 'toUser')]
+    private Collection $emailEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
@@ -99,6 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->hintOpenEvents = new ArrayCollection();
         $this->loginEvents = new ArrayCollection();
         $this->feedback = new ArrayCollection();
+        $this->emailEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -414,6 +421,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null
             if ($feedback->getSender() === $this) {
                 $feedback->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmailEvent>
+     */
+    public function getEmailEvents(): Collection
+    {
+        return $this->emailEvents;
+    }
+
+    public function addEmailEvent(EmailEvent $emailEvent): static
+    {
+        if (!$this->emailEvents->contains($emailEvent)) {
+            $this->emailEvents->add($emailEvent);
+            $emailEvent->setToUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmailEvent(EmailEvent $emailEvent): static
+    {
+        if ($this->emailEvents->removeElement($emailEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($emailEvent->getToUser() === $this) {
+                $emailEvent->setToUser(null);
             }
         }
 

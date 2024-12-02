@@ -1,0 +1,38 @@
+{% extends 'app.html.twig' %}
+
+{% block nav %}<twig:Navbar active="" hasUserInfo="false"/>{% endblock %}
+{% block title %}信件預覽{% endblock %}
+
+{% block app %}
+    <main class="app-email-preview">
+        <div class="row">
+            <article class="app-email-preview__rendered col-9">
+                <h2 class="app-email-preview__title mb-4">
+                    <small><i class="bi bi-envelope-fill"></i></small>
+                    {{ email.subject }}
+                </h2>
+
+                <hr>
+
+                <section class="app-email-preview__content">
+                    {{ email.content|raw }}
+                </section>
+            </article>
+
+            <aside class="app-email-preview__meta col-3">
+                <ul class="app-email-preview__meta__list list-group">
+                    <li class="list-group-item">
+                        <i class="bi bi-envelope-arrow-up-fill"></i>
+                        <span>收件人：</span>
+                        <span>{{ email.toAddress }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="bi bi-calendar-fill"></i>
+                        <span>發件日期：</span>
+                        <span>{{ email.createdAt|date('Y-m-d H:i:s') }}</span>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </main>
+{% endblock %}
