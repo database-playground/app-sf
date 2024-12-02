@@ -104,7 +104,8 @@
       "pnpm format",
       "php-cs-fixer fix --config .php-cs-fixer.dist.php",
       "twig-cs-fixer lint --fix templates",
-      "phpstan analyse"
+      "phpstan analyse",
+      "hadolint Dockerfile*"
     ],
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
