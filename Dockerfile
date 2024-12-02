@@ -15,11 +15,11 @@ RUN set -eux; \
     && bash nodesource_setup.sh \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-      acl \
-      file \
-      gettext \
-      git \
-      nodejs \
+      acl=* \
+      file=* \
+      gettext=* \
+      git=* \
+      nodejs=* \
     && corepack enable \
     && rm -rf /var/lib/apt/lists/*
 
@@ -62,12 +62,7 @@ RUN set -eux; \
         xdebug \
     ;
 
-CMD set -eux; \
-    corepack prepare; \
-    pnpm install --prod --prefer-frozen-lockfile; \
-    (php bin/console sass:build --watch &); \
-    (php bin/console typescript:build --watch &); \
-    (frankenphp run --config /etc/caddy/Caddyfile --watch);
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch"]
 
 # Prod FrankenPHP image
 FROM frankenphp_base AS frankenphp_prod

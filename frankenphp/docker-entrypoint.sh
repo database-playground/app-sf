@@ -6,6 +6,10 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		composer install --prefer-dist --no-progress --no-interaction
 	fi
 
+	if [ -z "$(ls -A 'node_modules/' 2>/dev/null)" ]; then
+    corepnpm prepare && pnpm install --prod --prefer-frozen-lockfile
+  fi
+
 	if grep -q ^DATABASE_URL= .env; then
 		echo "Waiting for database to be ready..."
 		ATTEMPTS_LEFT_TO_REACH_DATABASE=60
@@ -39,6 +43,11 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 
 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
+fi
+
+if [ "$APP_ENV" = "dev" ]; then
+  php bin/console sass:build --watch &
+  php bin/console typescript:build --watch &
 fi
 
 exec docker-php-entrypoint "$@"
