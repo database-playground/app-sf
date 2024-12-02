@@ -24,17 +24,17 @@ RUN set -eux; \
     && rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
-	install-php-extensions \
-		@composer \
-		apcu \
-		curl \
-		intl \
-		opcache \
-		zip \
+    install-php-extensions \
+        @composer \
+        apcu \
+        curl \
+        intl \
+        opcache \
+        zip \
         redis \
         pdo_pgsql \
         sysvsem \
-	;
+    ;
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -58,9 +58,9 @@ ENV APP_ENV=dev XDEBUG_MODE=off
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 RUN set -eux; \
-	install-php-extensions \
-		xdebug \
-	;
+    install-php-extensions \
+        xdebug \
+    ;
 
 CMD set -eux; \
     corepack prepare; \
@@ -85,7 +85,7 @@ COPY --link frankenphp/worker.Caddyfile /etc/caddy/worker.Caddyfile
 COPY --link composer.* symfony.* package.json* pnpm-lock.yaml* ./
 RUN set -eux; \
     corepack prepare; \
-	composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
+    composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
     pnpm install --prod --prefer-frozen-lockfile;
 
 # copy sources
@@ -93,11 +93,11 @@ COPY --link . ./
 RUN rm -Rf frankenphp/
 
 RUN set -eux; \
-	mkdir -p var/cache var/log; \
-	composer dump-autoload --classmap-authoritative --no-dev; \
-	composer dump-env prod; \
-	composer run-script --no-dev post-install-cmd; \
-	chmod +x bin/console; sync;
+    mkdir -p var/cache var/log; \
+    composer dump-autoload --classmap-authoritative --no-dev; \
+    composer dump-env prod; \
+    composer run-script --no-dev post-install-cmd; \
+    chmod +x bin/console; sync;
 
 # build route cache, sass and asset maps
 RUN set -eux; \
