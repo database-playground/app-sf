@@ -8,5 +8,6 @@ parameters:
         - tests/
     scanDirectories:
         - var/cache
+        - vendor/symfony/dependency-injection
     symfony:
         consoleApplicationLoader: tests/console-application.php
