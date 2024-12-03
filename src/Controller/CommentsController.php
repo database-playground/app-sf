@@ -99,11 +99,6 @@ class CommentsController extends AbstractController
 
     private function isCommentFeatureEnabled(): bool
     {
-        $comment = $this->getParameter('app.features.comment');
-        if (!\is_bool($comment)) {
-            throw new \RuntimeException('The "app.features.comment" parameter must be a boolean.');
-        }
-
-        return $comment;
+        return $this->getParameter('app.features.comment');
     }
 }
