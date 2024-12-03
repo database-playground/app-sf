@@ -7,8 +7,8 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
     fi
 
     if [ -z "$(ls -A 'node_modules/' 2>/dev/null)" ]; then
-    corepnpm prepare && pnpm install --prod --prefer-frozen-lockfile
-  fi
+      corepack prepare && pnpm install --prod --prefer-frozen-lockfile
+    fi
 
     if grep -q ^DATABASE_URL= .env; then
         echo "Waiting for database to be ready..."
