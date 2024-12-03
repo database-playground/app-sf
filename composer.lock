@@ -1891,12 +1891,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/meilisearch/meilisearch-symfony.git",
-                "reference": "d46b2da1865ef228aaca67eeac9e6851022dbeaf"
+                "reference": "345bb2b18ec0a962a8a12d0ae0e8088c2ebf0641"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/meilisearch/meilisearch-symfony/zipball/d46b2da1865ef228aaca67eeac9e6851022dbeaf",
-                "reference": "d46b2da1865ef228aaca67eeac9e6851022dbeaf",
+                "url": "https://api.github.com/repos/meilisearch/meilisearch-symfony/zipball/345bb2b18ec0a962a8a12d0ae0e8088c2ebf0641",
+                "reference": "345bb2b18ec0a962a8a12d0ae0e8088c2ebf0641",
                 "shasum": ""
             },
             "require": {
@@ -1961,9 +1961,9 @@
             ],
             "support": {
                 "issues": "https://github.com/meilisearch/meilisearch-symfony/issues",
-                "source": "https://github.com/meilisearch/meilisearch-symfony/tree/main"
+                "source": "https://github.com/meilisearch/meilisearch-symfony/tree/v0.15.7"
             },
-            "time": "2024-12-01T18:32:28+00:00"
+            "time": "2024-12-03T12:49:45+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3298,12 +3298,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-runtime/frankenphp-symfony.git",
-                "reference": "38a5dfa1b1e40d8e0b3bbc91d84a03cf4e65fcf4"
+                "reference": "34b8c25e4b1043dec2a51dfebbc776260acf1921"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-runtime/frankenphp-symfony/zipball/38a5dfa1b1e40d8e0b3bbc91d84a03cf4e65fcf4",
-                "reference": "38a5dfa1b1e40d8e0b3bbc91d84a03cf4e65fcf4",
+                "url": "https://api.github.com/repos/php-runtime/frankenphp-symfony/zipball/34b8c25e4b1043dec2a51dfebbc776260acf1921",
+                "reference": "34b8c25e4b1043dec2a51dfebbc776260acf1921",
                 "shasum": ""
             },
             "require": {
@@ -3343,7 +3343,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-14T20:56:26+00:00"
+            "time": "2024-12-03T16:13:06+00:00"
         },
         {
             "name": "sensiolabs/typescript-bundle",
@@ -10440,12 +10440,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "90933b3f846e3711946b23da510e6a8147a06789"
+                "reference": "927be0d98b92d1b0636d78e95bf9a7ba6042a5c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/90933b3f846e3711946b23da510e6a8147a06789",
-                "reference": "90933b3f846e3711946b23da510e6a8147a06789",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/927be0d98b92d1b0636d78e95bf9a7ba6042a5c8",
+                "reference": "927be0d98b92d1b0636d78e95bf9a7ba6042a5c8",
                 "shasum": ""
             },
             "require": {
@@ -10491,7 +10491,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-02T20:56:16+00:00"
+            "time": "2024-12-03T14:24:47+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
