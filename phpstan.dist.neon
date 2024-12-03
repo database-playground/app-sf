@@ -7,7 +7,9 @@ parameters:
         - src/
         - tests/
     scanDirectories:
-        - var/cache
-        - vendor/symfony/dependency-injection
+        - var/cache/dev/Symfony/Config
+    scanFiles:
+        - vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php
     symfony:
         consoleApplicationLoader: tests/console-application.php
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
