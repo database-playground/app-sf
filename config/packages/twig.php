@@ -14,6 +14,6 @@ return static function (TwigConfig $twigConfig): void {
         ->global('umami_domain', env('UMAMI_DOMAIN'))
         ->global('umami_website_id', env('UMAMI_WEBSITE_ID'))
         ->strictVariables(true)
-        ->global('appfeatures.hint', param('app.features.hint'))
-        ->global('appfeatures.comment', param('app.features.comment'));
+        ->global('app_features_hint', param('app.features.hint'))
+        ->global('app_features_comment', param('app.features.comment'));
 };
