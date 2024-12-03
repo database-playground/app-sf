@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/var/cache/dev" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/.devenv/profile/vendor/psr/container" />
