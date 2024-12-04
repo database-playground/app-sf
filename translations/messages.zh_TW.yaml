@@ -184,3 +184,4 @@ challenge:
 email-kind:
   transactional: 通知型信件
   marketing: 行銷型信件
+  test: 測試用信件
