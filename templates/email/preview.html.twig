@@ -9,13 +9,13 @@
             <article class="app-email-preview__rendered col-9">
                 <h2 class="app-email-preview__title mb-4">
                     <small><i class="bi bi-envelope-fill"></i></small>
-                    {{ email.subject }}
+                    {{ emailDeliveryEvent.email.subject }}
                 </h2>
 
                 <hr>
 
                 <section class="app-email-preview__content">
-                    {{ email.content|raw }}
+                    {{ emailDeliveryEvent.email.content|raw }}
                 </section>
             </article>
 
@@ -23,13 +23,15 @@
                 <ul class="app-email-preview__meta__list list-group">
                     <li class="list-group-item">
                         <i class="bi bi-envelope-arrow-up-fill"></i>
-                        <span>收件人：</span>
-                        <span>{{ email.toAddress }}</span>
+                        <span>收件人：{{ emailDeliveryEvent.toAddress }}</span>
                     </li>
                     <li class="list-group-item">
                         <i class="bi bi-calendar-fill"></i>
-                        <span>發件日期：</span>
-                        <span>{{ email.createdAt|date('Y-m-d H:i:s') }}</span>
+                        <span>發件日期：{{ emailDeliveryEvent.createdAt|date('Y-m-d H:i:s') }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="bi bi-envelope-open-fill"></i>
+                        <span>信件種類：{{ emailDeliveryEvent.email.kind|trans }}</span>
                     </li>
                 </ul>
             </aside>

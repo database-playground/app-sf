@@ -62,8 +62,10 @@ Published: 發布
 Preview: 預覽
 To User: 收件使用者
 To Address: 收件信箱
+Mails: 郵件
 Subject: 主旨
-EmailEvent: 信件事件
+EmailDeliveryEvent: 郵件投遞事件
+Kind: 種類
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案
@@ -178,3 +180,7 @@ challenge:
     answer-query-failure: 正確答案也是個錯誤的 SQL 查詢：%error%
     user-query-error: 你的 SQL 查詢執行失敗：%error%
     user-query-failure: 你的 SQL 查詢不正確：%error%
+
+email-kind:
+  transactional: 通知型信件
+  marketing: 行銷型信件

@@ -91,10 +91,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $feedback;
 
     /**
-     * @var Collection<int, EmailEvent>
+     * @var Collection<int, EmailDeliveryEvent>
      */
-    #[ORM\OneToMany(targetEntity: EmailEvent::class, mappedBy: 'toUser')]
-    private Collection $emailEvents;
+    #[ORM\OneToMany(targetEntity: EmailDeliveryEvent::class, mappedBy: 'toUser')]
+    private Collection $emailDeliveryEvents;
 
     public function __construct()
     {
@@ -105,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->hintOpenEvents = new ArrayCollection();
         $this->loginEvents = new ArrayCollection();
         $this->feedback = new ArrayCollection();
-        $this->emailEvents = new ArrayCollection();
+        $this->emailDeliveryEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -428,29 +428,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, EmailEvent>
+     * @return Collection<int, EmailDeliveryEvent>
      */
-    public function getEmailEvents(): Collection
+    public function getEmailDeliveryEvents(): Collection
     {
-        return $this->emailEvents;
+        return $this->emailDeliveryEvents;
     }
 
-    public function addEmailEvent(EmailEvent $emailEvent): static
+    public function addEmailDeliveryEvent(EmailDeliveryEvent $emailDeliveryEvent): static
     {
-        if (!$this->emailEvents->contains($emailEvent)) {
-            $this->emailEvents->add($emailEvent);
-            $emailEvent->setToUser($this);
+        if (!$this->emailDeliveryEvents->contains($emailDeliveryEvent)) {
+            $this->emailDeliveryEvents->add($emailDeliveryEvent);
+            $emailDeliveryEvent->setToUser($this);
         }
 
         return $this;
     }
 
-    public function removeEmailEvent(EmailEvent $emailEvent): static
+    public function removeEmailDeliveryEvent(EmailDeliveryEvent $emailDeliveryEvent): static
     {
-        if ($this->emailEvents->removeElement($emailEvent)) {
+        if ($this->emailDeliveryEvents->removeElement($emailDeliveryEvent)) {
             // set the owning side to null (unless already changed)
-            if ($emailEvent->getToUser() === $this) {
-                $emailEvent->setToUser(null);
+            if ($emailDeliveryEvent->getToUser() === $this) {
+                $emailDeliveryEvent->setToUser(null);
             }
         }
 

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\EmailEvent;
+use App\Entity\EmailDeliveryEvent;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EmailEvent>
+ * @extends ServiceEntityRepository<EmailDeliveryEvent>
  */
-class EmailEventRepository extends ServiceEntityRepository
+class EmailDeliveryEventRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EmailEvent::class);
+        parent::__construct($registry, EmailDeliveryEvent::class);
     }
 
     /**
@@ -24,7 +24,7 @@ class EmailEventRepository extends ServiceEntityRepository
      *
      * @param User $user The user to find the email target
      *
-     * @return list<EmailEvent>
+     * @return list<EmailDeliveryEvent>
      */
     public function findBySendTarget(User $user): array
     {
