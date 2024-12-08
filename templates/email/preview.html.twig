@@ -1,24 +1,49 @@
 {% extends 'app.html.twig' %}
 
-{% block nav %}<twig:Navbar active="" hasUserInfo="false"/>{% endblock %}
+{% block nav %}
+    <twig:Navbar active="" hasUserInfo="false"/>{% endblock %}
 {% block title %}信件預覽{% endblock %}
 
 {% block app %}
     <main class="app-email-preview">
         <div class="row">
-            <article class="app-email-preview__rendered col-9">
+            <section class="app-email-preview__rendered col-9">
                 <h2 class="app-email-preview__title mb-4">
                     <small><i class="bi bi-envelope-fill"></i></small>
                     {{ emailDeliveryEvent.email.subject }}
                 </h2>
 
-                <hr>
+                <nav>
+                    <ul class="app-email-preview__rendered__mode_selector nav nav-tabs mb-3" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab"
+                                    id="app-email-preview__html_content_selector"
+                                    data-bs-target="#app-email-preview__html_content" type="button" role="tab"
+                                    aria-controls="app-email-preview__html_content" aria-selected="true">HTML 格式信件
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#app-email-preview__text_content"
+                                    id="app-email-preview__text_content_selector"
+                                    type="button" role="tab" aria-controls="app-email-preview__text_content"
+                                    aria-selected="false">純文字格式信件
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
 
-                <section class="app-email-preview__content">
-                    {{ emailDeliveryEvent.email.content|raw }}
-                </section>
-            </article>
-
+                <article class="app-email-preview__rendered__content tab-content">
+                    <div class="tab-pane fade show active" id="app-email-preview__html_content" role="tabpanel"
+                         aria-labelledby="app-email-preview__text_content_selector"
+                         aria-labelledby="home-tab" tabindex="0">
+                        {{ emailDeliveryEvent.email.htmlContent|raw }}
+                    </div>
+                    <div class="tab-pane fade" id="app-email-preview__text_content" role="tabpanel"
+                         aria-labelledby="app-email-preview__text_content_selector" tabindex="0">
+                        <pre>{{ emailDeliveryEvent.email.textContent }}</pre>
+                    </div>
+                </article>
+            </section>
             <aside class="app-email-preview__meta col-3">
                 <ul class="app-email-preview__meta__list list-group">
                     <li class="list-group-item">

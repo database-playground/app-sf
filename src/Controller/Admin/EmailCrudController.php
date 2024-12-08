@@ -9,8 +9,8 @@ use App\Entity\EmailKind;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 
@@ -26,7 +26,8 @@ class EmailCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('subject'),
-            TextEditorField::new('content'),
+            CodeEditorField::new('textContent'),
+            CodeEditorField::new('htmlContent', 'HTML Content')->setLanguage('xml'),
             ChoiceField::new('kind'),
         ];
     }
