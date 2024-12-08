@@ -1,4 +1,4 @@
-name: Create and Publish app-sf image
+name: Create and Publish app-sf and worker image
 
 on:
   push:
@@ -17,11 +17,14 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  docker-image:
+  docker-app-sf:
     runs-on: ubuntu-latest
+
+    env:
+      # app-sf
+      IMAGE_NAME: ${{ github.repository }}
 
     steps:
       - name: Checkout repository
@@ -53,5 +56,46 @@ jobs:
         uses: actions/attest-build-provenance@main
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+  docker-app-sf-worker:
+    runs-on: ubuntu-latest
+
+    env:
+      # app-sf-worker
+      IMAGE_NAME: ${{ github.repository }}-worker
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@master
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@master
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@master
+        with:
+          file: worker.Dockerfile
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@main
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
