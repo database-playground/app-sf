@@ -3,8 +3,8 @@ name: Create and Publish app-sf and worker image
 on:
   push:
     branches:
-      - master
-      - distro/*
+      - "*"
+      - "*/*"
     tags:
       - v*
   workflow_dispatch:
@@ -43,8 +43,16 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push Docker image
-        id: push
+      - name: Build Docker image
+        uses: docker/build-push-action@master
+        with:
+          context: .
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Conditional push for main branch
+        if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/distro/') || startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@master
         with:
           context: .
@@ -53,9 +61,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
+        if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/distro/') || startsWith(github.ref, 'refs/tags/v')
         uses: actions/attest-build-provenance@main
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
 
@@ -83,8 +92,17 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push Docker image
-        id: push
+      - name: Build Docker image
+        uses: docker/build-push-action@master
+        with:
+          file: worker.Dockerfile
+          context: .
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Conditional push for main branch
+        if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/distro/') || startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@master
         with:
           file: worker.Dockerfile
@@ -94,6 +112,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
+        if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/distro/') || startsWith(github.ref, 'refs/tags/v')
         uses: actions/attest-build-provenance@main
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
