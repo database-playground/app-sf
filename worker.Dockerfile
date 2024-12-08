@@ -74,4 +74,4 @@ RUN set -eux; \
     ./bin/console cache:warmup;
 
 ENV RUN_MIGRATIONS=false
-CMD ["php", "bin/console", "messenger:consume", "async", "-vvv"]
+CMD ["php", "bin/console", "messenger:consume", "--all", "-v"]
