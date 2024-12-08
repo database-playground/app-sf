@@ -74,7 +74,6 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
   worker:
-    scale: 2
     image: ${IMAGES_PREFIX:-}app-sf-worker
     build:
       dockerfile: worker.Dockerfile
@@ -85,10 +84,16 @@ services:
       MEILISEARCH_URL: "http://meilisearch:7700"
       MEILISEARCH_API_KEY: ${MEILI_MASTER_KEY:-!MasterChangeMe!}
       MESSENGER_TRANSPORT_DSN: "${REDIS_URI}/messages"
+      MESSENGER_CONSUMER_NAME: app-sf-worker-1
     restart: unless-stopped
     depends_on:
       php:
         condition: service_healthy
+  worker-2:
+    extends:
+      service: worker
+    environment:
+      MESSENGER_CONSUMER_NAME: app-sf-worker-2
 
 volumes:
   ###> doctrine/doctrine-bundle ###
