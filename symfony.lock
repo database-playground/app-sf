@@ -79,6 +79,15 @@
     "sensiolabs/typescript-bundle": {
         "version": "dev-main"
     },
+    "symfony/amazon-mailer": {
+        "version": "7.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "9648db3ecae5c8a6b1a5f74715d3907124348815"
+        }
+    },
     "symfony/asset-mapper": {
         "version": "7.2",
         "recipe": {

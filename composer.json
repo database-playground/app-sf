@@ -26,6 +26,7 @@
     "phpdocumentor/reflection-docblock": "5.*",
     "runtime/frankenphp-symfony": "dev-main",
     "sensiolabs/typescript-bundle": "dev-main",
+    "symfony/amazon-mailer": "7.3.*",
     "symfony/asset": "7.3.*",
     "symfony/asset-mapper": "7.3.*",
     "symfony/console": "7.3.*",
