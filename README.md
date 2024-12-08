@@ -57,11 +57,13 @@ The Database Playground is a platform designed to enhance your SQL skills throug
    OPENAI_API_KEY=your-openai-api-key
    LINE_NOTIFY_DSN=linenotify://line-notify-token@default
    SQLRUNNER_URL=http://sqlrunner.zeabur.internal:8080
+   MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
    ```
 6. Add the following environment variables to the worker:
    ```env
    DATABASE_URL=postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgresql.zeabur.internal:5432/${POSTGRES_DATABASE}?serverVersion=16&charset=utf8
    APP_SECRET=${PASSWORD}
+   MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
    ```
 7. Bind your domain, and the application will be ready for use. The Meilisearch index will be automatically created on start up.
 
