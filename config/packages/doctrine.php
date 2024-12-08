@@ -49,7 +49,7 @@ return static function (ContainerConfigurator $containerConfigurator, DoctrineCo
 
     $ormConfig
         ->controllerResolver()
-        ->autoMapping(true);
+        ->autoMapping(false);
 
     $entityManager->dql()
         ->datetimeFunction('date', SimpleFunction::class)

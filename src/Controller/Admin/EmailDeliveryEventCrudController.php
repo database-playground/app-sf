@@ -43,9 +43,9 @@ class EmailDeliveryEventCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         $previewAction = Action::new('preview', 'Preview', 'fa fa-eye')
-            ->linkToUrl(fn (EmailDeliveryEvent $entity) => $this->generateUrl(
+            ->linkToUrl(fn (EmailDeliveryEvent $event) => $this->generateUrl(
                 'app_email_preview',
-                ['id' => $entity->getId()]
+                ['event' => $event->getId()]
             ));
 
         return $actions

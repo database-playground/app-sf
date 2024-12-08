@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class ChallengeController extends AbstractController
 {
-    #[Route('/challenge/{id}', name: 'app_challenge')]
+    #[Route('/challenge/{question}', name: 'app_challenge')]
     public function index(
         #[CurrentUser] User $user,
         Question $question,
@@ -27,7 +27,7 @@ class ChallengeController extends AbstractController
         ]);
     }
 
-    #[Route('/challenge/{id}/solution-video', name: 'app_challenge_solution_video', methods: ['GET'])]
+    #[Route('/challenge/{question}/solution-video', name: 'app_challenge_solution_video', methods: ['GET'])]
     public function solution_video(
         Question $question,
         EntityManagerInterface $entityManager,
