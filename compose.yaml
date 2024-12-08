@@ -73,6 +73,7 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
   worker:
+    scale: 2
     image: ${IMAGES_PREFIX:-}app-sf-worker
     build:
       dockerfile: worker.Dockerfile

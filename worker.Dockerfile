@@ -74,4 +74,7 @@ RUN set -eux; \
     ./bin/console cache:warmup;
 
 ENV RUN_MIGRATIONS=false
-CMD ["php", "bin/console", "messenger:consume", "--all", "-v"]
+
+# Restart the messenger about each 10 minute or when memory limit (300M) is reached
+# https://symfony.com/doc/current/messenger.html#deploying-to-production
+CMD ["php", "bin/console", "messenger:consume", "--all", "-vv", "--time-limit=600", "--memory-limit=300M"]
