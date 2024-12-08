@@ -107,11 +107,7 @@ return static function (ContainerConfigurator $containerConfigurator, DoctrineCo
             ]);
 
         $cache = $frameworkConfig->cache();
-        $cache->pool($systemCachePool, [
-            'adapter' => 'cache.system',
-        ]);
-        $cache->pool($resultCachePool, [
-            'adapter' => 'cache.app',
-        ]);
+        $cache->pool($systemCachePool)->adapters(['cache.system']);
+        $cache->pool($resultCachePool)->adapters(['cache.app']);
     }
 };
