@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class Email
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
 
