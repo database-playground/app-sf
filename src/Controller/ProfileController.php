@@ -21,10 +21,7 @@ class ProfileController extends AbstractController
 {
     public function isProfileEditable(): bool
     {
-        $isProfileEditable = $this->getParameter('app.features.editable-profile');
-        \assert(\is_bool($isProfileEditable));
-
-        return $isProfileEditable;
+        return $this->getParameter('app.features.editable-profile');
     }
 
     #[Route('/profile', name: 'app_profile')]

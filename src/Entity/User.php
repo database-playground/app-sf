@@ -90,6 +90,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'sender')]
     private Collection $feedback;
 
+    /**
+     * @var Collection<int, EmailDeliveryEvent>
+     */
+    #[ORM\OneToMany(targetEntity: EmailDeliveryEvent::class, mappedBy: 'toUser')]
+    private Collection $emailDeliveryEvents;
+
     public function __construct()
     {
         $this->solutionEvents = new ArrayCollection();
@@ -99,6 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->hintOpenEvents = new ArrayCollection();
         $this->loginEvents = new ArrayCollection();
         $this->feedback = new ArrayCollection();
+        $this->emailDeliveryEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -414,6 +421,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null
             if ($feedback->getSender() === $this) {
                 $feedback->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmailDeliveryEvent>
+     */
+    public function getEmailDeliveryEvents(): Collection
+    {
+        return $this->emailDeliveryEvents;
+    }
+
+    public function addEmailDeliveryEvent(EmailDeliveryEvent $emailDeliveryEvent): static
+    {
+        if (!$this->emailDeliveryEvents->contains($emailDeliveryEvent)) {
+            $this->emailDeliveryEvents->add($emailDeliveryEvent);
+            $emailDeliveryEvent->setToUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmailDeliveryEvent(EmailDeliveryEvent $emailDeliveryEvent): static
+    {
+        if ($this->emailDeliveryEvents->removeElement($emailDeliveryEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($emailDeliveryEvent->getToUser() === $this) {
+                $emailDeliveryEvent->setToUser(null);
             }
         }
 

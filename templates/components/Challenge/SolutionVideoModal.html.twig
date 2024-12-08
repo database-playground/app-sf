@@ -4,7 +4,7 @@
     'aria-label': '打開解答影片',
     'aria-hidden': 'true',
     'data-video-url': path('app_challenge_solution_video', {
-        id: this.question.id,
+        question: this.question.id,
         csrf: csrf_token('challenge-solution'),
     }),
 }|merge(stimulus_controller('challenge-solution-video-modal'))) }}>

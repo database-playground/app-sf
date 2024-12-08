@@ -57,8 +57,6 @@ final class CommentForm
     public function save(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag): void
     {
         $appFeatureComment = $parameterBag->get('app.features.comment');
-        \assert(\is_bool($appFeatureComment));
-
         if (!$appFeatureComment) {
             throw new BadRequestHttpException('Comment feature is disabled.');
         }

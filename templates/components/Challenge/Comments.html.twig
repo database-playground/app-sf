@@ -1,5 +1,5 @@
-<div {{ attributes.defaults({class: 'app-challenge-comments', 'aria-hidden': not appfeatures.comment}) }}>
-    {% if appfeatures.comment %}
+<div {{ attributes.defaults({class: 'app-challenge-comments', 'aria-hidden': not app_features_comment}) }}>
+    {% if app_features_comment %}
         <div class="app-challenge-comments__new mb-4">
             <twig:Challenge:Comments:CommentForm :question="question" :commenter="currentUser" />
         </div>

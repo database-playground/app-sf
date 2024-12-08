@@ -7,6 +7,8 @@ namespace App\Controller\Admin;
 use App\Entity\Announcement;
 use App\Entity\Comment;
 use App\Entity\CommentLikeEvent;
+use App\Entity\Email;
+use App\Entity\EmailDeliveryEvent;
 use App\Entity\Feedback;
 use App\Entity\Group;
 use App\Entity\HintOpenEvent;
@@ -62,6 +64,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Comments');
         yield MenuItem::linkToCrud('Comment', 'fa fa-comment', Comment::class);
         yield MenuItem::linkToCrud('CommentLikeEvent', 'fa fa-thumbs-up', CommentLikeEvent::class);
+
+        yield MenuItem::section('Mails');
+        yield MenuItem::linkToCrud('Email', 'fa fa-envelope', Email::class);
+        yield MenuItem::linkToCrud('EmailDeliveryEvent', 'fa fa-paper-plane', EmailDeliveryEvent::class);
 
         yield MenuItem::section('Events');
         yield MenuItem::linkToCrud('SolutionEvent', 'fa fa-check', SolutionEvent::class);

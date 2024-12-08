@@ -67,8 +67,6 @@ final class Modal
         ParameterBagInterface $parameterBag,
     ): void {
         $appFeatureHint = $parameterBag->get('app.features.hint');
-        \assert(\is_bool($appFeatureHint));
-
         if (!$appFeatureHint) {
             throw new BadRequestHttpException('Hint feature is disabled.');
         }

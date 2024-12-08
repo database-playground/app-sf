@@ -43,7 +43,8 @@ The Database Playground is a platform designed to enhance your SQL skills throug
 2. Deploy [SQL runner](https://github.com/database-playground/sqlrunner-v2) on Zeabur, and rename the service host to
    `sqlrunner`.
 3. Deploy the application in Git mode on Zeabur.
-4. Add the following environment variables to the application:
+4. Deploy the worker in Git mode on Zeabur. The service name should be `worker`.
+5. Add the following environment variables to the application:
    ```env
    DATABASE_URL=postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgresql.zeabur.internal:5432/${POSTGRES_DATABASE}?serverVersion=16&charset=utf8
    REDIS_URI=${REDIS_CONNECTION_STRING}
@@ -56,8 +57,19 @@ The Database Playground is a platform designed to enhance your SQL skills throug
    OPENAI_API_KEY=your-openai-api-key
    LINE_NOTIFY_DSN=linenotify://line-notify-token@default
    SQLRUNNER_URL=http://sqlrunner.zeabur.internal:8080
+   MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
    ```
-5. Bind your domain, and the application will be ready for use. The Meilisearch index will be automatically created on start up.
+6. Add the following environment variables to the worker:
+   ```env
+   DATABASE_URL=postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgresql.zeabur.internal:5432/${POSTGRES_DATABASE}?serverVersion=16&charset=utf8
+   REDIS_URI=${REDIS_CONNECTION_STRING}
+   MEILISEARCH_URL=http://meilisearch.zeabur.internal:7700
+   MEILISEARCH_API_KEY=${MEILI_MASTER_KEY}
+   APP_SECRET=${PASSWORD}
+   LINE_NOTIFY_DSN=linenotify://line-notify-token@default
+   MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
+   ```
+7. Bind your domain, and the application will be ready for use. The Meilisearch index will be automatically created on start up.
 
 ### Docker
 

@@ -27,7 +27,7 @@
                 <a
                         class="btn btn-secondary {{ not previousPage ? 'disabled' : '' }}"
                         role="button"
-                        href="{{ previousPage ? path('app_challenge', {id: previousPage}) : '#' }}"
+                        href="{{ previousPage ? path('app_challenge', {question: previousPage}) : '#' }}"
                         aria-label="上一題"
                 >
                     <i class="bi bi-arrow-left"></i>
@@ -36,7 +36,7 @@
                 <a
                         class="btn btn-secondary {{ not nextPage ? 'disabled' : '' }}"
                         role="button"
-                        href="{{ nextPage ? path('app_challenge', {id: nextPage}) : '#' }}"
+                        href="{{ nextPage ? path('app_challenge', {question: nextPage}) : '#' }}"
                         aria-label="下一題"
                 >
                     <i class="bi bi-arrow-right"></i>

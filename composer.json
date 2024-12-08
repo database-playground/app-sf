@@ -26,6 +26,7 @@
     "phpdocumentor/reflection-docblock": "5.*",
     "runtime/frankenphp-symfony": "dev-main",
     "sensiolabs/typescript-bundle": "dev-main",
+    "symfony/amazon-mailer": "7.3.*",
     "symfony/asset": "7.3.*",
     "symfony/asset-mapper": "7.3.*",
     "symfony/console": "7.3.*",
@@ -45,6 +46,7 @@
     "symfony/notifier": "7.3.*",
     "symfony/password-hasher": "7.3.*",
     "symfony/process": "7.3.*",
+    "symfony/redis-messenger": "7.3.*",
     "symfony/runtime": "7.3.*",
     "symfony/security-bundle": "7.3.*",
     "symfony/serializer": "7.3.*",
@@ -146,6 +148,7 @@
     "symfony/phpunit-bridge": "7.3.*",
     "symfony/stopwatch": "7.3.*",
     "symfony/web-profiler-bundle": "7.3.*",
+    "symplify/config-transformer": "^12.3",
     "vincentlanglet/twig-cs-fixer": "dev-main"
   }
 }

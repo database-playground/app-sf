@@ -3,7 +3,7 @@
     {% if question.solutionVideo %}
         <twig:Challenge:SolutionVideoModal class="challenge-solution-video-modal" :question="question" :user="user" />
     {% endif %}
-    {% if appfeatures.hint %}
+    {% if app_features_hint %}
         <twig:Challenge:Instruction:Modal class="challenge-instruction-modal" :question="question" :currentUser="user" />
     {% endif %}
 
@@ -15,7 +15,7 @@
                 <twig:Challenge:Executor class="mt-2" :question="question" :user="user">
                     <twig:block name="actions">
                         <div class="btn-group">
-                            {% if appfeatures.hint %}
+                            {% if app_features_hint %}
                                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target=".challenge-instruction-modal">提示</button>
                             {% endif %}
                             {% if question.solutionVideo %}
@@ -35,7 +35,7 @@
             </div>
         </section>
 
-        {% if appfeatures.comment %}
+        {% if app_features_comment %}
             <section class="app-challenge-primary__comments mt-4" id="comments">
                 <h3 class="mb-3">留言區</h3>
                 <twig:Challenge:Comments :question="question" :currentUser="user" loading="lazy" />
