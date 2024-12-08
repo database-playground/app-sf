@@ -25,7 +25,11 @@ class Email
 
     #[ORM\Column(type: Types::TEXT)]
     #[NotBlank]
-    private string $content = '';
+    private string $textContent = '';
+
+    #[ORM\Column(type: Types::TEXT)]
+    #[NotBlank]
+    private string $htmlContent = '';
 
     /**
      * @var Collection<int, EmailDeliveryEvent>
@@ -63,14 +67,26 @@ class Email
         return $this;
     }
 
-    public function getContent(): string
+    public function getTextContent(): string
     {
-        return $this->content;
+        return $this->textContent;
     }
 
-    public function setContent(string $content): static
+    public function setTextContent(string $textContent): static
     {
-        $this->content = $content;
+        $this->textContent = $textContent;
+
+        return $this;
+    }
+
+    public function getHtmlContent(): string
+    {
+        return $this->htmlContent;
+    }
+
+    public function setHtmlContent(string $htmlContent): static
+    {
+        $this->htmlContent = $htmlContent;
 
         return $this;
     }

@@ -45,11 +45,21 @@ final readonly class EmailCreatedSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $body = $message->getHtmlBody();
-        if (!\is_string($body)) {
+        $textBody = $message->getTextBody();
+        if (!\is_string($textBody)) {
+            $this->logger->warning('The message does not have an valid text body.', [
+                'message' => $message,
+                'body' => $textBody,
+            ]);
+
+            return;
+        }
+
+        $htmlBody = $message->getHtmlBody();
+        if (!\is_string($htmlBody)) {
             $this->logger->warning('The message does not have an valid HTML body.', [
                 'message' => $message,
-                'body' => $body,
+                'body' => $htmlBody,
             ]);
 
             return;
@@ -68,7 +78,8 @@ final readonly class EmailCreatedSubscriber implements EventSubscriberInterface
 
         $email = (new EmailEntity())
             ->setSubject($subject)
-            ->setContent($body)
+            ->setTextContent($textBody)
+            ->setHtmlContent($htmlBody)
             ->setKind($kind);
         $this->entityManager->persist($email);
 

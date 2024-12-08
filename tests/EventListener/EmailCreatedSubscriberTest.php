@@ -26,6 +26,7 @@ class EmailCreatedSubscriberTest extends TestCase
 
         $message = (new Email())
             ->subject('subject')
+            ->text('body')
             ->html('<div>body</div')
             ->from('demo-dbplay@example.com')
             ->to('test@example.com');
@@ -59,7 +60,8 @@ class EmailCreatedSubscriberTest extends TestCase
                         \assert($email instanceof EmailEntity);
 
                         self::assertEquals('subject', $email->getSubject());
-                        self::assertEquals('<div>body</div>', $email->getContent());
+                        self::assertEquals('body', $email->getTextContent());
+                        self::assertEquals('<div>body</div>', $email->getHtmlContent());
                         self::assertEquals(EmailKind::Test, $email->getKind());
 
                         $emailInstance = $email;
