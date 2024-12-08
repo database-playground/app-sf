@@ -627,7 +627,7 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.x"
+                "source": "https://github.com/doctrine/deprecations/tree/1.1.4"
             },
             "time": "2024-12-07T21:18:45+00:00"
         },
@@ -1279,12 +1279,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "60071544846105bb67a4ac06fcc581c8893b6632"
+                "reference": "a15543a2cee2d548e94a3a867b4ca6cf1354cfc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/60071544846105bb67a4ac06fcc581c8893b6632",
-                "reference": "60071544846105bb67a4ac06fcc581c8893b6632",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/a15543a2cee2d548e94a3a867b4ca6cf1354cfc3",
+                "reference": "a15543a2cee2d548e94a3a867b4ca6cf1354cfc3",
                 "shasum": ""
             },
             "require": {
@@ -1308,13 +1308,12 @@
                 "phpbench/phpbench": "^1.0",
                 "phpdocumentor/guides-cli": "^1.4",
                 "phpstan/extension-installer": "^1.4",
-                "phpstan/phpstan": "1.12.6",
-                "phpstan/phpstan-deprecation-rules": "^1.2",
+                "phpstan/phpstan": "2.0.3",
+                "phpstan/phpstan-deprecation-rules": "^2",
                 "phpunit/phpunit": "^10.4.0",
                 "psr/log": "^1 || ^2 || ^3",
                 "squizlabs/php_codesniffer": "3.7.2",
-                "symfony/cache": "^5.4 || ^6.2 || ^7.0",
-                "vimeo/psalm": "5.26.1"
+                "symfony/cache": "^5.4 || ^6.2 || ^7.0"
             },
             "suggest": {
                 "ext-dom": "Provides support for XSD validation for XML mapping files",
@@ -1362,7 +1361,7 @@
                 "issues": "https://github.com/doctrine/orm/issues",
                 "source": "https://github.com/doctrine/orm/tree/3.4.x"
             },
-            "time": "2024-12-04T06:52:51+00:00"
+            "time": "2024-12-08T12:02:05+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -10635,12 +10634,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "4b7df8d682ecb61c69acbde9fb16f273105f6e1b"
+                "reference": "6b5f8bab2a3d846fd2e087a9071529cc09811896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4b7df8d682ecb61c69acbde9fb16f273105f6e1b",
-                "reference": "4b7df8d682ecb61c69acbde9fb16f273105f6e1b",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6b5f8bab2a3d846fd2e087a9071529cc09811896",
+                "reference": "6b5f8bab2a3d846fd2e087a9071529cc09811896",
                 "shasum": ""
             },
             "require": {
@@ -10686,7 +10685,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-07T19:32:47+00:00"
+            "time": "2024-12-08T14:24:05+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
