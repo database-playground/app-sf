@@ -220,6 +220,7 @@
       <path value="$PROJECT_DIR$/vendor/async-aws/ses" />
       <path value="$PROJECT_DIR$/vendor/async-aws/core" />
       <path value="$PROJECT_DIR$/vendor/symplify/config-transformer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/redis-messenger" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

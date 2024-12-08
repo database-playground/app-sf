@@ -46,6 +46,7 @@
     "symfony/notifier": "7.3.*",
     "symfony/password-hasher": "7.3.*",
     "symfony/process": "7.3.*",
+    "symfony/redis-messenger": "7.3.*",
     "symfony/runtime": "7.3.*",
     "symfony/security-bundle": "7.3.*",
     "symfony/serializer": "7.3.*",

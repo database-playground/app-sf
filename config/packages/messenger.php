@@ -19,11 +19,6 @@ return static function (ContainerConfigurator $containerConfigurator, FrameworkC
     $asyncTransport = $messenger->transport('async');
     assert($asyncTransport instanceof TransportConfig);
     $asyncTransport->dsn(env('MESSENGER_TRANSPORT_DSN'));
-    /* @phpstan-ignore-next-line argument.type https://github.com/symfony/symfony/issues/18988 */
-    $asyncTransport->options([
-        'use_notify' => true,
-        'check_delayed_interval' => 60000,
-    ]);
     $asyncTransport->retryStrategy()
         ->maxRetries(3)
         ->multiplier(2);

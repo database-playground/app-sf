@@ -55,6 +55,7 @@ services:
       MEILISEARCH_URL: "http://meilisearch:7700"
       MEILISEARCH_API_KEY: ${MEILI_MASTER_KEY:-!MasterChangeMe!}
       SQLRUNNER_URL: "http://sqlrunner:8080"
+      MESSENGER_TRANSPORT_DSN: "${REDIS_URI}/messages"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -78,6 +79,12 @@ services:
     build:
       dockerfile: worker.Dockerfile
       context: .
+    environment:
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-16}&charset=${POSTGRES_CHARSET:-utf8}"
+      REDIS_URI: "redis://redis:6379"
+      MEILISEARCH_URL: "http://meilisearch:7700"
+      MEILISEARCH_API_KEY: ${MEILI_MASTER_KEY:-!MasterChangeMe!}
+      MESSENGER_TRANSPORT_DSN: "${REDIS_URI}/messages"
     restart: unless-stopped
     depends_on:
       php:
