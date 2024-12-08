@@ -78,8 +78,6 @@ services:
       dockerfile: worker.Dockerfile
       context: .
     restart: unless-stopped
-    environment:
-      - RUN_MIGRATIONS=false
     depends_on:
       php:
         condition: service_healthy
