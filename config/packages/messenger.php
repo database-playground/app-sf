@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Mailer\Messenger\SendEmailMessage;
+use Symfony\Component\Notifier\Message\ChatMessage;
 use Symfony\Config\Framework\Messenger\RoutingConfig;
 use Symfony\Config\Framework\Messenger\TransportConfig;
 use Symfony\Config\FrameworkConfig;
@@ -34,7 +35,11 @@ return static function (ContainerConfigurator $containerConfigurator, FrameworkC
     $messenger->bus('messenger.bus.default');
     $messenger->defaultBus('messenger.bus.default');
 
-    $routingConfig = $messenger->routing(SendEmailMessage::class);
-    assert($routingConfig instanceof RoutingConfig);
-    $routingConfig->senders(['async']);
+    $sendEmailMessageRoutingConfig = $messenger->routing(SendEmailMessage::class);
+    assert($sendEmailMessageRoutingConfig instanceof RoutingConfig);
+    $sendEmailMessageRoutingConfig->senders(['async']);
+
+    $notifierRoutingConfig = $messenger->routing(ChatMessage::class);
+    assert($notifierRoutingConfig instanceof RoutingConfig);
+    $notifierRoutingConfig->senders(['async']);
 };
