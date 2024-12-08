@@ -46,7 +46,7 @@ services:
   sqlrunner:
     image: ghcr.io/database-playground/sqlrunner-v2:main
   php:
-    image: ${IMAGES_PREFIX:-}app-php
+    image: ${IMAGES_PREFIX:-}app-sf
     restart: unless-stopped
     environment:
       SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
@@ -72,6 +72,17 @@ services:
       - target: 443
         published: ${HTTP3_PORT:-443}
         protocol: udp
+  worker:
+    image: ${IMAGES_PREFIX:-}app-sf-worker
+    build:
+      dockerfile: worker.Dockerfile
+      context: .
+    restart: unless-stopped
+    environment:
+      - RUN_MIGRATIONS=false
+    depends_on:
+      php:
+        condition: service_healthy
 
 volumes:
   ###> doctrine/doctrine-bundle ###
