@@ -49,7 +49,7 @@ class EmailDeliveryEventCrudController extends AbstractCrudController
             ));
 
         return $actions
-//            ->disable(Action::DELETE, Action::EDIT, Action::NEW)
+            ->disable(Action::DELETE, Action::EDIT, Action::NEW)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_INDEX, $previewAction)
             ->add(Crud::PAGE_DETAIL, $previewAction);
