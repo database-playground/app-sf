@@ -85,7 +85,7 @@ RUN set -eux; \
 
 # copy sources
 COPY --link . ./
-RUN rm -Rf frankenphp/ config/packages/debug.php config/packages/web_profiler.php
+RUN rm -Rf frankenphp/
 
 RUN set -eux; \
     mkdir -p var/cache var/log; \
