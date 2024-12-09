@@ -221,6 +221,7 @@
       <path value="$PROJECT_DIR$/vendor/async-aws/core" />
       <path value="$PROJECT_DIR$/vendor/symplify/config-transformer" />
       <path value="$PROJECT_DIR$/vendor/symfony/redis-messenger" />
+      <path value="$PROJECT_DIR$/vendor/notfloran/mjml-bundle" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

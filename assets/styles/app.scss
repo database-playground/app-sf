@@ -413,3 +413,10 @@ ul.credit {
     }
   }
 }
+
+.app-email-preview {
+  &__rendered__content__html {
+    height: 60vh;
+    width: 100%;
+  }
+}

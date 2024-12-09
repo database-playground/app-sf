@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c14e26755234d439e459d18d858e4f5b",
+    "content-hash": "6258dd22ab56c88e02af174935195c59",
     "packages": [
         {
             "name": "async-aws/core",
@@ -2344,6 +2344,60 @@
                 "source": "https://github.com/nette/utils/tree/v4.0.5"
             },
             "time": "2024-08-07T15:39:19+00:00"
+        },
+        {
+            "name": "notfloran/mjml-bundle",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Akollade/mjml-bundle.git",
+                "reference": "ca7680818e2dd1c6f806f700076eb5af5bf19e61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Akollade/mjml-bundle/zipball/ca7680818e2dd1c6f806f700076eb5af5bf19e61",
+                "reference": "ca7680818e2dd1c6f806f700076eb5af5bf19e61",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
+                "symfony/process": "^3.4 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
+                "symfony/twig-bundle": "^3.4 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
+            },
+            "require-dev": {
+                "matthiasnoback/symfony-config-test": "^4.1",
+                "phpstan/phpstan": "^0.12.0",
+                "phpunit/phpunit": "^7.0|^8.0",
+                "symplify/easy-coding-standard": "^9.0"
+            },
+            "default-branch": true,
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NotFloran\\MjmlBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Floran Brutel",
+                    "email": "fbrutel@akollade.fr"
+                }
+            ],
+            "description": "Symfony bundle for MJML",
+            "keywords": [
+                "email",
+                "mjml"
+            ],
+            "support": {
+                "issues": "https://github.com/Akollade/mjml-bundle/issues",
+                "source": "https://github.com/Akollade/mjml-bundle/tree/main"
+            },
+            "time": "2024-11-21T17:31:24+00:00"
         },
         {
             "name": "nyholm/psr7",

@@ -20,6 +20,7 @@
     "jblond/php-diff": "dev-master",
     "league/commonmark": "dev-main",
     "meilisearch/search-bundle": "dev-main",
+    "notfloran/mjml-bundle": "*",
     "nyholm/psr7": "dev-master",
     "openai-php/client": "dev-main",
     "oro/doctrine-extensions": "dev-master",

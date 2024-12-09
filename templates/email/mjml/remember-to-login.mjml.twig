@@ -1,0 +1,43 @@
+{% block email_content %}
+    {% mjml %}
+        <mjml>
+            <mj-head>
+                <mj-preview>
+                    ⚠️ 我注意到這週你沒有登入，記得持續學習和練習對進步非常重要！提醒你一下，如果這週做題數量未達 5
+                    題，每少做一題將會扣 4 分，希望你能儘快投入學習，保持進度，這樣才能持續提升自己的 SQL 能力。加油！
+                </mj-preview>
+            </mj-head>
+            <mj-body>
+                <!-- <header> -->
+                {{ include('email/mjml/_partials/header-situation.mjml.twig') }}
+                <!-- </header> -->
+
+                <!-- <section> -->
+                <mj-wrapper padding="20px 12px">
+                    <!-- <article> -->
+                    <mj-section padding="0" text-align="center">
+                        <mj-column width="500px">
+                            <mj-image src="https://s3.dbplay.pan93.com/email-assets/section-login-recency-decrease.png"
+                                      alt="登入天數 – 減少" padding="0" padding-bottom="10px"/>
+                            <mj-text line-height="1.4" padding="0px 24px">
+                                ⚠️ 我注意到這週你沒有登入，記得持續學習和練習對進步非常重要！提醒你一下，如果這週做題數量未達
+                                5
+                                題，每少做一題將會扣 4 分，希望你能儘快投入學習，保持進度，這樣才能持續提升自己的 SQL 能力。加油！
+                            </mj-text>
+                            <mj-button href="https://dbplay.pan93.com" font-size="12px" background-color="#4154F1"
+                                       color="#ffffff" border-radius="12px" align="left" inner-padding="8px 14px">
+                                立即登入
+                            </mj-button>
+                        </mj-column>
+                    </mj-section>
+                    <!-- </article> -->
+                </mj-wrapper>
+                <!-- </section> -->
+
+                <!-- <footer> -->
+                {{ include('email/mjml/_partials/footer.mjml.twig') }}
+                <!-- </footer> -->
+            </mj-body>
+        </mjml>
+    {% endmjml %}
+{% endblock %}

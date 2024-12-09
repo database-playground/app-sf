@@ -10,8 +10,8 @@
     {% set hasText, hasHtml = textContent|length > 0, htmlContent|length > 0 %}
 
     <main class="app-email-preview">
-        <div class="row">
-            <section class="app-email-preview__rendered col-9">
+        <div class="row g-4">
+            <section class="app-email-preview__rendered col-lg-9 order-1 order-lg-0">
                 <h2 class="app-email-preview__title mb-4">
                     <small><i class="bi bi-envelope-fill"></i></small>
                     {{ emailDeliveryEvent.email.subject }}
@@ -44,9 +44,8 @@
                 <article class="app-email-preview__rendered__content tab-content">
                     {% if hasHtml %}
                         <div class="tab-pane fade show active" id="app-email-preview__html_content" role="tabpanel"
-                             aria-labelledby="app-email-preview__text_content_selector"
-                             aria-labelledby="home-tab" tabindex="0">
-                            {{ emailDeliveryEvent.email.htmlContent|raw }}
+                             aria-labelledby="app-email-preview__text_content_selector" tabindex="0">
+                            <iframe class="app-email-preview__rendered__content__html" sandbox srcdoc="{{ emailDeliveryEvent.email.htmlContent }}"></iframe>
                         </div>
                     {% endif %}
                     {% if hasText %}
@@ -57,7 +56,7 @@
                     {% endif %}
                 </article>
             </section>
-            <aside class="app-email-preview__meta col-3">
+            <aside class="app-email-preview__meta col-lg-3 order-0 order-lg-1">
                 <ul class="app-email-preview__meta__list list-group">
                     <li class="list-group-item">
                         <i class="bi bi-envelope-arrow-up-fill"></i>

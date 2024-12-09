@@ -38,6 +38,9 @@
     "meilisearch/search-bundle": {
         "version": "dev-main"
     },
+    "notfloran/mjml-bundle": {
+        "version": "dev-main"
+    },
     "php-http/discovery": {
         "version": "1.9999999",
         "recipe": {

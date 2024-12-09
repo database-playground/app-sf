@@ -22,4 +22,5 @@ return [
     Sensiolabs\TypeScriptBundle\SensiolabsTypeScriptBundle::class => ['all' => true],
     Meilisearch\Bundle\MeilisearchBundle::class => ['all' => true],
     Symfony\UX\Chartjs\ChartjsBundle::class => ['all' => true],
+    NotFloran\MjmlBundle\MjmlBundle::class => ['all' => true],
 ];
