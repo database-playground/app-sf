@@ -23,4 +23,16 @@ enum Level: string implements TranslatableInterface
     {
         return $translator->trans('level.'.$this->value, locale: $locale);
     }
+
+    public static function fromPercent(float $percent): self
+    {
+        return match (true) {
+            $percent < 5 => self::Starter,
+            $percent < 20 => self::Beginner,
+            $percent < 40 => self::Intermediate,
+            $percent < 65 => self::Advanced,
+            $percent < 90 => self::Expert,
+            default => self::Master,
+        };
+    }
 }

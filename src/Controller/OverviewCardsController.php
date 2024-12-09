@@ -64,21 +64,12 @@ class OverviewCardsController extends AbstractController
         $solvedQuestions = $solutionEventRepository->findSolvedQuestions($user);
         $totalQuestions = $questionRepository->count();
 
-        if (0 === $totalQuestions) {
-            return $this->render('overview/cards/level.html.twig', [
-                'level' => Level::cases()[0],
-                'rawLevelIndex' => 0,
-            ]);
-        }
-
-        $solvedQuestionPercent = \count($solvedQuestions) / $totalQuestions;
-        $levelIndex = ceil(\count(Level::cases()) * $solvedQuestionPercent);
-
-        $level = Level::cases()[$levelIndex];
+        $level = \count($solvedQuestions) > 0
+            ? Level::fromPercent(\count($solvedQuestions) / $totalQuestions)
+            : Level::Starter;
 
         return $this->render('overview/cards/level.html.twig', [
             'level' => $level,
-            'rawLevelIndex' => $levelIndex,
         ]);
     }
 
