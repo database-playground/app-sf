@@ -42,8 +42,10 @@ The Database Playground is a platform designed to enhance your SQL skills throug
 1. Deploy Redis, PostgreSQL, Meilisearch, and Umami (for statistics) on Zeabur.
 2. Deploy [SQL runner](https://github.com/database-playground/sqlrunner-v2) on Zeabur, and rename the service host to
    `sqlrunner`.
-3. Deploy the application in Git mode on Zeabur.
-4. Deploy the worker in Git mode on Zeabur. The service name should be `worker`.
+3. Deploy the application in Git mode on Zeabur. You can use our prebuilt image at
+   the GitHub Registry.
+4. Deploy the worker in Git mode on Zeabur. You can use our prebuilt image at
+   the GitHub Registry. Also, it is recommended to create more than 1 worker.
 5. Add the following environment variables to the application:
    ```env
    DATABASE_URL=postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgresql.zeabur.internal:5432/${POSTGRES_DATABASE}?serverVersion=16&charset=utf8
@@ -58,6 +60,7 @@ The Database Playground is a platform designed to enhance your SQL skills throug
    LINE_NOTIFY_DSN=linenotify://line-notify-token@default
    SQLRUNNER_URL=http://sqlrunner.zeabur.internal:8080
    MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
+   MESSENGER_TRANSPORT_DSN=${REDIS_URI}/messages
    ```
 6. Add the following environment variables to the worker:
    ```env
@@ -68,6 +71,8 @@ The Database Playground is a platform designed to enhance your SQL skills throug
    APP_SECRET=${PASSWORD}
    LINE_NOTIFY_DSN=linenotify://line-notify-token@default
    MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
+   MESSENGER_TRANSPORT_DSN=${REDIS_URI}/messages
+   MESSENGER_CONSUMER_NAME=app-sf-worker-1  # Change the number for each worker
    ```
 7. Bind your domain, and the application will be ready for use. The Meilisearch index will be automatically created on start up.
 
@@ -75,7 +80,7 @@ The Database Playground is a platform designed to enhance your SQL skills throug
 
 We provide a Docker Compose configuration based on [Symfony Docker](https://github.com/dunglas/symfony-docker) for
 deployment. The prebuilt image is available at
-the [GitHub Registry](https://github.com/database-playground/app-sf/pkgs/container/app-sf).
+the [GitHub Registry](https://github.com/orgs/database-playground/packages).
 
 To deploy the application, you may need to update the secret or environment variables in the `compose.yaml` and
 `compose.prod.yaml` files, and then run the following command:
