@@ -10,6 +10,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 enum EmailKind: string implements TranslatableInterface
 {
+    public const EMAIL_HEADER = 'X-Email-Kind';
+
     case Transactional = 'transactional';
     case Marketing = 'marketing';
     case Test = 'test';
@@ -28,7 +30,7 @@ enum EmailKind: string implements TranslatableInterface
      */
     public static function fromEmailHeader(Headers $headers): self
     {
-        $kind = $headers->getHeaderBody('X-Email-Kind');
+        $kind = $headers->getHeaderBody(self::EMAIL_HEADER);
         if (!\is_string($kind)) {
             throw new \InvalidArgumentException('The email kind header is missing or is invalid type.');
         }
@@ -43,6 +45,6 @@ enum EmailKind: string implements TranslatableInterface
 
     public function addToEmailHeader(Headers $headers): Headers
     {
-        return $headers->addTextHeader('X-Email-Kind', $this->value);
+        return $headers->addTextHeader(self::EMAIL_HEADER, $this->value);
     }
 }
