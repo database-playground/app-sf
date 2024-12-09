@@ -1,0 +1,22 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}郵件範本{% endblock %}
+
+{% block main %}
+    <table class="datagrid">
+        <thead>
+        <tr>
+            <td>模板檔案路徑</td>
+            <td>功能</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for template in templates %}
+            <tr>
+                <td>{{ template }}</td>
+                <td><a class="btn" href="{{ ea_url().setRoute('app_admin_emailtemplate_details', {name: template}) }}">預覽</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

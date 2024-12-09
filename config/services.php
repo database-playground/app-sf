@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controller\Admin\EmailTemplateController;
 use App\Service\EmailService;
 use App\Service\PromptService;
 use App\Service\SqlRunnerService;
@@ -44,4 +45,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(EmailService::class)
         ->arg('$serverMail', param('app.server-mail'));
+
+    $services->set(EmailTemplateController::class)
+        ->arg('$projectDir', param('kernel.project_dir'));
 };

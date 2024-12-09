@@ -68,6 +68,7 @@ EmailDeliveryEvent: 郵件投遞事件
 Kind: 種類
 Text Content: 文字內容
 HTML Content: HTML 內容
+EmailTemplates: 郵件範本
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案
