@@ -166,28 +166,12 @@ class SolutionEventRepository extends ServiceEntityRepository
             $qb = $qb->andWhere('u.group IS NULL');
         }
 
-        $result = $qb->getQuery()->getResult();
-        \assert(\is_array($result) && array_is_list($result));
-
         /**
-         * @var list<array{user: User, count: int}> $leaderboard
+         * @var list<array{user: User, count: int<0, max>}> $result
          */
-        $leaderboard = [];
+        $result = $qb->getQuery()->getResult();
 
-        foreach ($result as $item) {
-            \assert(\is_array($item));
-            \assert(\array_key_exists('user', $item));
-            \assert(\array_key_exists('count', $item));
-            \assert($item['user'] instanceof User);
-            \assert(\is_int($item['count']));
-
-            $leaderboard[] = [
-                'user' => $item['user'],
-                'count' => $item['count'],
-            ];
-        }
-
-        return $leaderboard;
+        return $result;
     }
 
     /**
@@ -213,7 +197,7 @@ class SolutionEventRepository extends ServiceEntityRepository
         }
 
         /**
-         * @var SolutionEvent[] $result
+         * @var list<SolutionEvent> $result
          */
         $result = $qb->getQuery()->getResult();
 
