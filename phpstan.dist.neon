@@ -13,3 +13,5 @@ parameters:
     symfony:
         consoleApplicationLoader: tests/console-application.php
         containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+    doctrine:
+        objectManagerLoader: tests/object-manager.php
