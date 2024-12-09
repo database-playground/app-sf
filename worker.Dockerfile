@@ -67,7 +67,6 @@ RUN set -eux; \
     composer run-script --no-dev post-install-cmd; \
     chmod +x bin/console; sync;
 
-# build route cache, sass and asset maps
 RUN set -eux; \
     chmod +x bin/console; sync; \
     ./bin/console cache:clear; \
