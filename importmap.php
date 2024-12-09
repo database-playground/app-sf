@@ -50,10 +50,10 @@ return [
         'version' => '6.8.0',
     ],
     '@codemirror/view' => [
-        'version' => '6.35.2',
+        'version' => '6.35.3',
     ],
     '@codemirror/state' => [
-        'version' => '6.4.1',
+        'version' => '6.5.0',
     ],
     '@codemirror/language' => [
         'version' => '6.10.6',
@@ -90,5 +90,8 @@ return [
     ],
     '@kurkle/color' => [
         'version' => '0.3.4',
+    ],
+    '@marijn/find-cluster-break' => [
+        'version' => '1.0.0',
     ],
 ];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6258dd22ab56c88e02af174935195c59",
+    "content-hash": "c20d9c7f352705841f2075fe41296a5d",
     "packages": [
         {
             "name": "async-aws/core",
@@ -2351,12 +2351,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Akollade/mjml-bundle.git",
-                "reference": "ca7680818e2dd1c6f806f700076eb5af5bf19e61"
+                "reference": "651865d5aac928b0583cb2bb52959d9debad6e1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Akollade/mjml-bundle/zipball/ca7680818e2dd1c6f806f700076eb5af5bf19e61",
-                "reference": "ca7680818e2dd1c6f806f700076eb5af5bf19e61",
+                "url": "https://api.github.com/repos/Akollade/mjml-bundle/zipball/651865d5aac928b0583cb2bb52959d9debad6e1e",
+                "reference": "651865d5aac928b0583cb2bb52959d9debad6e1e",
                 "shasum": ""
             },
             "require": {
@@ -2395,9 +2395,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Akollade/mjml-bundle/issues",
-                "source": "https://github.com/Akollade/mjml-bundle/tree/main"
+                "source": "https://github.com/Akollade/mjml-bundle/tree/v3.8.3"
             },
-            "time": "2024-11-21T17:31:24+00:00"
+            "time": "2024-12-09T14:15:48+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -3724,12 +3724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/asset-mapper.git",
-                "reference": "ad8b44c933ed9cddc5bdd259ba3ea58adef31966"
+                "reference": "777908c1b580a51b1452ab95dc90ef9896572fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/asset-mapper/zipball/ad8b44c933ed9cddc5bdd259ba3ea58adef31966",
-                "reference": "ad8b44c933ed9cddc5bdd259ba3ea58adef31966",
+                "url": "https://api.github.com/repos/symfony/asset-mapper/zipball/777908c1b580a51b1452ab95dc90ef9896572fa5",
+                "reference": "777908c1b580a51b1452ab95dc90ef9896572fa5",
                 "shasum": ""
             },
             "require": {
@@ -3796,7 +3796,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-06T14:18:58+00:00"
+            "time": "2024-12-07T15:27:34+00:00"
         },
         {
             "name": "symfony/cache",
@@ -4128,12 +4128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "13189efa32034e487366fd541ef2f0d9a16a9b8d"
+                "reference": "722fa7cd85d81a3e61fcbdce053754c6541235d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/13189efa32034e487366fd541ef2f0d9a16a9b8d",
-                "reference": "13189efa32034e487366fd541ef2f0d9a16a9b8d",
+                "url": "https://api.github.com/repos/symfony/console/zipball/722fa7cd85d81a3e61fcbdce053754c6541235d3",
+                "reference": "722fa7cd85d81a3e61fcbdce053754c6541235d3",
                 "shasum": ""
             },
             "require": {
@@ -4213,7 +4213,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-07T08:50:44+00:00"
+            "time": "2024-12-09T09:56:03+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -5152,12 +5152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/framework-bundle.git",
-                "reference": "6ef18ca0278849477ab097df8784938327f5fd09"
+                "reference": "af6c33e856f26f21cd236b89df5884b45cc782d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/6ef18ca0278849477ab097df8784938327f5fd09",
-                "reference": "6ef18ca0278849477ab097df8784938327f5fd09",
+                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/af6c33e856f26f21cd236b89df5884b45cc782d3",
+                "reference": "af6c33e856f26f21cd236b89df5884b45cc782d3",
                 "shasum": ""
             },
             "require": {
@@ -5294,7 +5294,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-07T08:55:22+00:00"
+            "time": "2024-12-09T10:05:03+00:00"
         },
         {
             "name": "symfony/http-client",
@@ -6549,8 +6549,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -6797,8 +6797,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -6963,8 +6963,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -7469,12 +7469,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "1e3fa977bb4a3eccff81819996549bd1f9967f0c"
+                "reference": "626c686874aaad93d6460c976b49ff3826ba6e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/1e3fa977bb4a3eccff81819996549bd1f9967f0c",
-                "reference": "1e3fa977bb4a3eccff81819996549bd1f9967f0c",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/626c686874aaad93d6460c976b49ff3826ba6e93",
+                "reference": "626c686874aaad93d6460c976b49ff3826ba6e93",
                 "shasum": ""
             },
             "require": {
@@ -7567,7 +7567,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-07T13:40:54+00:00"
+            "time": "2024-12-07T21:01:37+00:00"
         },
         {
             "name": "symfony/security-core",
@@ -10755,12 +10755,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "6b5f8bab2a3d846fd2e087a9071529cc09811896"
+                "reference": "89ddae6cfbfbce545dd694caecfaa3872652cff2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6b5f8bab2a3d846fd2e087a9071529cc09811896",
-                "reference": "6b5f8bab2a3d846fd2e087a9071529cc09811896",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89ddae6cfbfbce545dd694caecfaa3872652cff2",
+                "reference": "89ddae6cfbfbce545dd694caecfaa3872652cff2",
                 "shasum": ""
             },
             "require": {
@@ -10806,7 +10806,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-08T14:24:05+00:00"
+            "time": "2024-12-09T09:17:33+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -11382,12 +11382,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "51b65819c798fa8d7d8b5ede4d4320d98cf19d55"
+                "reference": "a770e0df716b20e92580f0f5ca9d4f7c948106fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/51b65819c798fa8d7d8b5ede4d4320d98cf19d55",
-                "reference": "51b65819c798fa8d7d8b5ede4d4320d98cf19d55",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a770e0df716b20e92580f0f5ca9d4f7c948106fd",
+                "reference": "a770e0df716b20e92580f0f5ca9d4f7c948106fd",
                 "shasum": ""
             },
             "require": {
@@ -11475,7 +11475,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-07T09:46:57+00:00"
+            "time": "2024-12-07T13:58:59+00:00"
         },
         {
             "name": "react/cache",
@@ -13645,6 +13645,7 @@
         "jblond/php-diff": 20,
         "league/commonmark": 20,
         "meilisearch/search-bundle": 20,
+        "notfloran/mjml-bundle": 20,
         "nyholm/psr7": 20,
         "openai-php/client": 20,
         "oro/doctrine-extensions": 20,
