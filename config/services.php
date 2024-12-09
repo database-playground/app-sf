@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
+use App\Service\EmailService;
 use App\Service\PromptService;
 use App\Service\SqlRunnerService;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->parameters()
         ->set('app.sqlrunner_url', env('SQLRUNNER_URL'))
         ->set('app.redis_uri', env('REDIS_URI'))
         ->set('app.openai_api_key', env('OPENAI_API_KEY'))
+        ->set('app.server-mail', env('SERVER_EMAIL'))
         ->set('app.features.hint', true)
         ->set('app.features.editable-profile', true)
         ->set('app.features.comment', true);
@@ -34,8 +37,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->set(PromptService::class)
-        ->arg('$apiKey', '%app.openai_api_key%');
+        ->arg('$apiKey', param('app.openai_api_key'));
 
     $services->set(SqlRunnerService::class)
-        ->arg('$baseUrl', '%app.sqlrunner_url%');
+        ->arg('$baseUrl', param('app.sqlrunner_url'));
+
+    $services->set(EmailService::class)
+        ->arg('$serverMail', param('app.server-mail'));
 };
