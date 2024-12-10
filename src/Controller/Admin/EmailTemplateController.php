@@ -21,7 +21,7 @@ class EmailTemplateController extends AbstractController
         $this->templateDir = $this->projectDir.'/templates/email/mjml';
     }
 
-    #[Route('/admin/email-template', name: 'app_admin_emailtemplate_index')]
+    #[Route('/admin/email-template', name: 'admin_emailtemplate_index')]
     public function index(): Response
     {
         $templateFiles = glob($this->templateDir.'/*.mjml.twig');
@@ -39,7 +39,7 @@ class EmailTemplateController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/email-template/{name}', name: 'app_admin_emailtemplate_details')]
+    #[Route('/admin/email-template/{name}', name: 'admin_emailtemplate_details')]
     public function details(string $name, Request $request): Response
     {
         $parametersJSON = $request->query->get('parameters', '{}');

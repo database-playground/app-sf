@@ -66,7 +66,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('CommentLikeEvent', 'fa fa-thumbs-up', CommentLikeEvent::class);
 
         yield MenuItem::section('Mails');
-        yield MenuItem::linkToRoute('EmailTemplates', 'fa fa-layer-group', 'app_admin_emailtemplate_index');
+        yield MenuItem::linkToRoute('EmailTemplates', 'fa fa-layer-group', 'admin_emailtemplate_index');
         yield MenuItem::linkToCrud('Email', 'fa fa-envelope', Email::class);
         yield MenuItem::linkToCrud('EmailDeliveryEvent', 'fa fa-paper-plane', EmailDeliveryEvent::class);
 

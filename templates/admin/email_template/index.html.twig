@@ -14,7 +14,7 @@
         {% for template in templates %}
             <tr>
                 <td>{{ template }}</td>
-                <td><a class="btn" href="{{ ea_url().setRoute('app_admin_emailtemplate_details', {name: template}) }}">預覽</a></td>
+                <td><a class="btn" href="{{ ea_url().setRoute('admin_emailtemplate_details', {name: template}) }}">預覽</a></td>
             </tr>
         {% endfor %}
         </tbody>
