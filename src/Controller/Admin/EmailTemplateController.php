@@ -34,7 +34,7 @@ class EmailTemplateController extends AbstractController
             $templateFiles
         );
 
-        return $this->render('admin/email-template/index.twig', [
+        return $this->render('admin/email_template/index.twig', [
             'templates' => $templateFiles,
         ]);
     }
@@ -57,7 +57,7 @@ class EmailTemplateController extends AbstractController
             $error = $e->getMessage();
         }
 
-        return $this->render('admin/email-template/details.twig', [
+        return $this->render('admin/email_template/details.twig', [
             'name' => $name,
             'parameters' => $parameters,
             'content' => $content,
