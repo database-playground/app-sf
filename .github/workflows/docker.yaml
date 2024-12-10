@@ -52,6 +52,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Conditional push for main branch
+        id: push
         if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/distro/') || startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@master
         with:
@@ -102,6 +103,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Conditional push for main branch
+        id: push
         if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/distro/') || startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@master
         with:
