@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "144a7186cc53f1b1d649dd70a9072b03",
+    "content-hash": "410a4fbdac52136dd4a56f4be4ccb880",
     "packages": [
         {
             "name": "async-aws/core",
@@ -1522,12 +1522,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "8d6b02d39da311f6ca1e56a2ec5328062bcba891"
+                "reference": "ecf581d1a124f1ab97f1f4dd10c7a4bc633a67e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/8d6b02d39da311f6ca1e56a2ec5328062bcba891",
-                "reference": "8d6b02d39da311f6ca1e56a2ec5328062bcba891",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/ecf581d1a124f1ab97f1f4dd10c7a4bc633a67e4",
+                "reference": "ecf581d1a124f1ab97f1f4dd10c7a4bc633a67e4",
                 "shasum": ""
             },
             "require": {
@@ -1613,7 +1613,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-07T16:15:10+00:00"
+            "time": "2024-12-09T19:05:00+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -6937,6 +6937,83 @@
             "time": "2024-09-10T14:38:51+00:00"
         },
         {
+            "name": "symfony/polyfill-php84",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php84.git",
+                "reference": "48e55b8ecb3a52432be17bcac66eaaa3c3336f68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php84/zipball/48e55b8ecb3a52432be17bcac66eaaa3c3336f68",
+                "reference": "48e55b8ecb3a52432be17bcac66eaaa3c3336f68",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php84\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.4+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php84/tree/1.x"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-09-10T14:38:51+00:00"
+        },
+        {
             "name": "symfony/polyfill-uuid",
             "version": "1.x-dev",
             "source": {
@@ -8048,7 +8125,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/stimulus-bundle/tree/2.x"
+                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.22.1"
             },
             "funding": [
                 {
@@ -8800,7 +8877,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-chartjs/tree/2.x"
+                "source": "https://github.com/symfony/ux-chartjs/tree/v2.22.1"
             },
             "funding": [
                 {
@@ -8895,7 +8972,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-live-component/tree/2.x"
+                "source": "https://github.com/symfony/ux-live-component/tree/v2.22.1"
             },
             "funding": [
                 {
@@ -8994,7 +9071,7 @@
                 "turbo-stream"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-turbo/tree/2.x"
+                "source": "https://github.com/symfony/ux-turbo/tree/v2.22.1"
             },
             "funding": [
                 {
@@ -9078,7 +9155,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-twig-component/tree/2.x"
+                "source": "https://github.com/symfony/ux-twig-component/tree/v2.22.1"
             },
             "funding": [
                 {
@@ -10297,12 +10374,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "0fa6fe639a961a0765d4bc8fb341731cf1c4e03f"
+                "reference": "368c69911508013afeeac541325c5e8f5c72d0a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/0fa6fe639a961a0765d4bc8fb341731cf1c4e03f",
-                "reference": "0fa6fe639a961a0765d4bc8fb341731cf1c4e03f",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/368c69911508013afeeac541325c5e8f5c72d0a7",
+                "reference": "368c69911508013afeeac541325c5e8f5c72d0a7",
                 "shasum": ""
             },
             "require": {
@@ -10393,7 +10470,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-04T01:12:42+00:00"
+            "time": "2024-12-09T23:12:05+00:00"
         },
         {
             "name": "masterminds/html5",
