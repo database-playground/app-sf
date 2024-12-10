@@ -1,5 +1,4 @@
 User: 使用者
-Dashboard: 儀表板
 User management: 使用者管理
 Question management: 題庫管理
 Schema: 結構
@@ -70,6 +69,8 @@ Text Content: 文字內容
 HTML Content: HTML 內容
 EmailTemplates: 郵件範本
 Last login at: 最後登入時間
+Statistics: 統計資料
+Completed Questions: 完成題數
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案

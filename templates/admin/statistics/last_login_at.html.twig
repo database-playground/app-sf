@@ -1,0 +1,27 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}統計資料 – 上次登入時間{% endblock %}
+
+{% block main %}
+    <table class="table datagrid">
+        <thead>
+        <tr>
+            <th><a href="#">帳號</a></th>
+            <th><a href="#">上次登入時間</a></th>
+            <th><a href="#">距今天數</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td><a href="{{ ea_url()
+                        .setController('App\\Controller\\Admin\\UserCrudController')
+                        .setAction('detail')
+                        .setEntityId(result.id) }}">{{ result.email }}</a></td>
+                <td>{{ result.last_login_at ?? '沒登入過' }}</td>
+                <td>{{ result.recency ?? 'N/A' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

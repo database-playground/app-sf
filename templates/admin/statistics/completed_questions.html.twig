@@ -1,0 +1,27 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}統計資料 – 完成題數{% endblock %}
+
+{% block main %}
+    <table class="table datagrid">
+        <thead>
+        <tr>
+            <th><a href="#">帳號</a></th>
+            <th><a href="#">完成題數</a></th>
+            <th><a href="#">進度</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in userSolvedQuestionsCount %}
+            <tr>
+                <td><a href="{{ ea_url()
+                        .setController('App\\Controller\\Admin\\UserCrudController')
+                        .setAction('detail')
+                        .setEntityId(user.id) }}">{{ user.email }}</a></td>
+                <td>{{ user.solved_questions }}</td>
+                <td>{{ totalQuestions > 0 ? (user.solved_questions / totalQuestions * 100)|round(2) : 0 }}%</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

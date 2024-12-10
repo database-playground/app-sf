@@ -50,6 +50,10 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Back to App', 'fa fa-arrow-left', 'app_home');
 
+        yield MenuItem::section('Statistics');
+        yield MenuItem::linkToRoute('Last login at', 'fa fa-sign-in-alt', 'admin_statistic_last_login_at');
+        yield MenuItem::linkToRoute('Completed Questions', 'fa fa-trophy', 'admin_statistic_completed_questions');
+
         yield MenuItem::section('User management');
         yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Group', 'fa fa-users', Group::class);
