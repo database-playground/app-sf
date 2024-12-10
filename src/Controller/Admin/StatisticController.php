@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\SolutionEventStatus;
 use App\Repository\QuestionRepository;
 use App\Repository\UserRepository;
+use App\Service\PointCalculationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -90,6 +91,33 @@ class StatisticController extends AbstractController
         return $this->render('admin/statistics/completed_questions.html.twig', [
             'totalQuestions' => $totalQuestions,
             'userSolvedQuestionsCount' => $userSolvedQuestionsCount,
+        ]);
+    }
+
+    #[Route('/admin/statistic/experience-points', name: 'admin_statistic_experience_points')]
+    public function experiencePoint(PointCalculationService $pointCalculationService, UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+
+        /**
+         * @var list<array{id: int, email: string, points: int}> $usersWithPoints
+         */
+        $usersWithPoints = [];
+
+        foreach ($users as $user) {
+            $point = $pointCalculationService->calculate($user);
+
+            $usersWithPoints[] = [
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'points' => $point,
+            ];
+        }
+
+        usort($usersWithPoints, fn (array $a, array $b) => $b['points'] <=> $a['points']);
+
+        return $this->render('admin/statistics/experience_points.html.twig', [
+            'usersWithPoints' => $usersWithPoints,
         ]);
     }
 }

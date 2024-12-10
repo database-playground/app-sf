@@ -71,6 +71,7 @@ EmailTemplates: 郵件範本
 Last login at: 最後登入時間
 Statistics: 統計資料
 Completed Questions: 完成題數
+Experience Points: 經驗值
 
 result_presenter.tabs.result: 執行結果
 result_presenter.tabs.answer: 正確答案

@@ -53,6 +53,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Statistics');
         yield MenuItem::linkToRoute('Last login at', 'fa fa-sign-in-alt', 'admin_statistic_last_login_at');
         yield MenuItem::linkToRoute('Completed Questions', 'fa fa-trophy', 'admin_statistic_completed_questions');
+        yield MenuItem::linkToRoute('Experience Points', 'fa fa-coins', 'admin_statistic_experience_points');
 
         yield MenuItem::section('User management');
         yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);

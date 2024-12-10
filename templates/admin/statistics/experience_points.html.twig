@@ -1,0 +1,25 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}統計資料 – 上次登入時間{% endblock %}
+
+{% block main %}
+    <table class="table datagrid">
+        <thead>
+        <tr>
+            <th><a href="#">帳號</a></th>
+            <th><a href="#">經驗值</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in usersWithPoints %}
+            <tr>
+                <td><a href="{{ ea_url()
+                        .setController('App\\Controller\\Admin\\UserCrudController')
+                        .setAction('detail')
+                        .setEntityId(user.id) }}">{{ user.email }}</a></td>
+                <td>{{ user.points }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
