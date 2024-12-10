@@ -217,6 +217,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getLastLoginAt(): ?\DateTimeInterface
+    {
+        $lastLoginEvent = $this->loginEvents->last();
+        if (false === $lastLoginEvent) {
+            return null;
+        }
+
+        return $lastLoginEvent->getCreatedAt();
+    }
+
     /**
      * @return Collection<int, SolutionEvent>
      */
