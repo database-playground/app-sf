@@ -13,11 +13,11 @@
         <tbody>
         {% for user in usersWithPoints %}
             <tr>
-                <td><a href="{{ ea_url()
+                <td data-label="帳號"><a href="{{ ea_url()
                         .setController('App\\Controller\\Admin\\UserCrudController')
                         .setAction('detail')
                         .setEntityId(user.id) }}">{{ user.email }}</a></td>
-                <td>{{ user.points }}</td>
+                <td data-label="經驗值">{{ user.points }}</td>
             </tr>
         {% endfor %}
         </tbody>

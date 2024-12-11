@@ -14,12 +14,12 @@
         <tbody>
         {% for user in userSolvedQuestionsCount %}
             <tr>
-                <td><a href="{{ ea_url()
+                <td data-label="帳號"><a href="{{ ea_url()
                         .setController('App\\Controller\\Admin\\UserCrudController')
                         .setAction('detail')
                         .setEntityId(user.id) }}">{{ user.email }}</a></td>
-                <td>{{ user.solved_questions }}</td>
-                <td>{{ totalQuestions > 0 ? (user.solved_questions / totalQuestions * 100)|round(2) : 0 }}%</td>
+                <td data-label="完成題數">{{ user.solved_questions }}</td>
+                <td data-label="進度">{{ totalQuestions > 0 ? (user.solved_questions / totalQuestions * 100)|round(2) : 0 }}%</td>
             </tr>
         {% endfor %}
         </tbody>
