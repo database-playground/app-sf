@@ -1,0 +1,279 @@
+# yaml-language-server: $schema=https://schema.zeabur.app/template.json
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: database-playground-main
+spec:
+  description: The main applications of Database Playground
+  icon: https://s3.dbplay.pan93.com/icon.svg
+  services:
+    - name: postgresql
+      icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: docker.io/pgautoupgrade/pgautoupgrade:17-alpine
+          command:
+            - docker-entrypoint.sh
+            - -c
+            - config_file=/etc/postgresql/postgresql.conf
+        ports:
+          - id: database
+            port: 5432
+            type: TCP
+        volumes:
+          - id: data
+            dir: /var/lib/postgresql/data
+        instructions:
+          - type: TEXT
+            title: Connection String
+            content: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${POSTGRES_DATABASE}
+          - type: TEXT
+            title: PostgreSQL Connect Command
+            content: psql "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${POSTGRES_DATABASE}"
+          - type: TEXT
+            title: PostgreSQL username
+            content: ${POSTGRES_USERNAME}
+            category: Credentials
+          - type: PASSWORD
+            title: PostgresSQL password
+            content: ${POSTGRES_PASSWORD}
+            category: Credentials
+          - type: TEXT
+            title: PostgresSQL database
+            content: ${POSTGRES_DATABASE}
+            category: Credentials
+          - type: TEXT
+            title: PostgreSQL host
+            content: ${PORT_FORWARDED_HOSTNAME}
+            category: Hostname & Port
+          - type: TEXT
+            title: PostgreSQL port
+            content: ${DATABASE_PORT_FORWARDED_PORT}
+            category: Hostname & Port
+        env:
+          PGDATA:
+            default: /var/lib/postgresql/data/pgdata
+            expose: false
+          POSTGRES_CONNECTION_STRING:
+            default: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+            expose: true
+          POSTGRES_DATABASE:
+            default: ${POSTGRES_DB}
+            expose: true
+          POSTGRES_DB:
+            default: zeabur
+            expose: false
+          POSTGRES_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+          POSTGRES_PASSWORD:
+            default: ${PASSWORD}
+            expose: true
+          POSTGRES_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+          POSTGRES_URI:
+            default: ${POSTGRES_CONNECTION_STRING}
+            expose: true
+          POSTGRES_USER:
+            default: root
+            expose: false
+          POSTGRES_USERNAME:
+            default: ${POSTGRES_USER}
+            expose: true
+        configs:
+          - path: /etc/postgresql/postgresql.conf
+            template: |
+              # https://github.com/postgres/postgres/blob/master/src/backend/utils/misc/postgresql.conf.sample
+              listen_addresses = '*'
+              max_connections = 100
+              shared_buffers = 128MB
+              dynamic_shared_memory_type = posix
+              max_wal_size = 1GB
+              min_wal_size = 80MB
+              log_timezone = 'Etc/UTC'
+              datestyle = 'iso, mdy'
+              timezone = 'Etc/UTC'
+              lc_messages = 'en_US.utf8'
+              lc_monetary = 'en_US.utf8'
+              lc_numeric = 'en_US.utf8'
+              lc_time = 'en_US.utf8'
+              default_text_search_config = 'pg_catalog.english'
+            permission: null
+            envsubst: null
+    - name: redis
+      icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/redis.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: redis/redis-stack-server:latest
+        ports:
+          - id: database
+            port: 6379
+            type: TCP
+        volumes:
+          - id: data
+            dir: /data
+        instructions:
+          - type: TEXT
+            title: Command to connect to your Redis
+            content: redis-cli -h ${PORT_FORWARDED_HOSTNAME} -p ${DATABASE_PORT_FORWARDED_PORT} -a ${REDIS_PASSWORD}
+          - type: TEXT
+            title: Redis Connection String
+            content: redis://:${REDIS_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}
+          - type: PASSWORD
+            title: Redis password
+            content: ${REDIS_PASSWORD}
+            category: Credentials
+          - type: TEXT
+            title: Redis host
+            content: ${PORT_FORWARDED_HOSTNAME}
+            category: Hostname & Port
+          - type: TEXT
+            title: Redis port
+            content: ${DATABASE_PORT_FORWARDED_PORT}
+            category: Hostname & Port
+        env:
+          CONFFILE:
+            default: /etc/redis-stack.conf
+            expose: false
+          REDIS_ARGS:
+            default: --requirepass ${REDIS_PASSWORD}
+            expose: false
+          REDIS_CONNECTION_STRING:
+            default: redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
+            expose: true
+          REDIS_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+          REDIS_PASSWORD:
+            default: ${PASSWORD}
+            expose: true
+          REDIS_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+          REDIS_URI:
+            default: ${REDIS_CONNECTION_STRING}
+            expose: true
+        configs:
+          - path: /etc/redis-stack.conf
+            template: |
+              port 6379
+              daemonize no
+            permission: null
+            envsubst: null
+    - name: meilisearch
+      icon: https://www.meilisearch.com/favicon.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: getmeili/meilisearch
+        ports:
+          - id: web
+            port: 7700
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /meili_data
+        instructions:
+          - type: PASSWORD
+            title: Meilisearch Master Key
+            content: ${MEILI_MASTER_KEY}
+            category: Credentials
+        env:
+          MEILI_MASTER_KEY:
+            default: ${PASSWORD}
+            expose: true
+        configs: []
+    - name: sqlrunner
+      icon: https://upload.wikimedia.org/wikipedia/commons/9/97/Sqlite-square-icon.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: ghcr.io/database-playground/sqlrunner-v2:main
+        ports:
+          - id: web
+            port: 8080
+            type: HTTP
+        configs: []
+    - name: app
+      icon: https://s3.dbplay.pan93.com/icon.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: ghcr.io/database-playground/app-sf:master
+        ports:
+          - id: web
+            port: 3000
+            type: HTTP
+        env:
+          APP_SECRET:
+            default: ${PASSWORD}
+          DATABASE_URL:
+            default: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgresql.zeabur.internal:5432/${POSTGRES_DATABASE}?serverVersion=17&charset=utf8
+            expose: true
+          LINE_NOTIFY_DSN:
+            default: linenotify://<TOKEN>@default
+            expose: true
+          MEILISEARCH_API_KEY:
+            default: ${MEILI_MASTER_KEY}
+            expose: true
+          MEILISEARCH_URL:
+            default: http://meilisearch.zeabur.internal:7700
+            expose: true
+          OPENAI_API_KEY:
+            default: <YOUR_OPENAI_KEY>
+            expose: true
+          REDIS_URI:
+            default: ${REDIS_CONNECTION_STRING}
+            expose: true
+          SERVER_NAME:
+            default: :3000
+            expose: false
+          SQLRUNNER_URL:
+            default: http://sqlrunner.zeabur.internal:8080
+            expose: true
+          UMAMI_DOMAIN:
+            default: <YOUR_UMAMI_DOMAIN>
+            expose: false
+          UMAMI_WEBSITE_ID:
+            default: <YOUR_UMAMI_WEBSITE_ID>
+            expose: false
+          MESSENGER_TRANSPORT_DSN:
+            default: ${REDIS_URI}/messages
+            expose: true
+        configs: []
+    - name: worker-1
+      icon: https://s3.dbplay.pan93.com/icon.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: ghcr.io/database-playground/app-sf-worker:master
+        env:
+          MESSENGER_CONSUMER_NAME:
+            default: app-sf-worker-1
+            expose: false
+        configs: []
+    - name: worker-2
+      icon: https://s3.dbplay.pan93.com/icon.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: ghcr.io/database-playground/app-sf-worker:master
+        env:
+          MESSENGER_CONSUMER_NAME:
+            default: app-sf-worker-2
+            expose: false
+        configs: []
+    - name: worker-3
+      icon: https://s3.dbplay.pan93.com/icon.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: ghcr.io/database-playground/app-sf-worker:master
+        env:
+          MESSENGER_CONSUMER_NAME:
+            default: app-sf-worker-3
+            expose: false
+        configs: []

@@ -1,0 +1,80 @@
+# yaml-language-server: $schema=https://schema.zeabur.app/template.json
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: database-playground-uptime
+spec:
+  description: Uptime monitor of the database playground
+  icon: https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg
+  services:
+    - name: uptime
+      icon: https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: louislam/uptime-kuma:1
+        ports:
+          - id: web
+            port: 3001
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /app/data
+        configs: []
+    - name: worker-monitor-1
+      template: GIT
+      spec:
+        source:
+          source: GITHUB
+          repo: 901414454
+          branch: main
+          rootDirectory: /
+        env:
+          MONITOR_ENVIRONMENT_ID:
+            default: <ENVIRONMENT_ID>
+            expose: false
+          MONITOR_SERVICE_ID:
+            default: <SERVICE_ID>
+            expose: false
+          MONITOR_ZEABUR_TOKEN:
+            default: <TOKEN>
+            expose: false
+        configs: []
+    - name: worker-monitor-2
+      template: GIT
+      spec:
+        source:
+          source: GITHUB
+          repo: 901414454
+          branch: main
+          rootDirectory: /
+        env:
+          MONITOR_ENVIRONMENT_ID:
+            default: <ENVIRONMENT_ID>
+            expose: false
+          MONITOR_SERVICE_ID:
+            default: <SERVICE_ID>
+            expose: false
+          MONITOR_ZEABUR_TOKEN:
+            default: <TOKEN>
+            expose: false
+        configs: []
+    - name: worker-monitor-3
+      template: GIT
+      spec:
+        source:
+          source: GITHUB
+          repo: 901414454
+          branch: main
+          rootDirectory: /
+        env:
+          MONITOR_ENVIRONMENT_ID:
+            default: <ENVIRONMENT_ID>
+            expose: false
+          MONITOR_SERVICE_ID:
+            default: <SERVICE_ID>
+            expose: false
+          MONITOR_ZEABUR_TOKEN:
+            default: <TOKEN>
+            expose: false
+        configs: []
