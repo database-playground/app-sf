@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\EmailDto\EmailDto;
 use App\Repository\EmailDeliveryEventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,7 +36,7 @@ class EmailDeliveryEvent extends BaseEvent
         return $this;
     }
 
-    public function getToAddress(): ?string
+    public function getToAddress(): string
     {
         return $this->toAddress;
     }
@@ -57,5 +58,15 @@ class EmailDeliveryEvent extends BaseEvent
         $this->email = $email;
 
         return $this;
+    }
+
+    public function toEmailDto(): EmailDto
+    {
+        return (new EmailDto())
+            ->setToAddress($this->getToAddress())
+            ->setSubject($this->getEmail()->getSubject())
+            ->setText($this->getEmail()->getTextContent())
+            ->setHtml($this->getEmail()->getHtmlContent())
+            ->setKind($this->getEmail()->getKind());
     }
 }
