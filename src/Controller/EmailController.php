@@ -22,8 +22,10 @@ class EmailController extends AbstractController
             throw $this->createAccessDeniedException('You are not authorized to access this email.');
         }
 
+        $emailDto = $event->toEmailDto();
+
         return $this->render('email/preview.html.twig', [
-            'emailDeliveryEvent' => $event,
+            'emailDto' => $emailDto,
         ]);
     }
 }

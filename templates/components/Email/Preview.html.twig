@@ -1,0 +1,69 @@
+{% set textContent = emailDto.text %}
+{% set htmlContent = emailDto.html %}
+{% set hasText, hasHtml = textContent|length > 0, htmlContent|length > 0 %}
+
+<main class="app-email-preview">
+    <div class="row g-4">
+        <section class="app-email-preview__rendered col-lg-9 order-1 order-lg-0">
+            <h2 class="app-email-preview__title mb-4">
+                <small><i class="bi bi-envelope-fill"></i></small>
+                {{ emailDto.subject }}
+            </h2>
+
+            <nav>
+                <ul class="app-email-preview__rendered__mode_selector nav nav-tabs mb-3" role="tablist">
+                    {% if hasHtml %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab"
+                                    id="app-email-preview__html_content_selector"
+                                    data-bs-target="#app-email-preview__html_content" type="button" role="tab"
+                                    aria-controls="app-email-preview__html_content" aria-selected="true">HTML 格式信件
+                            </button>
+                        </li>
+                    {% endif %}
+                    {% if hasText %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab"
+                                    data-bs-target="#app-email-preview__text_content"
+                                    id="app-email-preview__text_content_selector"
+                                    type="button" role="tab" aria-controls="app-email-preview__text_content"
+                                    aria-selected="false">純文字格式信件
+                            </button>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <article class="app-email-preview__rendered__content tab-content">
+                {% if hasHtml %}
+                    <div class="tab-pane fade show active" id="app-email-preview__html_content" role="tabpanel"
+                         aria-labelledby="app-email-preview__text_content_selector" tabindex="0">
+                        <iframe class="app-email-preview__rendered__content__html" sandbox srcdoc="{{ htmlContent }}"></iframe>
+                    </div>
+                {% endif %}
+                {% if hasText %}
+                    <div class="tab-pane fade" id="app-email-preview__text_content" role="tabpanel"
+                         aria-labelledby="app-email-preview__text_content_selector" tabindex="0">
+                        <pre>{{ textContent }}</pre>
+                    </div>
+                {% endif %}
+            </article>
+        </section>
+        <aside class="app-email-preview__meta col-lg-3 order-0 order-lg-1">
+            <ul class="app-email-preview__meta__list list-group">
+                <li class="list-group-item">
+                    <i class="bi bi-envelope-arrow-up-fill"></i>
+                    <span>收件人：{{ emailDto.toAddress.toString }}</span>
+                </li>
+                <li class="list-group-item">
+                    <i class="bi bi-calendar-fill"></i>
+                    <span>發件日期：{{ emailDto.sentAt|date('Y-m-d H:i:s') }}</span>
+                </li>
+                <li class="list-group-item">
+                    <i class="bi bi-envelope-open-fill"></i>
+                    <span>信件種類：{{ emailDto.kind|trans }}</span>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</main>
