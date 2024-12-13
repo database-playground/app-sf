@@ -10,13 +10,13 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
-class EmailService
+readonly class EmailService
 {
     private Address $fromAddress;
 
     public function __construct(
-        private readonly MailerInterface $mailer,
-        private readonly string $serverMail,
+        private MailerInterface $mailer,
+        private string $serverMail,
     ) {
         $this->fromAddress = new Address(
             address: $this->serverMail,
