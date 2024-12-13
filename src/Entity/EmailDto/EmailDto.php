@@ -35,7 +35,7 @@ class EmailDto
         return $this->toAddress;
     }
 
-    public function setToAddress(string|Address $toAddress): self
+    public function setToAddress(string|Address $toAddress): static
     {
         if (\is_string($toAddress)) {
             $this->toAddress = new Address($toAddress);
@@ -59,7 +59,7 @@ class EmailDto
      *
      * @return $this
      */
-    public function setBcc(array $bcc): self
+    public function setBcc(array $bcc): static
     {
         $this->bcc = $bcc;
 
@@ -71,7 +71,7 @@ class EmailDto
         return $this->subject;
     }
 
-    public function setSubject(string $subject): self
+    public function setSubject(string $subject): static
     {
         $this->subject = $subject;
 
@@ -83,7 +83,7 @@ class EmailDto
         return $this->kind;
     }
 
-    public function setKind(EmailKind $kind): self
+    public function setKind(EmailKind $kind): static
     {
         $this->kind = $kind;
 
@@ -95,7 +95,7 @@ class EmailDto
         return $this->text;
     }
 
-    public function setText(string $text): self
+    public function setText(string $text): static
     {
         $this->text = $text;
 
@@ -107,7 +107,7 @@ class EmailDto
         return $this->html;
     }
 
-    public function setHtml(string $html): self
+    public function setHtml(string $html): static
     {
         $this->html = $html;
 

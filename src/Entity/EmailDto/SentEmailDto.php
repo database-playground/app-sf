@@ -13,7 +13,7 @@ class SentEmailDto extends EmailDto
         return $this->sentAt;
     }
 
-    public function setSentAt(\DateTimeInterface $sentAt): self
+    public function setSentAt(\DateTimeInterface $sentAt): static
     {
         $this->sentAt = $sentAt;
 
