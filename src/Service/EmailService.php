@@ -31,12 +31,19 @@ final readonly class EmailService
      *
      * @throws TransportExceptionInterface
      */
-    public function send(EmailDto $emailDto): Email
+    public function send(EmailDto $emailDto): void
     {
-        $email = $emailDto->toEmail()->from($this->fromAddress);
+        $recipients = $emailDto->getBcc();
 
-        $this->mailer->send($email);
-
-        return $email;
+        if (\count($recipients) > 0) {
+            $chunks = array_chunk($recipients, 30);
+            foreach ($chunks as $chunk) {
+                $email = $emailDto->toEmail()->from($this->fromAddress)->bcc(...$chunk);
+                $this->mailer->send($email);
+            }
+        } else {
+            $email = $emailDto->toEmail()->from($this->fromAddress);
+            $this->mailer->send($email);
+        }
     }
 }
