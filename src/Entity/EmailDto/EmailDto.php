@@ -20,6 +20,7 @@ class EmailDto
     private EmailKind $kind;
     private string $text;
     private string $html;
+    private ?\DateTimeInterface $sentAt = null;
 
     public static function fromUser(User $user): self
     {
@@ -114,6 +115,23 @@ class EmailDto
         return $this;
     }
 
+    public function getSentAt(): ?\DateTimeInterface
+    {
+        return $this->sentAt;
+    }
+
+    /**
+     * Specify when to send this mail. If this is null, the mail will be sent immediately.
+     *
+     * @return $this
+     */
+    public function setSentAt(?\DateTimeInterface $sentAt): static
+    {
+        $this->sentAt = $sentAt;
+
+        return $this;
+    }
+
     public function toEmail(): Email
     {
         $email = (new Email())
@@ -122,6 +140,10 @@ class EmailDto
             ->subject($this->getSubject())
             ->text($this->getText())
             ->html($this->getHtml());
+
+        if (null !== $this->getSentAt()) {
+            $email = $email->date($this->getSentAt());
+        }
 
         $headers = $this->getKind()->addToEmailHeader($email->getHeaders());
 
