@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}信件預覽{% endblock %}
+
+{% block body %}
+    <div class="p-5">
+        <twig:Email:Preview :emailDto="emailDto" />
+    </div>
+{% endblock %}

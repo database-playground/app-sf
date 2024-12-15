@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Service\EmailTemplateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -16,6 +16,7 @@ class EmailTemplateController extends AbstractController
     private readonly string $templateDir;
 
     public function __construct(
+        private readonly EmailTemplateService $emailTemplateService,
         private readonly string $projectDir,
     ) {
         $this->templateDir = $this->projectDir.'/templates/email/mjml';
@@ -39,18 +40,15 @@ class EmailTemplateController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/email-template/{name}', name: 'admin_emailtemplate_details')]
-    public function details(string $name, Request $request): Response
+    #[Route('/admin/email-template/login-reminder', name: 'admin_emailtemplate_loginreminder')]
+    public function loginReminder(): Response
     {
-        $parametersJSON = $request->query->get('parameters', '{}');
-        $parameters = json_decode($parametersJSON, true);
-
-        if (!\is_array($parameters)) {
-            throw new \InvalidArgumentException('The parameters must be a valid JSON object.');
-        }
+        $emailDto = $this->emailTemplateService->createLoginReminderDto([]);
 
         try {
-            $content = $this->renderView("email/mjml/$name.mjml.twig", $parameters);
+            $content = $this->renderView('admin/email_template/preview.html.twig', [
+                'emailDto' => $emailDto,
+            ]);
             $error = null;
         } catch (\Throwable $e) {
             $content = null;
@@ -58,8 +56,7 @@ class EmailTemplateController extends AbstractController
         }
 
         return $this->render('admin/email_template/details.html.twig', [
-            'name' => $name,
-            'parameters' => $parameters,
+            'name' => '登入提醒',
             'content' => $content,
             'error' => $error,
         ]);

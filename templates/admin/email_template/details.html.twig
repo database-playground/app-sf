@@ -1,16 +1,14 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block content_title %}郵件範本 – 預覽 {{ name }}{% endblock %}
+{% block content_title %}郵件範本 – 預覽{{ name }}{% endblock %}
 {% block page_actions %}
         <a class="btn btn-secondary" href="{{ ea_url().setRoute('admin_emailtemplate_index') }}">回到範本列表</a>
 {% endblock %}
 
 {% block main %}
-    <p>參數：<code>{{ parameters|json_encode }}</code>（可以在 query string 傳入 <code>parameters={"key": "value"}</code> 參數）</p>
-
     {% if error is not null %}
     <div class="alert alert-danger">發生錯誤：{{ error }}</div>
     {% else %}
-    <iframe sandbox srcdoc="{{ content }}" style="width: 100%; height: 100vh; border: none;"></iframe>
+    <iframe srcdoc="{{ content }}" style="width: 100%; height: 100vh; border: none;"></iframe>
     {% endif %}
 {% endblock %}
