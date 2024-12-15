@@ -17,9 +17,9 @@
                 <td data-label="帳號"><a href="{{ ea_url()
                         .setController('App\\Controller\\Admin\\UserCrudController')
                         .setAction('detail')
-                        .setEntityId(result.id) }}">{{ result.email }}</a></td>
-                <td data-label="最近登入時間">{{ result.last_login_at ?? '沒登入過' }}</td>
-                <td data-label="距今天數">{{ result.recency ?? 'N/A' }}</td>
+                        .setEntityId(result.user.id) }}">{{ result.user.email }}</a></td>
+                <td data-label="最近登入時間">{{ result.lastLoginAt is not null ? result.lastLoginAt.format('Y-m-d H:m:s') : '沒登入過' }}</td>
+                <td data-label="距今天數">{{ result.recency is not null ? result.recency.format('%a 天') : 'N/A' }}</td>
             </tr>
         {% endfor %}
         </tbody>
