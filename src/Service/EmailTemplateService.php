@@ -27,21 +27,21 @@ final readonly class EmailTemplateService
     public function createLoginReminderDto(array $bccUsers): EmailDto
     {
         $textContent = <<<TEXT
-                資料庫練功房 | 情況報告
-                ====================
+            資料庫練功房 | 情況報告
+            ====================
 
-                登入天數 [↓ 減少]
-                ---------------
+            登入天數 [↓ 減少]
+            ---------------
 
-                ⚠️ 我注意到這週你沒有登入，記得持續學習和練習對進步非常重要！
-                提醒你一下，如果這週做題數量未達 5 題，每少做一題將會扣 4 分，
-                希望你能儘快投入學習，保持進度，這樣才能持續提升自己的 SQL 能力。
-                加油！
+            ⚠️ 我注意到這週你沒有登入，記得持續學習和練習對進步非常重要！
+            提醒你一下，如果這週做題數量未達 5 題，每少做一題將會扣 4 分，
+            希望你能儘快投入學習，保持進度，這樣才能持續提升自己的 SQL 能力。
+            加油！
 
-                立刻登入 → https://dbplay.pan93.com
+            立刻登入 → https://dbplay.pan93.com
 
-                如果對信件有任何問題，請回報信件問題：
-                https://dbplay.pan93.com/feedback?url=mail://text
+            如果對信件有任何問題，請回報信件問題：
+            https://dbplay.pan93.com/feedback?url=mail://text
             TEXT;
 
         try {
