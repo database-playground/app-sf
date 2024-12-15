@@ -13,10 +13,13 @@
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td data-label="範本名稱">登入提醒</td>
-                <td class="actions"><a class="btn" href="{{ ea_url().setRoute('admin_emailtemplate_loginreminder', {name: 'login_reminder'}) }}">預覽</a></td>
-            </tr>
+        <tr>
+            <td data-label="範本名稱">登入提醒</td>
+            <td class="actions">
+                <a class="btn btn-info"
+                   href="{{ ea_url().setRoute('admin_emailtemplate_loginreminder', {name: 'login_reminder'}) }}">預覽</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}
