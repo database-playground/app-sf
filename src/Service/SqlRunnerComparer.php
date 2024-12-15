@@ -7,7 +7,7 @@ namespace App\Service;
 use App\Entity\ChallengeDto\CompareResult;
 use App\Entity\SqlRunnerDto\SqlRunnerResult;
 
-readonly class SqlRunnerComparer
+final readonly class SqlRunnerComparer
 {
     /**
      * Compare this answer with user response and return the detailed information.

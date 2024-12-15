@@ -10,7 +10,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
-readonly class EmailService
+final readonly class EmailService
 {
     private Address $fromAddress;
 

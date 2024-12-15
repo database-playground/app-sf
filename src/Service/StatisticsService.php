@@ -8,7 +8,7 @@ use App\Entity\StatisticsDto\LastLoginDto;
 use App\Entity\User;
 use App\Repository\UserRepository;
 
-readonly class StatisticsService
+final readonly class StatisticsService
 {
     public function __construct(
         private UserRepository $userRepository,

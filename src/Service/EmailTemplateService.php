@@ -9,7 +9,7 @@ use App\Entity\EmailKind;
 use App\Entity\User;
 use Symfony\Component\Mime\Address;
 
-readonly class EmailTemplateService
+final readonly class EmailTemplateService
 {
     public function __construct(
         private \Twig\Environment $twigEnvironment,
