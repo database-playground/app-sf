@@ -587,16 +587,16 @@
         },
         {
             "name": "doctrine/deprecations",
-            "version": "1.2.x-dev",
+            "version": "1.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/deprecations.git",
-                "reference": "e48ead528b87dcbb0bcc0d67d99265cb4b108b5c"
+                "reference": "67eb7938e7593456714f3d3de9df65a1a7b25c1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/e48ead528b87dcbb0bcc0d67d99265cb4b108b5c",
-                "reference": "e48ead528b87dcbb0bcc0d67d99265cb4b108b5c",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/67eb7938e7593456714f3d3de9df65a1a7b25c1d",
+                "reference": "67eb7938e7593456714f3d3de9df65a1a7b25c1d",
                 "shasum": ""
             },
             "require": {
@@ -612,6 +612,7 @@
             "suggest": {
                 "psr/log": "Allows logging deprecations via PSR-3 logger implementation"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -628,7 +629,7 @@
                 "issues": "https://github.com/doctrine/deprecations/issues",
                 "source": "https://github.com/doctrine/deprecations/tree/1.1.x"
             },
-            "time": "2024-12-14T23:24:50+00:00"
+            "time": "2024-12-16T12:46:45+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -1465,12 +1466,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/sql-formatter.git",
-                "reference": "579b67954ca6817a4d5a0a785c654fb7bc849b2e"
+                "reference": "1e04414f21f24483e95f48e6455aa7e67274decc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/579b67954ca6817a4d5a0a785c654fb7bc849b2e",
-                "reference": "579b67954ca6817a4d5a0a785c654fb7bc849b2e",
+                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/1e04414f21f24483e95f48e6455aa7e67274decc",
+                "reference": "1e04414f21f24483e95f48e6455aa7e67274decc",
                 "shasum": ""
             },
             "require": {
@@ -1513,7 +1514,7 @@
                 "issues": "https://github.com/doctrine/sql-formatter/issues",
                 "source": "https://github.com/doctrine/sql-formatter/tree/1.5.x"
             },
-            "time": "2024-12-02T22:10:47+00:00"
+            "time": "2024-12-16T10:43:20+00:00"
         },
         {
             "name": "easycorp/easyadmin-bundle",
@@ -7387,12 +7388,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "656c16cd1c61d2437b434d99b8b938742d9afe95"
+                "reference": "0415b1f7beee5bedd7b5aea82a5aed69a96ce885"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/656c16cd1c61d2437b434d99b8b938742d9afe95",
-                "reference": "656c16cd1c61d2437b434d99b8b938742d9afe95",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/0415b1f7beee5bedd7b5aea82a5aed69a96ce885",
+                "reference": "0415b1f7beee5bedd7b5aea82a5aed69a96ce885",
                 "shasum": ""
             },
             "require": {
@@ -7460,7 +7461,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-14T16:08:18+00:00"
+            "time": "2024-12-16T08:20:38+00:00"
         },
         {
             "name": "symfony/runtime",
@@ -7547,12 +7548,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "626c686874aaad93d6460c976b49ff3826ba6e93"
+                "reference": "f3e75ef04ca541ca46fc31030c8f01f9c9215964"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/626c686874aaad93d6460c976b49ff3826ba6e93",
-                "reference": "626c686874aaad93d6460c976b49ff3826ba6e93",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/f3e75ef04ca541ca46fc31030c8f01f9c9215964",
+                "reference": "f3e75ef04ca541ca46fc31030c8f01f9c9215964",
                 "shasum": ""
             },
             "require": {
@@ -7645,7 +7646,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-07T21:01:37+00:00"
+            "time": "2024-12-15T10:51:57+00:00"
         },
         {
             "name": "symfony/security-core",
@@ -7653,12 +7654,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "312a726ac8b92bf1544355eefd2d290211d3119b"
+                "reference": "9a04c4c5bf59a255f177b588bc2b3e1ab1683e57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/312a726ac8b92bf1544355eefd2d290211d3119b",
-                "reference": "312a726ac8b92bf1544355eefd2d290211d3119b",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/9a04c4c5bf59a255f177b588bc2b3e1ab1683e57",
+                "reference": "9a04c4c5bf59a255f177b588bc2b3e1ab1683e57",
                 "shasum": ""
             },
             "require": {
@@ -7732,7 +7733,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-07T13:40:54+00:00"
+            "time": "2024-12-15T10:51:57+00:00"
         },
         {
             "name": "symfony/security-csrf",
@@ -9642,12 +9643,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "ff7d1be0b73dc6a6c28df133607d8300c14b55aa"
+                "reference": "a353ed4b19a6849d021aa23b4bd6395f6bf3c2bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/ff7d1be0b73dc6a6c28df133607d8300c14b55aa",
-                "reference": "ff7d1be0b73dc6a6c28df133607d8300c14b55aa",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a353ed4b19a6849d021aa23b4bd6395f6bf3c2bb",
+                "reference": "a353ed4b19a6849d021aa23b4bd6395f6bf3c2bb",
                 "shasum": ""
             },
             "replace": {
@@ -9685,7 +9686,7 @@
                 "issues": "https://github.com/twbs/bootstrap/issues",
                 "source": "https://github.com/twbs/bootstrap/tree/main"
             },
-            "time": "2024-12-10T12:03:18+00:00"
+            "time": "2024-12-16T09:19:39+00:00"
         },
         {
             "name": "twig/extra-bundle",
@@ -10828,12 +10829,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "de0553c00bf5268f59590dc6d33cfeff2e1d490a"
+                "reference": "549528309e8a7e214f0af2aeb385499fec1b31bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/de0553c00bf5268f59590dc6d33cfeff2e1d490a",
-                "reference": "de0553c00bf5268f59590dc6d33cfeff2e1d490a",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/549528309e8a7e214f0af2aeb385499fec1b31bb",
+                "reference": "549528309e8a7e214f0af2aeb385499fec1b31bb",
                 "shasum": ""
             },
             "require": {
@@ -10879,7 +10880,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-15T13:10:46+00:00"
+            "time": "2024-12-16T13:24:01+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
