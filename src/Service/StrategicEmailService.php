@@ -29,9 +29,22 @@ final readonly class StrategicEmailService
      */
     public function sendLoginReminderEmail(bool $dryRun = false): ?EmailDto
     {
+        $lastLoginAt = array_filter(
+            // Filter out users who have logged in within the last 7 days
+            $this->statisticsService->lastLoginAt(),
+            function (LastLoginDto $lastLoginDto): bool {
+                $lastLoginAt = $lastLoginDto->getLastLoginAt();
+                if (null === $lastLoginAt) {
+                    return true;
+                }
+
+                return $lastLoginAt->diff(new \DateTimeImmutable())->days >= 7;
+            }
+        );
+
         $bccUsers = array_map(
             fn (LastLoginDto $lastLoginDto) => $lastLoginDto->getUser(),
-            $this->statisticsService->lastLoginAt()
+            $lastLoginAt,
         );
 
         $emailDto = $this->emailTemplateService->createLoginReminderDto($bccUsers);
