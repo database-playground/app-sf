@@ -38,7 +38,7 @@ final readonly class StrategicEmailService
                     return true;
                 }
 
-                return $lastLoginAt->diff(new \DateTimeImmutable())->days >= 7;
+                return $lastLoginAt->diff(new \DateTimeImmutable())->days >= 5;
             }
         );
 
