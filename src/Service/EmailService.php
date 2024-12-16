@@ -32,7 +32,8 @@ final readonly class EmailService
      *
      * @param EmailDto $emailDto the email to send
      *
-     * @throws TransportExceptionInterface if the email cannot be sent
+     * @throws TransportExceptionInterface   if the email cannot be sent
+     * @throws \DateMalformedStringException if the date is malformed
      */
     public function send(EmailDto $emailDto): void
     {
