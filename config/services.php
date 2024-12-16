@@ -18,9 +18,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('app.redis_uri', env('REDIS_URI'))
         ->set('app.openai_api_key', env('OPENAI_API_KEY'))
         ->set('app.server-mail', env('SERVER_EMAIL'))
+        ->set('app.mail.bcc-chunk', 10)
         ->set('app.features.hint', true)
         ->set('app.features.editable-profile', true)
-        ->set('app.features.comment', true);
+        ->set('app.features.comment', true)
+    ;
 
     $services = $containerConfigurator->services();
 
@@ -45,7 +47,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->arg('$baseUrl', param('app.sqlrunner_url'));
 
     $services->set(EmailService::class)
-        ->arg('$serverMail', param('app.server-mail'));
+        ->arg('$serverMail', param('app.server-mail'))
+        ->arg('$chunkLimit', param('app.mail.bcc-chunk'));
 
     $services->set(EmailTemplateService::class)
         ->arg('$serverMail', param('app.server-mail'));
