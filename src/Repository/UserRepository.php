@@ -27,6 +27,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
+        if (!$user instanceof PasswordSettableUserInterface) {
+            throw new \InvalidArgumentException(\sprintf('User must implement %s in order to be upgraded.', PasswordSettableUserInterface::class));
+        }
+
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
