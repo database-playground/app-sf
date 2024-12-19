@@ -69,6 +69,7 @@ return static function (ContainerConfigurator $containerConfigurator, MonologCon
             ->path('php://stderr')
             ->formatter('monolog.formatter.json')
             ->channels()
-            ->elements(['deprecation']);
+            ->elements(['deprecation'])
+        ;
     }
 };

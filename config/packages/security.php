@@ -92,6 +92,7 @@ return static function (ContainerConfigurator $containerConfigurator, SecurityCo
             ->algorithm('auto')
             ->cost(4)
             ->timeCost(3)
-            ->memoryCost(10);
+            ->memoryCost(10)
+        ;
     }
 };

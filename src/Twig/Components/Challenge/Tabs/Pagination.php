@@ -20,6 +20,8 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
  * * `hasNext` property to check if there is a next page.
  * * `goPrevious` action to go to the previous page.
  * * `goNext` action to go to the next page.
+ *
+ * @template T
  */
 trait Pagination
 {
@@ -30,6 +32,8 @@ trait Pagination
 
     /**
      * Get the data for the current page.
+     *
+     * @return T[]
      */
     abstract public function getData(): array;
 

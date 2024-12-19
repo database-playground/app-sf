@@ -17,6 +17,10 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 final class Events
 {
     use DefaultActionTrait;
+
+    /**
+     * @phpstan-use Pagination<SolutionEvent>
+     */
     use Pagination;
 
     #[LiveProp]

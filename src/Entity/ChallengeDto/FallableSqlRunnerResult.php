@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity\ChallengeDto;
 
 use App\Entity\SqlRunnerDto\SqlRunnerResult;
-use App\Service\SqlRunnerService;
 use Symfony\Component\Translation\TranslatableMessage;
 
 /**

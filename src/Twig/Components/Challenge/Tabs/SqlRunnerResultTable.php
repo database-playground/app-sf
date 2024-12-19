@@ -13,6 +13,10 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 final class SqlRunnerResultTable
 {
     use DefaultActionTrait;
+
+    /**
+     * @phpstan-use Pagination<array<string>>
+     */
     use Pagination;
 
     /**

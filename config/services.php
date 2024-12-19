@@ -60,5 +60,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ;
 
     $services->set(EmailTemplateController::class)
-        ->arg('$projectDir', param('kernel.project_dir'));
+        ->arg('$projectDir', param('kernel.project_dir'))
+    ;
 };
