@@ -1,5 +1,7 @@
 {
+  "minimum-stability": "dev",
+  "prefer-stable": false,
   "require": {
-    "vincentlanglet/twig-cs-fixer": "^3.5"
+    "vincentlanglet/twig-cs-fixer": "dev-main"
   }
 }

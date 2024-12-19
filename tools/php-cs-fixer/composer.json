@@ -1,5 +1,7 @@
 {
+  "minimum-stability": "dev",
+  "prefer-stable": false,
   "require": {
-    "friendsofphp/php-cs-fixer": "^3.65"
+    "friendsofphp/php-cs-fixer": "dev-master"
   }
 }
