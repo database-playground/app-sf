@@ -4,14 +4,25 @@ declare(strict_types=1);
 
 namespace App\Tests\SqlRunner;
 
+use App\Entity\SqlRunnerDto\SqlRunnerRequest;
 use App\Entity\SqlRunnerDto\SqlRunnerResponse;
+use App\Entity\SqlRunnerDto\SqlRunnerResult;
+use App\Exception\QueryExecuteException;
+use App\Exception\SchemaExecuteException;
 use App\Exception\SqlRunnerException;
+use App\Service\SqlRunnerService;
 use Monolog\Test\TestCase;
 use Symfony\Component\HttpClient\Exception\TransportException;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class SqlRunnerServiceTest extends TestCase
 {
     public function testRunQueryClientError(): void
@@ -32,8 +43,8 @@ final class SqlRunnerServiceTest extends TestCase
             ->method('deserialize')
         ;
 
-        $sqlRunnerService = new \App\Service\SqlRunnerService($httpClient, $serializer, '');
-        $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
+        $sqlRunnerService = new SqlRunnerService($httpClient, $serializer, '');
+        $sqlRunnerService->runQuery(new SqlRunnerRequest());
     }
 
     public function testRunQueryProtocolError(): void
@@ -52,11 +63,11 @@ final class SqlRunnerServiceTest extends TestCase
         $serializer
             ->expects(self::once())
             ->method('deserialize')
-            ->willThrowException(new \Symfony\Component\Serializer\Exception\NotNormalizableValueException())
+            ->willThrowException(new NotNormalizableValueException())
         ;
 
-        $sqlRunnerService = new \App\Service\SqlRunnerService($httpClient, $serializer, '');
-        $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
+        $sqlRunnerService = new SqlRunnerService($httpClient, $serializer, '');
+        $sqlRunnerService->runQuery(new SqlRunnerRequest());
     }
 
     public function testRunQueryRunnerException(): void
@@ -83,13 +94,13 @@ final class SqlRunnerServiceTest extends TestCase
             )
         ;
 
-        $sqlRunnerService = new \App\Service\SqlRunnerService($httpClient, $serializer, '');
-        $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
+        $sqlRunnerService = new SqlRunnerService($httpClient, $serializer, '');
+        $sqlRunnerService->runQuery(new SqlRunnerRequest());
     }
 
     public function testRunQueryQueryException(): void
     {
-        $this->expectException(\App\Exception\QueryExecuteException::class);
+        $this->expectException(QueryExecuteException::class);
         $this->expectExceptionMessage('Query error');
 
         $httpClient = self::createMock(HttpClientInterface::class);
@@ -111,13 +122,13 @@ final class SqlRunnerServiceTest extends TestCase
             )
         ;
 
-        $sqlRunnerService = new \App\Service\SqlRunnerService($httpClient, $serializer, '');
-        $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
+        $sqlRunnerService = new SqlRunnerService($httpClient, $serializer, '');
+        $sqlRunnerService->runQuery(new SqlRunnerRequest());
     }
 
     public function testRunQuerySchemaException(): void
     {
-        $this->expectException(\App\Exception\SchemaExecuteException::class);
+        $this->expectException(SchemaExecuteException::class);
         $this->expectExceptionMessage('Schema error');
 
         $httpClient = self::createMock(HttpClientInterface::class);
@@ -139,8 +150,8 @@ final class SqlRunnerServiceTest extends TestCase
             )
         ;
 
-        $sqlRunnerService = new \App\Service\SqlRunnerService($httpClient, $serializer, '');
-        $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
+        $sqlRunnerService = new SqlRunnerService($httpClient, $serializer, '');
+        $sqlRunnerService->runQuery(new SqlRunnerRequest());
     }
 
     public function testRunQueryBadPayload(): void
@@ -167,8 +178,8 @@ final class SqlRunnerServiceTest extends TestCase
             )
         ;
 
-        $sqlRunnerService = new \App\Service\SqlRunnerService($httpClient, $serializer, '');
-        $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
+        $sqlRunnerService = new SqlRunnerService($httpClient, $serializer, '');
+        $sqlRunnerService->runQuery(new SqlRunnerRequest());
     }
 
     public function testRunQuerySuccess(): void
@@ -180,9 +191,10 @@ final class SqlRunnerServiceTest extends TestCase
             ->willReturn(self::createMock(ResponseInterface::class))
         ;
 
-        $result = (new \App\Entity\SqlRunnerDto\SqlRunnerResult())
+        $result = (new SqlRunnerResult())
             ->setColumns(['column1', 'column2'])
-            ->setRows([['row1', 'row2']]);
+            ->setRows([['row1', 'row2']])
+        ;
 
         $serializer = self::createMock(SerializerInterface::class);
         $serializer
@@ -195,8 +207,8 @@ final class SqlRunnerServiceTest extends TestCase
             )
         ;
 
-        $sqlRunnerService = new \App\Service\SqlRunnerService($httpClient, $serializer, '');
-        $result = $sqlRunnerService->runQuery(new \App\Entity\SqlRunnerDto\SqlRunnerRequest());
-        self::assertEquals(['column1', 'column2'], $result->getColumns());
+        $sqlRunnerService = new SqlRunnerService($httpClient, $serializer, '');
+        $result = $sqlRunnerService->runQuery(new SqlRunnerRequest());
+        self::assertSame(['column1', 'column2'], $result->getColumns());
     }
 }

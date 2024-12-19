@@ -27,16 +27,15 @@ final class FilterableSection
     #[LiveProp(writable: true, url: new UrlMapping(as: 'q'))]
     public string $query = '';
 
-    #[LiveProp(writable: true, url: new UrlMapping(as: 'p'))]
-    private int $currentPage = 1;
-
     #[LiveProp(writable: true, url: new UrlMapping(as: 'type'))]
     public string $type = '';
 
+    #[LiveProp(writable: true, url: new UrlMapping(as: 'p'))]
+    private int $currentPage = 1;
+
     public function __construct(
         private readonly QuestionRepository $questionRepository,
-    ) {
-    }
+    ) {}
 
     /**
      * List the questions based on the current query and type.
@@ -126,7 +125,7 @@ final class FilterableSection
     /**
      * Filter the returning questions by type.
      *
-     * @param string|null $type The type to filter
+     * @param null|string $type The type to filter
      */
     #[LiveAction]
     public function setTypeFilter(#[LiveArg] ?string $type): void

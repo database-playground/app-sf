@@ -6,7 +6,6 @@ namespace App\Repository;
 
 use App\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Meilisearch\Bundle\SearchService;
@@ -28,19 +27,19 @@ class QuestionRepository extends ServiceEntityRepository
     public function getNextPage(int $page): ?int
     {
         try {
-            /**
-             * @var int $id
-             */
-            $id = $this->createQueryBuilder('q')
-                ->select('q.id')
+            $result = $this->createQueryBuilder('q')
+                ->select('q')
                 ->where('q.id > :page')
                 ->orderBy('q.id', 'ASC')
                 ->setParameter('page', $page)
                 ->setMaxResults(1)
                 ->getQuery()
-                ->getSingleResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
+                ->getOneOrNullResult()
+            ;
 
-            return $id;
+            \assert(\is_int($result) || null === $result, 'result should be an integer or null');
+
+            return $result;
         } catch (NoResultException) {
             return null;
         }
@@ -49,19 +48,19 @@ class QuestionRepository extends ServiceEntityRepository
     public function getPreviousPage(int $page): ?int
     {
         try {
-            /**
-             * @var int $id
-             */
-            $id = $this->createQueryBuilder('q')
+            $result = $this->createQueryBuilder('q')
                 ->select('q.id')
                 ->where('q.id < :page')
                 ->orderBy('q.id', 'DESC')
                 ->setParameter('page', $page)
                 ->setMaxResults(1)
                 ->getQuery()
-                ->getSingleScalarResult();
+                ->getOneOrNullResult()
+            ;
 
-            return $id;
+            \assert(\is_int($result) || null === $result, 'result should be an integer or null');
+
+            return $result;
         } catch (NoResultException) {
             return null;
         }
@@ -70,10 +69,10 @@ class QuestionRepository extends ServiceEntityRepository
     /**
      * Search for questions based on a query and page number.
      *
-     * @param string|null $query    The search query
-     * @param string|null $type     The question type
+     * @param null|string $query    The search query
+     * @param null|string $type     The question type
      * @param int         $page     The page number
-     * @param int|null    $pageSize The number of items per page
+     * @param null|int    $pageSize The number of items per page
      *
      * @return Question[] The list of questions for the given page
      */
@@ -82,7 +81,7 @@ class QuestionRepository extends ServiceEntityRepository
         $filters = [];
         if (null !== $type && '' !== $type) {
             $escapedType = addslashes($type);
-            $filters[] = "type = \"$escapedType\"";
+            $filters[] = "type = \"{$escapedType}\"";
         }
 
         return $this->searchService->search($this->getEntityManager(), Question::class, $query ?? '', [
@@ -105,8 +104,8 @@ class QuestionRepository extends ServiceEntityRepository
     /**
      * Count the total search results based on a query and type.
      *
-     * @param string|null $query The search query
-     * @param string|null $type  The question type
+     * @param null|string $query The search query
+     * @param null|string $type  The question type
      *
      * @return int The total result count
      */
@@ -115,7 +114,7 @@ class QuestionRepository extends ServiceEntityRepository
         $filters = [];
         if (null !== $type && '' !== $type) {
             $escapedType = addslashes($type);
-            $filters[] = "type = \"$escapedType\"";
+            $filters[] = "type = \"{$escapedType}\"";
         }
 
         $result = $this->searchService->rawSearch(Question::class, $query ?? '', [
@@ -135,15 +134,17 @@ class QuestionRepository extends ServiceEntityRepository
      */
     public function listTypes(): array
     {
-        $qb = $this->createQueryBuilder('q');
-        $qb = $qb->select('q.type')
-            ->distinct();
+        $result = $this->createQueryBuilder('q')
+            ->select('q.type')
+            ->distinct()
+            ->getQuery()
+            ->getSingleColumnResult()
+        ;
 
-        /**
-         * @var string[] $result
-         */
-        $result = $qb->getQuery()->getSingleColumnResult();
+        return array_map(static function (mixed $s) {
+            \assert(\is_string($s), 'types should be a string');
 
-        return $result;
+            return $s;
+        }, $result);
     }
 }

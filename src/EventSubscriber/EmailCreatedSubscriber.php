@@ -21,13 +21,12 @@ final readonly class EmailCreatedSubscriber implements EventSubscriberInterface
         private LoggerInterface $logger,
         private UserRepository $userRepository,
         private EntityManagerInterface $entityManager,
-    ) {
-    }
+    ) {}
 
     public function onMessageEvent(MessageEvent $event): void
     {
         $message = $event->getMessage();
-        if (!($message instanceof EmailMessage)) {
+        if (!$message instanceof EmailMessage) {
             $this->logger->warning('The message is not an instance of Email.', [
                 'message' => $message,
             ]);
@@ -80,7 +79,8 @@ final readonly class EmailCreatedSubscriber implements EventSubscriberInterface
             ->setSubject($subject)
             ->setTextContent($textBody)
             ->setHtmlContent($htmlBody)
-            ->setKind($kind);
+            ->setKind($kind)
+        ;
         $this->entityManager->persist($email);
 
         /**
@@ -95,7 +95,8 @@ final readonly class EmailCreatedSubscriber implements EventSubscriberInterface
         foreach ($recipients as $recipient) {
             $emailDeliveryEvent = (new EmailDeliveryEvent())
                 ->setToAddress($recipient->getAddress())
-                ->setEmail($email);
+                ->setEmail($email)
+            ;
 
             $user = $this->userRepository->findOneBy([
                 'email' => $recipient->getAddress(),

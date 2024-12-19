@@ -18,8 +18,7 @@ final class Card
 
     public function __construct(
         private readonly PassRateService $passRateService,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the pass rate of the question.

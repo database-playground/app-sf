@@ -45,14 +45,14 @@ class ImportCommand extends Command
         $io->info('Unmarshaling schema and questions…');
         $content = file_get_contents($filename);
         if (false === $content) {
-            $io->error("Cannot read the file $filename.");
+            $io->error("Cannot read the file {$filename}.");
 
             return Command::FAILURE;
         }
 
         $exportedData = $this->serializer->deserialize($content, ExportedDataDto::class, 'json');
 
-        $this->entityManager->wrapInTransaction(function (EntityManagerInterface $em) use ($io, $exportedData): void {
+        $this->entityManager->wrapInTransaction(static function (EntityManagerInterface $em) use ($io, $exportedData): void {
             $schemaRepository = $em->getRepository(Schema::class);
 
             $io->info('Importing schema…');
@@ -60,6 +60,7 @@ class ImportCommand extends Command
                 $existingSchema = $schemaRepository->find($schema->getId());
                 if (null !== $existingSchema) {
                     $io->info("Schema {$schema->getId()} already exists, skipping…");
+
                     continue;
                 }
 
@@ -77,7 +78,7 @@ class ImportCommand extends Command
             $em->flush();
         });
 
-        $io->success("Imported schema and questions from $filename.");
+        $io->success("Imported schema and questions from {$filename}.");
 
         return Command::SUCCESS;
     }

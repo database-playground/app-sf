@@ -46,8 +46,7 @@ final class PointCalculationService
         private readonly SolutionVideoEventRepository $solutionVideoEventRepository,
         private readonly HintOpenEventRepository $hintOpenEventRepository,
         private readonly TagAwareCacheInterface $cache,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException
@@ -59,8 +58,7 @@ final class PointCalculationService
             + $this->calculateFirstSolutionPoints($user)
             + $this->calculateSolutionVideoPoints($user)
             + $this->calculateHintOpenPoints($user)
-            + $this->calculateWeeklySolvedPunishPoints($user)
-        ;
+            + $this->calculateWeeklySolvedPunishPoints($user);
     }
 
     /**
@@ -73,11 +71,11 @@ final class PointCalculationService
      *
      * @return int The total points of the user
      */
-    protected function calculateSolutionQuestionPoints(User $user): int
+    private function calculateSolutionQuestionPoints(User $user): int
     {
         $questions = $this->solutionEventRepository->findSolvedQuestions($user);
 
-        return array_reduce($questions, fn (int $carry, Question $question) => $carry + match ($question->getDifficulty()) {
+        return array_reduce($questions, static fn (int $carry, Question $question) => $carry + match ($question->getDifficulty()) {
             QuestionDifficulty::Easy => self::solutionEventEasyPoint,
             QuestionDifficulty::Medium => self::solutionEventMediumPoint,
             QuestionDifficulty::Hard => self::solutionEventHardPoint,
@@ -92,7 +90,7 @@ final class PointCalculationService
      *
      * @throws InvalidArgumentException
      */
-    protected function calculateFirstSolutionPoints(User $user): int
+    private function calculateFirstSolutionPoints(User $user): int
     {
         // select the question this user has ever solved
         $qb = $this->solutionEventRepository->createQueryBuilder('e')
@@ -102,7 +100,8 @@ final class PointCalculationService
             ->andWhere('e.status = :status')
             ->andWhere('e.submitter = :submitter')
             ->setParameter('status', SolutionEventStatus::Passed)
-            ->setParameter('submitter', $user);
+            ->setParameter('submitter', $user)
+        ;
 
         /**
          * @var Question[] $questions
@@ -126,25 +125,26 @@ final class PointCalculationService
      * List and cache the first solvers of each question.
      *
      * @param Question   $question the question to get the first solver
-     * @param Group|null $group    the solver group (null = no group)
+     * @param null|Group $group    the solver group (null = no group)
      *
      * @returns int|null the first solver ID of the question
      *
      * @throws InvalidArgumentException
      */
-    protected function listFirstSolversOfQuestion(Question $question, ?Group $group): ?int
+    private function listFirstSolversOfQuestion(Question $question, ?Group $group): ?int
     {
         $groupId = null !== $group ? "{$group->getId()}" : '-none';
 
         return $this->cache->get(
-            "question.q{$question->getId()}.g$groupId.first-solver",
-            function (ItemInterface $item) use ($group, $question) {
+            "question.q{$question->getId()}.g{$groupId}.first-solver",
+            static function (ItemInterface $item) use ($group, $question) {
                 $item->tag(['question', 'first-solver', 'group']);
 
                 $solutionEvent = $question
                     ->getSolutionEvents()
-                    ->filter(fn (SolutionEvent $event) => $group === $event->getSubmitter()->getGroup())
-                    ->findFirst(fn ($_, SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus());
+                    ->filter(static fn (SolutionEvent $event) => $group === $event->getSubmitter()->getGroup())
+                    ->findFirst(static fn ($_, SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus())
+                ;
 
                 return $solutionEvent?->getSubmitter()?->getId();
             }
@@ -157,7 +157,7 @@ final class PointCalculationService
      * Each student will lose experience points for watching a solution video.
      * Easy: 6 points, Medium: 12 points, Hard: 18 points.
      */
-    protected function calculateSolutionVideoPoints(User $user): int
+    private function calculateSolutionVideoPoints(User $user): int
     {
         /**
          * @var Question[] $questions
@@ -170,7 +170,8 @@ final class PointCalculationService
             ->groupBy('q.id')
             ->setParameter('user', $user)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         $questionPointsPair = [];
 
@@ -186,7 +187,7 @@ final class PointCalculationService
         return -array_sum($questionPointsPair);
     }
 
-    protected function calculateHintOpenPoints(User $user): int
+    private function calculateHintOpenPoints(User $user): int
     {
         $hintOpenEvents = $this->hintOpenEventRepository->findByUser($user);
 
@@ -203,7 +204,7 @@ final class PointCalculationService
      *
      * @return int The punish points, negative value
      */
-    protected function calculateWeeklySolvedPunishPoints(User $user): int
+    private function calculateWeeklySolvedPunishPoints(User $user): int
     {
         $weeklyMinSolvedQuestion = self::weeklyMinSolvedQuestionPoint;
         $weeklyPerQuestionXP = self::weeklyPerQuestionXpPoint;
@@ -213,14 +214,15 @@ final class PointCalculationService
 
         // Fetch the first attempt
         /**
-         * @var array{firstAttemptDate: string|null} $firstAttempt
+         * @var array{firstAttemptDate: null|string} $firstAttempt
          */
         $firstAttempt = $this->solutionEventRepository->createQueryBuilder('e')
             ->select('MIN(e.createdAt) AS firstAttemptDate')
             ->where('e.submitter = :submitter')
             ->setParameter('submitter', $user)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
 
         if (null === $firstAttempt['firstAttemptDate']) {
             return 0;
@@ -229,7 +231,8 @@ final class PointCalculationService
         // Ensure startDate is set to the start of the ISO week
         $startDate = (new \DateTime($firstAttempt['firstAttemptDate']))
             ->setTime(0, 0)
-            ->modify('Monday this week');
+            ->modify('Monday this week')
+        ;
 
         // Prepare the query to fetch counts per week
         $qb = $this->solutionEventRepository->createQueryBuilder('e')

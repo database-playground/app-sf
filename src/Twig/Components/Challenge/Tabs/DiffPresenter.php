@@ -25,15 +25,6 @@ final class DiffPresenter
 {
     use DefaultActionTrait;
 
-    public function __construct(
-        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
-        private readonly SolutionEventRepository $solutionEventRepository,
-        private readonly TranslatorInterface $translator,
-        private readonly SerializerInterface $serializer,
-        private readonly LoggerInterface $logger,
-    ) {
-    }
-
     #[LiveProp]
     public Question $question;
 
@@ -42,6 +33,14 @@ final class DiffPresenter
 
     #[LiveProp(writable: true)]
     public ?string $query = null;
+
+    public function __construct(
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
+        private readonly SolutionEventRepository $solutionEventRepository,
+        private readonly TranslatorInterface $translator,
+        private readonly SerializerInterface $serializer,
+        private readonly LoggerInterface $logger,
+    ) {}
 
     #[PostMount]
     public function postMount(): void

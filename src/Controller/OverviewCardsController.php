@@ -33,7 +33,8 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/points', name: 'points')]
     public function points(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         PointCalculationService $pointCalculationService,
         LoggerInterface $logger,
     ): Response {
@@ -57,7 +58,8 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/level', name: 'level')]
     public function level(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         QuestionRepository $questionRepository,
         SolutionEventRepository $solutionEventRepository,
     ): Response {
@@ -78,7 +80,8 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/questions/solved', name: 'solved_questions')]
     public function solvedQuestions(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         SolutionEventRepository $solutionEventRepository,
     ): Response {
         $solvedQuestions = $solutionEventRepository->findSolvedQuestions($user);
@@ -106,7 +109,8 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/events/count', name: 'events_count')]
     public function eventsCount(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         SolutionEventRepository $solutionEventRepository,
     ): Response {
         $events = $solutionEventRepository->findUserEvents($user);
@@ -121,7 +125,8 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/events/history', name: 'events_history')]
     public function eventHistory(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         SolutionEventRepository $solutionEventRepository,
     ): Response {
         $events = $solutionEventRepository->findUserEvents($user, limit: 5);
@@ -138,7 +143,8 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/events/daily-chart', name: 'events_daily_chart')]
     public function eventDailyChart(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         SolutionEventRepository $solutionEventRepository,
         ChartBuilderInterface $chartBuilder,
         TranslatorInterface $translator,
@@ -154,7 +160,8 @@ class OverviewCardsController extends AbstractController
             ->groupBy('date')
             ->setParameter('date', $startedAt)
             ->setParameter('user', $user)
-            ->getQuery();
+            ->getQuery()
+        ;
 
         /**
          * @var array<array{date: string, count: int}> $events
@@ -173,12 +180,12 @@ class OverviewCardsController extends AbstractController
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
-            'labels' => array_map(fn ($event) => $event['date'], $events),
+            'labels' => array_map(static fn ($event) => $event['date'], $events),
             'datasets' => [
                 [
                     'label' => $translator->trans('charts.event_daily_chart'),
                     'backgroundColor' => self::primaryColor,
-                    'data' => array_map(fn ($event) => $event['count'], $events),
+                    'data' => array_map(static fn ($event) => $event['count'], $events),
                 ],
             ],
         ]);
@@ -201,7 +208,8 @@ class OverviewCardsController extends AbstractController
      */
     #[Route('/leaderboard', name: 'leaderboard')]
     public function leaderboard(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         SolutionEventRepository $solutionEventRepository,
     ): Response {
         $leaderboard = $solutionEventRepository->listLeaderboard($user->getGroup(), '7 days');

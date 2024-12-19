@@ -11,5 +11,6 @@ return static function (FrameworkConfig $frameworkConfig): void {
         ->excludedPatterns([
             '*/assets/styles/_*.scss',
             '*/assets/styles/**/_*.scss',
-        ]);
+        ])
+    ;
 };

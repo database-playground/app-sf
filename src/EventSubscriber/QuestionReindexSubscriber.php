@@ -19,8 +19,7 @@ final readonly class QuestionReindexSubscriber
         private QuestionRepository $questionRepository,
         private SearchService $searchService,
         private LoggerInterface $logger,
-    ) {
-    }
+    ) {}
 
     public function postUpdate(Question $question, PostUpdateEventArgs $event): void
     {

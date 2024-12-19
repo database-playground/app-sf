@@ -21,12 +21,16 @@ return static function (
             $webProfilerConfig->interceptRedirects(false);
             $frameworkProfilerConfig
                 ->onlyExceptions(false)
-                ->collectSerializerData(true);
+                ->collectSerializerData(true)
+            ;
+
             break;
+
         case 'test':
             $webProfilerConfig->toolbar(false);
             $webProfilerConfig->interceptRedirects(false);
             $frameworkProfilerConfig->collect(false);
+
             break;
     }
 };

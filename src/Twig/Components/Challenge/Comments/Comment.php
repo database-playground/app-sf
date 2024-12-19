@@ -31,8 +31,7 @@ final class Comment
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly CommentLikeEventRepository $commentLikeEventRepository,
-    ) {
-    }
+    ) {}
 
     public function getLikes(): int
     {

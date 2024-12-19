@@ -31,7 +31,7 @@ readonly class PassRate
         array $attempts,
     ) {
         $this->total = \count($attempts);
-        $this->passed = \count(array_filter($attempts, fn (SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus()));
+        $this->passed = \count(array_filter($attempts, static fn (SolutionEvent $event) => SolutionEventStatus::Passed === $event->getStatus()));
     }
 
     /**

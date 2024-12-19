@@ -37,7 +37,7 @@ class Feedback
     private FeedbackType $type = FeedbackType::Others;
 
     /**
-     * @var array<string, string|null> $metadata the metadata for the feedback
+     * @var array<string, null|string> $metadata the metadata for the feedback
      */
     #[ORM\Column(type: 'json')]
     private array $metadata = [];
@@ -103,7 +103,7 @@ class Feedback
     }
 
     /**
-     * @return array<string, string|null>
+     * @return array<string, null|string>
      */
     public function getMetadata(): array
     {
@@ -111,7 +111,7 @@ class Feedback
     }
 
     /**
-     * @param array<string, string|null> $metadata
+     * @param array<string, null|string> $metadata
      *
      * @return $this
      */

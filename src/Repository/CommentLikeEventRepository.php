@@ -69,7 +69,8 @@ class CommentLikeEventRepository extends ServiceEntityRepository
 
         $likeEvent = (new CommentLikeEvent())
             ->setLiker($user)
-            ->setComment($comment);
+            ->setComment($comment)
+        ;
 
         $this->getEntityManager()->persist($likeEvent);
         $this->getEntityManager()->flush();

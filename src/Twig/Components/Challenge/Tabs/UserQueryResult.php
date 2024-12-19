@@ -27,13 +27,6 @@ final class UserQueryResult
 {
     use DefaultActionTrait;
 
-    public function __construct(
-        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
-        private readonly SolutionEventRepository $solutionEventRepository,
-        private readonly LoggerInterface $logger,
-    ) {
-    }
-
     /**
      * @var Question $question the question to present the answer
      */
@@ -48,6 +41,12 @@ final class UserQueryResult
 
     #[LiveProp(writable: true)]
     public ?string $query = null;
+
+    public function __construct(
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
+        private readonly SolutionEventRepository $solutionEventRepository,
+        private readonly LoggerInterface $logger,
+    ) {}
 
     #[PostMount]
     public function postMount(): void

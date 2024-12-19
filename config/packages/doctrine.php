@@ -26,12 +26,14 @@ return static function (ContainerConfigurator $containerConfigurator, DoctrineCo
         ->connection('default')
         ->url(env('DATABASE_URL')->resolve())
         ->profilingCollectBacktrace(param('kernel.debug'))
-        ->useSavepoints(true);
+        ->useSavepoints(true)
+    ;
 
     $ormConfig = $doctrineConfig->orm();
     $ormConfig
         ->autoGenerateProxyClasses(true)
-        ->enableLazyGhostObjects(true);
+        ->enableLazyGhostObjects(true)
+    ;
 
     $entityManager = $ormConfig->entityManager('default');
     $entityManager
@@ -45,11 +47,13 @@ return static function (ContainerConfigurator $containerConfigurator, DoctrineCo
             'dir' => '%kernel.project_dir%/src/Entity',
             'prefix' => 'App\Entity',
             'alias' => 'App',
-        ]);
+        ])
+    ;
 
     $ormConfig
         ->controllerResolver()
-        ->autoMapping(false);
+        ->autoMapping(false)
+    ;
 
     $entityManager->dql()
         ->datetimeFunction('date', SimpleFunction::class)
@@ -77,13 +81,15 @@ return static function (ContainerConfigurator $containerConfigurator, DoctrineCo
         ->stringFunction('concat_ws', ConcatWs::class)
         ->stringFunction('cast', Cast::class)
         ->stringFunction('replace', Replace::class)
-        ->stringFunction('date_format', DateFormat::class);
+        ->stringFunction('date_format', DateFormat::class)
+    ;
 
     if ('test' === $containerConfigurator->env()) {
         $dbalConfig
             ->connection('default')
             // "TEST_TOKEN" is typically set by ParaTest
-            ->dbnameSuffix('_test.%env(default::TEST_TOKEN)%');
+            ->dbnameSuffix('_test.%env(default::TEST_TOKEN)%')
+        ;
     }
 
     if ('prod' === $containerConfigurator->env()) {
@@ -92,19 +98,22 @@ return static function (ContainerConfigurator $containerConfigurator, DoctrineCo
 
         $ormConfig
             ->autoGenerateProxyClasses(false)
-            ->proxyDir('%kernel.build_dir%/doctrine/orm/Proxies');
+            ->proxyDir('%kernel.build_dir%/doctrine/orm/Proxies')
+        ;
 
         $entityManager
             ->queryCacheDriver([
                 'type' => 'pool',
                 'pool' => $systemCachePool,
-            ]);
+            ])
+        ;
 
         $entityManager
             ->resultCacheDriver([
                 'type' => 'pool',
                 'pool' => $resultCachePool,
-            ]);
+            ])
+        ;
 
         $cache = $frameworkConfig->cache();
         $cache->pool($systemCachePool)->adapters(['cache.system']);

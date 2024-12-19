@@ -10,5 +10,6 @@ return static function (FrameworkConfig $frameworkConfig): void {
     $frameworkConfig->cache()
         ->prefixSeed('database_playground/app')
         ->app('cache.adapter.redis_tag_aware')
-        ->defaultRedisProvider(param('app.redis_uri'));
+        ->defaultRedisProvider(param('app.redis_uri'))
+    ;
 };

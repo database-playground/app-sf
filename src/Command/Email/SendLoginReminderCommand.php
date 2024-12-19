@@ -41,7 +41,7 @@ class SendLoginReminderCommand extends Command
             $table->addRow(['Subject', $result->getSubject()]);
             $table->addRow(['To', $result->getToAddress()->toString()]);
 
-            $bcc = implode(', ', array_map(fn ($address) => $address->toString(), $result->getBcc()));
+            $bcc = implode(', ', array_map(static fn ($address) => $address->toString(), $result->getBcc()));
             $table->addRow(['Bcc', $bcc]);
 
             $table->addRow(['Kind', $result->getKind()->value]);

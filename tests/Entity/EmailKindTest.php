@@ -8,7 +8,12 @@ use App\Entity\EmailKind;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Header\Headers;
 
-class EmailKindTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EmailKindTest extends TestCase
 {
     public function testEmailKindAddHeader(): void
     {
@@ -17,7 +22,7 @@ class EmailKindTest extends TestCase
 
         $header = $kind->addToEmailHeader($header);
 
-        self::assertEquals($kind->value, $header->get(EmailKind::EMAIL_HEADER)?->getBodyAsString());
+        self::assertSame($kind->value, $header->get(EmailKind::EMAIL_HEADER)?->getBodyAsString());
     }
 
     public function testEmailKindExtractHeader(): void
@@ -28,7 +33,7 @@ class EmailKindTest extends TestCase
 
         $extractedKind = EmailKind::fromEmailHeader($header);
 
-        self::assertEquals($kind, $extractedKind);
+        self::assertSame($kind, $extractedKind);
     }
 
     public function testEmailKindNoHeader(): void

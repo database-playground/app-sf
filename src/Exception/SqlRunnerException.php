@@ -10,6 +10,6 @@ class SqlRunnerException extends HttpException
 {
     public function __construct(string $code, string $message, ?\Throwable $previous = null)
     {
-        parent::__construct(500, "$code: $message", previous: $previous);
+        parent::__construct(500, "{$code}: {$message}", previous: $previous);
     }
 }

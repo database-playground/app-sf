@@ -14,8 +14,7 @@ final readonly class LoginSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-    ) {
-    }
+    ) {}
 
     public function onSecurityAuthenticationSuccess(AuthenticationSuccessEvent $event): void
     {
@@ -23,7 +22,8 @@ final readonly class LoginSubscriber implements EventSubscriberInterface
         \assert($user instanceof User);
 
         $loginEvent = (new LoginEvent())
-            ->setAccount($user);
+            ->setAccount($user)
+        ;
 
         $this->entityManager->persist($loginEvent);
         $this->entityManager->flush();

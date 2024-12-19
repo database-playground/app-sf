@@ -12,8 +12,7 @@ final readonly class StatisticsService
 {
     public function __construct(
         private UserRepository $userRepository,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the last login time of all users in descending order.
@@ -25,7 +24,7 @@ final readonly class StatisticsService
     public function lastLoginAt(): array
     {
         /**
-         * @var list<array{u: User, last_login_at: string|null}> $results
+         * @var list<array{u: User, last_login_at: null|string}> $results
          */
         $results = $this->userRepository->createQueryBuilder('user')
             ->leftJoin('user.loginEvents', 'loginEvent')
@@ -36,7 +35,8 @@ final readonly class StatisticsService
             ->groupBy('user.id')
             ->orderBy('last_login_at', 'DESC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         /**
          * @var list<LastLoginDto> $resultsWithRecency
@@ -54,7 +54,8 @@ final readonly class StatisticsService
                 : null;
             $lastLoginDto = (new LastLoginDto())
                 ->setUser($result['u'])
-                ->setLastLoginAt($lastLoginAt);
+                ->setLastLoginAt($lastLoginAt)
+            ;
 
             if (null !== $lastLoginAt) {
                 $resultsWithRecency[] = $lastLoginDto;

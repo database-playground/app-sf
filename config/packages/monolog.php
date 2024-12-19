@@ -15,12 +15,14 @@ return static function (ContainerConfigurator $containerConfigurator, MonologCon
             ->path('%kernel.logs_dir%/%kernel.environment%.log')
             ->level('debug')
             ->channels()
-                ->elements(['!event']);
+            ->elements(['!event'])
+        ;
         $monologConfig->handler('console')
             ->type('console')
             ->processPsr3Messages(false)
             ->channels()
-                ->elements(['!event', '!doctrine', '!console']);
+            ->elements(['!event', '!doctrine', '!console'])
+        ;
     }
 
     if ('test' === $containerConfigurator->env()) {
@@ -31,11 +33,13 @@ return static function (ContainerConfigurator $containerConfigurator, MonologCon
             ->excludedHttpCode(404)
             ->excludedHttpCode(405)
             ->channels()
-                ->elements(['!event']);
+            ->elements(['!event'])
+        ;
         $monologConfig->handler('nested')
             ->type('stream')
             ->path('%kernel.logs_dir%/%kernel.environment%.log')
-            ->level('debug');
+            ->level('debug')
+        ;
     }
 
     if ('prod' === $containerConfigurator->env()) {
@@ -46,22 +50,25 @@ return static function (ContainerConfigurator $containerConfigurator, MonologCon
             ->excludedHttpCode(404)
             ->excludedHttpCode(405)
             // How many messages should be saved? Prevent memory leaks
-            ->bufferSize(50);
+            ->bufferSize(50)
+        ;
         $monologConfig->handler('nested')
             ->type('stream')
             ->path('php://stderr')
             ->level('debug')
-            ->formatter('monolog.formatter.json');
+            ->formatter('monolog.formatter.json')
+        ;
         $monologConfig->handler('console')
             ->type('console')
             ->processPsr3Messages(false)
             ->channels()
-                ->elements(['!event', '!doctrine']);
+            ->elements(['!event', '!doctrine'])
+        ;
         $monologConfig->handler('deprecation')
             ->type('stream')
             ->path('php://stderr')
             ->formatter('monolog.formatter.json')
             ->channels()
-                ->elements(['deprecation']);
+            ->elements(['deprecation']);
     }
 };

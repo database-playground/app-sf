@@ -17,8 +17,7 @@ class StatisticController extends AbstractController
 {
     public function __construct(
         private readonly StatisticsService $statisticsService,
-    ) {
-    }
+    ) {}
 
     #[Route('/admin/statistic/last-login-at', name: 'admin_statistic_last_login_at')]
     public function lastLoginAt(): Response
@@ -47,7 +46,8 @@ class StatisticController extends AbstractController
             ->orderBy('solved_questions', 'DESC')
             ->setParameter('status', SolutionEventStatus::Passed)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         return $this->render('admin/statistics/completed_questions.html.twig', [
             'totalQuestions' => $totalQuestions,
@@ -75,7 +75,7 @@ class StatisticController extends AbstractController
             ];
         }
 
-        usort($usersWithPoints, fn (array $a, array $b) => $b['points'] <=> $a['points']);
+        usort($usersWithPoints, static fn (array $a, array $b) => $b['points'] <=> $a['points']);
 
         return $this->render('admin/statistics/experience_points.html.twig', [
             'usersWithPoints' => $usersWithPoints,

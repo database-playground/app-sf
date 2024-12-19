@@ -21,15 +21,19 @@ class FeedbackController extends AbstractController
     public function index(
         Request $request,
         EntityManagerInterface $entityManager,
-        #[CurrentUser] ?User $user,
-        #[MapQueryParameter] string $url,
-        #[MapQueryParameter] ?string $description = null,
+        #[CurrentUser]
+        ?User $user,
+        #[MapQueryParameter]
+        string $url,
+        #[MapQueryParameter]
+        ?string $description = null,
     ): Response {
         $feedback = (new Feedback())
             ->setSender($user)
             ->setMetadata([
                 'url' => $url,
-            ]);
+            ])
+        ;
 
         if (null !== $description) {
             $feedback->setDescription($description);

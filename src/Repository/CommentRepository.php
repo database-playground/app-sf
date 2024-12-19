@@ -24,8 +24,8 @@ class CommentRepository extends ServiceEntityRepository
      * Get the comments of a question.
      *
      * @param Question $question the question to get the comments for
-     * @param int|null $limit    The maximum number of comments to return. Used for pagination.
-     * @param int|null $offset   The number of comments to skip. Used for pagination.
+     * @param null|int $limit    The maximum number of comments to return. Used for pagination.
+     * @param null|int $offset   The number of comments to skip. Used for pagination.
      *
      * @return Comment[] the comments of the question
      */
@@ -43,8 +43,8 @@ class CommentRepository extends ServiceEntityRepository
      * Get all the comments created by a user.
      *
      * @param User     $user   the user to get the comments for
-     * @param int|null $limit  The maximum number of comments to return. Used for pagination.
-     * @param int|null $offset The number of comments to skip. Used for pagination.
+     * @param null|int $limit  The maximum number of comments to return. Used for pagination.
+     * @param null|int $offset The number of comments to skip. Used for pagination.
      *
      * @return Comment[] the comments created by the user
      */

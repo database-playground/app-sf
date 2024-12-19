@@ -21,7 +21,8 @@ return static function (ContainerConfigurator $containerConfigurator, FrameworkC
     $asyncTransport->dsn(env('MESSENGER_TRANSPORT_DSN'));
     $asyncTransport->retryStrategy()
         ->maxRetries(3)
-        ->multiplier(2);
+        ->multiplier(2)
+    ;
 
     $failedTransport = $messenger->transport('failed');
     assert($failedTransport instanceof TransportConfig);

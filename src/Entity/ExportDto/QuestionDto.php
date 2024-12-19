@@ -111,14 +111,15 @@ class QuestionDto
             ->setTitle($question->getTitle())
             ->setDescription($question->getDescription())
             ->setAnswer($question->getAnswer())
-            ->setSolutionVideo($question->getSolutionVideo());
+            ->setSolutionVideo($question->getSolutionVideo())
+        ;
     }
 
     public function toEntity(SchemaRepository $schemaRepository): Question
     {
         $schema = $schemaRepository->find($this->schemaId);
         if (null === $schema) {
-            throw new \RuntimeException("Schema $this->schemaId not found");
+            throw new \RuntimeException("Schema {$this->schemaId} not found");
         }
 
         return (new Question())
@@ -128,6 +129,7 @@ class QuestionDto
             ->setTitle($this->title)
             ->setDescription($this->description)
             ->setAnswer($this->answer)
-            ->setSolutionVideo($this->solutionVideo);
+            ->setSolutionVideo($this->solutionVideo)
+        ;
     }
 }

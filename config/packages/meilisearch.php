@@ -12,16 +12,17 @@ return static function (MeilisearchConfig $meiliSearchConfig): void {
         ->url(env('MEILISEARCH_URL'))
         ->apiKey(env('MEILISEARCH_API_KEY'))
         ->indices()
-            ->name('questions')
-            ->class(Question::class)
-            ->enableSerializerGroups(true)
-            ->settings([
-                'filterableAttributes' => [
-                    'type',
-                    'difficulty',
-                ],
-                'sortableAttributes' => [
-                    'id',
-                ],
-            ]);
+        ->name('questions')
+        ->class(Question::class)
+        ->enableSerializerGroups(true)
+        ->settings([
+            'filterableAttributes' => [
+                'type',
+                'difficulty',
+            ],
+            'sortableAttributes' => [
+                'id',
+            ],
+        ])
+    ;
 };

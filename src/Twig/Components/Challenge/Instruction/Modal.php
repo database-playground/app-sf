@@ -35,17 +35,16 @@ final class Modal
     use ComponentToolsTrait;
     use DefaultActionTrait;
 
-    public function __construct(
-        private readonly TranslatorInterface $translator,
-        private readonly LoggerInterface $logger,
-    ) {
-    }
-
     #[LiveProp]
     public User $currentUser;
 
     #[LiveProp]
     public Question $question;
+
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly LoggerInterface $logger,
+    ) {}
 
     public function getCost(): int
     {
@@ -103,7 +102,8 @@ final class Modal
         $hintOpenEvent = (new HintOpenEvent())
             ->setOpener($this->currentUser)
             ->setQuestion($this->question)
-            ->setQuery($query->getQuery());
+            ->setQuery($query->getQuery())
+        ;
 
         try {
             try {

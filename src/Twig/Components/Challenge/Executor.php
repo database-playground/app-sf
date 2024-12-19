@@ -25,30 +25,31 @@ final class Executor
     use ComponentToolsTrait;
     use DefaultActionTrait;
 
-    public function __construct(
-        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
-        private readonly SolutionEventRepository $solutionEventRepository,
-        private readonly EntityManagerInterface $entityManager,
-    ) {
-    }
-
     #[LiveProp]
     public Question $question;
 
     #[LiveProp]
     public User $user;
 
+    public function __construct(
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
+        private readonly SolutionEventRepository $solutionEventRepository,
+        private readonly EntityManagerInterface $entityManager,
+    ) {}
+
     public function getPreviousQuery(): string
     {
         $latestQuery = $this->solutionEventRepository
-            ->getLatestQuery($this->question, $this->user);
+            ->getLatestQuery($this->question, $this->user)
+        ;
 
         return $latestQuery?->getQuery() ?? '';
     }
 
     #[LiveAction]
     public function createNewQuery(
-        #[LiveArg] string $query,
+        #[LiveArg]
+        string $query,
     ): void {
         if ('' === $query) {
             return;
@@ -57,7 +58,8 @@ final class Executor
         $solutionEvent = (new SolutionEvent())
             ->setQuestion($this->question)
             ->setSubmitter($this->user)
-            ->setQuery($query);
+            ->setQuery($query)
+        ;
 
         try {
             $answer = $this->questionSqlRunnerService->getAnswerResult($this->question);

@@ -35,7 +35,8 @@ class CommentCreateFormType extends AbstractType
                     'class' => 'btn btn-primary',
                     'aria-label' => '送出留言',
                 ],
-            ]);
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

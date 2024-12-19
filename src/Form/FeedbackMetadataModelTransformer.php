@@ -15,8 +15,7 @@ final readonly class FeedbackMetadataModelTransformer implements DataTransformer
 {
     public function __construct(
         private SerializerInterface $serializer,
-    ) {
-    }
+    ) {}
 
     public function transform(mixed $value): string
     {
@@ -29,7 +28,7 @@ final readonly class FeedbackMetadataModelTransformer implements DataTransformer
     }
 
     /**
-     * @return array<string, string|null>
+     * @return array<string, null|string>
      */
     public function reverseTransform(mixed $value): array
     {

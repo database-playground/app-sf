@@ -21,7 +21,7 @@ final class MetricCard
     public string $property = 'neutral';
 
     /**
-     * @var string|null The value of the growth.
+     * @var null|string The value of the growth.
      *                  If null, the growth will not be displayed.
      */
     public ?string $growth = null;

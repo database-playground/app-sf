@@ -67,7 +67,8 @@ class SchemaDto
             ->setId($schema->getId())
             ->setPicture($schema->getPicture())
             ->setDescription($schema->getDescription())
-            ->setSchema($schema->getSchema());
+            ->setSchema($schema->getSchema())
+        ;
     }
 
     public function toEntity(): Schema
@@ -76,6 +77,7 @@ class SchemaDto
             ->setId($this->id)
             ->setPicture($this->picture)
             ->setDescription($this->description)
-            ->setSchema($this->schema);
+            ->setSchema($this->schema)
+        ;
     }
 }

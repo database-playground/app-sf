@@ -45,14 +45,14 @@ class Email
         $this->emailDeliveryEvents = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function __toString(): string
     {
         return $this->getSubject();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getSubject(): string

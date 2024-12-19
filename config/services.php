@@ -28,7 +28,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->defaults()
         ->autowire()
-        ->autoconfigure();
+        ->autoconfigure()
+    ;
 
     $services->load('App\\', __DIR__.'/../src/')
         ->exclude([
@@ -38,20 +39,25 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__.'/../src/Service/Processes/',
             __DIR__.'/../src/Service/Types/',
             __DIR__.'/../src/Twig/Components/Challenge/EventConstant.php',
-        ]);
+        ])
+    ;
 
     $services->set(PromptService::class)
-        ->arg('$apiKey', param('app.openai_api_key'));
+        ->arg('$apiKey', param('app.openai_api_key'))
+    ;
 
     $services->set(SqlRunnerService::class)
-        ->arg('$baseUrl', param('app.sqlrunner_url'));
+        ->arg('$baseUrl', param('app.sqlrunner_url'))
+    ;
 
     $services->set(EmailService::class)
         ->arg('$serverMail', param('app.server-mail'))
-        ->arg('$chunkLimit', param('app.mail.bcc-chunk'));
+        ->arg('$chunkLimit', param('app.mail.bcc-chunk'))
+    ;
 
     $services->set(EmailTemplateService::class)
-        ->arg('$serverMail', param('app.server-mail'));
+        ->arg('$serverMail', param('app.server-mail'))
+    ;
 
     $services->set(EmailTemplateController::class)
         ->arg('$projectDir', param('kernel.project_dir'));

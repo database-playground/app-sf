@@ -13,8 +13,7 @@ final readonly class StrategicEmailService
         private StatisticsService $statisticsService,
         private EmailTemplateService $emailTemplateService,
         private EmailService $emailService,
-    ) {
-    }
+    ) {}
 
     /**
      * Send login reminder emails to users who have not logged in for a long time.
@@ -32,7 +31,7 @@ final readonly class StrategicEmailService
         $lastLoginAt = array_filter(
             // Filter out users who have logged in within the last 7 days
             $this->statisticsService->lastLoginAt(),
-            function (LastLoginDto $lastLoginDto): bool {
+            static function (LastLoginDto $lastLoginDto): bool {
                 $lastLoginAt = $lastLoginDto->getLastLoginAt();
                 if (null === $lastLoginAt) {
                     return true;
@@ -43,7 +42,7 @@ final readonly class StrategicEmailService
         );
 
         $bccUsers = array_map(
-            fn (LastLoginDto $lastLoginDto) => $lastLoginDto->getUser(),
+            static fn (LastLoginDto $lastLoginDto) => $lastLoginDto->getUser(),
             $lastLoginAt,
         );
 

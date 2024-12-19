@@ -8,14 +8,14 @@ use App\Entity\EmailDto\EmailDto;
 use App\Entity\EmailKind;
 use App\Entity\User;
 use Symfony\Component\Mime\Address;
+use Twig\Environment;
 
 final readonly class EmailTemplateService
 {
     public function __construct(
-        private \Twig\Environment $twigEnvironment,
+        private Environment $twigEnvironment,
         private string $serverMail,
-    ) {
-    }
+    ) {}
 
     /**
      * Send a "you have not logged in for a long time" email to the user.
@@ -26,7 +26,7 @@ final readonly class EmailTemplateService
      */
     public function createLoginReminderDto(array $bccUsers): EmailDto
     {
-        $textContent = <<<TEXT
+        $textContent = <<<'TEXT'
             資料庫練功房 | 情況報告
             ====================
 
@@ -51,7 +51,7 @@ final readonly class EmailTemplateService
         }
 
         $userAddresses = array_map(
-            fn (User $user) => new Address(
+            static fn (User $user) => new Address(
                 address: $user->getEmail(),
                 name: $user->getName() ?? '',
             ),
@@ -64,6 +64,7 @@ final readonly class EmailTemplateService
             ->setSubject('[資料庫練功房] 登入次數警告')
             ->setText($textContent)
             ->setHtml($htmlContent)
-            ->setKind(EmailKind::Transactional);
+            ->setKind(EmailKind::Transactional)
+        ;
     }
 }

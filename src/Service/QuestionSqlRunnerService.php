@@ -19,31 +19,7 @@ final class QuestionSqlRunnerService
 {
     public function __construct(
         protected SqlRunnerService $sqlRunnerService,
-    ) {
-    }
-
-    /**
-     * Get the result of the query from the question.
-     *
-     * @param Question $question the question to get the result from
-     * @param string   $query    the query to execute
-     *
-     * @return SqlRunnerResult the result of the query
-     *
-     * @throws QueryExecuteException  when the query execution fails
-     * @throws SchemaExecuteException when the schema execution fails
-     * @throws SqlRunnerException     when the runner fails (internal error or client error)
-     */
-    protected function getResult(Question $question, string $query): SqlRunnerResult
-    {
-        $schema = $question->getSchema();
-
-        return $this->sqlRunnerService->runQuery(
-            (new SqlRunnerRequest())
-                ->setQuery($query)
-                ->setSchema($schema->getSchema())
-        );
-    }
+    ) {}
 
     /**
      * Get the result of the query from the question.
@@ -76,5 +52,28 @@ final class QuestionSqlRunnerService
     public function getQueryResult(Question $question, string $query): SqlRunnerResult
     {
         return $this->getResult($question, $query);
+    }
+
+    /**
+     * Get the result of the query from the question.
+     *
+     * @param Question $question the question to get the result from
+     * @param string   $query    the query to execute
+     *
+     * @return SqlRunnerResult the result of the query
+     *
+     * @throws QueryExecuteException  when the query execution fails
+     * @throws SchemaExecuteException when the schema execution fails
+     * @throws SqlRunnerException     when the runner fails (internal error or client error)
+     */
+    private function getResult(Question $question, string $query): SqlRunnerResult
+    {
+        $schema = $question->getSchema();
+
+        return $this->sqlRunnerService->runQuery(
+            (new SqlRunnerRequest())
+                ->setQuery($query)
+                ->setSchema($schema->getSchema())
+        );
     }
 }

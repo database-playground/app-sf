@@ -17,16 +17,15 @@ use function Symfony\Component\Translation\t;
 #[AsTwigComponent]
 final class AnswerQueryResult
 {
-    public function __construct(
-        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
-        private readonly LoggerInterface $logger,
-    ) {
-    }
-
     /**
      * @var Question the question to present the answer
      */
     public Question $question;
+
+    public function __construct(
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
+        private readonly LoggerInterface $logger,
+    ) {}
 
     public function getAnswer(): FallableSqlRunnerResult
     {

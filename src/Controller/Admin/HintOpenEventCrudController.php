@@ -39,13 +39,15 @@ class HintOpenEventCrudController extends AbstractCrudController
     {
         return $filters
             ->add('opener')
-            ->add('question');
+            ->add('question')
+        ;
     }
 
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->disable(Action::DELETE, Action::EDIT, Action::NEW)
-            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ;
     }
 }

@@ -15,19 +15,19 @@ class SqlRunnerResponse
     private bool $success;
 
     /**
-     * @var SqlRunnerResult|null The data returned by the query.
+     * @var null|SqlRunnerResult The data returned by the query.
      *                           Only available if the query was successful.
      */
     private ?SqlRunnerResult $data;
 
     /**
-     * @var string|null The error message returned by the query.
+     * @var null|string The error message returned by the query.
      *                  Only available if the query was not successful.
      */
     private ?string $message;
 
     /**
-     * @var string|null The error code returned by the query.
+     * @var null|string The error code returned by the query.
      *                  Only available if the query was not successful.
      */
     private ?string $code;

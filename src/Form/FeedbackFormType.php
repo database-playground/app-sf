@@ -24,8 +24,7 @@ class FeedbackFormType extends AbstractType
 {
     public function __construct(
         private readonly FeedbackMetadataModelTransformer $metadataModelTransformer,
-    ) {
-    }
+    ) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -58,7 +57,8 @@ class FeedbackFormType extends AbstractType
         ;
 
         $builder->get('metadata')
-            ->addModelTransformer($this->metadataModelTransformer);
+            ->addModelTransformer($this->metadataModelTransformer)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -29,7 +29,8 @@ final readonly class SqlRunnerService
         $this->context = (new ObjectNormalizerContextBuilder())
             ->withAllowExtraAttributes(false)
             ->withRequireAllProperties()
-            ->toArray();
+            ->toArray()
+        ;
     }
 
     /**
@@ -77,8 +78,10 @@ final readonly class SqlRunnerService
             switch ($response->getCode()) {
                 case 'QUERY_ERROR':
                     throw new QueryExecuteException($response->getMessage());
+
                 case 'SCHEMA_ERROR':
                     throw new SchemaExecuteException($response->getMessage());
+
                 default:
                     throw new SqlRunnerException($response->getCode(), $response->getMessage());
             }

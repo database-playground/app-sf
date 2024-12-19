@@ -19,8 +19,7 @@ final readonly class FeedbackCreatedListenerSubscriber
         private NotifierInterface $notifier,
         private TranslatorInterface $translator,
         private UrlGeneratorInterface $urlGenerator,
-    ) {
-    }
+    ) {}
 
     public function onFeedbackCreated(Feedback $feedback): void
     {

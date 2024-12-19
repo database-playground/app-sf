@@ -28,8 +28,7 @@ final class SolutionVideoModal
 
     public function __construct(
         private readonly SolutionVideoEventRepository $solutionVideoEventRepository,
-    ) {
-    }
+    ) {}
 
     public function getCost(): int
     {

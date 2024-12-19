@@ -22,16 +22,6 @@ final class SqlRunnerResultTable
     public SqlRunnerResult $result;
 
     /**
-     * Get the paginated rows and another row to determine if there are more pages.
-     *
-     * @return array<array<string>>
-     */
-    protected function getData(): array
-    {
-        return \array_slice($this->result->getRows(), ($this->page - 1) * self::limit, self::limit + 1);
-    }
-
-    /**
      * Get the paginated rows.
      *
      * @return array<array<string>>
@@ -39,5 +29,15 @@ final class SqlRunnerResultTable
     public function getPaginatedRows(): array
     {
         return \array_slice($this->getData(), 0, self::limit);
+    }
+
+    /**
+     * Get the paginated rows and another row to determine if there are more pages.
+     *
+     * @return array<array<string>>
+     */
+    protected function getData(): array
+    {
+        return \array_slice($this->result->getRows(), ($this->page - 1) * self::limit, self::limit + 1);
     }
 }

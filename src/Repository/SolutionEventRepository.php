@@ -54,8 +54,8 @@ class SolutionEventRepository extends ServiceEntityRepository
      *
      * @param User                $user     The user to query
      * @param array<string,mixed> $criteria Additional criteria to filter the events
-     * @param int|null            $limit    The maximum number of events to return
-     * @param int|null            $offset   The offset of the events
+     * @param null|int            $limit    The maximum number of events to return
+     * @param null|int            $offset   The offset of the events
      *
      * @return SolutionEvent[]
      */
@@ -78,8 +78,8 @@ class SolutionEventRepository extends ServiceEntityRepository
      *
      * @param Question $question The question to query
      * @param User     $user     The user to query
-     * @param int|null $limit    The maximum number of events to return
-     * @param int|null $offset   The offset of the events
+     * @param null|int $limit    The maximum number of events to return
+     * @param null|int $offset   The offset of the events
      *
      * @return SolutionEvent[]
      */
@@ -108,7 +108,7 @@ class SolutionEventRepository extends ServiceEntityRepository
      * @param Question $question The question to check
      * @param User     $user     The user to check
      *
-     * @return SolutionEventStatus|null The solve state, or `null` if the user has not solved the question
+     * @return null|SolutionEventStatus The solve state, or `null` if the user has not solved the question
      */
     public function getSolveState(Question $question, User $user): ?SolutionEventStatus
     {
@@ -138,14 +138,14 @@ class SolutionEventRepository extends ServiceEntityRepository
     /**
      * List the users leaderboard by the number of questions they have solved.
      *
-     * @param Group|null $group    the group to filter the attempts by (null = no group)
+     * @param null|Group $group    the group to filter the attempts by (null = no group)
      * @param string     $interval The interval to count the leaderboard
      *
      * @return list<array{user: User, count: int}> The leaderboard
      */
     public function listLeaderboard(?Group $group, string $interval): array
     {
-        $startedFrom = new \DateTimeImmutable("-$interval");
+        $startedFrom = new \DateTimeImmutable("-{$interval}");
 
         $qb = $this->createQueryBuilder('e')
             ->from(User::class, 'u')
@@ -156,29 +156,26 @@ class SolutionEventRepository extends ServiceEntityRepository
             ->groupBy('u.id')
             ->orderBy('count', 'DESC')
             ->setParameter('status', SolutionEventStatus::Passed)
-            ->setParameter('startedFrom', $startedFrom);
+            ->setParameter('startedFrom', $startedFrom)
+        ;
 
         // filter by group
         if (null !== $group) {
             $qb = $qb->andWhere('u.group = :group')
-                ->setParameter('group', $group);
+                ->setParameter('group', $group)
+            ;
         } else {
             $qb = $qb->andWhere('u.group IS NULL');
         }
 
-        /**
-         * @var list<array{user: User, count: int<0, max>}> $result
-         */
-        $result = $qb->getQuery()->getResult();
-
-        return $result;
+        return $qb->getQuery()->getResult();
     }
 
     /**
      * Get the total attempts made on the question.
      *
      * @param Question   $question the question to query
-     * @param Group|null $group    the group to filter the attempts by (null = no group)
+     * @param null|Group $group    the group to filter the attempts by (null = no group)
      *
      * @return SolutionEvent[] the total attempts made on the question
      */
@@ -187,21 +184,18 @@ class SolutionEventRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('se')
             ->join('se.submitter', 'submitter')
             ->where('se.question = :question')
-            ->setParameter('question', $question);
+            ->setParameter('question', $question)
+        ;
 
         if (null !== $group) {
             $qb->andWhere('submitter.group = :group')
-                ->setParameter('group', $group);
+                ->setParameter('group', $group)
+            ;
         } else {
             $qb->andWhere('submitter.group IS NULL');
         }
 
-        /**
-         * @var list<SolutionEvent> $result
-         */
-        $result = $qb->getQuery()->getResult();
-
-        return $result;
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -210,7 +204,7 @@ class SolutionEventRepository extends ServiceEntityRepository
      * @param Question $question  The question to query
      * @param User     $submitter The user to query
      *
-     * @return SolutionEvent|null The latest query of the user for the question
+     * @return null|SolutionEvent The latest query of the user for the question
      */
     public function getLatestQuery(Question $question, User $submitter): ?SolutionEvent
     {

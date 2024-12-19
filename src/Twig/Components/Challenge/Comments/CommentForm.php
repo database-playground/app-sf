@@ -38,20 +38,7 @@ final class CommentForm
 
     public function __construct(
         private readonly FormFactoryInterface $formFactory,
-    ) {
-    }
-
-    /**
-     * @return FormInterface<CommentEntity>
-     */
-    protected function instantiateForm(): FormInterface
-    {
-        $this->initialComment = (new CommentEntity())
-            ->setQuestion($this->question)
-            ->setCommenter($this->commenter);
-
-        return $this->formFactory->create(CommentCreateFormType::class, $this->initialComment);
-    }
+    ) {}
 
     #[LiveAction]
     public function save(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag): void
@@ -71,5 +58,18 @@ final class CommentForm
 
         $this->resetForm();
         $this->emitUp('app:comment-refresh');
+    }
+
+    /**
+     * @return FormInterface<CommentEntity>
+     */
+    protected function instantiateForm(): FormInterface
+    {
+        $this->initialComment = (new CommentEntity())
+            ->setQuestion($this->question)
+            ->setCommenter($this->commenter)
+        ;
+
+        return $this->formFactory->create(CommentCreateFormType::class, $this->initialComment);
     }
 }

@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Exception\HintException;
+use OpenAI\Client;
 use Psr\Log\LoggerInterface;
 
 final readonly class PromptService
 {
-    protected \OpenAI\Client $client;
+    private Client $client;
 
     public function __construct(
         private string $apiKey,
@@ -31,7 +32,7 @@ final readonly class PromptService
      */
     public function hint(string $query, string $error, string $answer): string
     {
-        $systemPrompt = <<<PROMPT
+        $systemPrompt = <<<'PROMPT'
             You are a SQL lecturer and professor specializing in SQLite.
             I will provide you with two SQL statements and one failure message in XML format.
             The first is the student's submission, the second is the error message,
@@ -49,14 +50,14 @@ final readonly class PromptService
             You should write your response in Chinese (Traditional, Taiwan) with the Taiwan native vocabularies.
             PROMPT;
 
-        $queryXml = htmlspecialchars($query, \ENT_XML1, 'UTF-8');
-        $answerXml = htmlspecialchars($answer, \ENT_XML1, 'UTF-8');
-        $messageXml = htmlspecialchars($error, \ENT_XML1, 'UTF-8');
+        $queryXml = htmlspecialchars($query, ENT_XML1, 'UTF-8');
+        $answerXml = htmlspecialchars($answer, ENT_XML1, 'UTF-8');
+        $messageXml = htmlspecialchars($error, ENT_XML1, 'UTF-8');
 
         $input = <<<INPUT
-                <query>$queryXml</query>
-                <answer>$answerXml</answer>
-                <message>$messageXml</message>
+                <query>{$queryXml}</query>
+                <answer>{$answerXml}</answer>
+                <message>{$messageXml}</message>
             INPUT;
 
         try {

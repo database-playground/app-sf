@@ -16,14 +16,13 @@ final readonly class PassRateService
 {
     public function __construct(
         private SolutionEventRepository $solutionEventRepository,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the pass rate in this group of a question.
      *
      * @param Question   $question the question to calculate the pass rate
-     * @param Group|null $group    the group to calculate the pass rate, null for no group
+     * @param null|Group $group    the group to calculate the pass rate, null for no group
      *
      * @return PassRate the pass rate, see {@link PassRate} for details
      */

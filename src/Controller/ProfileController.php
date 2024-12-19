@@ -39,7 +39,8 @@ class ProfileController extends AbstractController
         EntityManagerInterface $entityManager,
         FormFactoryInterface $formFactory,
         Request $request,
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
     ): Response {
         if (!$this->isProfileEditable()) {
             throw $this->createNotFoundException('Feature "Editable Profile" is disabled.');
@@ -48,7 +49,8 @@ class ProfileController extends AbstractController
         $passwordChangeModel = new PasswordChangeModel();
         $passwordChangeForm = $formFactory->createBuilder(PasswordChangeFormType::class, $passwordChangeModel)
             ->setAction($this->generateUrl('app_profile_edit_password'))
-            ->getForm();
+            ->getForm()
+        ;
         $passwordChangeForm->handleRequest($request);
         $passwordUpdated = false;
 
@@ -74,7 +76,8 @@ class ProfileController extends AbstractController
         EntityManagerInterface $entityManager,
         FormFactoryInterface $formFactory,
         Request $request,
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
     ): Response {
         if (!$this->isProfileEditable()) {
             throw $this->createNotFoundException('Feature "Editable Profile" is disabled.');
@@ -82,7 +85,8 @@ class ProfileController extends AbstractController
 
         $usernameChangeForm = $formFactory->createBuilder(NameChangeFormType::class, $user)
             ->setAction($this->generateUrl('app_profile_edit_username'))
-            ->getForm();
+            ->getForm()
+        ;
         $usernameChangeForm->handleRequest($request);
         $usernameUpdated = false;
 

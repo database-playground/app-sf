@@ -18,7 +18,12 @@ use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mailer\Event\MessageEvent;
 use Symfony\Component\Mime\Email;
 
-class EmailCreatedSubscriberTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EmailCreatedSubscriberTest extends TestCase
 {
     public function testTransactionalEmail(): void
     {
@@ -29,7 +34,8 @@ class EmailCreatedSubscriberTest extends TestCase
             ->text('body')
             ->html('<div>body</div')
             ->from('demo-dbplay@example.com')
-            ->to('test@example.com');
+            ->to('test@example.com')
+        ;
 
         $headers = $message->getHeaders();
         $headers = EmailKind::Test->addToEmailHeader($headers);
@@ -42,39 +48,45 @@ class EmailCreatedSubscriberTest extends TestCase
             ->expects(self::once())
             ->method('findOneBy')
             ->with(['email' => 'test@example.com'])
-            ->willReturn(new UserEntity());
+            ->willReturn(new UserEntity())
+        ;
 
         $invokedCount = self::exactly(2);
+
         /**
-         * @var Email|null $emailInstance
+         * @var null|Email $emailInstance
          */
         $emailInstance = null;
         $entityManager = self::createMock(EntityManagerInterface::class);
         $entityManager
             ->expects(self::exactly(2))
             ->method('persist')
-            ->willReturnCallback(function (mixed ...$parameters) use ($invokedCount, &$emailInstance): void {
+            ->willReturnCallback(static function (mixed ...$parameters) use ($invokedCount, &$emailInstance): void {
                 switch ($invokedCount->numberOfInvocations()) {
                     case 1:
                         $email = $parameters[0];
                         \assert($email instanceof EmailEntity);
 
-                        self::assertEquals('subject', $email->getSubject());
-                        self::assertEquals('body', $email->getTextContent());
-                        self::assertEquals('<div>body</div>', $email->getHtmlContent());
-                        self::assertEquals(EmailKind::Test, $email->getKind());
+                        self::assertSame('subject', $email->getSubject());
+                        self::assertSame('body', $email->getTextContent());
+                        self::assertSame('<div>body</div>', $email->getHtmlContent());
+                        self::assertSame(EmailKind::Test, $email->getKind());
 
                         $emailInstance = $email;
+
                         break;
+
                     case 2:
                         $event = $parameters[0];
                         \assert($event instanceof EmailDeliveryEventEntity);
 
-                        self::assertEquals('test@example.com', $event->getToAddress());
-                        self::assertEquals($emailInstance, $event->getEmail());
+                        self::assertSame('test@example.com', $event->getToAddress());
+                        self::assertSame($emailInstance, $event->getEmail());
+
                         break;
                 }
-            });
+            })
+        ;
 
         $subscriber = new EmailCreatedSubscriber($logger, $userRepository, $entityManager);
         $dispatcher = new EventDispatcher();

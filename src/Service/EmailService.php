@@ -47,7 +47,8 @@ final readonly class EmailService
                     ->toEmail()
                     ->from($this->fromAddress)
                     ->bcc(...$chunk)
-                    ->date($sendAt);
+                    ->date($sendAt)
+                ;
                 $this->mailer->send($email);
 
                 $sendAt = $sendAt->modify('+3 seconds');

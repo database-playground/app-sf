@@ -26,8 +26,7 @@ final class Comments
 
     public function __construct(
         private readonly CommentRepository $commentRepository,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the comments of the question.
@@ -40,7 +39,5 @@ final class Comments
     }
 
     #[LiveListener('app:comment-refresh')]
-    public function refresh(): void
-    {
-    }
+    public function refresh(): void {}
 }

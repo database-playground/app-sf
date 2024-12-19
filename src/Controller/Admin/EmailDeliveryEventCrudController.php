@@ -46,13 +46,15 @@ class EmailDeliveryEventCrudController extends AbstractCrudController
             ->linkToUrl(fn (EmailDeliveryEvent $event) => $this->generateUrl(
                 'app_email_preview',
                 ['event' => $event->getId()]
-            ));
+            ))
+        ;
 
         return $actions
             ->disable(Action::DELETE, Action::EDIT, Action::NEW)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_INDEX, $previewAction)
-            ->add(Crud::PAGE_DETAIL, $previewAction);
+            ->add(Crud::PAGE_DETAIL, $previewAction)
+        ;
     }
 
     public function configureCrud(Crud $crud): Crud

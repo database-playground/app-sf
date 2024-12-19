@@ -8,7 +8,12 @@ use App\Entity\ExportDto\SchemaDto;
 use App\Entity\Schema;
 use PHPUnit\Framework\TestCase;
 
-class SchemaDtoTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class SchemaDtoTest extends TestCase
 {
     public function testEntityToDto(): void
     {
@@ -16,11 +21,12 @@ class SchemaDtoTest extends TestCase
             ->setId('SchemaId')
             ->setPicture('PictureTest')
             ->setDescription('DescriptionTest')
-            ->setSchema('SchemaTest');
+            ->setSchema('SchemaTest')
+        ;
 
         $schemaDto = SchemaDto::fromEntity($entity);
 
-        self::assertEquals(
+        self::assertSame(
             (new SchemaDto())
                 ->setId('SchemaId')
                 ->setPicture('PictureTest')
@@ -35,11 +41,12 @@ class SchemaDtoTest extends TestCase
         $entity = (new Schema())
             ->setId('SchemaId')
             ->setDescription('DescriptionTest')
-            ->setSchema('SchemaTest');
+            ->setSchema('SchemaTest')
+        ;
 
         $schemaDto = SchemaDto::fromEntity($entity);
 
-        self::assertEquals(
+        self::assertSame(
             (new SchemaDto())
                 ->setId('SchemaId')
                 ->setPicture(null)
@@ -55,13 +62,14 @@ class SchemaDtoTest extends TestCase
             ->setId('SchemaId')
             ->setPicture('PictureTest')
             ->setDescription('DescriptionTest')
-            ->setSchema('SchemaTest');
+            ->setSchema('SchemaTest')
+        ;
 
         $schema = $schemaDto->toEntity();
 
-        self::assertEquals('SchemaId', $schema->getId());
-        self::assertEquals('PictureTest', $schema->getPicture());
-        self::assertEquals('DescriptionTest', $schema->getDescription());
-        self::assertEquals('SchemaTest', $schema->getSchema());
+        self::assertSame('SchemaId', $schema->getId());
+        self::assertSame('PictureTest', $schema->getPicture());
+        self::assertSame('DescriptionTest', $schema->getDescription());
+        self::assertSame('SchemaTest', $schema->getSchema());
     }
 }

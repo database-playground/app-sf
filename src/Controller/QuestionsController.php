@@ -14,7 +14,8 @@ class QuestionsController extends AbstractController
 {
     #[Route('/questions', name: 'app_questions')]
     public function index(
-        #[CurrentUser] User $currentUser,
+        #[CurrentUser]
+        User $currentUser,
     ): Response {
         return $this->render('questions/index.html.twig', [
             'currentUser' => $currentUser,

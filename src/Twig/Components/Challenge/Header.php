@@ -31,8 +31,7 @@ final class Header
         private readonly SolutionEventRepository $solutionEventRepository,
         private readonly QuestionRepository $questionRepository,
         private readonly PassRateService $passRateService,
-    ) {
-    }
+    ) {}
 
     public function getSolveState(): SolveState
     {

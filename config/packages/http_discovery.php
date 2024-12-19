@@ -18,5 +18,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->alias(ServerRequestFactoryInterface::class, Psr17Factory::class)
         ->alias(StreamFactoryInterface::class, Psr17Factory::class)
         ->alias(UploadedFileFactoryInterface::class, Psr17Factory::class)
-        ->alias(UriFactoryInterface::class, Psr17Factory::class);
+        ->alias(UriFactoryInterface::class, Psr17Factory::class)
+    ;
 };

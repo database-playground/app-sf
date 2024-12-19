@@ -34,14 +34,14 @@ class Group
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     private Collection $users;
 
-    public function __toString(): string
-    {
-        return $this->name;
-    }
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function getId(): ?int

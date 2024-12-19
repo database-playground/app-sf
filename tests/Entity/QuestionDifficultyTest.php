@@ -7,7 +7,12 @@ namespace App\Tests\Entity;
 use App\Entity\QuestionDifficulty;
 use Monolog\Test\TestCase;
 
-class QuestionDifficultyTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class QuestionDifficultyTest extends TestCase
 {
     public function testJsonSerialize(): void
     {

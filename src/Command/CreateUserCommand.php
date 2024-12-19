@@ -67,7 +67,7 @@ class CreateUserCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $io->success("Created a user $email with password: $password");
+        $io->success("Created a user {$email} with password: {$password}");
 
         return Command::SUCCESS;
     }

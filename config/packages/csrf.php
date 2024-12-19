@@ -7,10 +7,12 @@ use Symfony\Config\FrameworkConfig;
 return static function (FrameworkConfig $frameworkConfig): void {
     $frameworkConfig
         ->form()
-            ->csrfProtection()
-                ->tokenId('submit');
+        ->csrfProtection()
+        ->tokenId('submit')
+    ;
 
     $frameworkConfig
         ->csrfProtection()
-            ->statelessTokenIds(['submit', 'authenticate', 'logout']);
+        ->statelessTokenIds(['submit', 'authenticate', 'logout'])
+    ;
 };

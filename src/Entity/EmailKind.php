@@ -10,11 +10,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 enum EmailKind: string implements TranslatableInterface
 {
-    public const EMAIL_HEADER = 'X-Email-Kind';
-
     case Transactional = 'transactional';
     case Marketing = 'marketing';
     case Test = 'test';
+    public const EMAIL_HEADER = 'X-Email-Kind';
 
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
@@ -39,7 +38,7 @@ enum EmailKind: string implements TranslatableInterface
             'transactional' => self::Transactional,
             'marketing' => self::Marketing,
             'test' => self::Test,
-            default => throw new \InvalidArgumentException("Invalid email kind: $kind"),
+            default => throw new \InvalidArgumentException("Invalid email kind: {$kind}"),
         };
     }
 

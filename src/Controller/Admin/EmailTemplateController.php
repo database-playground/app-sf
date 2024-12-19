@@ -31,7 +31,7 @@ class EmailTemplateController extends AbstractController
         }
 
         $templateFiles = array_map(
-            fn (string $file) => basename($file, '.mjml.twig'),
+            static fn (string $file) => basename($file, '.mjml.twig'),
             $templateFiles
         );
 

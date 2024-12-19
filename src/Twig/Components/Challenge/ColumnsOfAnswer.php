@@ -15,13 +15,12 @@ final class ColumnsOfAnswer
 {
     use DefaultActionTrait;
 
-    public function __construct(
-        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
-    ) {
-    }
-
     #[LiveProp]
     public Question $question;
+
+    public function __construct(
+        private readonly QuestionSqlRunnerService $questionSqlRunnerService,
+    ) {}
 
     /**
      * Get the columns of the answer.

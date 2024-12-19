@@ -7,12 +7,12 @@ namespace App\Entity\Form;
 class MetadataDto
 {
     /**
-     * @var array<string, string|null>
+     * @var array<string, null|string>
      */
     public array $metadata;
 
     /**
-     * @return array<string, string|null>
+     * @return array<string, null|string>
      */
     public function getMetadata(): array
     {
@@ -20,7 +20,7 @@ class MetadataDto
     }
 
     /**
-     * @param array<string, string|null> $metadata
+     * @param array<string, null|string> $metadata
      *
      * @return $this
      */

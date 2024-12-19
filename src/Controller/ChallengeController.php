@@ -18,7 +18,8 @@ class ChallengeController extends AbstractController
 {
     #[Route('/challenge/{question}', name: 'app_challenge')]
     public function index(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         Question $question,
     ): Response {
         return $this->render('challenge/index.html.twig', [
@@ -31,8 +32,10 @@ class ChallengeController extends AbstractController
     public function solution_video(
         Question $question,
         EntityManagerInterface $entityManager,
-        #[CurrentUser] User $user,
-        #[MapQueryParameter] string $csrf,
+        #[CurrentUser]
+        User $user,
+        #[MapQueryParameter]
+        string $csrf,
     ): Response {
         if (!$this->isCsrfTokenValid('challenge-solution', $csrf)) {
             throw $this->createAccessDeniedException('Invalid path to open solution.');
@@ -45,7 +48,8 @@ class ChallengeController extends AbstractController
 
         $event = (new SolutionVideoEvent())
             ->setQuestion($question)
-            ->setOpener($user);
+            ->setOpener($user)
+        ;
         $entityManager->persist($event);
         $entityManager->flush();
 

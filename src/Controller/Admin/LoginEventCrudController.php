@@ -39,6 +39,7 @@ class LoginEventCrudController extends AbstractCrudController
     {
         return $actions
             ->disable(Action::DELETE, Action::EDIT, Action::NEW)
-            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ;
     }
 }

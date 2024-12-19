@@ -47,6 +47,7 @@ class CreateUsersCommand extends Command
          * @var string $filename
          */
         $filename = $input->getArgument('filename');
+
         /**
          * @var bool $dryRun
          */
@@ -54,15 +55,15 @@ class CreateUsersCommand extends Command
 
         $file = fopen($filename, 'r');
         if (false === $file) {
-            $io->error("Could not open file $filename for reading.");
+            $io->error("Could not open file {$filename} for reading.");
 
             return Command::FAILURE;
         }
 
-        $io->title("Creating users from $filename");
+        $io->title("Creating users from {$filename}");
 
         /**
-         * @var array{email: string, name: string, roles: list<string>, group: string|null}[] $users
+         * @var array{email: string, name: string, roles: list<string>, group: null|string}[] $users
          */
         $users = $io->progressIterate(self::parseUsers($filename));
 
@@ -77,7 +78,7 @@ class CreateUsersCommand extends Command
             $password = self::generateRandomPassword();
 
             /**
-             * @var Group|null $group
+             * @var null|Group $group
              */
             $group = null;
 
@@ -85,6 +86,7 @@ class CreateUsersCommand extends Command
                 $group = $this->entityManager->getRepository(Group::class)->findOneBy(['name' => $user['group']]);
                 if (null === $group) {
                     $io->warning("Group {$user['group']} not found for user {$user['email']}. Skipping.");
+
                     continue;
                 }
             }
@@ -93,7 +95,8 @@ class CreateUsersCommand extends Command
                 ->setName($user['name'])
                 ->setEmail($user['email'])
                 ->setRoles($user['roles'])
-                ->setGroup($group);
+                ->setGroup($group)
+            ;
 
             $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
             $user->setPassword($hashedPassword);
@@ -114,25 +117,25 @@ class CreateUsersCommand extends Command
         } else {
             $this->entityManager->commit();
             $this->entityManager->flush();
-            $io->success("Created users from $filename");
+            $io->success("Created users from {$filename}");
         }
 
         return Command::SUCCESS;
     }
 
     /**
-     * @return array{email: string, name: string, roles: list<string>, group: string|null}[]
+     * @return array{email: string, name: string, roles: list<string>, group: null|string}[]
      */
     private static function parseUsers(string $filename): array
     {
         $file = fopen($filename, 'r');
         if (false === $file) {
-            throw new \RuntimeException("Could not open file $filename for reading.");
+            throw new \RuntimeException("Could not open file {$filename} for reading.");
         }
 
         $header = fgetcsv($file);
         if (false === $header) {
-            throw new \RuntimeException("Could not read header from $filename.");
+            throw new \RuntimeException("Could not read header from {$filename}.");
         }
 
         $emailIndex = array_search('email', $header, true);
@@ -141,7 +144,7 @@ class CreateUsersCommand extends Command
         $groupIndex = array_search('group', $header, true);
 
         if (!\is_int($emailIndex) || !\is_int($nameIndex) || !\is_int($rolesIndex)) {
-            throw new \RuntimeException("Could not find email, name, or roles in the header of $filename.");
+            throw new \RuntimeException("Could not find email, name, or roles in the header of {$filename}.");
         }
 
         $users = [];
@@ -152,7 +155,7 @@ class CreateUsersCommand extends Command
             $group = false !== $groupIndex ? $row[$groupIndex] : null;
 
             if (!\is_string($email) || !\is_string($name) || !\is_string($roles) || !\is_string($group)) {
-                throw new \RuntimeException("Invalid row in $filename.");
+                throw new \RuntimeException("Invalid row in {$filename}.");
             }
 
             $users[] = [
@@ -175,7 +178,7 @@ class CreateUsersCommand extends Command
     {
         $file = fopen($filename, 'w');
         if (false === $file) {
-            throw new \RuntimeException("Could not open file $filename for writing.");
+            throw new \RuntimeException("Could not open file {$filename} for writing.");
         }
 
         fputcsv($file, array_keys($userPasswordPair[0]));

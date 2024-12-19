@@ -12,7 +12,12 @@ use App\Repository\SchemaRepository;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
-class QuestionDtoTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class QuestionDtoTest extends TestCase
 {
     public function testEntityToDto(): void
     {
@@ -23,11 +28,12 @@ class QuestionDtoTest extends TestCase
             ->setTitle('QuestionTest')
             ->setDescription('DescriptionTest')
             ->setAnswer('AnswerTest')
-            ->setSolutionVideo('SolutionVideoTest');
+            ->setSolutionVideo('SolutionVideoTest')
+        ;
 
         $questionDto = QuestionDto::fromEntity($entity);
 
-        self::assertEquals(
+        self::assertSame(
             (new QuestionDto())
                 ->setSchemaId('1')
                 ->setType('type')
@@ -48,7 +54,8 @@ class QuestionDtoTest extends TestCase
         $schemaRepository = $this->createMock(SchemaRepository::class);
         $schemaRepository
             ->method('find')
-            ->willReturn((new Schema())->setId('1'));
+            ->willReturn((new Schema())->setId('1'))
+        ;
 
         $questionDto = (new QuestionDto())
             ->setSchemaId('1')
@@ -57,11 +64,12 @@ class QuestionDtoTest extends TestCase
             ->setTitle('QuestionTest')
             ->setDescription('DescriptionTest')
             ->setAnswer('AnswerTest')
-            ->setSolutionVideo('SolutionVideoTest');
+            ->setSolutionVideo('SolutionVideoTest')
+        ;
 
         $entity = $questionDto->toEntity($schemaRepository);
 
-        self::assertEquals(
+        self::assertSame(
             (new Question())
                 ->setSchema((new Schema())->setId('1'))
                 ->setType('type')

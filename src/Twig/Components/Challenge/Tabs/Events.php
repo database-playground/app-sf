@@ -27,8 +27,7 @@ final class Events
 
     public function __construct(
         private readonly SolutionEventRepository $solutionEventRepository,
-    ) {
-    }
+    ) {}
 
     /**
      * @return SolutionEvent[]
@@ -37,6 +36,9 @@ final class Events
     {
         return \array_slice($this->getData(), 0, self::limit);
     }
+
+    #[LiveListener('app:challenge-executor:query-created')]
+    public function onQueryUpdated(): void {}
 
     /**
      * Get the data that can be paginated.
@@ -54,10 +56,5 @@ final class Events
             limit: self::limit + 1 /* more? */,
             offset: ($this->page - 1) * self::limit,
         );
-    }
-
-    #[LiveListener('app:challenge-executor:query-created')]
-    public function onQueryUpdated(): void
-    {
     }
 }

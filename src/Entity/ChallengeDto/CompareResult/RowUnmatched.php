@@ -17,8 +17,7 @@ readonly class RowUnmatched implements CompareResult
     public function __construct(
         public int $expected,
         public int $actual,
-    ) {
-    }
+    ) {}
 
     public function correct(): bool
     {

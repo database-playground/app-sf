@@ -12,6 +12,7 @@ use Symfony\Component\Mime\Email;
 class EmailDto
 {
     private Address $toAddress;
+
     /**
      * @var Address[] the address to BCC (密件副本)
      */
@@ -28,7 +29,8 @@ class EmailDto
             ->setToAddress(new Address(
                 address: $user->getEmail(),
                 name: $user->getName() ?? $user->getEmail(),
-            ));
+            ))
+        ;
     }
 
     public function getToAddress(): Address
@@ -36,7 +38,7 @@ class EmailDto
         return $this->toAddress;
     }
 
-    public function setToAddress(string|Address $toAddress): static
+    public function setToAddress(Address|string $toAddress): static
     {
         if (\is_string($toAddress)) {
             $this->toAddress = new Address($toAddress);
@@ -139,7 +141,8 @@ class EmailDto
             ->bcc(...$this->getBcc())
             ->subject($this->getSubject())
             ->text($this->getText())
-            ->html($this->getHtml());
+            ->html($this->getHtml())
+        ;
 
         if (null !== $this->getSentAt()) {
             $email = $email->date($this->getSentAt());

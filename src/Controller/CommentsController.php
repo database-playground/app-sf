@@ -33,7 +33,7 @@ class CommentsController extends AbstractController
         }
 
         $comments = $commentRepository->findUserComments($user);
-        $likes = array_reduce($comments, fn (int $carry, Comment $comment) => $carry + $comment->getCommentLikeEvents()->count(), 0);
+        $likes = array_reduce($comments, static fn (int $carry, Comment $comment) => $carry + $comment->getCommentLikeEvents()->count(), 0);
 
         return $this->render('comments/index.html.twig', [
             'comments' => $comments,
@@ -46,7 +46,8 @@ class CommentsController extends AbstractController
      */
     #[Route('/cards/likes', name: '_likes')]
     public function likes(
-        #[CurrentUser] User $user,
+        #[CurrentUser]
+        User $user,
         CommentRepository $commentRepository,
         ChartBuilderInterface $chartBuilder,
         TranslatorInterface $translator,
@@ -62,7 +63,8 @@ class CommentsController extends AbstractController
             ->groupBy('c.id')
             ->orderBy('c.id')
             ->setParameter('user', $user)
-            ->getQuery();
+            ->getQuery()
+        ;
 
         /**
          * @var array<array{id: int, count: int}> $likesOfEachComment
@@ -71,12 +73,12 @@ class CommentsController extends AbstractController
 
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
         $chart->setData([
-            'labels' => array_map(fn ($comment) => "#{$comment['id']}", $likesOfEachComment),
+            'labels' => array_map(static fn ($comment) => "#{$comment['id']}", $likesOfEachComment),
             'datasets' => [
                 [
                     'label' => $translator->trans('charts.likes_of_each_comment'),
                     'backgroundColor' => self::primaryColor,
-                    'data' => array_map(fn ($comment) => $comment['count'], $likesOfEachComment),
+                    'data' => array_map(static fn ($comment) => $comment['count'], $likesOfEachComment),
                 ],
             ],
         ]);

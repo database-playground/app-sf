@@ -72,16 +72,16 @@ class ExportCommand extends Command
 
         $io->info('Exporting schema and questions…');
         $serialized = $this->serializer->serialize($exportedData, 'json', [
-            'json_encode_options' => \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE,
+            'json_encode_options' => JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE,
         ]);
 
         if (false === file_put_contents($filename, $serialized)) {
-            $io->error("Cannot write to the file $filename.");
+            $io->error("Cannot write to the file {$filename}.");
 
             return Command::FAILURE;
         }
 
-        $io->success("Exported schema and questions to $filename.");
+        $io->success("Exported schema and questions to {$filename}.");
 
         return Command::SUCCESS;
     }
