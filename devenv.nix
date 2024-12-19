@@ -7,7 +7,7 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git pkgs.hadolint ];
+  packages = [ pkgs.git pkgs.hadolint pkgs.phpactor ];
 
   # https://devenv.sh/languages/
   languages.php.enable = true;
