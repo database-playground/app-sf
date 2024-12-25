@@ -50,13 +50,13 @@ return [
         'version' => '6.8.0',
     ],
     '@codemirror/view' => [
-        'version' => '6.35.3',
+        'version' => '6.36.1',
     ],
     '@codemirror/state' => [
         'version' => '6.5.0',
     ],
     '@codemirror/language' => [
-        'version' => '6.10.6',
+        'version' => '6.10.8',
     ],
     '@codemirror/commands' => [
         'version' => '6.7.1',
@@ -65,7 +65,7 @@ return [
         'version' => '6.5.8',
     ],
     '@codemirror/autocomplete' => [
-        'version' => '6.18.3',
+        'version' => '6.18.4',
     ],
     '@codemirror/lint' => [
         'version' => '6.8.4',
