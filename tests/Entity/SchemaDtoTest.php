@@ -26,14 +26,10 @@ final class SchemaDtoTest extends TestCase
 
         $schemaDto = SchemaDto::fromEntity($entity);
 
-        self::assertSame(
-            (new SchemaDto())
-                ->setId('SchemaId')
-                ->setPicture('PictureTest')
-                ->setDescription('DescriptionTest')
-                ->setSchema('SchemaTest'),
-            $schemaDto,
-        );
+        self::assertSame('SchemaId', $schemaDto->getId());
+        self::assertSame('PictureTest', $schemaDto->getPicture());
+        self::assertSame('DescriptionTest', $schemaDto->getDescription());
+        self::assertSame('SchemaTest', $schemaDto->getSchema());
     }
 
     public function testEntityToDtoWithoutPicture(): void
@@ -46,14 +42,10 @@ final class SchemaDtoTest extends TestCase
 
         $schemaDto = SchemaDto::fromEntity($entity);
 
-        self::assertSame(
-            (new SchemaDto())
-                ->setId('SchemaId')
-                ->setPicture(null)
-                ->setDescription('DescriptionTest')
-                ->setSchema('SchemaTest'),
-            $schemaDto,
-        );
+        self::assertSame('SchemaId', $schemaDto->getId());
+        self::assertNull($schemaDto->getPicture());
+        self::assertSame('DescriptionTest', $schemaDto->getDescription());
+        self::assertSame('SchemaTest', $schemaDto->getSchema());
     }
 
     public function testToEntity(): void

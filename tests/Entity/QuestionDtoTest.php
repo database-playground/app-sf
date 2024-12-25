@@ -33,17 +33,13 @@ final class QuestionDtoTest extends TestCase
 
         $questionDto = QuestionDto::fromEntity($entity);
 
-        self::assertSame(
-            (new QuestionDto())
-                ->setSchemaId('1')
-                ->setType('type')
-                ->setDifficulty(QuestionDifficulty::Easy)
-                ->setTitle('QuestionTest')
-                ->setDescription('DescriptionTest')
-                ->setAnswer('AnswerTest')
-                ->setSolutionVideo('SolutionVideoTest'),
-            $questionDto,
-        );
+        self::assertSame('1', $questionDto->getSchemaId());
+        self::assertSame('type', $questionDto->getType());
+        self::assertSame(QuestionDifficulty::Easy, $questionDto->getDifficulty());
+        self::assertSame('QuestionTest', $questionDto->getTitle());
+        self::assertSame('DescriptionTest', $questionDto->getDescription());
+        self::assertSame('AnswerTest', $questionDto->getAnswer());
+        self::assertSame('SolutionVideoTest', $questionDto->getSolutionVideo());
     }
 
     /**
@@ -69,16 +65,12 @@ final class QuestionDtoTest extends TestCase
 
         $entity = $questionDto->toEntity($schemaRepository);
 
-        self::assertSame(
-            (new Question())
-                ->setSchema((new Schema())->setId('1'))
-                ->setType('type')
-                ->setDifficulty(QuestionDifficulty::Easy)
-                ->setTitle('QuestionTest')
-                ->setDescription('DescriptionTest')
-                ->setAnswer('AnswerTest')
-                ->setSolutionVideo('SolutionVideoTest'),
-            $entity,
-        );
+        self::assertSame('1', $entity->getSchema()->getId());
+        self::assertSame('type', $entity->getType());
+        self::assertSame(QuestionDifficulty::Easy, $entity->getDifficulty());
+        self::assertSame('QuestionTest', $entity->getTitle());
+        self::assertSame('DescriptionTest', $entity->getDescription());
+        self::assertSame('AnswerTest', $entity->getAnswer());
+        self::assertSame('SolutionVideoTest', $entity->getSolutionVideo());
     }
 }
