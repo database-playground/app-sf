@@ -38,6 +38,8 @@ jobs:
       - name: Install dependencies
         run: |
           devenv shell composer -- install --prefer-dist --no-progress
+          devenv shell composer -- -d tools/php-cs-fixer install
+          devenv shell composer -- -d tools/twig-cs-fixer install
           devenv shell pnpm install
 
       - name: Lint PHP files
