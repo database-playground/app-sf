@@ -254,6 +254,10 @@ spec:
           MESSENGER_CONSUMER_NAME:
             default: app-sf-worker-1
             expose: false
+          SERVER_EMAIL:
+            default: <YOUR_EMAIL>
+          MAILER_DSN:
+            default: ses+api://<ACCESS_KEY_ID>:<ACCESS_KEY_SECRET>@default?region=<REGION>
         configs: []
     - name: worker-2
       icon: https://s3.dbplay.pan93.com/icon.svg
@@ -265,6 +269,10 @@ spec:
           MESSENGER_CONSUMER_NAME:
             default: app-sf-worker-2
             expose: false
+          SERVER_EMAIL:
+            default: <YOUR_EMAIL>
+          MAILER_DSN:
+            default: ses+api://<ACCESS_KEY_ID>:<ACCESS_KEY_SECRET>@default?region=<REGION>
         configs: []
     - name: worker-3
       icon: https://s3.dbplay.pan93.com/icon.svg
@@ -276,4 +284,8 @@ spec:
           MESSENGER_CONSUMER_NAME:
             default: app-sf-worker-3
             expose: false
+          SERVER_EMAIL:
+            default: <YOUR_EMAIL>
+          MAILER_DSN:
+            default: ses+api://<ACCESS_KEY_ID>:<ACCESS_KEY_SECRET>@default?region=<REGION>
         configs: []
