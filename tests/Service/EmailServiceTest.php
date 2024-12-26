@@ -33,7 +33,7 @@ final class EmailServiceTest extends TestCase
             })
         ;
 
-        $emailService = new EmailService($mailer, 'test@example.com', 10);
+        $emailService = new EmailService($mailer, 'test@example.com', '', 10);
         $emailDto = (new EmailDto())
             ->setSubject('Test')
             ->setToAddress('test2@gmail.com')
@@ -60,7 +60,7 @@ final class EmailServiceTest extends TestCase
             })
         ;
 
-        $emailService = new EmailService($mailer, 'test@example.com', 10);
+        $emailService = new EmailService($mailer, 'test@example.com', '', 10);
         $emailDto = (new EmailDto())
             ->setSubject('Test')
             ->setToAddress('test2@gmail.com')
@@ -107,7 +107,7 @@ final class EmailServiceTest extends TestCase
             })
         ;
 
-        $emailService = new EmailService($mailer, 'test@example.com', 10);
+        $emailService = new EmailService($mailer, 'test@example.com', '', 10);
         $emailDto = (new EmailDto())
             ->setSubject('Test')
             ->setToAddress('test@example.com')
@@ -121,5 +121,31 @@ final class EmailServiceTest extends TestCase
         ;
 
         $emailService->send($emailDto);
+    }
+
+    public function testSendToTestEmail(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $mailer->expects(self::once())
+            ->method('send')
+            ->willReturnCallback(static function (Email $email): void {
+                self::assertSame('Test', $email->getSubject());
+                self::assertSame('test@example.com', $email->getFrom()[0]->getAddress());
+                self::assertSame('test+target@example.com', $email->getTo()[0]->getAddress());
+                self::assertSame('Test TEXT', $email->getTextBody());
+                self::assertSame('Test HTML', $email->getHtmlBody());
+            })
+        ;
+
+        $emailService = new EmailService($mailer, 'test@example.com', 'test+target@example.com', 10);
+
+        $emailDto = (new EmailDto())
+            ->setSubject('Test')
+            ->setKind(EmailKind::Test)
+            ->setText('Test TEXT')
+            ->setHtml('Test HTML')
+        ;
+
+        $emailService->sendToTest($emailDto);
     }
 }

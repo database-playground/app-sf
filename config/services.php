@@ -18,6 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('app.redis_uri', env('REDIS_URI'))
         ->set('app.openai_api_key', env('OPENAI_API_KEY'))
         ->set('app.server-mail', env('SERVER_EMAIL'))
+        ->set('app.server-email-for-test', env('SERVER_EMAIL_FOR_TEST'))
         ->set('app.mail.bcc-chunk', 10)
         ->set('app.features.hint', true)
         ->set('app.features.editable-profile', true)
@@ -52,6 +53,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(EmailService::class)
         ->arg('$serverMail', param('app.server-mail'))
+        ->arg('$serverMailForTest', param('app.server-email-for-test'))
         ->arg('$chunkLimit', param('app.mail.bcc-chunk'))
     ;
 
