@@ -12,21 +12,17 @@ final readonly class StrategicEmailService
     public function __construct(
         private StatisticsService $statisticsService,
         private EmailTemplateService $emailTemplateService,
-        private EmailService $emailService,
     ) {}
 
     /**
      * Send login reminder emails to users who have not logged in for a long time.
      *
-     * @template T of bool
-     *
-     * @param T $dryRun whether to send the email or not
-     *
-     * @return ($dryRun is true ? EmailDto : null)
+     * @param callable(EmailDto): void $target the function that sends the email
+     *                                         according to the given EmailDto
      *
      * @throws \Throwable if the email content cannot be rendered
      */
-    public function sendLoginReminderEmail(bool $dryRun = false): ?EmailDto
+    public function sendLoginReminderEmail(callable $target): void
     {
         $lastLoginAt = array_filter(
             // Filter out users who have logged in within the last 7 days
@@ -47,12 +43,7 @@ final readonly class StrategicEmailService
         );
 
         $emailDto = $this->emailTemplateService->createLoginReminderDto($bccUsers);
-        if ($dryRun) {
-            return $emailDto;
-        }
 
-        $this->emailService->send($emailDto);
-
-        return null;
+        $target($emailDto);
     }
 }
