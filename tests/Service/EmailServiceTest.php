@@ -33,7 +33,7 @@ final class EmailServiceTest extends TestCase
             })
         ;
 
-        $emailService = new EmailService($mailer, 'test@example.com', '', 10);
+        $emailService = new EmailService($mailer, 'test@example.com', 'test+example@example.com', 10);
         $emailDto = (new EmailDto())
             ->setSubject('Test')
             ->setToAddress('test2@gmail.com')
@@ -60,7 +60,7 @@ final class EmailServiceTest extends TestCase
             })
         ;
 
-        $emailService = new EmailService($mailer, 'test@example.com', '', 10);
+        $emailService = new EmailService($mailer, 'test@example.com', 'test+example@example.com', 10);
         $emailDto = (new EmailDto())
             ->setSubject('Test')
             ->setToAddress('test2@gmail.com')
@@ -107,7 +107,7 @@ final class EmailServiceTest extends TestCase
             })
         ;
 
-        $emailService = new EmailService($mailer, 'test@example.com', '', 10);
+        $emailService = new EmailService($mailer, 'test@example.com', 'test+example@example.com', 10);
         $emailDto = (new EmailDto())
             ->setSubject('Test')
             ->setToAddress('test@example.com')
