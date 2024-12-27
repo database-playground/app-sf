@@ -1620,12 +1620,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "87db43e4ffecdf458016e8c1b6d4801e872654bc"
+                "reference": "b115554301161fa21467629f1e1391c1936de517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/87db43e4ffecdf458016e8c1b6d4801e872654bc",
-                "reference": "87db43e4ffecdf458016e8c1b6d4801e872654bc",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/b115554301161fa21467629f1e1391c1936de517",
+                "reference": "b115554301161fa21467629f1e1391c1936de517",
                 "shasum": ""
             },
             "require": {
@@ -1672,7 +1672,7 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/4.x"
+                "source": "https://github.com/egulias/EmailValidator/tree/4.0.3"
             },
             "funding": [
                 {
@@ -1680,7 +1680,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-16T21:10:38+00:00"
+            "time": "2024-12-27T00:36:43+00:00"
         },
         {
             "name": "jblond/php-diff",
@@ -9910,12 +9910,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "c1f7277b7b6dc66859686347d359229e9edd2be9"
+                "reference": "c7be3889392cf49482c301b593f07abadff42c11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c1f7277b7b6dc66859686347d359229e9edd2be9",
-                "reference": "c1f7277b7b6dc66859686347d359229e9edd2be9",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c7be3889392cf49482c301b593f07abadff42c11",
+                "reference": "c7be3889392cf49482c301b593f07abadff42c11",
                 "shasum": ""
             },
             "require": {
@@ -9983,7 +9983,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-20T06:51:39+00:00"
+            "time": "2024-12-26T13:59:15+00:00"
         },
         {
             "name": "webmozart/assert",
