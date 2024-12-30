@@ -378,6 +378,23 @@ ul.credit {
     }
   }
 
+  &-self-reference {
+    grid-template:
+      "hello-text" auto
+      "announcements" auto
+      "weekly-metrics" auto
+      "historic-statistics" auto;
+
+    @media (min-width: 1440px) {
+      grid-template:
+        "hello-text          hello-text          hello-text   hello-text" auto
+        "announcements       announcements       announcements  announcements" auto
+        "weekly-metrics      weekly-metrics      weekly-metrics  weekly-metrics" 1fr
+        "historic-statistics historic-statistics historic-statistics  historic-statistics" 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+
   &__hello-text {
     grid-area: hello-text;
   }
