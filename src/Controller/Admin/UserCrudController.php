@@ -54,7 +54,7 @@ class UserCrudController extends AbstractCrudController
             AssociationField::new('group', 'Group'),
             DateTimeField::new('created_at', 'Created at')->hideOnForm(),
             DateTimeField::new('updated_at', 'Updated at')->hideOnForm(),
-            DateTimeField::new('last_login_at', 'Last login at'),
+            DateTimeField::new('last_login_at', 'Last login at')->hideOnForm(),
         ];
     }
 
