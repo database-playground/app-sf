@@ -1,6 +1,5 @@
 <mjml>
   <mj-head>
-    <mj-preview>資料庫練功房 | 情況報告</mj-preview>
     <mj-style inline="inline">
       .highlight { color: #E74C3C; font-weight: bold; }
       .button { background-color: #3498DB; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
