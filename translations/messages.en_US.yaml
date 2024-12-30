@@ -6,3 +6,10 @@ challenge:
     column-different: The column names differ; please compare and modify according to the correct answer.
     row-different: The %row% row you answered is different from the correct answer.
     row-unmatched: The number of returned rows does not match the correct answer (the correct answer has %expected% rows, while you answered %actual% rows).
+
+admin:
+  group:
+    layout:
+      help: >-
+        Layout name. Leave blank to use the default layout.
+        You can create your own layout in the <code>templates/overview/layout</code> directory in the code.

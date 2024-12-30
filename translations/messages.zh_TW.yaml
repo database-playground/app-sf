@@ -192,3 +192,10 @@ email-kind:
   transactional: 通知型信件
   marketing: 行銷型信件
   test: 測試用信件
+
+admin:
+  group:
+    layout:
+      help: >-
+        版面名稱。留空代表使用預設版面。
+        可以在程式碼的 <code>templates/overview/layout</code> 目錄製作自己想要的版面。
