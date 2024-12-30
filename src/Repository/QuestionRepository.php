@@ -28,16 +28,16 @@ class QuestionRepository extends ServiceEntityRepository
     {
         try {
             $result = $this->createQueryBuilder('q')
-                ->select('q')
+                ->select('q.id')
                 ->where('q.id > :page')
                 ->orderBy('q.id', 'ASC')
                 ->setParameter('page', $page)
                 ->setMaxResults(1)
                 ->getQuery()
-                ->getOneOrNullResult()
+                ->getSingleScalarResult()
             ;
 
-            \assert(\is_int($result) || null === $result, 'result should be an integer or null');
+            \assert(\is_int($result), 'result should be an integer');
 
             return $result;
         } catch (NoResultException) {
@@ -55,10 +55,10 @@ class QuestionRepository extends ServiceEntityRepository
                 ->setParameter('page', $page)
                 ->setMaxResults(1)
                 ->getQuery()
-                ->getOneOrNullResult()
+                ->getSingleScalarResult()
             ;
 
-            \assert(\is_int($result) || null === $result, 'result should be an integer or null');
+            \assert(\is_int($result), 'result should be an integer');
 
             return $result;
         } catch (NoResultException) {
