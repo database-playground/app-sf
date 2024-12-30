@@ -173,12 +173,12 @@
             "default-branch": true,
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.6-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -598,15 +598,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "2369cb908b33d7b7518cce042615de430142497f"
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2369cb908b33d7b7518cce042615de430142497f",
-                "reference": "2369cb908b33d7b7518cce042615de430142497f",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
                 "shasum": ""
             },
             "require": {
+                "ext-iconv": "*",
                 "php": ">=7.2"
             },
             "provide": {
@@ -671,7 +672,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-10T14:38:51+00:00"
+            "time": "2024-12-23T08:48:59+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
@@ -775,12 +776,12 @@
             "default-branch": true,
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.6-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -927,12 +928,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "91e609663e208dec9b0a70b210d1716a89ca025f"
+                "reference": "d184e9fe12e1a8d219a95638ee78ad577a59e299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/91e609663e208dec9b0a70b210d1716a89ca025f",
-                "reference": "91e609663e208dec9b0a70b210d1716a89ca025f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d184e9fe12e1a8d219a95638ee78ad577a59e299",
+                "reference": "d184e9fe12e1a8d219a95638ee78ad577a59e299",
                 "shasum": ""
             },
             "require": {
@@ -1000,7 +1001,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-19T07:40:12+00:00"
+            "time": "2024-12-29T10:52:41+00:00"
         },
         {
             "name": "vincentlanglet/twig-cs-fixer",
@@ -1008,12 +1009,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/VincentLanglet/Twig-CS-Fixer.git",
-                "reference": "f81af33e48c384be7e0e3689f02e6e712fa68beb"
+                "reference": "63c500016f7eb34a0f2aa2cfe8e1ac834fd857ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VincentLanglet/Twig-CS-Fixer/zipball/f81af33e48c384be7e0e3689f02e6e712fa68beb",
-                "reference": "f81af33e48c384be7e0e3689f02e6e712fa68beb",
+                "url": "https://api.github.com/repos/VincentLanglet/Twig-CS-Fixer/zipball/63c500016f7eb34a0f2aa2cfe8e1ac834fd857ba",
+                "reference": "63c500016f7eb34a0f2aa2cfe8e1ac834fd857ba",
                 "shasum": ""
             },
             "require": {
@@ -1034,15 +1035,15 @@
                 "ergebnis/composer-normalize": "^2.29",
                 "friendsofphp/php-cs-fixer": "^3.13.0",
                 "infection/infection": "^0.26.16 || ^0.27.0",
-                "phpstan/phpstan": "^1.9.1",
-                "phpstan/phpstan-phpunit": "^1.2.2",
-                "phpstan/phpstan-strict-rules": "^1.4.4",
-                "phpstan/phpstan-symfony": "^1.2.16",
-                "phpstan/phpstan-webmozart-assert": "^1.2.2",
+                "phpstan/phpstan": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-strict-rules": "^2.0",
+                "phpstan/phpstan-symfony": "^2.0",
+                "phpstan/phpstan-webmozart-assert": "^2.0",
                 "phpunit/phpunit": "^9.5.26 || ^10.0.9",
-                "psalm/plugin-phpunit": "^0.18.4",
+                "psalm/plugin-phpunit": "^0.19.0",
                 "psalm/plugin-symfony": "^5.0.0",
-                "rector/rector": "^1.0.0",
+                "rector/rector": "^2.0.0",
                 "shipmonk/composer-dependency-analyser": "^1.6",
                 "symfony/process": "^5.4 || ^6.4 || ^7.0",
                 "symfony/twig-bridge": "^5.4 || ^6.4 || ^7.0",
@@ -1073,7 +1074,7 @@
             "homepage": "https://github.com/VincentLanglet/Twig-CS-Fixer",
             "support": {
                 "issues": "https://github.com/VincentLanglet/Twig-CS-Fixer/issues",
-                "source": "https://github.com/VincentLanglet/Twig-CS-Fixer/tree/3.5.0"
+                "source": "https://github.com/VincentLanglet/Twig-CS-Fixer/tree/main"
             },
             "funding": [
                 {
@@ -1081,7 +1082,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-13T16:55:11+00:00"
+            "time": "2024-12-22T01:22:57+00:00"
         },
         {
             "name": "webmozart/assert",

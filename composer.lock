@@ -1521,12 +1521,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "ed8e55f625f274497f32c4b8e65590553a825de3"
+                "reference": "c4d72d40a5da6cca67aa0e5dc6346a81d56d10b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/ed8e55f625f274497f32c4b8e65590553a825de3",
-                "reference": "ed8e55f625f274497f32c4b8e65590553a825de3",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/c4d72d40a5da6cca67aa0e5dc6346a81d56d10b4",
+                "reference": "c4d72d40a5da6cca67aa0e5dc6346a81d56d10b4",
                 "shasum": ""
             },
             "require": {
@@ -1612,7 +1612,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-20T18:22:19+00:00"
+            "time": "2024-12-27T19:08:12+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1620,12 +1620,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "b115554301161fa21467629f1e1391c1936de517"
+                "reference": "dcf8f79c410bb3906c915136369465bebead5990"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/b115554301161fa21467629f1e1391c1936de517",
-                "reference": "b115554301161fa21467629f1e1391c1936de517",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/dcf8f79c410bb3906c915136369465bebead5990",
+                "reference": "dcf8f79c410bb3906c915136369465bebead5990",
                 "shasum": ""
             },
             "require": {
@@ -1672,7 +1672,7 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/4.0.3"
+                "source": "https://github.com/egulias/EmailValidator/tree/4.x"
             },
             "funding": [
                 {
@@ -1680,7 +1680,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-27T00:36:43+00:00"
+            "time": "2024-12-27T22:41:39+00:00"
         },
         {
             "name": "jblond/php-diff",
@@ -1760,12 +1760,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "88365ec0a908702ae6dec328322d6666c9ceae0f"
+                "reference": "dfe07db97886facb6d9b93be98cb8ca26448e67f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/88365ec0a908702ae6dec328322d6666c9ceae0f",
-                "reference": "88365ec0a908702ae6dec328322d6666c9ceae0f",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/dfe07db97886facb6d9b93be98cb8ca26448e67f",
+                "reference": "dfe07db97886facb6d9b93be98cb8ca26448e67f",
                 "shasum": ""
             },
             "require": {
@@ -1859,7 +1859,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-10T13:07:29+00:00"
+            "time": "2024-12-29T14:14:05+00:00"
         },
         {
             "name": "league/config",
@@ -3916,12 +3916,12 @@
             "default-branch": true,
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.6-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -4314,12 +4314,12 @@
             "default-branch": true,
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.6-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -4793,12 +4793,12 @@
             "default-branch": true,
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.6-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -8016,12 +8016,12 @@
             "default-branch": true,
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.6-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -8409,12 +8409,12 @@
             "default-branch": true,
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.6-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -8668,12 +8668,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/type-info.git",
-                "reference": "73b998e2af1e47ad6a564559dfa2c74600331379"
+                "reference": "5ffb87d2c05861d7c667542269304a7882e22179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/type-info/zipball/73b998e2af1e47ad6a564559dfa2c74600331379",
-                "reference": "73b998e2af1e47ad6a564559dfa2c74600331379",
+                "url": "https://api.github.com/repos/symfony/type-info/zipball/5ffb87d2c05861d7c667542269304a7882e22179",
+                "reference": "5ffb87d2c05861d7c667542269304a7882e22179",
                 "shasum": ""
             },
             "require": {
@@ -8719,7 +8719,7 @@
                 "type"
             ],
             "support": {
-                "source": "https://github.com/symfony/type-info/tree/7.2"
+                "source": "https://github.com/symfony/type-info/tree/7.3"
             },
             "funding": [
                 {
@@ -8735,7 +8735,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-11T15:34:14+00:00"
+            "time": "2024-12-28T08:42:15+00:00"
         },
         {
             "name": "symfony/uid",
@@ -9176,12 +9176,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "70f04550e1a677509f89d599b4271f0f3ef84add"
+                "reference": "bf859ce6bdb96796a5a41265c3714f60c5025067"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/70f04550e1a677509f89d599b4271f0f3ef84add",
-                "reference": "70f04550e1a677509f89d599b4271f0f3ef84add",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/bf859ce6bdb96796a5a41265c3714f60c5025067",
+                "reference": "bf859ce6bdb96796a5a41265c3714f60c5025067",
                 "shasum": ""
             },
             "require": {
@@ -9265,7 +9265,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-19T14:34:50+00:00"
+            "time": "2024-12-29T13:01:23+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -9515,12 +9515,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "7a9c072bdb56cd0c3e95993f67abc3dc923dc267"
+                "reference": "f5fa82bee4c3dfbe96612b488713e5129687e9d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/7a9c072bdb56cd0c3e95993f67abc3dc923dc267",
-                "reference": "7a9c072bdb56cd0c3e95993f67abc3dc923dc267",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f5fa82bee4c3dfbe96612b488713e5129687e9d0",
+                "reference": "f5fa82bee4c3dfbe96612b488713e5129687e9d0",
                 "shasum": ""
             },
             "require": {
@@ -9579,7 +9579,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-14T16:08:18+00:00"
+            "time": "2024-12-29T21:06:05+00:00"
         },
         {
             "name": "symfonycasts/sass-bundle",
@@ -9749,7 +9749,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.17.0"
+                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.18.0"
             },
             "funding": [
                 {
@@ -9822,7 +9822,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/markdown-extra/tree/v3.17.0"
+                "source": "https://github.com/twigphp/markdown-extra/tree/v3.18.0"
             },
             "funding": [
                 {
@@ -9890,7 +9890,7 @@
                 "unicode"
             ],
             "support": {
-                "source": "https://github.com/twigphp/string-extra/tree/v3.17.0"
+                "source": "https://github.com/twigphp/string-extra/tree/v3.18.0"
             },
             "funding": [
                 {
@@ -9910,12 +9910,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "c7be3889392cf49482c301b593f07abadff42c11"
+                "reference": "d184e9fe12e1a8d219a95638ee78ad577a59e299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c7be3889392cf49482c301b593f07abadff42c11",
-                "reference": "c7be3889392cf49482c301b593f07abadff42c11",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d184e9fe12e1a8d219a95638ee78ad577a59e299",
+                "reference": "d184e9fe12e1a8d219a95638ee78ad577a59e299",
                 "shasum": ""
             },
             "require": {
@@ -9983,7 +9983,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-26T13:59:15+00:00"
+            "time": "2024-12-29T10:52:41+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -10352,16 +10352,16 @@
         },
         {
             "name": "php-cs-fixer/shim",
-            "version": "v3.65.0",
+            "version": "v3.66.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/shim.git",
-                "reference": "4983ec79b9dee926695ac324ea6e8d291935525d"
+                "reference": "6824b91b16d2e123afed9bf9c96ec283882346c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/4983ec79b9dee926695ac324ea6e8d291935525d",
-                "reference": "4983ec79b9dee926695ac324ea6e8d291935525d",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/6824b91b16d2e123afed9bf9c96ec283882346c9",
+                "reference": "6824b91b16d2e123afed9bf9c96ec283882346c9",
                 "shasum": ""
             },
             "require": {
@@ -10398,9 +10398,9 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/shim/issues",
-                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.65.0"
+                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.66.0"
             },
-            "time": "2024-11-25T00:39:41+00:00"
+            "time": "2024-12-29T13:46:48+00:00"
         },
         {
             "name": "phpstan/extension-installer",
