@@ -72,7 +72,7 @@ final readonly class EmailService
     public function sendToTest(EmailDto $emailDto): void
     {
         $emailDtoCloned = clone $emailDto;
-        $emailDtoCloned->setToAddress($this->testAddress);
+        $emailDtoCloned->setToAddress($this->testAddress)->setBcc([]);
         $email = $emailDtoCloned->toEmail()->from($this->fromAddress);
         $this->mailer->send($email);
     }
