@@ -359,20 +359,23 @@ ul.credit {
 .app-overview-dashboard {
   display: grid;
   gap: 1rem;
-  grid-template:
-    "hello-text" auto
-    "announcements" auto
-    "weekly-metrics" auto
-    "historic-statistics" auto
-    "leaderboard" auto;
 
-  @media (min-width: 1440px) {
+  &-criterion-reference {
     grid-template:
-      "hello-text          hello-text          hello-text   hello-text" auto
-      "announcements       announcements       announcements  announcements" auto
-      "weekly-metrics      weekly-metrics      leaderboard  leaderboard" 1fr
-      "historic-statistics historic-statistics leaderboard  leaderboard" 1fr;
-    grid-template-columns: 2fr 2fr 1fr 1fr;
+      "hello-text" auto
+      "announcements" auto
+      "weekly-metrics" auto
+      "historic-statistics" auto
+      "leaderboard" auto;
+
+    @media (min-width: 1440px) {
+      grid-template:
+        "hello-text          hello-text          hello-text   hello-text" auto
+        "announcements       announcements       announcements  announcements" auto
+        "weekly-metrics      weekly-metrics      leaderboard  leaderboard" 1fr
+        "historic-statistics historic-statistics leaderboard  leaderboard" 1fr;
+      grid-template-columns: 2fr 2fr 1fr 1fr;
+    }
   }
 
   &__hello-text {

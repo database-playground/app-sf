@@ -4,53 +4,5 @@
 {% block title %}學習概況{% endblock %}
 
 {% block app %}
-<main class="app-overview-dashboard">
-    <section class="app-overview-dashboard__hello-text">
-        <h2 class="display-4">哈囉，{{ app.user.name }} 👋</h2>
-        <p class="lead">這些是你最近的表現 ↓</p>
-    </section>
-
-    <section class="app-overview-dashboard__announcements">
-        <turbo-frame id="announcements" class="app-overview-dashboard__hello-text" src="{{ path('app_overview_announcements') }}"></turbo-frame>
-    </section>
-
-    <section class="app-overview-dashboard__weekly-metrics">
-        <h3 class="mb-3">每週學習概況</h3>
-
-        <div class="row g-3">
-            <div class="col-12 col-md-6">
-                <div class="vstack gap-1">
-                    <turbo-frame id="solved_questions" src="{{ path('app_overview_cards_solved_questions') }}"></turbo-frame>
-                    <turbo-frame id="points" src="{{ path('app_overview_cards_points') }}"></turbo-frame>
-                    <turbo-frame id="level" src="{{ path('app_overview_cards_level') }}"></turbo-frame>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <turbo-frame id="events_daily_chart" src="{{ path('app_overview_cards_events_daily_chart') }}"></turbo-frame>
-            </div>
-        </div>
-    </section>
-
-    <section class="app-overview-dashboard__historic-statistics">
-        <h3 class="mb-3">學習歷程</h3>
-
-        <div class="row g-5">
-            <div class="col-12 col-md-6">
-                <div class="vstack gap-1">
-                    <turbo-frame id="solved_questions" src="{{ path('app_overview_cards_solved_questions') }}"></turbo-frame>
-                    <turbo-frame id="events_count" src="{{ path('app_overview_cards_events_count') }}"></turbo-frame>
-                    <turbo-frame id="questions_count" src="{{ path('app_overview_cards_questions_count') }}"></turbo-frame>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <turbo-frame id="events_history" src="{{ path('app_overview_cards_events_history') }}"></turbo-frame>
-            </div>
-        </div>
-    </section>
-
-    <section class="app-overview-dashboard__leaderboard">
-        <h3 class="mb-3">週排行榜</h3>
-        <turbo-frame id="leaderboard" src="{{ path('app_overview_cards_leaderboard') }}"></turbo-frame>
-    </section>
-</main>
+{{ mainContent|raw }}
 {% endblock %}

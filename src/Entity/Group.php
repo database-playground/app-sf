@@ -34,6 +34,9 @@ class Group
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     private Collection $users;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $layout = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -106,6 +109,18 @@ class Group
                 $user->setGroup(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLayout(): ?string
+    {
+        return $this->layout;
+    }
+
+    public function setLayout(?string $layout): static
+    {
+        $this->layout = $layout;
 
         return $this;
     }

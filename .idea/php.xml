@@ -13,6 +13,7 @@
   <component name="PhpCSFixer">
     <phpcsfixer_settings>
       <PhpCSFixerConfiguration standards="PSR1;PSR2;Symfony;DoctrineAnnotation;PHP70Migration;PHP71Migration" tool_path="$PROJECT_DIR$/vendor/bin/php-cs-fixer" />
+      <phpcs_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="3a274422-3f19-4df6-ba16-2b95f232ab5f" standards="PSR1;PSR2;Symfony;DoctrineAnnotation;PHP70Migration;PHP71Migration" tool_path="/Volumes/Dev/ResearchProject/lets-php/app-sf/vendor/bin/php-cs-fixer" timeout="30000" />
     </phpcsfixer_settings>
   </component>
   <component name="PhpIncludePathManager">
