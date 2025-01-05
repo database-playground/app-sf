@@ -20,9 +20,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('app.server-mail', env('SERVER_EMAIL'))
         ->set('app.server-email-for-test', env('SERVER_EMAIL_FOR_TEST'))
         ->set('app.mail.bcc-chunk', 10)
-        ->set('app.features.hint', true)
-        ->set('app.features.editable-profile', true)
-        ->set('app.features.comment', true)
+        ->set('app.features.hint', false)
+        ->set('app.features.editable-profile', false)
+        ->set('app.features.comment', false)
     ;
 
     $services = $containerConfigurator->services();
