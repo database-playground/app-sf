@@ -143,15 +143,15 @@ class CreateUsersCommand extends Command
         $rolesIndex = array_search('roles', $header, true);
         $groupIndex = array_search('group', $header, true);
 
-        if (!\is_int($emailIndex) || !\is_int($nameIndex) || !\is_int($rolesIndex)) {
-            throw new \RuntimeException("Could not find email, name, or roles in the header of {$filename}.");
+        if (!\is_int($emailIndex) || !\is_int($nameIndex)) {
+            throw new \RuntimeException("Could not find email or name in the header of {$filename}.");
         }
 
         $users = [];
         while (($row = fgetcsv($file)) !== false) {
             $email = $row[$emailIndex];
             $name = $row[$nameIndex];
-            $roles = $row[$rolesIndex];
+            $roles = false !== $rolesIndex ? $row[$rolesIndex] : null;
             $group = false !== $groupIndex ? $row[$groupIndex] : null;
 
             if (null === $email || null === $name) {
