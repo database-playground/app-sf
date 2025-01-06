@@ -154,14 +154,14 @@ class CreateUsersCommand extends Command
             $roles = $row[$rolesIndex];
             $group = false !== $groupIndex ? $row[$groupIndex] : null;
 
-            if (!\is_string($email) || !\is_string($name) || !\is_string($roles) || !\is_string($group)) {
-                throw new \RuntimeException("Invalid row in {$filename}.");
+            if (null === $email || null === $name) {
+                throw new \RuntimeException("Email or Name is required in {$filename}.");
             }
 
             $users[] = [
                 'email' => $email,
                 'name' => $name,
-                'roles' => explode(',', $roles),
+                'roles' => null !== $roles ? explode(',', $roles) : [],
                 'group' => $group,
             ];
         }
